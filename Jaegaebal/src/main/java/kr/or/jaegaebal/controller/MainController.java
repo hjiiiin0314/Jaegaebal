@@ -25,7 +25,7 @@ public class MainController {
 	@GetMapping("/index2")
 	public String main2() {
 		
-		return "main/index";
+		return "main/index2";
 	}
 	
 	//로그인 화면
