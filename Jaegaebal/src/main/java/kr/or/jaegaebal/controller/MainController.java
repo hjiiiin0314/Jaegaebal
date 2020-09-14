@@ -13,8 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class MainController {
+	
+	//index.html
 	@GetMapping("/")
 	public String main() {
+		
+		return "main/index";
+	}
+	
+	//index2.html --> 원본 부트스트랩 화면
+	@GetMapping("/index2")
+	public String main2() {
 		
 		return "main/index";
 	}
