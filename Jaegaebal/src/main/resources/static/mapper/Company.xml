@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="kr.or.talkguesthouse.mapper.UserMapper">
+	<resultMap type="Company" id="CompanyResultMap">
+		<result column="company_code" 		property="companyCode"/>
+		<result column="company_name" 		property="companyName"/>
+		<result column="company_eng_name" 	property="companyEngName"/>
+		<result column="mutual_name" 	property="mutualName"/>
+		<result column="company_addr" 	property="companyAddr"/>
+		<result column="company_phone" 	property="companyPhone"/>
+		<result column="company_ceo_name" property="companyCeoName"/>
+		<result column="company_start_date" property="companyStartDate"/>
+		<result column="company_num" property="companyNum"/>
+		<result column="company_fax" property="companyFax"/>
+		<result column="reg_staff_name" property="regStaffName"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>
+	
+	<!-- 회사 정보 목록 -->
+	<select id="getCompanyInfo" resultType="Company">
+		SELECT 
+			 company_code
+			,company_name
+			,company_eng_name
+			,mutual_name
+			,company_addr
+			,company_phone
+			,company_ceo_name
+			,company_start_date
+			,company_num
+			,company_fax
+			,reg_staff_name
+			,reg_date
+		FROM
+			 is_company
+		ORDER BY 
+			 company_code DESC
+		LIMIT 
+			 1
+			 
+	</select>	
+	
+</mapper>	

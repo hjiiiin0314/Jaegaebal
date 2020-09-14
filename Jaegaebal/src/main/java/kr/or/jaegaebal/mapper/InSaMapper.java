@@ -10,4 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public class InSaMapper {
 
+	//회사 정보 조회
+	//public List<Company> getCompanyInfo();
 }
