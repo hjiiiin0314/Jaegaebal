@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.jaegaebal.mapper.ChaeYoungMapper">
+	<resultMap type="ChaeYoungBoard" id="ChaeYoungBoardResultMap">
+		<result column="job_number" 		property="jobNumber"/>
+		<result column="job_field_code" 	property="jobFieldCode"/>
+		<result column="job_field_name" 	property="jobFieldName"/>
+		<result column="job_title" 			property="jobTitle"/>
+		<result column="job_content" 		property="jobContent"/>
+		<result column="job_deadline"		property="jobDeadLine"/>
+		<result column="job_reg_date" 		property="jobRegDate"/>
+		<result column="job_reg_staff"		property="jobRegStaff"/>
+	</resultMap>
+	
+	<!-- 구인공고 게시글 등록 -->
+	<insert id="addCYBoardPost" parameterMap="ChaeYoungBoardResultMap">
+		INSERT INTO cy_job_board (
+			job_number
+			,job_field_code
+			,job_field_name
+			,job_title
+			,job_content
+			,job_reg_date
+			,job_deadline
+			,job_reg_staff
+			)
+		VALUES (
+			#{}
+			, ''
+			, ''
+			, ''
+			, ''
+			, NOW()
+			, NOW()
+			, #{jobRegStaff}
+			)
+	</insert>
+</mapper>
