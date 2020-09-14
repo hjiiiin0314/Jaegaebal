@@ -1,10 +1,79 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>기안하기화면</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		<div class="app-main__outer">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+<!-- include libraries(jQuery, bootstrap) -->
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js -->
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
+<!-- include summernote-ko-KR 한글처리-->
+<script src="lang/summernote-ko-KR.js"></script>
 기안하기화면입니다.
-</body>
+
+	<form method="post">
+  			<div class="col-md-10">
+              <div class="main-card mb-10 card">
+                  <div class="card-body"><h5 class="card-title">기안하기</h5>                     
+                      <div class="position-relative form-group"><label for="exampleEmail" class="">결재라인선택</label><input name="email" id="exampleEmail" placeholder="아직생각중이니까기다려" type="email" class="form-control"></div>
+                      <div class="position-relative form-group"><label for="examplePassword" class="">제목</label><input name="docTitle" id="docTitle" type="text" class="form-control"></div>
+                      <div class="position-relative form-group"><label for="exampleSelect" class="">문서양식</label><select name="docSelect" id="docSelect" class="form-control">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                      </select></div>
+  					<textarea id="summernote" name="editordata"></textarea>
+                      <div class="position-relative form-group"><label for="exampleText" class="">Text Area</label><textarea name="text" id="exampleText" class="form-control"></textarea></div>
+                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
+                      </div>
+                      <button class="mt-1 btn btn-primary">결재올리기</button>                
+                      <button class="mt-1 btn btn-primary">저장하기</button>                
+                  </div>
+              </div>
+          </div>
+	</form>
+
+
+
+
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+			<div th:replace="fragments/footer :: footerFragment"></div>
+		</div>
+		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+				//여기 아래 부분
+				$('#summernote').summernote({
+					  height: 300,                 // 에디터 높이
+					  minHeight: null,             // 최소 높이
+					  maxHeight: null,             // 최대 높이
+					  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+					  lang: "ko-KR",					// 한글 설정
+					  placeholder: '내용을 입력하세요'	//placeholder 설정
+			          
+				});
+			});
+
+
+		</script>
+	
+	</th:block>
+    
 </html>
