@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UpmuController {
 	
+	
+	//반려/회수함화면연결
+	@GetMapping("/retrievalBox")
+	public String retrievalBox() {
+		return "approval/retrievalBox";
+	}
+	
 	//결재함화면연결
 	@GetMapping("/appBox")
 	public String appBox() {
