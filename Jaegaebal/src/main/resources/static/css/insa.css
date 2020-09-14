@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+/*	패딩	*/
+.p-lg{padding : 30px !important;}
+.p-md{padding : 20px !important;}
+.p-sm{padding : 15px !important;}
+.p-xs{padding : 10px !important;}
+.p-none{padding : 0px !important;}
+
+.p-l-lg{padding-left : 30px !important;}
+.p-l-md{padding-left : 20px !important;}
+.p-l-sm{padding-left : 15px !important;}
+.p-l-xs{padding-left : 10px !important;}
+.p-l-none{padding-left : 0px !important;}
+
+.p-r-lg{padding-right : 30px !important;}
+.p-r-md{padding-right : 20px !important;}
+.p-r-sm{padding-right : 15px !important;}
+.p-r-xs{padding-right : 10px !important;}
+.p-r-none{padding-right : 0px !important;}
+
+.p-t-lg{padding-top : 30px !important;}
+.p-t-md{padding-top : 20px !important;}
+.p-t-sm{padding-top : 15px !important;}
+.p-t-xs{padding-top : 10px !important;}
+.p-t-none{padding-top : 0px !important;}
+
+.p-b-lg{padding-bottom : 30px !important;}
+.p-b-md{padding-bottom : 20px !important;}
+.p-b-sm{padding-bottom : 15px !important;}
+.p-b-xs{padding-bottom : 10px !important;}
+.p-b-none{padding-bottom : 0px !important;}
+
+/*	마진	*/
+.m-lg{margin : 30px !important;}
+.m-md{margin : 20px !important;}
+.m-sm{margin : 15px !important;}
+.m-xs{margin : 10px !important;}
+.m-none{margin : 0px !important;}
+
+.m-l-lg{margin-left : 30px !important;}
+.m-l-md{margin-left : 20px !important;}
+.m-l-sm{margin-left : 15px !important;}
+.m-l-xs{margin-left : 10px !important;}
+.m-l-none{margin-left : 0px !important;}
+
+.m-r-lg{margin-right : 30px !important;}
+.m-r-md{margin-right : 20px !important;}
+.m-r-sm{margin-right : 15px !important;}
+.m-r-xs{margin-right : 10px !important;}
+.m-r-none{margin-right : 0px !important;}
+
+.m-t-lg{margin-top : 30px !important;}
+.m-t-md{margin-top : 20px !important;}
+.m-t-sm{margin-top : 15px !important;}
+.m-t-xs{margin-top : 10px !important;}
+.m-t-none{margin-top : 0px !important;}
+
+.m-b-lg{margin-bottom : 30px !important;}
+.m-b-md{margin-bottom : 20px !important;}
+.m-b-sm{margin-bottom : 15px !important;}
+.m-b-xs{margin-bottom : 10px !important;}
+.m-b-none{margin-bottom : 0px !important;}
+
+/*	보더	*/
+.b-lg{border : 4px soild #ddd !important;}
+.b-md{border : 3px soild #ddd !important;}
+.b-sm{border : 2px soild #ddd !important;}
+.b-xs{border : 1px soild #ddd !important;}
+.b-none{border : none !important;}
+
+.b-l-lg{border-left : 4px soild #ddd !important;}
+.b-l-md{border-left : 3px soild #ddd !important;}
+.b-l-sm{border-left : 2px soild #ddd !important;}
+.b-l-xs{border-left : 1px soild #ddd !important;}
+.b-l-none{border-left : none !important;}
+
+.b-r-lg{border-right : 4px soild #ddd !important;}
+.b-r-md{border-right : 3px soild #ddd !important;}
+.b-r-sm{border-right : 2px soild #ddd !important;}
+.b-r-xs{border-right : 1px soild #ddd !important;}
+.b-r-none{border-right : none !important;}
+
+.b-t-lg{border-top : 4px soild #ddd !important;}
+.b-t-md{border-top : 3px soild #ddd !important;}
+.b-t-sm{border-top : 2px soild #ddd !important;}
+.b-t-xs{border-top : 1px soild #ddd !important;}
+.b-t-none{border-top : none !important;}
+
+.b-b-lg{border-bottom : 4px soild #ddd !important;}
+.b-b-md{border-bottom : 3px soild #ddd !important;}
+.b-b-sm{border-bottom : 2px soild #ddd !important;}
+.b-b-xs{border-bottom : 1px soild #ddd !important;}
+.b-b-none{border-bottom : none !important;}
+
+/*	배경색상 기본	*/
+.bg-defarlt{background-color:#efefef;}
+
+/*이은혜*/
+.input-group-prepend .input-group-text{padding : 0.375rem 1.25rem;
+	display:block;
+	width:140px;
+}
+
+.td-header {
+	font-weight : bold;
+}
