@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/head :: headFragment"></head>
+<body>			
+	<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+		<div th:replace="fragments/header :: headerFragment"></div>
+		<div th:replace="fragments/setting :: seittingFragment"></div>
+			<div class="app-main">
+				<div th:replace="fragments/leftmenu :: leftcolumnFragment"></div>
+					<!-- 사용자 지정 content start -->
+					<th:block layout:fragment="customContent"></th:block>
+					<!-- 사용자 지정 content end -->
+		<!-- 사용자 지정 js스크립트 파일  start-->
+			<th:block layout:fragment="customJsScript"></th:block>
+		<!-- 사용자 지정 js스크립트 파일  end-->
+
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/assets/scripts/main.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.login-flex{
+	height:100%;
+	display:flex;
+	background-color:#eee;
+}
+
+.btn-default{
+	border:1px solid #ccc;
+}
+
+.login-image{
+	font-size:24px;
+}
