@@ -8,8 +8,8 @@
 		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ksmart36.khj</groupId>
-	<artifactId>springboot_KHJ-1</artifactId>
+	<groupId>kr.or.jaegaebal</groupId>
+	<artifactId>jaegaebal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>springboot_KHJ-1</name>
