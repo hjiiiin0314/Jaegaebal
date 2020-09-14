@@ -42,5 +42,17 @@ public class UpmuController {
 	public String checkInOut() {
 		return "upmu/checkInOut";
 	}
+	
+	@GetMapping("/upmuShare")
+	public String upmuShare() {
+		
+		return "upmu/upmuShare";
+	}
+	
+	@GetMapping("/noticeBoard")
+	public String noticeBoard() {
+		
+		return "upmu/noticeBoard";
+	}
 
 }
