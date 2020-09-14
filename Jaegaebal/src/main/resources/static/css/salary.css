@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.table .form_date{
+	width:44%;
+	display:inline;
+}
+
+.table .t_head{
+	background:#f9f9f9;
+}
+
+@media(min-width:992px){
+	.emp-table{
+		height:836px;
+	}
+	.table tr{
+		height:59px;
+	}
+}
