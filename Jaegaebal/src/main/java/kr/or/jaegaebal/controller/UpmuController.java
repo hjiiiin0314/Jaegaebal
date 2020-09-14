@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UpmuController {
 
-
+	@GetMapping("/checkInOut")
+	public String checkInOut() {
+		return "upmu/checkInOut";
+	}
 
 }
