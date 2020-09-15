@@ -7,44 +7,70 @@
 		<title th:text="${title}"></title> 
 	</th:block>
 	
+	<th:block layout:fragment="customJs">
+		<!-- include libraries(jQuery, bootstrap) -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>	
+		<!-- include summernote-ko-KR 한글처리-->
+		<script src="lang/summernote-ko-KR.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>	
+	</th:block>
+	
+	<th:block layout:fragment="customCss">
+	<!-- include summernote css/js -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+	</th:block>
+	
 	<th:block layout:fragment="customContent">
 		<div class="app-main__outer">
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
-<!-- include summernote css/js -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
-<!-- include summernote-ko-KR 한글처리-->
-<script src="lang/summernote-ko-KR.js"></script>
-기안하기화면입니다.
-
+<!-- form 시작  -->
 	<form method="post">
   			<div class="col-md-10">
               <div class="main-card mb-10 card">
-                  <div class="card-body"><h5 class="card-title">기안하기</h5>                     
-                      <div class="position-relative form-group"><label for="exampleEmail" class="">결재라인선택</label><input name="email" id="exampleEmail" placeholder="아직생각중이니까기다려" type="email" class="form-control"></div>
-                      <div class="position-relative form-group"><label for="examplePassword" class="">제목</label><input name="docTitle" id="docTitle" type="text" class="form-control"></div>
-                      <div class="position-relative form-group"><label for="exampleSelect" class="">문서양식</label><select name="docSelect" id="docSelect" class="form-control">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                      </select></div>
+                  <div class="card-body">
+                  <h5 class="card-title">기안하기</h5>                     
+                   <div class="position-relative form-group"><label for="appLine" class="">결재라인선택</label>
+                   	<input name="appLine" id="appLine" placeholder="아직생각중이니까기다려" type="text" class="form-control">
+                   </div>
+                   <div class="position-relative form-group index-front">
+	                   	<div class="position-relative form-group document-form">
+	                   	<label for="docType" class="" >문서양식</label>
+	                   	<select name="docType" id="docType" class="form-control">
+	                        <option>1</option>
+	                        <option>2</option>
+	                        <option>3</option>
+	                        <option>4</option>
+	                        <option>5</option>
+	                    </select>
+	                    </div>
+	                    <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
+	                    	<input type="date" class="form-control" name="deadline">   
+	                    </div>
+	                </div>       
+                   <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
+                   	<input name="docTitle" id="docTitle" type="text" class="form-control">
+                   </div>                  
   					<textarea id="summernote" name="editordata"></textarea>
-                      <div class="position-relative form-group"><label for="exampleText" class="">Text Area</label><textarea name="text" id="exampleText" class="form-control"></textarea></div>
-                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
+                     <div class="position-relative form-group"><label for="exampleText" class="">Text Area</label>
+                     <textarea name="text" id="exampleText" class="form-control"></textarea></div>
+                     <div class="position-relative form-group"><label for="docFile" class="">첨부파일</label>
+                     	<input name="docFile" id="docFile" type="file" class="form-control-file">
+                     </div>
+                      <div class="position-relative form-group"> <label for="docSecurity" class="">보안처리</label>
+                      	<input type="checkbox" name="docSecurity" >
                       </div>
-                      <button class="mt-1 btn btn-primary">결재올리기</button>                
-                      <button class="mt-1 btn btn-primary">저장하기</button>                
+                     <button class="mt-1 btn btn-primary">결재올리기</button>                
+                     <button class="mt-1 btn btn-primary">저장하기</button>                
                   </div>
               </div>
           </div>
+     
+
 	</form>
 
 
