@@ -25,7 +25,9 @@ public class ChaeYoungController {
 	@GetMapping("/cyboardList")
 	public String cyBoardList(Model model) {
 		//구인공고 게시판 리스트를 가져온다.
+		List<ChaeYoungBoard> cyBoardList = chaeYoungService.cyBoardList();
 		model.addAttribute("title", "구인공고게시판");
+		model.addAttribute("cyBoardList", cyBoardList);
 		
 		return "chaeyoung/cyboard";
 	}

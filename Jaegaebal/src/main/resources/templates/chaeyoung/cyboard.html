@@ -63,24 +63,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-center text-muted">#345</td>
+                                <tr th:each="cy : ${cyBoardList}" >
+                                    <td class="text-center text-muted" th:text="${cy.jobNumber}"></td>
                                     <td>
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
                                                 <div class="widget-content-left flex2">
-                                                    <div class="widget-heading">John Doe</div>
-                                                    <div class="widget-subheading opacity-7">Web Developer</div>
+                                                    <a href="/addCYPostForm" th:text="${cy.jobFieldName}"></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center">Madrid</td>
+                                    <td class="text-center" th:text="${cy.jobDeadLine}"></td>
+                                    <td class="text-center" th:text="${cy.jobRegDate}"></td>
                                     <td class="text-center">
-                                        <div class="badge badge-warning">Pending</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">지원</button>
+                                        <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">지원하기</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -92,13 +89,14 @@
            				</div>
 			        </div>
 			    </div>
-			</div>
+			
 	
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 		
 	
-	</th:block>
 			<div th:replace="fragments/footer :: footerFragment"></div>
+			</div>
+	</th:block>
 		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     
 </html>

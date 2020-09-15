@@ -40,7 +40,11 @@
 			,'개발자'
 			)
 	</insert>
-	
+	<!-- 구인공고 게시글 가져오기 -->
+	<select id="cyBoardList" resultMap="ChaeYoungBoardResultMap">
+		SELECT job_number, job_field_code, job_field_name, job_title, job_content, job_career, job_deadline, job_reg_date, job_reg_staff
+		FROM cy_job_board
+	</select>
 	<!-- 지원분야코드 가져오기 -->
 	<select id="getFieldeCode" resultType="ChaeYoungCode">
 		SELECT 

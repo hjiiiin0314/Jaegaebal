@@ -29,4 +29,10 @@ public class ChaeYoungService {
 		
 		return chaeYoungMapper.addCYBoardPost(ChaeYoungBoard);
 	};
+	
+	//구인공고 리스트
+	public List<ChaeYoungBoard> cyBoardList() {
+		
+		return chaeYoungMapper.cyBoardList();
+	};
 }
