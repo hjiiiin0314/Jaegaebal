@@ -6,15 +6,15 @@ public class Company {
 	//company_code, company_name, company_eng_name, mutual_name, company_addr, company_phone, 
 	//company_ceo_name, company_start_date, company_num, company_fax, reg_staff_name, reg_date
 	
-	private String companyCode;
-	private String companyName;
-	private String companyEngName;
-	private String mutualName;
+	private String companyCode;			
+	private String companyName;		//회사명
+	private String companyEngName;		
+	private String mutualName;		//상호명
 	private String companyAddr;
 	private String companyPhone;
-	private String companyCeoName;
-	private String companyStartDate;
-	private String companyNum;
+	private String companyCeoName;	//대표자명
+	private String companyStartDate;//설립일
+	private String companyNum;		//사업자등록번호
 	private String companyFax;
 	private String regStaffName;
 	private String regDate;

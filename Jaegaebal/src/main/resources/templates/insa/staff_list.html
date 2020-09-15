@@ -26,34 +26,70 @@
 			</div>
 		</div>
 	</div>
-	<div class="continer-fluid">
-		<div class="row" style="background-color : white;">
-			 <div class="col-lg-6">
-				<div class="main-card mb-3 card">
-					<div class="card-body">
-						<h5 class="card-title">직원리스트</h5>
-       					<table class="mb-0 table table-borderless">
-				            <thead>
-					            <tr>
-					                <th>#</th>
-					                <th>사원번호</th>
-					                <th>소속</th>
-					                <th>직급</th>
-					                <th>직책</th>
-					                <th>이름</th>
-					                <th>재직상태</th>
-					                <th>이메일</th>
-					                <th>휴대폰</th>
+	<div class="continer">
+		<form style="width:100%;" name="sk">
+			<div class="row col-md-12" style="background-color : white;">
+				<div style="width:100%;">
+					<h5 class="card-title col-md-12 m-t-sm">직원 검색</h5>
+				</div>
+				<div class="input-group m-sm m-t-none m-l-none">
+                     <div class="input-group-prepend">
+                         <button class="btn btn-outline-secondary">목록</button>
+                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
+                       	 	<span class="sr-only"></span>
+                       	 </button>
+                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+                             <button type="button" tabindex="0" class="dropdown-item" value="">사원번호</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" value="">소속</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" value="">이름</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" value="">이메일</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" value="">휴대폰</button>
+                         </div>
+                     </div>
+                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
+                     <div class="input-group-append">
+                         <button class="btn btn-secondary" id="staffSearchBtn">검색</button>
+                     </div>
+				</div>              
+			</div>
+		</form>
+		<div class="row col-md-12" style="background-color : mistyrose;">
+			 <div class="">
+				<div class="">
+     				<table class="mb-0 table table-borderless">
+			            <thead>
+				            <tr>
+				                <th>#</th>
+				                <th>사원번호</th>
+				                <th>소속</th>
+				                <th>직급</th>
+				                <th>직책</th>
+				                <th>이름</th>
+				                <th>재직상태</th>
+				                <th>이메일</th>
+				                <th>휴대폰</th>
+				            </tr>
+			            </thead>
+			            <tbody>
+ 					            <tr th:each="l, index : ${staffInfoList}">
+ 					               	<td th:text="${index.count}"></td>
+					                <td><a th:text="${l.staffNum}" ></a></td>
+					                <td><a th:text="${l.jojicName}" ></a></td>
+					                <td><a th:text="${l.levelName}" ></a></td>
+					                <td><a th:text="${l.positionName}" ></a></td>
+					                <td><a th:text="${l.staffName}" ></a></td>
+					                <td><a th:text="${l.staffStatus}" ></a></td>
+					                <td><a th:text="${l.staffEmail}" ></a></td>
+					                <td><a th:text="${l.staffPhone}" ></a></td>
+
+					              <!--   th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}" -->
 					            </tr>
-				            </thead>
-				            <tbody>
-					            <tr th:each="l : ${staffList}">
-					                <th scope="row">1</th>
-					                <td><a th:text="${l.staffList}" th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}"></a></td>
-					            </tr>
-				            </tbody>
-			      		 </table>
-   					</div>
+			            </tbody>
+		      		 </table>
 				</div>
 			</div>
 		</div>	
@@ -62,7 +98,7 @@
 			<div class="col-md-4">
 				<nav class="">
 					<ul class="">
-						<li>							
+						<!-- <li>							
 							<a th:href="@{/insa/staffList}" class="page-link">
 								<span class="">&lt;&lt;</span>
 							</a>
@@ -84,7 +120,7 @@
 							<a th:href="@{/insa/staffList(currentPage=${lastPage})}" class="page-link">
 								<span class="">&gt;&gt;</span>
 							</a>	
-						</li>		
+						</li>		 -->
 					</ul>
 				</nav>
 			</div>

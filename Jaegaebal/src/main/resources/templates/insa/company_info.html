@@ -32,33 +32,35 @@
 				<table class="mb-0 table table-bordered">
 					<tr>
 						<td class="td-header">회사명</td>
-						<td class="td-val"></td>
+						<td class="td-val">[[${companyInfo.companyName}]]</td>
 						<td class="td-header">영문명</td>
-						<td class="td-val">값</td>
+						<td class="td-val">[[${companyInfo.companyEngName}]]</td>
 					</tr>
 					<tr>
 						<td class="td-header">상호명</td>
-						<td class="td-val">값</td>
+						<td class="td-val">[[${companyInfo.mutualName}]]</td>
 						<td class="td-header">대표자명</td>
-						<td class="td-val">값</td>
+						<td class="td-val">[[${companyInfo.companyCeoName}]]</td>
 					</tr>
  					<tr>
 						<td class="td-header">전화번호</td>
-						<td class="td-val">값</td>
+						<td class="td-val">[[${companyInfo.companyPhone}]]</td>
 						<td class="td-header">FAX</td>
-						<td class="td-val">값</td>
+						<td class="td-val">[[${companyInfo.companyFax}]]</td>
 					</tr>
 					<tr>
 						<td class="td-header">설립일</td>
-						<td class="td-val">값</td>
+						<td class="td-val">[[${companyInfo.companyStartDate}]]</td>
 						<td class="td-header">사업자등록번호</td>
-						<td class="td-val">값</td>
+						<td class="td-val">[[${companyInfo.companyNum}]]</td>
 					</tr>
  					<tr>
 						<td class="td-header">주소</td>
-						<td colspan="3">값</td>
+						<td colspan="3">[[${companyInfo.companyAddr}]]</td>
 					</tr> 
 				</table>
+				
+			<!-- 	<a class="btn btn-b" th:if="${session.SLEVEL eq '1'}" th:href="@{/user/modifyUser(userId=${userDetailsInfo.userId})}">수정하러가기</a> -->
 			</div>	
 		</div>	
 	</div>

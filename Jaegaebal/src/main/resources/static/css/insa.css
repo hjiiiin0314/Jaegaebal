@@ -99,7 +99,6 @@
 /*이은혜*/
 .input-group-prepend .input-group-text{padding : 0.375rem 1.25rem;
 	display:block;
-	width:140px;
 }
 
 .td-header {
@@ -112,3 +111,15 @@
 	width : 32%;
 }
 
+.staff-sk {
+	padding-left : 3px;
+	padding-right : 3px;
+	padding-bottom : 3px;
+	padding-top : 3px;
+	
+}
+
+.staff-sk .input-group-text{
+	width:80px;
+	background-color : mistyrose;
+}
