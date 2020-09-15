@@ -20,8 +20,15 @@ public class UpmuDocument {
 	private String regStaffName;
 	private String docTypeName;
 	private String umstCate;
+	private String docComent;
 	
 	
+	public String getDocComent() {
+		return docComent;
+	}
+	public void setDocComent(String docComent) {
+		this.docComent = docComent;
+	}
 	public String getUmstCate() {
 		return umstCate;
 	}
@@ -124,7 +131,8 @@ public class UpmuDocument {
 				+ ", writerNum=" + writerNum + ", docTitle=" + docTitle + ", docContents=" + docContents
 				+ ", writeDate=" + writeDate + ", docFile=" + docFile + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", appState=" + appState + ", security=" + security + ", appReDate=" + appReDate
-				+ ", regStaffName=" + regStaffName + ", docTypeName=" + docTypeName + ", umstCate=" + umstCate + "]";
+				+ ", regStaffName=" + regStaffName + ", docTypeName=" + docTypeName + ", umstCate=" + umstCate
+				+ ", docComent=" + docComent + "]";
 	}
 	
 	
