@@ -9,32 +9,47 @@
 		<result column="job_field_name" 	property="jobFieldName"/>
 		<result column="job_title" 			property="jobTitle"/>
 		<result column="job_content" 		property="jobContent"/>
+		<result column="job_career" 		property="jobCareer"/>
 		<result column="job_deadline"		property="jobDeadLine"/>
 		<result column="job_reg_date" 		property="jobRegDate"/>
 		<result column="job_reg_staff"		property="jobRegStaff"/>
 	</resultMap>
 	
 	<!-- 구인공고 게시글 등록 -->
-	<!-- <insert id="addCYBoardPost" parameterMap="ChaeYoungBoardResultMap">
-		INSERT INTO cy_job_board (
+	<insert id="addCYBoardPost" parameterType="String">
+		INSERT INTO cy_job_board(
 			job_number
 			,job_field_code
 			,job_field_name
 			,job_title
 			,job_content
-			,job_reg_date
+			,job_career
 			,job_deadline
+			,job_reg_date
 			,job_reg_staff
 			)
-		VALUES (
-			#{}
-			, ''
-			, ''
-			, ''
-			, ''
-			, NOW()
-			, NOW()
-			, #{jobRegStaff}
+			VALUES (
+			'cy001'
+			,#{jobFieldCode}
+			,#{jobFieldName}
+			,#{jobTitle}
+			,#{jobContent}
+			,#{jobCareer}
+			,#{jobDeadLine}
+			,NOW()
+			,'개발자'
 			)
-	</insert> -->
+	</insert>
+	<!-- 구인공고 게시글 가져오기 -->
+	<select id="cyBoardList" resultMap="ChaeYoungBoardResultMap">
+		SELECT job_number, job_field_code, job_field_name, job_title, job_content, job_career, job_deadline, job_reg_date, job_reg_staff
+		FROM cy_job_board
+	</select>
+	<!-- 지원분야코드 가져오기 -->
+	<select id="getFieldeCode" resultType="ChaeYoungCode">
+		SELECT 
+			field_code 			as fieldCode
+			,field_name 		as fieldName
+		FROM cy_field_code
+	</select>
 </mapper>
