@@ -60,88 +60,85 @@
 						<table class="mb-0 table table-bordered">
 							<tr>
 								<td class="t_head">주민등록번호</td>
-								<td><input type="text" class="form-control" readonly></td>
+								<td><input type="text" class="form-control" th:value="${salaryInfo.humanNum}" readonly></td>
 								<td class="t_head">입사일</td>
-								<td><input type="text" class="form-control" readonly></td>
+								<td><input type="text" class="form-control" th:value="${salaryInfo.companyInDate}" readonly></td>
 							</tr>
 							<tr>
 								<td class="t_head">퇴사일</td>
-								<td><input type="text" class="form-control" readonly></td>
+								<td><input type="text" class="form-control" th:value="${salaryInfo.companyOutDate}" readonly></td>
 								<td class="t_head">고용보험대상여부</td>
 								<td><select name="data_insu" class="form-control">
-									<option value="1">여</option>
-									<option value="0">부</option>
+									<option value="1" th:selected="${salaryInfo.dataInsu eq 1 ? 'true' : 'false'}">여</option>
+									<option value="0" th:selected="${salaryInfo.dataInsu eq 0 ? 'true' : 'false'}">부</option>
 								</select></td>
 							</tr>
 							<tr>
 								<td class="t_head">내외국인구분</td>
-								<td><input type="text" class="form-control" readonly></td>
-								<td class="t_head">고용보험대상여부</td>
+								<td><input type="text" class="form-control" th:value="${salaryInfo.staffNationality}" readonly></td>
+								<td class="t_head">거주구분</td>
 								<td><select name="data_resi" class="form-control">
-									<option value="1">거주</option>
-									<option value="0">비거주</option>
+									<option value="1" th:selected="${salaryInfo.dataResi eq 1 ? 'true' : 'false'}">거주</option>
+									<option value="0" th:selected="${salaryInfo.dataResi eq 0 ? 'true' : 'false'}">비거주</option>
 								</select></td>
 							</tr>
 							<tr>
 								<td class="t_head">거주지국</td>
-								<td><input type="text" class="form-control" readonly></td>
+								<td><input type="text" class="form-control" th:value="${salaryInfo.staffCountry}" readonly></td>
 								<td class="t_head">생산직구분</td>
-								<td><input type="checkbox" name="data_pro" class="form-control"></td>
+								<td><input type="checkbox" name="data_pro" class="form-control" th:checked="${salaryInfo.dataPro eq 1 ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">은행</td>
-								<td><select name="data_bank" class="form-control">
-									<option value="1">거주</option>
-									<option value="0">비거주</option>
-								</select></td>
+								<td><input type="text" name="data_bank" class="form-control" th:value="${salaryInfo.dataBank}"></td>
 								<td class="t_head">계좌번호</td>
-								<td><input type="text" name="data_account" class="form-control"></td>
+								<td><input type="text" name="data_account" class="form-control" th:value="${salaryInfo.dataAccount}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">예금주</td>
-								<td><input type="text" name="data_host" class="form-control"></td>
+								<td><input type="text" name="data_host" class="form-control" th:value="${salaryInfo.dataHost}"></td>
 								<td class="t_head">주 소정근로시간</td>
-								<td><input type="text" name="data_scrib" class="form-control"></td>
+								<td><input type="text" name="data_scrib" class="form-control" th:value="${salaryInfo.dataScrib}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">핸드폰</td>
-								<td><input type="text" class="form-control" readonly></td>
+								<td><input type="text" class="form-control" th:value="${salaryInfo.staffPhone}" readonly></td>
 								<td class="t_head">이메일</td>
-								<td><input type="text" class="form-control" readonly></td>
+								<td><input type="text" class="form-control" th:value="${salaryInfo.staffEmail}" readonly></td>
 							</tr>
 							<tr>
 								<td class="t_head">수습여부</td>
-								<td><input type="checkbox" name="data_bate" class="form-control"></td>
+								<td><input type="checkbox" name="data_bate" class="form-control" th:checked="${salaryInfo.dataBate eq 1 ? 'true' : 'false'}"></td>
 								<td class="t_head">수습급여 적용률</td>
-								<td><input type="number" name="data_bate_per" class="form-control" readonly></td>
+								<td><input type="number" name="data_bate_per" class="form-control" th:readonly="${salaryInfo.dataBate eq 0 ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">수습기간</td>
-								<td colspan="3"><input type="date" name="data_bate_date1" class="form-control form_date" readonly>
-								　~　<input type="date" name="data_bate_date2" class="form-control form_date" readonly></td>
+								<td colspan="3"><input type="date" name="data_bate_date1" class="form-control form_date" th:readonly="${salaryInfo.dataBate eq 0 ? 'true' : 'false'}">
+								　~　<input type="date" name="data_bate_date2" class="form-control form_date" th:readonly="${salaryInfo.dataBate eq 0 ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">학자금상환 공제여부</td>
 								<td colspan="3"><select name="data_expen" class="form-control">
-									<option value="1">여</option>
-									<option value="0">부</option>
+									<option value="1" th:selected="${salaryInfo.dataExpen eq 1 ? 'true' : 'false'}">여</option>
+									<option value="0" th:selected="${salaryInfo.dataExpen eq 0 ? 'true' : 'false'}">부</option>
 								</select></td>
 							</tr>
 							<tr>
 								<td class="t_head">학자금 공제기간</td>
-								<td colspan="3"><input type="date" name="data_expen_date1" class="form-control form_date" readonly>
-								　~　<input type="date" name="data_expen_date2" class="form-control form_date" readonly></td>
+								<td colspan="3"><input type="date" name="data_expen_date1" class="form-control form_date" th:readonly="${salaryInfo.dataExpen eq 0 ? 'true' : 'false'}">
+								　~　<input type="date" name="data_expen_date2" class="form-control form_date" th:readonly="${salaryInfo.dataExpen eq 0 ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">소득세액 감면여부</td>
-								<td><input type="checkbox" name="data_tax" class="form-control"></td>
+								<td><input type="checkbox" name="data_tax" class="form-control" th:checked="${salaryInfo.dataTax eq 1 ? 'true' : 'false'}"></td>
 								<td class="t_head">소득세액 감면비율</td>
-								<td><input type="number" name="data_tax_per" class="form-control" readonly></td>
+								<td><input type="number" name="data_tax_per" class="form-control" th:readonly="${salaryInfo.dataTax eq 0 ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">감면기간</td>
-								<td colspan="3"><input type="date" name="data_tax_date1" class="form-control form_date" readonly>
-								　~　<input type="date" name="data_tax_date2" class="form-control form_date" readonly></td>
+								<td colspan="3"><input type="date" name="data_tax_date1" class="form-control form_date" th:readonly="${salaryInfo.dataTax eq 0 ? 'true' : 'false'}">
+								　~　<input type="date" name="data_tax_date2" class="form-control form_date" th:readonly="${salaryInfo.dataTax eq 0 ? 'true' : 'false'}"></td>
 							</tr>
 						</table>
 					</form>

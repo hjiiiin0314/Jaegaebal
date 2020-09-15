@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.jaegaebal.mapper.SalaryMapper">
+	<resultMap type="SalaryInfo" id="SalaryInfoResultMap">
+		<result column="data_num" 		property="dataNum"/>
+		<result column="data_emp" 		property="dataEmp"/>
+		<result column="staff_name" 		property="staffName"/>
+		<result column="level_name" 		property="levelName"/>
+		<result column="human_num" 		property="humanNum"/>
+		<result column="company_in_date" 		property="companyInDate"/>
+		<result column="company_out_date" 		property="companyOutDate"/>
+		<result column="staff_nationality" 		property="staffNationality"/>
+		<result column="staff_country" 		property="staffCountry"/>
+		<result column="staff_phone" 		property="staffPhone"/>
+		<result column="staff_email" 		property="staffEmail"/>
+		<result column="data_insu" 	property="dataInsu"/>
+		<result column="data_resi" 	property="dataResi"/>
+		<result column="data_pro" 	property="dataPro"/>
+		<result column="data_bank" 	property="dataBank"/>
+		<result column="data_account" property="dataAccount"/>
+		<result column="data_host" property="dataHost"/>
+		<result column="data_scrib" property="dataScrib"/>
+		<result column="data_bate" property="dataBate"/>
+		<result column="data_bate_per" property="dataBatePer"/>
+		<result column="data_bate_date1" property="dataBateDate1"/>
+		<result column="data_bate_date2" property="dataBateDate2"/>
+		<result column="data_expen" property="dataExpen"/>
+		<result column="data_expen_date1" property="dataExpenDate1"/>
+		<result column="data_expen_date2" property="dataExpenDate2"/>
+		<result column="data_tax_depart" property="dataTaxDepart"/>
+		<result column="data_tax" property="dataTax"/>
+		<result column="data_tax_date1" property="dataTaxDate1"/>
+		<result column="data_tax_date2" property="dataTaxDate2"/>
+	</resultMap>
+	
+	<!-- 회사 정보 목록 -->
+	<select id="salaryInfo" parameterType="String" resultType="SalaryInfo" resultMap="SalaryInfoResultMap">
+		SELECT 
+			data_num, 
+			data_emp,
+			staff_name,
+			level_name,
+			human_num,
+			company_in_date,
+			company_out_date,
+			staff_nationality,
+			staff_country,
+			staff_phone,
+			staff_email,
+			data_insu, 
+			data_resi, 
+			data_pro, 
+			data_bank, 
+			data_account, 
+			data_host, 
+			data_scrib, 
+			data_bate, 
+			data_bate_per, 
+			data_bate_date1, 
+			data_bate_date2, 
+			data_expen, 
+			data_expen_date1, 
+			data_expen_date2, 
+			data_taxdepart, 
+			data_tax, 
+			data_tax_date1, 
+			data_tax_date2
+	FROM sal_data a
+		INNER join
+	is_staff b
+		INNER join
+	is_level c
+		INNER join
+	is_staff_basic_info d
+		ON
+	a.data_emp = b.staff_num
+		AND
+	b.staff_level_code = c.level_code
+		AND
+	b.staff_num = d.staff_num
+		WHERE
+	data_num = #{dataNum}
+	</select>	
+	
+</mapper>	
