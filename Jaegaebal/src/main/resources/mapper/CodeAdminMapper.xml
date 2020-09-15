@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+   <mapper namespace="kr.or.jaegaebal.mapper.CodeAdminMapper">
+   	<resultMap type="CodeAdmin" id="codeResultMap">
+   		<result column="w_code" property="workCode"/>
+   		<result column="w_name" property="workName"/>
+   		<result column="w_use" property="workUseOrNot"/>
+   		<result column="w_staff_name" property="workStaffName"/>
+   		<result column="w_reg_date" property="workRegDate"/>
+   	</resultMap>
+   	
+   	<select id="getWorkCodeList" resultMap="codeResultMap">
+   		SELECT 
+   			  w_code
+   			, w_name
+   			, w_use
+   			, w_staff_name
+   			, w_reg_date
+		FROM
+			  gt_work_code
+   	</select>
+   	
+   	
+   	<insert id="addWorkCode" parameterType="CodeAdmin">
+   		INSERT INTO 
+   			gt_work_code
+				 (w_code
+				, w_name
+				, w_use
+				, w_staff_name
+				, w_reg_date)
+		VALUES
+			 (
+			 	  #{workCode}
+			 	, #{workName}
+			 	, #{workUseOrNot}
+			 	, #{workStaffName}
+			 	, NOW()
+			 	
+			 )
+   	</insert>
+   
+   </mapper>

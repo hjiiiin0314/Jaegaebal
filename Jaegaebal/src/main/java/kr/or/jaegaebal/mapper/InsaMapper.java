@@ -1,10 +1,13 @@
 package kr.or.jaegaebal.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.Company;
+import kr.or.jaegaebal.dto.StaffInfo;
+
 
 /**
  * 담당자 : 이은혜
@@ -15,5 +18,11 @@ import kr.or.jaegaebal.dto.Company;
 public interface InsaMapper {
 
 	//회사 정보 조회
-	public List<Company> getCompanyInfo();
+	public Company getCompanyInfo();
+	
+	//일반 직원일때 직원 목록
+	public List<StaffInfo> getStaffInfo(Map<String, Object> parameterMap);
+	
+	//일반 직원일때 직원 목록의 전체 행 갯수
+	public int getStaffInfoListCount();
 }

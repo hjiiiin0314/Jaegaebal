@@ -28,12 +28,12 @@
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 
 
-<!-- form 시작  -->
-	<form method="post">
   			<div class="col-md-10">
               <div class="main-card mb-10 card">
                   <div class="card-body">
                   <h5 class="card-title">기안하기</h5>                     
+			<!-- form 시작  -->
+				<form action="/myAppList" method="post">
                    <div class="position-relative form-group"><label for="appLine" class="">결재라인선택</label>
                    	<input name="appLine" id="appLine" placeholder="아직생각중이니까기다려" type="text" class="form-control">
                    </div>
@@ -41,11 +41,7 @@
 	                   	<div class="position-relative form-group document-form">
 	                   	<label for="docType" class="" >문서양식</label>
 	                   	<select name="docType" id="docType" class="form-control">
-	                        <option>1</option>
-	                        <option>2</option>
-	                        <option>3</option>
-	                        <option>4</option>
-	                        <option>5</option>
+	                        <option th:each="doc : ${docCate}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	                 
 	                    </select>
 	                    </div>
 	                    <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
@@ -64,14 +60,14 @@
                       <div class="position-relative form-group"> <label for="docSecurity" class="">보안처리</label>
                       	<input type="checkbox" name="docSecurity" >
                       </div>
-                     <button class="mt-1 btn btn-primary">결재올리기</button>                
-                     <button class="mt-1 btn btn-primary">저장하기</button>                
+					</form>
+                     <button type="button" id="appSubmit" class="mb-2 mr-2 btn btn-success active btn-right" >결재올리기</button>                
+                     <button type="button" id="appKeep" class="mb-2 mr-2 btn btn-success active btn-right">저장하기</button>                
                   </div>
               </div>
           </div>
      
 
-	</form>
 
 
 

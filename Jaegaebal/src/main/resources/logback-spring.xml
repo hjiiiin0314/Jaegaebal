@@ -15,7 +15,7 @@
 		</encoder>
 	</appender>
 	
-	<logger name="kr.or.talkguesthouse" level="INFO" additivity="false">
+	<logger name="kr.or.jaegaebal" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	

@@ -22,7 +22,7 @@ public class StaffInfo {
 	//project_level_name, project_work, project_position
 	
 	//사외경력정보
-	//career_info_from_out_code, company_name, company_access,
+	//career_info_from_out_code, company_name, company_access,company_position_from_out, company_work_form_out
 	//company_in_date_from_out, company_out_date_from_out, company_out_reason
 	
 	//자격증정보
@@ -34,84 +34,94 @@ public class StaffInfo {
 	//병력정보
 	//military_info_code, military_service_type, military_state
 	
-
-	private String staffNum;
-	private String jojicCode;
-	private String accessNum;
-	private String staffLevelCode;
-	private String staffPosition;
-	private String hobong;
-	private String staffBasicSalary;
-	private String staffPw;
-	private String staffName;
-	private String staffStatus;
-	private String employmentStatus;
-	private String companyInDate;
-	private String companyOutDate;
-	private String regStaffName;
-	private String regDate;
+	/*다른 테이블에서 외래키로 가져온 컬럼명*/
+	//level_name, position_name, jojic_name,
 	
-	private String basicInfoCode;
-	private String staffEngName;
-	private String humanNum;
-	private String staffGender;
-	private String staffNationality;
-	private String staffCountry;
-	private String staffPhone;
+	private String staffNum;				//사원번호
+	private String jojicCode;				//소속
+	private String accessNum;				//권한레벨	
+	private String staffLevelCode;			//직급코드
+	private String staffPosition;			//직책코드
+	private String hobong;					//호봉
+	private String staffBasicSalary;		//기본급
+	private String staffPw;				
+	private String staffName;
+	private String staffStatus;				//재직상태
+	private String employmentStatus;		//고용상태
+	private String companyInDate;			//입사일
+	private String companyOutDate;			//퇴사일
+	private String regStaffName;			//등록자
+	private String regDate;					//등록일
+	
+	private String basicInfoCode;			//인적사항코드
+	private String staffEngName;			//영문명
+	private String humanNum;				//주민등록번호
+	private String staffGender;				//성별(여or남) sql타입 char에요
+	private String staffNationality;		//내외국인
+	private String staffCountry;			//국적
+	private String staffPhone;			
 	private String staffEmail;
-	private String staffMarriged;
+	private String staffMarriged;			//결혼여부
 	private String staffAddr;
 	
-	private String familyInfoCode;
-	private String relation;
+	private String familyInfoCode;			//사원 가족정보 코드
+	private String relation;				//가족관계
 	private String familyName;
-	private String familyBirthday;
+	private String familyBirthday;			//가족 생년월일
 	private String familyJob;
 	private String familyAddr;
 	private String familyPhone;
 	
-	private String balryoungInfoCode;
-	private String balryoungStaffNum;
-	private String balryoungCode;
-	private String balryoungDate;
-	private String balryoungStage;
-	private String notes;
+	private String balryoungInfoCode;		//발령정보 코드
+	private String balryoungStaffNum;		//발령 담당자or발령한 사람 사번
+	private String balryoungCode;			//발령내용코드
+	private String balryoungDate;			//발령일
+	private String balryoungStage;			//발령지
+	private String notes;					//비고
 	
-	private String careerInfoFromInCode;
-	private String projectName;
-	private String projectStartDate;
-	private String projectEndDate;
-	private String projectAccess;
-	private String projectLevelName;
-	private String projectWork;
-	private String projectPosition;
+	private String careerInfoFromInCode;	//사내경력정보 코드
+	private String projectName;				//맡았던 프로젝트명
+	private String projectStartDate;		//프로젝트 시작일
+	private String projectEndDate;			//프로젝트 종료일
+	private String projectAccess;			//프로젝트 도중 권한
+	private String projectLevelName;		//프로젝트 도중 직책
+	private String projectWork;				//프로젝트 도중 직무
+	private String projectPosition;			//프로젝트 도중 직책
 	
-	private String careerInfoFromOutCode;
-	private String companyName;
-	private String companyAccess;
-	private String companyInDateFromOut;
-	private String companyOutDateFromOut;
-	private String companyOutReason;
+	private String careerInfoFromOutCode;	//사외경력정보 코드
+	private String companyName;				//직장명	
+	private String companyAccess;			//직위
+	private String companyPositionFromOut;	//직책
+	private String companyWorkFormOut;		//직무
+	private String companyInDateFromOut;	//입사일자
+	private String companyOutDateFromOut;	//퇴사일자
+	private String companyOutReason;		//퇴직사유
 
-	private String certificateInfoCode;
-	private String certificateName;
-	private String issuingAgency;
-	private String certificateNum;
-	private String getDate;
-	private String finishedDate;
+	private String certificateInfoCode;		//사원 자격증정보 코드
+	private String certificateName;			//자격증명
+	private String issuingAgency;			//발급기관
+	private String certificateNum;			//자격번호
+	private String getDate;					//취득일
+	private String finishedDate;			//만료일
 	
-	private String educationInfoCode;
-	private String schoolName;
-	private String gakryuckStatus;
-	private String majorName;
-	private String minorName;
-	private String entranceDate;
-	private String graduatDate;
-	private String degree;
+	private String educationInfoCode;		//사원 학력정보 코드
+	private String schoolName;				//학교명
+	private String gakryuckStatus;			//상태 (졸업or재학중or휴학)
+	private String majorName;				//전공
+	private String minorName;				//부전공
+	private String entranceDate;			//입학일
+	private String graduatDate;				//졸업일
+	private String degree;					//학위
 	
-	private String militaryInfoCode;
-	private String militaryServiceType;
-	private String militaryState;
+	private String militaryInfoCode;		//사원 병력정보 코드
+	private String militaryServiceType;		//복무형태
+	private String militaryState;			//상태 (전역or예비군)
+	
+	/*추가된것들*/
+	private String levelName;				//직급
+	private String positionName;			//직책
+	private String jojicName;				//소속
+	
 	public String getStaffNum() {
 		return staffNum;
 	}
@@ -406,6 +416,18 @@ public class StaffInfo {
 	public void setCompanyAccess(String companyAccess) {
 		this.companyAccess = companyAccess;
 	}
+	public String getCompanyPositionFromOut() {
+		return companyPositionFromOut;
+	}
+	public void setCompanyPositionFromOut(String companyPositionFromOut) {
+		this.companyPositionFromOut = companyPositionFromOut;
+	}
+	public String getCompanyWorkFormOut() {
+		return companyWorkFormOut;
+	}
+	public void setCompanyWorkFormOut(String companyWorkFormOut) {
+		this.companyWorkFormOut = companyWorkFormOut;
+	}
 	public String getCompanyInDateFromOut() {
 		return companyInDateFromOut;
 	}
@@ -526,7 +548,24 @@ public class StaffInfo {
 	public void setMilitaryState(String militaryState) {
 		this.militaryState = militaryState;
 	}
-	
+	public String getLevelName() {
+		return levelName;
+	}
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
+	}
+	public String getPositionName() {
+		return positionName;
+	}
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+	public String getJojicName() {
+		return jojicName;
+	}
+	public void setJojicName(String jojicName) {
+		this.jojicName = jojicName;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -628,6 +667,10 @@ public class StaffInfo {
 		builder.append(companyName);
 		builder.append(", companyAccess=");
 		builder.append(companyAccess);
+		builder.append(", companyPositionFromOut=");
+		builder.append(companyPositionFromOut);
+		builder.append(", companyWorkFormOut=");
+		builder.append(companyWorkFormOut);
 		builder.append(", companyInDateFromOut=");
 		builder.append(companyInDateFromOut);
 		builder.append(", companyOutDateFromOut=");
@@ -668,6 +711,12 @@ public class StaffInfo {
 		builder.append(militaryServiceType);
 		builder.append(", militaryState=");
 		builder.append(militaryState);
+		builder.append(", levelName=");
+		builder.append(levelName);
+		builder.append(", positionName=");
+		builder.append(positionName);
+		builder.append(", jojicName=");
+		builder.append(jojicName);
 		builder.append("]");
 		return builder.toString();
 	}
