@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.jaegaebal.mapper.MenuMapper">
+	<resultMap type="Menu" id="MenuResultMap">
+		<result column="menu_id" 		property="menuId"/>
+		<result column="menu_parent" 	property="menuParent"/>
+		<result column="menu_level" 	property="menuLevel"/>
+		<result column="menu_name" 		property="menuName"/>
+		<result column="menu_link" 		property="menuLink"/>
+		<result column="menu_target" 	property="menuTarget"/>
+		<result column="menu_order" 	property="menuOrder"/>
+		<result column="menu_use" 		property="menuUse"/>
+		<result column="menu_icon" 		property="menuIcon"/>
+	</resultMap>
+	
+	<!-- 첫번째 메뉴 조회 -->
+	<select id="menuFirstList" resultMap="MenuResultMap">
+		SELECT 
+			menu_id, 
+			menu_parent, 
+			menu_level,
+			menu_name, 
+			menu_link, 
+			menu_target, 
+			menu_order,
+			menu_use,
+			menu_icon
+		FROM 
+			menu_code
+		WHERE
+			menu_level = 1
+		AND
+			menu_use = 0;
+	</select>
+	
+	<!-- 두번째 메뉴 조회 -->
+	<select id="menuSecondList" resultMap="MenuResultMap">
+		SELECT 
+			menu_id, 
+			menu_parent, 
+			menu_level,
+			menu_name, 
+			menu_link, 
+			menu_target, 
+			menu_order,
+			menu_use,
+			menu_icon
+		FROM 
+			menu_code
+		WHERE
+			menu_level = 2
+		AND
+			menu_use = 0;
+	</select>
+	
+	<!-- 세번째 메뉴 조회 -->
+	<select id="menuThirdList" resultMap="MenuResultMap">
+		SELECT 
+			menu_id, 
+			menu_parent, 
+			menu_level,
+			menu_name, 
+			menu_link, 
+			menu_target, 
+			menu_order,
+			menu_use,
+			menu_icon
+		FROM 
+			menu_code
+		WHERE
+			menu_level = 3
+		AND
+			menu_use = 0;
+	</select>
+	
+	<!-- 네번째 메뉴 조회 -->
+	<select id="menuFourthList" resultMap="MenuResultMap">
+		SELECT 
+			menu_id, 
+			menu_parent, 
+			menu_level,
+			menu_name, 
+			menu_link, 
+			menu_target, 
+			menu_order,
+			menu_use,
+			menu_icon
+		FROM 
+			menu_code
+		WHERE
+			menu_level = 4
+		AND
+			menu_use = 0;
+	</select>	
+	
+</mapper>	

@@ -36,329 +36,41 @@
                     </div>    <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
-                            	<!-- 대분류 --------------------------------------------------------------------------------->
-                              	  <li class="app-sidebar__heading">#회사관리(이은혜)</li>
-                                <!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-	                                     <a href="#">
-	                                        <i class="metismenu-icon pe-7s-rocket"></i>#회사정보(이은혜)
-	                                    </a>                               
-	                                </li>
-                            	<!-- 대분류 --------------------------------------------------------------------------------->
-	                                <li class="app-sidebar__heading">#인사관리</li>
-	                            	
-	                           	<!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-rocket"></i>#채용관리(김형진)
-		                                   	<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-	                                    </a>
-	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#채용평가기준                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="/cyboardList">
-	                                                <i class="metismenu-icon"></i>#구인공고                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#지원자관리                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#합격자명단                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-	                                </li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>
-	                           	<!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-		                                <a href="#">
-		                                    <i class="metismenu-icon pe-7s-rocket"></i>#부서관리(이은혜)
-		                                   	<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-		                                </a>
-	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#조직도                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#조직도리스트                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-	                                </li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>
-	                           	<!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-		                                <a href="#">
-		                                    <i class="metismenu-icon pe-7s-rocket"></i>#직원관리(이은혜)
-		                                   	<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-		                                </a>
-	                          	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#직원리스트                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#인사발령                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#징계관리                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#포상관리                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-	                                </li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>                                    
 								<!-- 대분류 --------------------------------------------------------------------------------->
-                                	<li class="app-sidebar__heading">#근태관리(장현지)</li>
+                                <th:block th:each="ST : ${session.FIRSTMENU}" >
+                                <li class="app-sidebar__heading" th:text="${ST.menuName}"></li>                                
                                 <!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-diamond"></i>#휴일관리
-	                                    </a>
-	                                </li>
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-car"></i>#업무유형별 근무시간 관리
-	                                    </a>
-	                                </li>
-									<!-- 대분류 --------------------------------------------------------------------------------->
-	                                <li class="app-sidebar__heading">#코드관리</li>
-	                                <!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-	                                    <a href="/insaCode">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#인사코드관리
-	                                    </a>
-	                                </li>
-	                                <li>
-	                                    <a href="/docCode">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#문서코드관리
-	                                    </a>
-	                                </li>
-	                                <li>
-	                                    <a href="/empCode">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#고용형태코드관리
-	                                    </a>
-	                                </li>
-	                                <li>
-	                                    <a href="/workCode">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#근무구분코드관리
-	                                    </a>
-	                                </li>
-								<!-- 대분류 --------------------------------------------------------------------------------->
-                                	<li class="app-sidebar__heading">#급여관리(이요셉)</li>
-                                <!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#급상여관리
-	                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+	                                <th:block th:each="ND : ${session.SECONDMENU}" >
+	                                <li th:if="${session.SECONDMENU ne null and ST.menuId eq ND.menuParent}">
+	                                    <a th:href="${ND.menuLink}">
+	                                        <i th:class="${ND.menuIcon}"></i><span th:text="${ND.menuName}"></span>
+	                                        <i th:if="${session.THIRDMENU ne null}" class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
 	                                    </a>
 	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#급여기본정보관리                                   		
+	                                    <ul th:if="${session.THIRDMENU ne null}">
+	                                    	<th:block th:each="RD : ${session.THIRDMENU}">
+	                                    	<li th:if="${ND.menuId eq RD.menuParent}">
+	                                    		<a th:href="${RD.menuLink}">
+	                                                <i th:class="${RD.menuIcon}"></i><span th:text="${RD.menuName}"></span>  
+	                                                <i th:if="${session.FOURTHMENU ne null}" class="metismenu-state-icon pe-7s-angle-down caret-left"></i>                                 		
 	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#급상여관리                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#추가급상여입력                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#월별급상여지급현황                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-									</li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>                                    
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-mouse"></i>#퇴직금관리
-	                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-	                                    </a>
-	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#퇴직금산정                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#퇴직급여입력                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#퇴직금추계액관리                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-	                                </li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>                                       
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-eyedropper"></i>#전표생성
-	                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-	                                    </a>
-	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#급여전표자동생성                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#퇴직금전표자동생성                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-	                                </li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>                                      
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-pendrive"></i>#급여상세설정
-	                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-	                                    </a>
-	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#급여기준정보설정                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#급여항목 계산식설정                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#대보험요율표설정                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-	                                </li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>                                          
-								<!-- 대분류 --------------------------------------------------------------------------------->
-                                <li class="app-sidebar__heading">#업무관리(노종석,장현지)</li>                                
-                                <!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-	                                    <a href="/checkInOut">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#출퇴근관리
-	                                    </a>
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#전자결재
-	                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-	                                    </a>
-	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="/appWrite">
-	                                                <i class="metismenu-icon"></i>#기안하기                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="/storageBox">
-	                                                <i class="metismenu-icon"></i>#임시저장함                              		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#개인결재함  
-	                                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>                                 		
-	                                    		</a>
-	                                    		<ul>
+	                                    		<ul th:if="${session.FOURTHMENU ne null}">
 	                           	<!-- 더 작은 소분류 start--------------------------------------------------------------------->
-	                                    		
-			                                    	<li>
-			                                    		<a href="/appBox">
-			                                                <i class="metismenu-icon"></i>#결재함                                   		
+			                                    	<th:block th:each="TH : ${session.FOURTHMENU}">
+			                                    	<li th:if="${RD.menuId eq TH.menuParent}">
+			                                    		<a th:href="${TH.menuLink}">
+			                                                <i th:class="${TH.menuIcon}"></i><span th:text="${TH.menuName}"></span>                                   		
 			                                    		</a>
-			                                    	</li>
-			                                    	<li>
-			                                    		<a href="/retrievalBox">
-			                                                <i class="metismenu-icon"></i>#반려/회수함                              		
-			                                    		</a>
-			                                    	</li>	                                    		
+			                                    	</li> 
+			                                    	</th:block>                                   		
 	                                    		</ul>
 	                                    	</li>
+	                                    	</th:block>
 	                                    </ul>
 	                                </li>
-	                           	<!-- 더 작은 소분류 ------------------------------------------------------------end------------>	                                    
-	                           	<!-- 소분류  -----------------------------------------------------------------end------------>	                                    
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#업무관리
-	                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-	                                    </a>
-	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#업무등록                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    	<li>
-	                                    		<a href="#">
-	                                                <i class="metismenu-icon"></i>#업무보고                                   		
-	                                    		</a>
-	                                    	</li>
-	                                    </ul>
-	                                </li>
-	                           	<!-- 소분류 -----------------------------------------------------------------end------------>	                                <li>
-	                                    <a href="/upmuShare">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#업무공유게시판
-	                                    </a>
-	                                </li>                                
-	                                <li>
-	                                    <a href="/noticeBoard">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#공지게시판
-	                                    </a>
-	                                </li>                                
-								<!-- 대분류 --------------------------------------------------------------------------------->
-                                	<li class="app-sidebar__heading">#마이페이지</li>
-                                <!-- 중분류--------------------------------------------------------------------------------->
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#내정보보기
-	                                    </a>  
-	                                </li>                              
-	                                <li>
-	                                    <a href="#">
-	                                        <i class="metismenu-icon pe-7s-display2"></i>#로그아웃
-	                                    </a>  
-	                                </li>                              
+	                                </th:block>
+	                           	<!-- 더 작은 소분류 ------------------------------------------------------------end------------>	  
+	                           	</th:block>                                                                                          
                             </ul>
                         </div>
                     </div>
