@@ -25,8 +25,8 @@ public class UpmuController {
 		return "approval/retrievalBox";
 	}
 	
-	//결재함화면연결
-	@GetMapping("/appBox")
+	//내가올린결재문서리스트화면연결
+	@GetMapping("/myAppList")
 	public String appBox() {
 		return "approval/appBox";
 	}
