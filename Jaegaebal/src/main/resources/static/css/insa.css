@@ -103,5 +103,12 @@
 }
 
 .td-header {
-	font-weight : bold;
+	/* font-weight : bold; */
+	background-color : #f7f7f7;
+	width : 18%;
 }
+
+.td-val {
+	width : 32%;
+}
+

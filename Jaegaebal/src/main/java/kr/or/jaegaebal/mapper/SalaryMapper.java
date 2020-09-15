@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
  *
  */
 @Mapper
-public class SalaryMapper {
+public interface SalaryMapper {
 
 }

@@ -15,7 +15,7 @@
 	</resultMap>
 	
 	<!-- 구인공고 게시글 등록 -->
-	<insert id="addCYBoardPost" parameterMap="ChaeYoungBoardResultMap">
+	<!-- <insert id="addCYBoardPost" parameterMap="ChaeYoungBoardResultMap">
 		INSERT INTO cy_job_board (
 			job_number
 			,job_field_code
@@ -36,5 +36,5 @@
 			, NOW()
 			, #{jobRegStaff}
 			)
-	</insert>
+	</insert> -->
 </mapper>
