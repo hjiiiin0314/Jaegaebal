@@ -11,13 +11,13 @@
 }
 
 .left-form{
-   width:32%;
+   width:31%;
    float:left;
    margin-right:4%;
 }
 
 .center-form{
-   width:32%;
+   width:33%;
    float:left;
 }
 .right-form{
@@ -68,11 +68,7 @@
 		              <div class="main-card mb-12 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
 		                      <div class="position-relative form-group"><label for="exampleSelect" class="">모집분야</label><select name="docSelect" id="docSelect" class="form-control">
-		                          <option>1</option>
-		                          <option>2</option>
-		                          <option>3</option>
-		                          <option>4</option>
-		                          <option>5</option>
+                    			<option th:each="f : ${fieldCode}" th:value="${f.fieldCode}" th:text="${f.fieldName}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
 		                      <div class="position-relative form-group left-form"><label>모집분야명</label><input name="email" id="exampleEmail" placeholder="아직생각중이니까기다려" type="text" class="form-control"></div>		                      

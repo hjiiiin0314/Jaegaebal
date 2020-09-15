@@ -37,4 +37,11 @@
 			, #{jobRegStaff}
 			)
 	</insert> -->
+	<!-- 지원분야코드 가져오기 -->
+	<select id="getFieldeCode" resultType="ChaeYoungCode">
+		SELECT 
+			field_code 			as fieldCode
+			,field_name 		as fieldName
+		FROM cy_field_code
+	</select>
 </mapper>
