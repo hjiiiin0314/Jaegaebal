@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.ChaeYoungCode;
 import kr.or.jaegaebal.service.ChaeYoungService;
 
@@ -39,8 +40,9 @@ public class ChaeYoungController {
 		return "chaeyoung/addCYPostForm";
 	}
 	@PostMapping("addCYPost")
-	public String addCYPost() {
-		
+	public String addCYPost(ChaeYoungBoard ChaeYoungBoard) {
+		//구인공고 등록
+		chaeYoungService.addCYBoardPost(ChaeYoungBoard);
 		return "redirect:/cyboardList";
 	}
 }

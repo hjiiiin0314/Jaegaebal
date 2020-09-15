@@ -67,20 +67,20 @@
 		  			<div class="col-md-12">
 		              <div class="main-card mb-12 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
-		                      <div class="position-relative form-group"><label for="exampleSelect" class="">모집분야</label><select name="docSelect" id="docSelect" class="form-control">
+		                      <div class="position-relative form-group"><label for="exampleSelect" class="">모집분야</label><select name="jobFieldCode" id="jobFieldCode" class="form-control">
                     			<option th:each="f : ${fieldCode}" th:value="${f.fieldCode}" th:text="${f.fieldName}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
-		                      <div class="position-relative form-group left-form"><label>모집분야명</label><input name="email" id="exampleEmail" placeholder="아직생각중이니까기다려" type="text" class="form-control"></div>		                      
-		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="docSelect" id="docSelect" class="form-control">
-		                          <option>신입</option>
-		                          <option>경력</option>
-		                          <option>신입/경력</option>
+		                      <div class="position-relative form-group left-form"><label>모집분야명</label><input name="jobFieldName" id="jobFieldName" placeholder="모집분야명" type="text" class="form-control"></div>		                      
+		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
+		                          <option value="신입">신입</option>
+		                          <option value="경력">경력</option>
+		                          <option value="신입/경력">신입/경력</option>
 		                      </select></div>
-		                      <div class="position-relative form-group right-form"><label>지원마감일</label><input name="docTitle" id="docTitle" type="date" class="form-control"></div>
+		                      <div class="position-relative form-group right-form"><label>지원마감일</label><input name="jobDeadLine" id="jobDeadLine" type="date" class="form-control"></div>
 		                      </div>
-		                      <div class="position-relative form-group"><label>제목</label><input name="email" id="exampleEmail" placeholder="아직생각중이니까기다려" type="text" class="form-control"></div>
-		                      <textarea id="summernote" name="editordata"></textarea>
+		                      <div class="position-relative form-group"><label>제목</label><input name="jobTitle" id="jobTitle" placeholder="제목" type="text" class="form-control"></div>
+		                      <textarea id="summernote" name="jobContent"></textarea>
 		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
 		                      </div>             
 		                      <div align="center"><button class="mt-1 btn btn-primary" type="submit">등록하기</button></div>               

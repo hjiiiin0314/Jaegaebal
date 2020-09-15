@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.ChaeYoungCode;
 import kr.or.jaegaebal.mapper.ChaeYoungMapper;
 
@@ -21,5 +22,11 @@ public class ChaeYoungService {
 	public List<ChaeYoungCode> getFieldeCode() {
 		
 		return chaeYoungMapper.getFieldeCode();
+	};
+	
+	//구인공고 게시글 등록
+	public int addCYBoardPost(ChaeYoungBoard ChaeYoungBoard) {
+		
+		return chaeYoungMapper.addCYBoardPost(ChaeYoungBoard);
 	};
 }
