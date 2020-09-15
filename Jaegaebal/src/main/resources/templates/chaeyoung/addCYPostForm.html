@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	 <th:block layout:fragment="customCss">
+	 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+	 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	 	<style>
+.index-front{
+   z-index:1;
+}
+
+.left-form{
+   width:32%;
+   float:left;
+   margin-right:4%;
+}
+
+.center-form{
+   width:32%;
+   float:left;
+}
+.right-form{
+   width:30%;
+   float:right;
+}
+	 	</style>
+	 </th:block>
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		<div class="app-main__outer">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+			<div class="card-body">
+				<div class="row">
+                    <div class="col-md-6 col-xl-6">
+                        <div class="card mb-3 widget-content bg-midnight-bloom">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">오늘의 지원자 인원</div>
+                                    <div class="widget-subheading">Today's number of applicants</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-white"><span>1896</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="card mb-3 widget-content bg-arielle-smile">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">시계놓을꺼임</div>
+                                    <div class="widget-subheading">진짜임</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-white"><span>$ 568</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+				<form action="/addCYPost" method="post">
+		  			<div class="col-md-12">
+		              <div class="main-card mb-12 card">
+		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
+		                      <div class="position-relative form-group"><label for="exampleSelect" class="">모집분야</label><select name="docSelect" id="docSelect" class="form-control">
+		                          <option>1</option>
+		                          <option>2</option>
+		                          <option>3</option>
+		                          <option>4</option>
+		                          <option>5</option>
+		                      </select></div>
+		                      <div class="position-relative form-group index-front">
+		                      <div class="position-relative form-group left-form"><label>모집분야명</label><input name="email" id="exampleEmail" placeholder="아직생각중이니까기다려" type="text" class="form-control"></div>		                      
+		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="docSelect" id="docSelect" class="form-control">
+		                          <option>신입</option>
+		                          <option>경력</option>
+		                          <option>신입/경력</option>
+		                      </select></div>
+		                      <div class="position-relative form-group right-form"><label>지원마감일</label><input name="docTitle" id="docTitle" type="date" class="form-control"></div>
+		                      </div>
+		                      <div class="position-relative form-group"><label>제목</label><input name="email" id="exampleEmail" placeholder="아직생각중이니까기다려" type="text" class="form-control"></div>
+		                      <textarea id="summernote" name="editordata"></textarea>
+		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
+		                      </div>             
+		                      <div align="center"><button class="mt-1 btn btn-primary" type="submit">등록하기</button></div>               
+		                  </div>
+		              </div>
+		          </div>
+				</form>
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+			<div th:replace="fragments/footer :: footerFragment"></div>
+		</div>
+		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<!-- include libraries(jQuery, bootstrap) -->
+
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+		
+		<!-- include summernote css/js -->
+		
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+		
+		<!-- include summernote-ko-KR 한글처리-->
+		<!-- <script src="lang/summernote-ko-KR.js"></script> -->
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+				//여기 아래 부분
+				$('#summernote').summernote({
+					  height: 300,                 // 에디터 높이
+					  minHeight: null,             // 최소 높이
+					  maxHeight: null,             // 최대 높이
+					  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+					  lang: "ko-KR",					// 한글 설정
+					  placeholder: '내용을 입력하세요'	//placeholder 설정
+			          
+				});
+			});
+
+
+		</script>
+	
+	</th:block>
+    
+</html>

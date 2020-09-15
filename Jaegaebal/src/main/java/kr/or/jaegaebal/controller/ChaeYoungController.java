@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.or.jaegaebal.service.ChaeYoungService;
 
@@ -25,10 +26,15 @@ public class ChaeYoungController {
 		return "chaeyoung/cyboard";
 	}
 	
-	@GetMapping("/addCYBoardPost")
-	public String addCYBoardPost() {
+	@GetMapping("/addCYPostForm")
+	public String addCYPostForm() {
 		
 		
-		return "";
+		return "chaeyoung/addCYPostForm";
+	}
+	@PostMapping("addCYPost")
+	public String addCYPost() {
+		
+		return "redirect:/cyboardList";
 	}
 }
