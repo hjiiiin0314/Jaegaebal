@@ -41,11 +41,7 @@
 	                   	<div class="position-relative form-group document-form">
 	                   	<label for="docType" class="" >문서양식</label>
 	                   	<select name="docType" id="docType" class="form-control">
-	                        <option>1</option>
-	                        <option>2</option>
-	                        <option>3</option>
-	                        <option>4</option>
-	                        <option>5</option>
+	                        <option th:each="doc : ${docCate}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	                 
 	                    </select>
 	                    </div>
 	                    <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
@@ -64,8 +60,8 @@
                       <div class="position-relative form-group"> <label for="docSecurity" class="">보안처리</label>
                       	<input type="checkbox" name="docSecurity" >
                       </div>
-                     <button class="mt-1 btn btn-primary">결재올리기</button>                
-                     <button class="mt-1 btn btn-primary">저장하기</button>                
+                     <a class="mt-1 btn btn-primary" >결재올리기</a>                
+                     <a class="mt-1 btn btn-primary">저장하기</a>                
                   </div>
               </div>
           </div>

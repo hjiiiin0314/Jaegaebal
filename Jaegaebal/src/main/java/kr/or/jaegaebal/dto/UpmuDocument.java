@@ -1,0 +1,133 @@
+package kr.or.jaegaebal.dto;
+
+
+
+public class UpmuDocument {
+
+	private String docCode;
+	private String docType;
+	private String writerBuseoCode;
+	private String writerNum;
+	private String docTitle;
+	private String docContents;
+	private String writeDate;
+	private String docFile;
+	private String startDate;
+	private String endDate;
+	private String appState;
+	private int security;
+	private String appReDate;
+	private String regStaffName;
+	private String docTypeName;
+	private String umstCate;
+	
+	
+	public String getUmstCate() {
+		return umstCate;
+	}
+	public void setUmstCate(String umstCate) {
+		this.umstCate = umstCate;
+	}
+	public String getDocCode() {
+		return docCode;
+	}
+	public void setDocCode(String docCode) {
+		this.docCode = docCode;
+	}
+	public String getDocType() {
+		return docType;
+	}
+	public void setDocType(String docType) {
+		this.docType = docType;
+	}
+	public String getWriterBuseoCode() {
+		return writerBuseoCode;
+	}
+	public void setWriterBuseoCode(String writerBuseoCode) {
+		this.writerBuseoCode = writerBuseoCode;
+	}
+	public String getWriterNum() {
+		return writerNum;
+	}
+	public void setWriterNum(String writerNum) {
+		this.writerNum = writerNum;
+	}
+	public String getDocTitle() {
+		return docTitle;
+	}
+	public void setDocTitle(String docTitle) {
+		this.docTitle = docTitle;
+	}
+	public String getDocContents() {
+		return docContents;
+	}
+	public void setDocContents(String docContents) {
+		this.docContents = docContents;
+	}
+	public String getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	public String getDocFile() {
+		return docFile;
+	}
+	public void setDocFile(String docFile) {
+		this.docFile = docFile;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getAppState() {
+		return appState;
+	}
+	public void setAppState(String appState) {
+		this.appState = appState;
+	}
+	public int getSecurity() {
+		return security;
+	}
+	public void setSecurity(int security) {
+		this.security = security;
+	}
+	public String getAppReDate() {
+		return appReDate;
+	}
+	public void setAppReDate(String appReDate) {
+		this.appReDate = appReDate;
+	}
+	public String getRegStaffName() {
+		return regStaffName;
+	}
+	public void setRegStaffName(String regStaffName) {
+		this.regStaffName = regStaffName;
+	}
+	public String getDocTypeName() {
+		return docTypeName;
+	}
+	public void setDocTypeName(String docTypeName) {
+		this.docTypeName = docTypeName;
+	}
+	@Override
+	public String toString() {
+		return "UpmuDocument [docCode=" + docCode + ", docType=" + docType + ", writerBuseoCode=" + writerBuseoCode
+				+ ", writerNum=" + writerNum + ", docTitle=" + docTitle + ", docContents=" + docContents
+				+ ", writeDate=" + writeDate + ", docFile=" + docFile + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", appState=" + appState + ", security=" + security + ", appReDate=" + appReDate
+				+ ", regStaffName=" + regStaffName + ", docTypeName=" + docTypeName + ", umstCate=" + umstCate + "]";
+	}
+	
+	
+	
+	
+}
