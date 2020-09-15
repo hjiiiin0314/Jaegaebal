@@ -17,16 +17,16 @@
 		<result column="app_state"			property="appState;"/>
 		<result column="security"			property="security"/>
 		<result column="app_re_date"		property="appReDate"/>
-		<result column="doc_coment"		property="docComent"/>
+		<result column="doc_coment"			property="docComent"/>
 	</resultMap>   
 
  
  <!-- 기안하기에서 문서유형검색  -->
  <select id="getDocCate" resultType="UpmuDocument">
  	SELECT 
-		umst_code as docType
-		,umst_cate as umstCate
-		,umst_type docTypeName
+		umst_code 	as docType
+		,umst_cate 	as umstCate
+		,umst_type 	as docTypeName
 	FROM 
 		um_standard
 	WHERE
