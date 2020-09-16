@@ -76,12 +76,7 @@
 .checkbox {
     margin: 30px 10px 30px 0;
 }
-span {
-    color: #777;
-    font-size: 12px;
-    bottom: 68px;
-    position: absolute;
-}
+
 #login {
     left: 50px;
 }
@@ -153,7 +148,7 @@ span {
                                 <tr th:each="cy : ${cyBoardList}" >
                                
                                     <td class="text-center text-muted" th:text="${cy.jobNumber}"></td>
-                                    <td class="text-center text-muted" th:text="${cy.jobJojicName}"></td>
+                                    <td class="text-center text-muted addd" th:text="${cy.jobJojicName}"></td>
                                     <td>
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
@@ -166,7 +161,7 @@ span {
                                     <td class="text-center deadLine" th:text="${cy.jobDeadLine}"></td>
                                     <td class="text-center" th:text="${cy.jobRegDate}"></td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">지원하기</button>
+                                        <button type="button" class="btn btn-primary btn-sm applicantBtn" data-toggle="modal" data-target="#myModal">지원하기</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -190,22 +185,24 @@ span {
 					            <div class="form-wrap">
 					                <div class="button-wrap">
 					                    <div id="btn"></div>
-					                    <button type="button" class="togglebtn" onclick="login()">LOG IN</button>
-					                    <button type="button" class="togglebtn" onclick="register()">REGISTER</button>
+					                    <button type="button" class="togglebtn" onclick="login()">지원하기</button>
+					                    <button type="button" class="togglebtn" onclick="register()">이력서 </button>
 					                </div>
 					                <form id="login" action="" class="input-group">
-					                    <input type="text" class="input-field" placeholder="Email" required>
-					                    <input type="password" class="input-field" placeholder="Password" required>
-					                    <input type="text" class="input-field" placeholder="Name" required>
-					                    <input type="text" class="input-field" placeholder="Phone" required>
+					                	<input type="text" id="jobTitle" readonly="readonly">
+					                	<select name="appNumber">
+					                		<option id="appNumber"></option>
+					                	</select>
+					                    <input type="email" class="input-field" name="appEmail" placeholder="Email" required>
+					                    <input type="password" class="input-field" name="appPassward" placeholder="Password" required>
+					                    <input type="text" class="input-field" name="appName" placeholder="Name" required>
+					                    <input type="text" class="input-field" name="appPhone" placeholder="Phone" required>
 					                    <button class="submit">지원하기</button>
 					                </form>
 					                <form id="register" action="" class="input-group">
-					                    <input type="text" class="input-field" placeholder="User name or Email" required>
-					                    <input type="email" class="input-field" placeholder="Your Email" required>
-					                    <input type="password" class="input-field" placeholder="Enter Password" required>
-					                    <input type="checkbox" class="checkbox"><span>Terms and conditions</span>
-					                    <button class="submit">REGISTER</button>
+					                    <input type="email" class="input-field" name="appEmail" placeholder="Email" required>
+					                    <input type="password" class="input-field" name="appPassward" placeholder="Passward" required>
+					                    <button class="submit">이력서 조회하기</button>
 					                </form>
 					            </div>
 					        </div>
@@ -241,6 +238,30 @@ span {
                 y.style.left = "50px";
                 z.style.left = "110px";
             }
+            
+            $(function() {
+            	$('.applicantBtn').click(function() {
+
+    	            var checkBtn = $(this);
+
+
+    	            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+    	            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+    	            var tr = checkBtn.parent().parent();
+    	            var td = tr.children();
+    	            var appNumber = td.eq(0).text();
+    	            var jobTitle = td.eq(2).text();
+    	            var deadLine = td.eq(3).text();
+    	            
+ 					if(new Date(deadLine) < new Date()) {
+ 						alert('지원이 마감되었습니다.');
+ 						return false;
+ 					}
+    
+      				$('#appNumber').text(userid);
+      				$('#jobTitle').val(dd);
+            	})
+            });
 
         </script>
 	</th:block>
