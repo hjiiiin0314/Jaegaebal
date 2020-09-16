@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.ChaeYoungCode;
+import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.service.ChaeYoungService;
 
 /**
@@ -36,15 +37,15 @@ public class ChaeYoungController {
 	@GetMapping("/addCYPostForm")
 	public String addCYPostForm(Model model,@RequestParam(value="jobNumber",required = false) String jobNumber) {
 		//구인공고 글쓰기 화면
-		System.out.println(jobNumber + "<--jobNumber");
-		//지원분야코드를 가져온다.
-		List<ChaeYoungCode> fieldCode = chaeYoungService.getFieldeCode();
+		
+		//지원부서코드를 가져온다.
+		List<Jojic> jojicCode = chaeYoungService.getJojicCode();
 		if(jobNumber != null && !"".equals(jobNumber)) {
 			ChaeYoungBoard chaeYoungboard = chaeYoungService.cyBoardList(jobNumber);
 			model.addAttribute("cyboard", chaeYoungboard);
 		}
 		
-		model.addAttribute("fieldCode", fieldCode);
+		model.addAttribute("jojicCode", jojicCode);
 		
 		return "chaeyoung/add_cy_post_form";
 	}
