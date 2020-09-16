@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.jaegaebal.dto.Company;
+import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.InsaMapper;
 
@@ -78,4 +79,20 @@ public class InsaService {
 		
 		return resultMap;
 	}	
+	
+	//부서명 가지고 오기
+	public List<Map<Jojic, Object>> getJojicInfo() {
+		List<Map<Jojic, Object>> getJojicInfo = insaMapper.getJojicInfo();
+
+		log.info("getJojicInfo---> {}",getJojicInfo);
+		return getJojicInfo;
+	};
+	
+	//팀명 가지고 오기
+	/*
+	 * public List<Map<Jojic, Object>> getTeamName() { List<Map<Jojic, Object>>
+	 * getTeamName = insaMapper.getTeamName(); if(getTeamName != null) {
+	 * 
+	 * return getTeamName; } };
+	 */
 }
