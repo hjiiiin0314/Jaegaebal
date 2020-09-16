@@ -19,7 +19,25 @@
 		<result column="app_re_date"		property="appReDate"/>
 		<result column="doc_coment"			property="docComent"/>
 	</resultMap>   
+<!-- 기안하기 - 결재라인 - 조직도 - 사원검색  -->
+  <select id="getStaff" resultType="StaffInfo">
+	SELECT 
+		staff_num  	as staffNum
+		,staff_name as staffName 
+		,jojic_code as jojicCode
+	FROM 
+		is_staff
+  
+  </select>
 
+ <!-- 기안하기 - 결재라인- 조직도 검색  -->
+ <select id="getJojic" resultType="Jojic">
+ 	SELECT 
+ 		jojic_name		as jojicName
+		,jojic_code		as jojicCode
+	FROM 
+		is_jojic; 
+ </select>
  
  <!-- 기안하기에서 문서유형검색  -->
  <select id="getDocCate" resultType="UpmuDocument">

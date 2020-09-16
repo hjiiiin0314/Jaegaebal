@@ -12,8 +12,12 @@
 	<th:block layout:fragment="customCss">
 		<!-- include summernote css/js -->
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">
 		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+		<!-- upmu.css  -->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">
+		<!--tree  -->
+		<script type="text/javascript" th:src="@{/tree/themes/default/style.css}"></script>
+		<script type="text/javascript" th:src="@{/tree/themes/default-dark/style.css}"></script>
 	</th:block>
 	
 	
@@ -28,7 +32,7 @@
 				<!-- form 시작  -->
 				<form  action="/myAppList" method="post" >
                    <div class="position-relative form-group ">
-                   	<button id="appLine"  type="button" class="mb-2 mr-2 btn btn-secondary" name="appLine" data-toggle="modal" data-target="#appModal" >
+                   	<button id="appLine"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
                    		<i class="pe-7s-users"></i>  결재라인선택하기
                    	</button>
                    </div>
@@ -75,9 +79,20 @@
 	     					<div class="card-body">
 	       						<h4>조직도</h4>
 	       						<div class="form-group">
-		       						<select id="jojic" multiple="multiple">									
-										<option th:each="j : ${jojic}" th:value="${j.jojicCode}" th:text="${j.jojicName}" ></option>
-									</select>
+	       							<div class="jstree">
+		       							<div id="jojic">		       								
+										  <ul>
+										  	<th:block th:each="j : ${jojic}" >
+											    <li th:value="${j.jojicCode}" >[[${j.jojicName}]]
+											      <ul>											      	
+													<li th:each="s : ${staff}" th:if="${j.jojicCode} == ${s.jojicCode}"  th:value="${s.jojicCode}" >[[${s.staffName}]]</li>																		       										      	
+											      </ul>											     
+											    </li>
+										  	</th:block>
+										  
+										  </ul>
+										</div>		       						
+	       							</div>
 	       						</div>
 	       					</div>
        					</div>
@@ -104,6 +119,10 @@
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+
+
+
+
 	</th:block>
 
 	<!-- 사용자 지정 script -->
@@ -112,10 +131,15 @@
 		<!-- include summernote-ko-KR 한글처리-->
 		<script src="lang/summernote-ko-KR.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>	
+		<!-- include tree  -->
+		<script type="text/javascript" th:src="@{/tree/jstree.js}"></script>
+
 		
 		<!-- summernote 관련-->
 			<script type="text/javascript">
 				$(document).ready(function() {
+					
+					
 					//여기 아래 부분
 					$('#summernote').summernote({
 						  height: 300,                 // 에디터 높이
@@ -127,16 +151,17 @@
 				          
 					});
 				});
+				$('#jojic').jstree();
 			</script>
 			<!--  결재라인 모달  관련 -->
 			<script>
 				$(function(){
 					$('#rightMove').click(function(){	
-						var getJojic = $('#jojic').find('option:selected');
+						var getJojic = $('#jojic').find('');
 						console.log(getJojic);
 						$('#appStaff').append(getjojic);	
 					});
-		
+	
 					$('#leftMove').click(function(){	
 						var getAppStaff = $('#appStaff option:selected');	
 						console.log(getAppStaff);	
@@ -145,8 +170,8 @@
 					});	
 				});
 				
-			</script>
-		
+			</script>	
+	
 	</th:block>
 
 </html>

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.UpmuDocument;
 import kr.or.jaegaebal.service.UpmuService;
 
@@ -39,13 +41,20 @@ public class UpmuController {
 	
 
 	//기안하기화면연결
-		@GetMapping("/appWrite")
-		public String appWrite(Model model) {
-			List<UpmuDocument> docCate = upmuService.getDocCate();	
-			model.addAttribute("docCate", docCate);
-			
-			return "approval/appWrite";
-		}
+			@GetMapping("/appWrite")
+			public String appWrite(Model model) {
+				List<UpmuDocument> docCate = upmuService.getDocCate();	
+				model.addAttribute("docCate", docCate);
+				
+				List<Jojic> jojic = upmuService.getJojic();
+				model.addAttribute("jojic", jojic);
+				
+				List<StaffInfo> staff = upmuService.getStaff();
+				model.addAttribute("staff", staff);
+				
+				return "approval/appWrite";
+			}
+
 
 	//출퇴근화면이동
 	@GetMapping("/checkInOut")
