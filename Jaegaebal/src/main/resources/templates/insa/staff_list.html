@@ -6,6 +6,25 @@
    <th:block layout:fragment="customTitle">
       <title th:text="${title}"></title> 
    </th:block>
+   <th:block layout:fragment="customJs">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>      
+      <script type="text/javascript">
+         $(function(){
+           $('#btn1').click(function(){
+				$('#mocroc').html($(this).html());
+				var btn1P = $(this).parent();
+				btn1P.attr('class','dropdown-menu');        
+            });
+         });
+      </script>
+
+
+
+
+
+
+	</th:block>
    
    <th:block layout:fragment="customContent">
    <link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
@@ -32,14 +51,37 @@
 				<div style="width:100%;">
 					<h5 class="card-title col-md-12 m-t-sm">직원 검색</h5>
 				</div>
-				<div class="input-group m-sm m-t-none m-l-none">
+				<div class="input-group col-md-6 m-sm m-t-none m-l-none">
                      <div class="input-group-prepend">
-                         <button class="btn btn-outline-secondary">목록</button>
+                         <button class="btn btn-outline-secondary" id="mocroc" >목록</button>
                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
                        	 	<span class="sr-only"></span>
                        	 </button>
                          <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-                             <button type="button" tabindex="0" class="dropdown-item" value="">사원번호</button>
+                             <button type="button" tabindex="0" class="dropdown-item" id="BtnStaffnum">사원번호</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" id="BtnStaffnum">소속</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" id="">이름</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" id="">이메일</button>
+                             <div tabindex="-1" class="dropdown-divider"></div>
+                             <button type="button" tabindex="0" class="dropdown-item" id="">휴대폰</button>
+                         </div>
+                     </div>
+                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
+                     <div class="input-group-append">
+                         <button class="btn btn-secondary" id="staffSearchBtn">검색</button>
+                     </div>
+				</div>              
+				<div class="input-group col-md-6 m-sm m-t-none m-l-none">
+                     <div class="input-group-prepend">
+                         <button class="btn btn-outline-secondary" id="mocroc" >목록</button>
+                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
+                       	 	<span class="sr-only"></span>
+                       	 </button>
+                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+                             <button type="button" tabindex="0" class="dropdown-item" id="btn1">사원번호</button>
                              <div tabindex="-1" class="dropdown-divider"></div>
                              <button type="button" tabindex="0" class="dropdown-item" value="">소속</button>
                              <div tabindex="-1" class="dropdown-divider"></div>
@@ -112,13 +154,11 @@
 								 <span class="">&lt;</span>
 							</a>
 						</li>
-						<li class="page-item">
-							<th:block th:each="num : ${#numbers.sequence(startPageNum, lastPageNum)}">
-								<span>
-									<a th:href="@{/insa/staffInfoList(currentPage=${num})}" class="page-link">[[${num}]]</a>
-								</span>
-							</th:block>
-						</li>	
+						<th:block th:each="num : ${#numbers.sequence(startPageNum, lastPageNum)}">
+							<span>
+								<a th:href="@{/insa/staffInfoList(currentPage=${num})}" class="page-link">[[${num}]]</a>
+							</span>
+						</th:block>
 						<li class="page-item">
 							<a th:if="${currentPage < lastPage}" th:href="@{/insa/staffInfoList(currentPage=${currentPage+1})}" class="page-link">
 								<span class="">&gt;</span>
