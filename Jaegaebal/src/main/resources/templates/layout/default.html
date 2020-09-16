@@ -6,20 +6,22 @@
 	<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
 		<div th:replace="fragments/header :: headerFragment"></div>
 		<div th:replace="fragments/setting :: seittingFragment"></div>
-			<div class="app-main">
-				<div th:replace="fragments/leftmenu :: leftcolumnFragment"></div>
-					<!-- 사용자 지정 content start -->
-					<th:block layout:fragment="customContent"></th:block>
-					<!-- 사용자 지정 content end -->
-		<!-- 사용자 지정 js스크립트 파일  start-->
-			<th:block layout:fragment="customJsScript"></th:block>
-		<!-- 사용자 지정 js스크립트 파일  end-->
-
+		<div class="app-main">
+			<div th:replace="fragments/leftmenu :: leftcolumnFragment"></div>
+			<div class="app-main__outer">
+				<!-- 사용자 지정 content start -->
+				<th:block layout:fragment="customContent"></th:block>
+				<!-- 사용자 지정 content end -->
+				<div th:replace="fragments/footer :: footerFragment"></div>
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript" th:src="@{/assets/scripts/jquery-3.5.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/scripts/main.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/scripts/sub.js}"></script>
+	<!-- 사용자 지정 js스크립트 파일  start-->
+		<th:block layout:fragment="customJsScript"></th:block>
+	<!-- 사용자 지정 js스크립트 파일  end-->
 
 </body>
 </html>

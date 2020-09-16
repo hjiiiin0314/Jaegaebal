@@ -5,12 +5,14 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title> 
 	</th:block>
-	<th:block layout:fragment="customContent">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 		<style>
 			html, body{height:100%;}
 			body{displ}
-		</style>
+		</style>	
+	</th:block>
+	<th:block layout:fragment="customContent">
 		<div class="c-app flex-row align-items-center login-flex">
 		<div class="app-main">
 		<div class="app-main__outer">
