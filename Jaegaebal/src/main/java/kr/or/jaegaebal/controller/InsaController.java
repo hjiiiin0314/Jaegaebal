@@ -58,6 +58,25 @@ public class InsaController {
 		return "insa/staff_list";
 	}	
 	
+	//관리자 직원일때 직원 목록
+	@GetMapping("/insa/adminStaffInfoList") 
+	public String adminStaffInfoList(Model model
+			,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		
+		/*
+		 * Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage);
+		 * model.addAttribute("title", "직원 목록"); model.addAttribute("lastPage",
+		 * resultMap.get("lastPage")); model.addAttribute("staffInfoList",
+		 * resultMap.get("getStaffInfoList")); model.addAttribute("startPageNum",
+		 * resultMap.get("startPageNum")); model.addAttribute("lastPageNum",
+		 * resultMap.get("lastPageNum")); model.addAttribute("currentPage",
+		 * currentPage);
+		 * 
+		 * log.info("staffInfoList---> {}", resultMap.get("getStaffInfoList"));
+		 */
+		return "insa/admin_staff_list";
+	}	
+	
 	//조직도
 	@GetMapping("/insa/jojicdo")
 	public String jojicdo(Model model) {
