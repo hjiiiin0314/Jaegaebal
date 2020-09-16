@@ -35,4 +35,9 @@ public class ChaeYoungService {
 		
 		return chaeYoungMapper.cyBoardList();
 	};
+	//등록된 구인공고 불러오기(메서드 오버로딩)
+	public ChaeYoungBoard cyBoardList(String jobNumber) {
+		
+		return chaeYoungMapper.cyBoardList(jobNumber);
+	};
 }

@@ -63,11 +63,44 @@
                     </div>
                 </div>
 			</div>
+			<!-- 조회한 게시글 화면  -->
+			<th:block th:if="${cyboard != null}">
 				<form action="/addCYPost" method="post">
 		  			<div class="col-md-12">
 		              <div class="main-card mb-12 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
-		                      <div class="position-relative form-group"><label for="exampleSelect" class="">모집분야</label><select name="jobFieldCode" id="jobFieldCode" class="form-control">
+		                      <div class="position-relative form-group"><label>채용부서</label><select name="jobFieldCode" id="jobFieldCode" class="form-control">
+                    			<option th:each="f : ${fieldCode}" th:value="${f.fieldCode}" th:text="${f.fieldName}" th:selected="${cyboard.jobFieldCode eq f.fieldCode}"></option>
+		                      </select></div>
+		                      <div class="position-relative form-group index-front">
+		                      <div class="position-relative form-group left-form"><label>모집분야명</label><input name="jobFieldName" id="jobFieldName" placeholder="모집분야명" type="text" class="form-control" th:value="${cyboard.jobFieldName}"></div>		                      
+		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
+		                          <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
+		                          <option value="경력" th:selected="${cyboard.jobCareer eq '경력'}">경력</option>
+		                          <option value="신입/경력" th:selected="${cyboard.jobCareer eq '신입/경력'}">신입/경력</option>
+		                      </select></div>
+		                      <div class="position-relative form-group right-form"><label>지원마감일</label><input name="jobDeadLine" id="jobDeadLine" type="date" class="form-control" th:value="${cyboard.jobDeadLine}"></div>
+		                      </div>
+		                      <div class="position-relative form-group"><label>제목</label><input name="jobTitle" id="jobTitle" placeholder="제목" type="text" class="form-control"  th:value="${cyboard.jobTitle}"></div>
+		                      <textarea id="summernote" name="jobContent" th:text=${cyboard.jobContent}></textarea>
+		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
+		                      </div>             
+		                     	<div class="d-block text-center">
+		                            <button class="mb-2 mr-2 btn btn-info" onclick="location.href='/addCYPostForm'">수정하기</button>
+		                            <button class="mb-2 mr-2 btn btn-danger" type="button" id="cyPostDelete"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기</button>
+	       						</div>             
+		                  </div>
+		              </div>
+		          </div>
+				</form>
+				</th:block>
+				<!-- 초기 게시글 등록화면 -->
+			<th:block th:if="${cyboard == null}">
+				<form action="/addCYPost" method="post">
+		  			<div class="col-md-12">
+		              <div class="main-card mb-12 card">
+		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
+		                      <div class="position-relative form-group"><label>모집분야</label><select name="jobFieldCode" id="jobFieldCode" class="form-control">
                     			<option th:each="f : ${fieldCode}" th:value="${f.fieldCode}" th:text="${f.fieldName}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
@@ -83,11 +116,13 @@
 		                      <textarea id="summernote" name="jobContent"></textarea>
 		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
 		                      </div>             
-		                      <div align="center"><button class="mt-1 btn btn-primary" type="submit">등록하기</button></div>               
+		                      <div align="center"><button class="mt-1 btn btn-primary" type="submit" id="addcyPostBtn">등록하기</button></div>               
 		                  </div>
 		              </div>
 		          </div>
 				</form>
+				</th:block>
+				
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 			<div th:replace="fragments/footer :: footerFragment"></div>
 		</div>
@@ -100,25 +135,22 @@
 		<!-- include summernote css/js -->
 		
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-		
-		<!-- include summernote-ko-KR 한글처리-->
-		<!-- <script src="lang/summernote-ko-KR.js"></script> -->
 		<script type="text/javascript">
-
-			$(document).ready(function() {
-				//여기 아래 부분
-				$('#summernote').summernote({
-					  height: 300,                 // 에디터 높이
-					  minHeight: null,             // 최소 높이
-					  maxHeight: null,             // 최대 높이
-					  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-					  lang: "ko-KR",					// 한글 설정
-					  placeholder: '내용을 입력하세요'	//placeholder 설정
-			          
+			$(function() {
+		
+				$(document).ready(function() {
+					//여기 아래 부분
+					$('#summernote').summernote({
+						  height: 300,                 // 에디터 높이
+						  minHeight: null,             // 최소 높이
+						  maxHeight: null,             // 최대 높이
+						  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+						  lang: "ko-KR",					// 한글 설정
+						  placeholder: '내용을 입력하세요'	//placeholder 설정
+				          
+					});
 				});
 			});
-
-
 		</script>
 	
 	</th:block>

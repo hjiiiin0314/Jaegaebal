@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.ChaeYoungCode;
@@ -33,13 +34,19 @@ public class ChaeYoungController {
 	}
 	
 	@GetMapping("/addCYPostForm")
-	public String addCYPostForm(Model model) {
+	public String addCYPostForm(Model model,@RequestParam(value="jobNumber",required = false) String jobNumber) {
 		//구인공고 글쓰기 화면
+		System.out.println(jobNumber + "<--jobNumber");
+		//지원분야코드를 가져온다.
 		List<ChaeYoungCode> fieldCode = chaeYoungService.getFieldeCode();
+		if(jobNumber != null && !"".equals(jobNumber)) {
+			ChaeYoungBoard chaeYoungboard = chaeYoungService.cyBoardList(jobNumber);
+			model.addAttribute("cyboard", chaeYoungboard);
+		}
 		
 		model.addAttribute("fieldCode", fieldCode);
 		
-		return "chaeyoung/addCYPostForm";
+		return "chaeyoung/add_cy_post_form";
 	}
 	@PostMapping("addCYPost")
 	public String addCYPost(ChaeYoungBoard ChaeYoungBoard) {
@@ -47,4 +54,5 @@ public class ChaeYoungController {
 		chaeYoungService.addCYBoardPost(ChaeYoungBoard);
 		return "redirect:/cyboardList";
 	}
+
 }

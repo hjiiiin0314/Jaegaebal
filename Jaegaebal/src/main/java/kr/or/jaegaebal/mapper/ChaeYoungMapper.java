@@ -23,4 +23,7 @@ public interface ChaeYoungMapper {
 	
 	//게시글 리스트
 	public List<ChaeYoungBoard> cyBoardList();
+	
+	//작성된 게시글 화면에 뿌려주기(메서드오버로딩)
+	public ChaeYoungBoard cyBoardList(String jobNumber);
 }
