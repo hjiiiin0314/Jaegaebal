@@ -57,79 +57,83 @@
 				</div>              
 			</div>
 		</form>
-		<div class="row col-md-12" style="background-color : mistyrose;">
-			 <div class="">
-				<div class="">
-     				<table class="mb-0 table table-borderless">
-			            <thead>
-				            <tr>
-				                <th>#</th>
-				                <th>사원번호</th>
-				                <th>소속</th>
-				                <th>직급</th>
-				                <th>직책</th>
-				                <th>이름</th>
-				                <th>재직상태</th>
-				                <th>이메일</th>
-				                <th>휴대폰</th>
-				            </tr>
-			            </thead>
-			            <tbody>
- 					            <tr th:each="l, index : ${staffInfoList}">
- 					               	<td th:text="${index.count}"></td>
-					                <td><a th:text="${l.staffNum}" ></a></td>
-					                <td><a th:text="${l.jojicName}" ></a></td>
-					                <td><a th:text="${l.levelName}" ></a></td>
-					                <td><a th:text="${l.positionName}" ></a></td>
-					                <td><a th:text="${l.staffName}" ></a></td>
-					                <td><a th:text="${l.staffStatus}" ></a></td>
-					                <td><a th:text="${l.staffEmail}" ></a></td>
-					                <td><a th:text="${l.staffPhone}" ></a></td>
-
-					              <!--   th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}" -->
-					            </tr>
-			            </tbody>
-		      		 </table>
-				</div>
-			</div>
+		<div class="row col-md-12" style="background-color : white;">
+  			<table class="mb-0 table table-bordered m-b-sm">
+	            <thead>
+		            <tr class="tr-1">
+		                <th>#</th>
+		                <th>사원번호</th>
+		                <th>소속</th>
+		                <th>직급</th>
+		                <th>직책</th>
+		                <th>이름</th>
+		                <th>재직상태</th>
+		                <th>이메일</th>
+		                <th>연락처</th>
+		            </tr>
+	            </thead>
+	            <tbody>
+				            <tr th:each="l, index : ${staffInfoList}" class="tr-2">
+				               	<td th:text="${index.count}"></td>
+				                <td><a th:text="${l.staffNum}" ></a></td>
+				                <td><a th:text="${l.jojicName}" ></a></td>
+				                <td><a th:text="${l.levelName}" ></a></td>
+				                <td><a th:text="${l.positionName}" ></a></td>
+				                <td><a th:text="${l.staffName}" ></a></td>
+				                <th:block>
+					                <td th:if="${l.jaejicStatusName eq '재직중'}"><div class="mb-2 mr-2 badge badge-success">재직중</div></td>
+					                <td th:if="${l.jaejicStatusName eq '개발'}"><div class="mb-2 mr-2 badge badge-danger">개발</div></td>
+					                <td th:if="${l.jaejicStatusName eq '휴가중'}"><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>
+					                <td th:if="${l.jaejicStatusName eq '퇴사'}"><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>
+					                <td th:if="${l.jaejicStatusName eq '기타'}"><div class="mb-2 mr-2 badge badge-focus">기타</div></td>
+					                <td th:if="${l.jaejicStatusName eq '출장중'}"><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>
+				                </th:block>
+				                <td><a th:text="${l.staffEmail}" ></a></td>
+				                <td><a th:text="${l.staffPhone}" ></a></td>
+	
+			              <!--   th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}" -->
+			            </tr>
+	            </tbody>
+     		</table>
 		</div>	
 		
 		<div class="row">
-			<div class="col-md-4">
-				<nav class="">
-					<ul class="">
-						<!-- <li>							
-							<a th:href="@{/insa/staffList}" class="page-link">
+			<div class="col-md-4"></div>
+			<div class="col-md-4 m-t-xs">
+				<nav class="" aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item">							
+							<a th:href="@{/insa/staffInfoList}" class="page-link">
 								<span class="">&lt;&lt;</span>
 							</a>
 						</li>
-						<li>
-							<a th:if="${currentPage > 1}" th:href="@{/insa/staffList(currentPage=${currentPage-1})}" class="page-link">
+						<li class="page-item">
+							<a th:if="${currentPage > 1}" th:href="@{/insa/staffInfoList(currentPage=${currentPage-1})}" class="page-link">
 								 <span class="">&lt;</span>
 							</a>
 						</li>
-						<th:block th:each="num : ${#numbers.sequence(startPageNum, lastPageNum)}">
-							<a th:href="@{/insa/staffList(currentPage=${num})}" class="page-link">[[${num}]]</a>
-						</th:block>
-						<li>
-							<a th:if="${currentPage < lastPage}" th:href="@{/insa/staffList(currentPage=${currentPage+1})}" class="page-link">
+						<li class="page-item">
+							<th:block th:each="num : ${#numbers.sequence(startPageNum, lastPageNum)}">
+								<span>
+									<a th:href="@{/insa/staffInfoList(currentPage=${num})}" class="page-link">[[${num}]]</a>
+								</span>
+							</th:block>
+						</li>	
+						<li class="page-item">
+							<a th:if="${currentPage < lastPage}" th:href="@{/insa/staffInfoList(currentPage=${currentPage+1})}" class="page-link">
 								<span class="">&gt;</span>
 							</a>
 						</li>	
-						<li>
-							<a th:href="@{/insa/staffList(currentPage=${lastPage})}" class="page-link">
+						<li class="page-item">
+							<a th:href="@{/insa/staffInfoList(currentPage=${lastPage})}" class="page-link">
 								<span class="">&gt;&gt;</span>
 							</a>	
-						</li>		 -->
+						</li>		
 					</ul>
 				</nav>
 			</div>
-		</div>
-		
-		
-		
-		
-		
+			<div class="col-md-4"></div>
+		</div>	
 	</div>
 </div>
 
