@@ -43,7 +43,7 @@ public class UpmuController {
 		public String appWrite(Model model) {
 			List<UpmuDocument> docCate = upmuService.getDocCate();	
 			model.addAttribute("docCate", docCate);
-			System.out.println(docCate + "<--docCate");
+			
 			return "approval/appWrite";
 		}
 
