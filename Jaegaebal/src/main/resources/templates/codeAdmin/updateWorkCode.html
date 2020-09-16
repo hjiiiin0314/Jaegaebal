@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+	 <form action="/updateWorkCode" method="post">
+			<div class="col-md-20; m-5">
+				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
+					<div class="col-md-20; m-5">						  
+							    <label for="workCode">근무형태코드</label>
+							    <input type="text" class="form-control input-lg" name="workCode" value="${codeAdmin.workCode}">
+							 
+						 <br>	
+							  
+							  	 <label for="workName">근무명</label>
+							   	 <input type="text" class="form-control input-lg" name="workName" value="${codeAdmin.workName}">
+							  
+					     <br>	
+								 <label for="workUseOrNot">사용유무</label>
+								 <select name="workUseOrNot" class="form-control">
+									  <option value="Yes" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
+									  <option value="No" th:selected ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
+								</select>
+						<br>  
+								 <label for="workStaffName">등록자</label>
+							   	 <input type="text" class="form-control input-lg" name="workStaffName" value="${codeAdmin.workStaffName}">
+					   <br>
+								  <div class="widget-content-right header-user-info ml-10" align="center">
+			                            	
+			                          <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm" value="수정하기">
+			                                    
+			                      </div>
+			                   <br>
+					 </div>
+				</div>
+			</div>
+		</form>
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	
+	
+	</th:block>
+    
+</html>

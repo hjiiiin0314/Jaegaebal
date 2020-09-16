@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+ul{
+	margin:0;
+}
+
+.code-btn{
+	margin-right:15px;
+	text-align:right;
+}
+
+.table-padding{
+	padding:15px;
+}
