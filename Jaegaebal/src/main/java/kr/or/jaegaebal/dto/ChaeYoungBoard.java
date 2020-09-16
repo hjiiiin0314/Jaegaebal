@@ -3,8 +3,8 @@ package kr.or.jaegaebal.dto;
 public class ChaeYoungBoard {
 
 	private String jobNumber; //구인공고번호
-	private String jobFieldCode; //지원분야코드
-	private String jobFieldName; //지원분야명
+	private String jobJojicCode; //지원부서코드
+	private String jobJojicName; //지원부서명
 	private String jobTitle; //구인공고제목
 	private String jobContent; //구인공고내용
 	private String jobCareer; //경력사항 
@@ -24,17 +24,17 @@ public class ChaeYoungBoard {
 	public void setJobNumber(String jobNumber) {
 		this.jobNumber = jobNumber;
 	}
-	public String getJobFieldCode() {
-		return jobFieldCode;
+	public String getJobJojicCode() {
+		return jobJojicCode;
 	}
-	public void setJobFieldCode(String jobFieldCode) {
-		this.jobFieldCode = jobFieldCode;
+	public void setJobJojicCode(String jobJojicCode) {
+		this.jobJojicCode = jobJojicCode;
 	}
-	public String getJobFieldName() {
-		return jobFieldName;
+	public String getJobJojicName() {
+		return jobJojicName;
 	}
-	public void setJobFieldName(String jobFieldName) {
-		this.jobFieldName = jobFieldName;
+	public void setJobJojicName(String jobJojicName) {
+		this.jobJojicName = jobJojicName;
 	}
 	public String getJobTitle() {
 		return jobTitle;
@@ -68,8 +68,8 @@ public class ChaeYoungBoard {
 	}
 	@Override
 	public String toString() {
-		return "ChaeYoungBoard [jobNumber=" + jobNumber + ", jobFieldCode=" + jobFieldCode + ", jobFieldName="
-				+ jobFieldName + ", jobTitle=" + jobTitle + ", jobContent=" + jobContent + ", jobRegDate=" + jobRegDate
+		return "ChaeYoungBoard [jobNumber=" + jobNumber + ", jobJojicCode=" + jobJojicCode + ", jobJojicName="
+				+ jobJojicName + ", jobTitle=" + jobTitle + ", jobContent=" + jobContent + ", jobRegDate=" + jobRegDate
 				+ ", jobDeadLine=" + jobDeadLine + ", jobRegStaff=" + jobRegStaff + "]";
 	}
 	

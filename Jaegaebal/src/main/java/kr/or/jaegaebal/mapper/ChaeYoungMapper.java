@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
-import kr.or.jaegaebal.dto.ChaeYoungCode;
+import kr.or.jaegaebal.dto.Jojic;
 
 /**
  * 담당자 : 김형진
@@ -15,8 +15,8 @@ import kr.or.jaegaebal.dto.ChaeYoungCode;
 @Mapper
 public interface ChaeYoungMapper {
 
-	//지원분야코드 가져오기
-	public List<ChaeYoungCode> getFieldeCode();
+	//지원부서코드 가져오기
+	public List<Jojic> getJojicCode();
 	
 	//게시글 등록
 	public int addCYBoardPost(ChaeYoungBoard ChaeYoungBoard);

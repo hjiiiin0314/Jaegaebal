@@ -10,18 +10,13 @@
    z-index:1;
 }
 
-.left-form{
-   width:31%;
-   float:left;
-   margin-right:4%;
-}
 
 .center-form{
-   width:33%;
+   width:49%;
    float:left;
 }
 .right-form{
-   width:30%;
+   width:49%;
    float:right;
 }
 	 	</style>
@@ -68,11 +63,11 @@
 		  			<div class="col-md-12">
 		              <div class="main-card mb-12 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
-		                      <div class="position-relative form-group"><label>채용부서</label><select name="jobFieldCode" id="jobFieldCode" class="form-control">
-                    			<option th:each="f : ${fieldCode}" th:value="${f.fieldCode}" th:text="${f.fieldName}" th:selected="${cyboard.jobFieldCode eq f.fieldCode}"></option>
+		                      <div class="position-relative form-group"><label>채용부서</label><select name="jojicCode" id="jobFieldCode" class="form-control">
+                    			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}" th:selected="${cyboard.jobJojicCode eq j.jojicCode}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
-		                      <div class="position-relative form-group left-form"><label>모집분야명</label><input name="jobFieldName" id="jobFieldName" placeholder="모집분야명" type="text" class="form-control" th:value="${cyboard.jobFieldName}"></div>		                      
+		                     	<input type="hidden" name="jobJojicName" value="${j.jojicName}">		                      
 		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
 		                          <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
 		                          <option value="경력" th:selected="${cyboard.jobCareer eq '경력'}">경력</option>
@@ -99,11 +94,11 @@
 		  			<div class="col-md-12">
 		              <div class="main-card mb-12 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
-		                      <div class="position-relative form-group"><label>모집분야</label><select name="jobFieldCode" id="jobFieldCode" class="form-control">
-                    			<option th:each="f : ${fieldCode}" th:value="${f.fieldCode}" th:text="${f.fieldName}"></option>
+		                      <div class="position-relative form-group"><label>채용부서</label><select name="jobJojicCode" id="jojicCode" class="form-control">
+                    			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
-		                      <div class="position-relative form-group left-form"><label>모집분야명</label><input name="jobFieldName" id="jobFieldName" placeholder="모집분야명" type="text" class="form-control"></div>		                      
+								<input type="hidden" name="jobJojicName" value="${j.jojicName}">	                      
 		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
 		                          <option value="신입">신입</option>
 		                          <option value="경력">경력</option>

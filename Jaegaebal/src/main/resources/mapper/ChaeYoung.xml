@@ -5,8 +5,8 @@
 <mapper namespace="kr.or.jaegaebal.mapper.ChaeYoungMapper">
 	<resultMap type="ChaeYoungBoard" id="ChaeYoungBoardResultMap">
 		<result column="job_number" 		property="jobNumber"/>
-		<result column="job_field_code" 	property="jobFieldCode"/>
-		<result column="job_field_name" 	property="jobFieldName"/>
+		<result column="job_jojic_code" 	property="jobJojicCode"/>
+		<result column="job_jojic_name" 	property="jobJojicName"/>
 		<result column="job_title" 			property="jobTitle"/>
 		<result column="job_content" 		property="jobContent"/>
 		<result column="job_career" 		property="jobCareer"/>
@@ -19,8 +19,8 @@
 	<insert id="addCYBoardPost" parameterType="String">
 		INSERT INTO cy_job_board(
 			job_number
-			,job_field_code
-			,job_field_name
+			,job_jojic_code
+			,job_jojic_name
 			,job_title
 			,job_content
 			,job_career
@@ -30,8 +30,8 @@
 			)
 			VALUES (
 			'cy001'
-			,#{jobFieldCode}
-			,#{jobFieldName}
+			,#{jobJojicCode}
+			,#{jobJojicName}
 			,#{jobTitle}
 			,#{jobContent}
 			,#{jobCareer}
@@ -42,18 +42,18 @@
 	</insert>
 	<!-- 구인공고 게시글 가져오기 -->
 	<select id="cyBoardList" parameterType="String" resultMap="ChaeYoungBoardResultMap">
-		SELECT job_number, job_field_code, job_field_name, job_title, job_content, job_career, job_deadline, job_reg_date, job_reg_staff
+		SELECT job_number, job_jojic_code, job_jojic_name, job_title, job_content, job_career, job_deadline, job_reg_date, job_reg_staff
 		FROM cy_job_board
 		<!-- 구인공고리스트에서 공고 클릭시 -->
 		<if test="jobNumber != null and jobNumber neq ''.toString()">
 		WHERE job_number=#{jobNumber}
 		</if>
 	</select>
-	<!-- 지원분야코드 가져오기 -->
-	<select id="getFieldeCode" resultType="ChaeYoungCode">
+	<!-- 부서 가져오기 -->
+	<select id="getJojicCode" resultType="Jojic">
 		SELECT 
-			field_code 			as fieldCode
-			,field_name 		as fieldName
-		FROM cy_field_code
+			jojic_code as jojicCode
+			,jojic_name as jojicName
+		FROM is_jojic
 	</select>
 </mapper>
