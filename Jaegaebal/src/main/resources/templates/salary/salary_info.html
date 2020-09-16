@@ -9,7 +9,27 @@
 	
 	<th:block layout:fragment="customContent">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/salary.css}">
-		<div class="app-main__outer">
+	<script>
+		$(function(){
+			$('.table').children('tbody').children('tr').click(function(){
+				var dataEmp = $(this).children('td').eq(0).text();
+				var request = $.ajax({
+	  				url : "/salary/salary_info",
+	  				method : "POST",
+	  				data : { dataEmp : dataEmp },
+	  				dataType : "json"
+	  			});
+				
+				request.done(function(data){
+	  				
+	  			});
+	  			
+	  			request.fail(function( jqXHR, textStatus ) {
+	  			  alert( "Request failed: " + textStatus );
+	  			});
+			});
+		});
+	</script>
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 <div class="app-main__inner">
 	<div class="app-page-title">
@@ -31,24 +51,28 @@
 			<div class="main-card mb-3 card">
 				<div class="card-body emp-table">
 					<h5 class="card-title">기본정보</h5>
-					<table class="mb-0 table table-hover">
+					<div class="scroll-div" style="height:768px;">
+					<div class="scrollbar-container">
+					<table class="mb-0 table table-hover tbline-del">
 						<thead>
 							<tr>
-								<th>사원번호</th>
-								<th>성명</th>
-								<th>직급</th>
-								<th>부서</th>
+								<th class="fixed_top">사원번호</th>
+								<th class="fixed_top">성명</th>
+								<th class="fixed_top">직급</th>
+								<th class="fixed_top">부서</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>111111</td>
-								<td>이요셉</td>
-								<td>부사장</td>
-								<td>지휘부</td>
+							<tr th:each="IL : ${staffInfoList}">
+								<td th:text="${IL.staffNum}"></td>
+								<td th:text="${IL.staffName}"></td>
+								<td th:text="${IL.levelName}"></td>
+								<td th:text="${IL.jojicName}"></td>
 							</tr>
 						</tbody>
 					</table>
+					</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -147,15 +171,7 @@
 		</div>
 	</div>
 </div>
-
-
-
-
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
-			<div th:replace="fragments/footer :: footerFragment"></div>
-		</div>
-		
-	
 	</th:block>
     
 </html>

@@ -9,9 +9,27 @@
 	background:#f9f9f9;
 }
 
+/*테이블 스크롤 시 thead고정*/
+.app-main .table .fixed_top{
+	position: sticky;
+	top: 0;
+	background:#ffffff;
+	border-top:none;
+}
+
 @media(min-width:992px){
 	.emp-table{
 		height:836px;
+	}
+	/*스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
+	.scroll-div{
+		height:768px;
+		overflow-x:hidden;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.scroll-div::-webkit-scrollbar {
+	    display: none; /* Chrome, Safari, Opera*/
 	}
 	.table tr{
 		height:59px;

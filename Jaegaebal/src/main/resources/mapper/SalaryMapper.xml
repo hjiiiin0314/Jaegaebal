@@ -81,7 +81,25 @@
 		AND
 	b.staff_num = d.staff_num
 		WHERE
-	data_num = #{dataNum}
+	data_emp = #{dataEmp}
 	</select>	
 	
+	<!-- 기본급여정보 사원리스트 조회 -->
+	<select id="getSalaryStaffList" resultType="Map">
+		SELECT
+			staff_num	AS	staffNum,
+			staff_name	AS	staffName,
+			level_name	AS	levelName,
+			jojic_name	AS	jojicName
+		FROM
+			is_staff a
+		INNER join
+			is_level b
+		INNER join
+			is_jojic c
+		ON
+			a.staff_level_code=b.level_code
+		AND
+			a.jojic_code=c.jojic_code
+	</select>
 </mapper>	

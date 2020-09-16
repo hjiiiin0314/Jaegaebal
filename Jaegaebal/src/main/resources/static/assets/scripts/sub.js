@@ -4,8 +4,6 @@
 
 $(function(){
 	var pathName = $(location).attr('pathname');
-	console.log(pathName);
-	
 	$('.app-sidebar').find('a').each(function(){
 		if($(this).attr('href') == pathName){
 			$(this).addClass('mm-active');
@@ -16,7 +14,6 @@ $(function(){
 	});
 	
 	$('.second_menu_li').children('ul').each(function(){
-		console.log($(this).children('li').length);
 		if($(this).children('li').length == 0){
 			$(this).prev('a').children('i').eq(1).remove();
 			$(this).remove();
@@ -24,7 +21,6 @@ $(function(){
 	});
 	
 	$('.third_menu_li').children('ul').each(function(){
-		console.log($(this).children('li').length);
 		if($(this).children('li').length == 0){
 			$(this).prev('a').children('i').eq(1).remove();
 			$(this).remove();

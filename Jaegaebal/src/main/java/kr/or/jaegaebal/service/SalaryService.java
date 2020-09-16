@@ -1,9 +1,13 @@
 package kr.or.jaegaebal.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.jaegaebal.dto.SalaryInfo;
+import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.SalaryMapper;
 
 /**
@@ -19,5 +23,10 @@ public class SalaryService {
 	public SalaryInfo salaryInfo(String dataNum) {
 		SalaryInfo salaryInfo = salaryMapper.salaryInfo(dataNum);
 		return salaryInfo;
+	}
+	
+	public List<Map<StaffInfo,Object>> getSalaryStaffList(){
+		List<Map<StaffInfo,Object>> staffInfoList = salaryMapper.getSalaryStaffList();
+		return staffInfoList;
 	}
 }

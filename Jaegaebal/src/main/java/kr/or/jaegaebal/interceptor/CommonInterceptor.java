@@ -34,7 +34,6 @@ public class CommonInterceptor implements HandlerInterceptor{
 			session.setAttribute("THIRDMENU", menuList);
 			menuList = menuService.menuFourthList();
 			session.setAttribute("FOURTHMENU", menuList);
-			System.out.println(menuList);
 		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
