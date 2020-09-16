@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
-import kr.or.jaegaebal.dto.ChaeYoungCode;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.service.ChaeYoungService;
 
@@ -54,6 +53,12 @@ public class ChaeYoungController {
 		//구인공고 등록
 		chaeYoungService.addCYBoardPost(ChaeYoungBoard);
 		return "redirect:/cyboardList";
+	}
+	
+	@GetMapping("applicantForm")
+	public String applicantLogin() {
+		
+		return "chaeyoung/applicantLogin";
 	}
 
 }
