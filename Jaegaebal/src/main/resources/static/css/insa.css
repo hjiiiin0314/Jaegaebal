@@ -121,5 +121,11 @@
 
 .staff-sk .input-group-text{
 	width:80px;
-	background-color : mistyrose;
+	
+}
+.tr-1 {
+	background-color : #f1f1f1;
+}
+.tr-2 {
+	background-color : #f8f8f8;
 }

@@ -34,18 +34,10 @@ public class InsaController {
 	public String companyInfo(Model model) {
 		Company companyInfo = insaService.getCompanyInfo();
 		System.out.printf("companyInfo----->", companyInfo.toString());
-		model.addAttribute("title", 		"회사 정보");
+		model.addAttribute("title", "회사 정보");
 		model.addAttribute("companyInfo", 	companyInfo);
 		log.info("companyInfo----------------> {}", companyInfo);
 		return "insa/company_info";
-	}
-	
-	//사원 리스트
-	@GetMapping("/insa/staffList")
-	public String staffList(Model model) {
-		model.addAttribute("title", 		"사원 리스트");
-		
-		return "insa/staff_list";
 	}
 	
 	//일반 직원일때 직원 목록
@@ -66,5 +58,10 @@ public class InsaController {
 		return "insa/staff_list";
 	}	
 	
-	
+	//조직도
+	@GetMapping("/insa/jojicdo")
+	public String jojicdo(Model model) {
+		model.addAttribute("title", "조직도");
+		return "insa/jojicdo";
+	}	
 }

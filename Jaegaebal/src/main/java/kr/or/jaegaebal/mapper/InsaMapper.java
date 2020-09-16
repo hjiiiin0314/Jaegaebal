@@ -21,7 +21,7 @@ public interface InsaMapper {
 	public Company getCompanyInfo();
 	
 	//일반 직원일때 직원 목록
-	public List<StaffInfo> getStaffInfo(Map<String, Object> parameterMap);
+	public List<Map<String, Object>> getStaffInfo(Map<String, Object> parameterMap);
 	
 	//일반 직원일때 직원 목록의 전체 행 갯수
 	public int getStaffInfoListCount();

@@ -5,7 +5,7 @@ public class StaffInfo {
 	/* 컬럼명 */
 	//사원
 	//staff_num, jojic_code, access_num, staff_level_code, staff_position, hobong, staff_basic_salary, staff_pw,
-	//staff_name, staff_status, employment_status, company_in_date, company_out_date, reg_staff_name, reg_date
+	//staff_name, staff_status_code, employment_status, company_in_date, company_out_date, reg_staff_name, reg_date
 	
 	//인적정보
 	//basic_info_code, staff_eng_name, human_num, staff_gender, staff_nationality, staff_country,
@@ -35,7 +35,7 @@ public class StaffInfo {
 	//military_info_code, military_service_type, military_state
 	
 	/*다른 테이블에서 외래키로 가져온 컬럼명*/
-	//level_name, position_name, jojic_name,
+	//level_name, position_name, jojic_name, jaejic_status_name
 	
 	private String staffNum;				//사원번호
 	private String jojicCode;				//소속
@@ -46,7 +46,7 @@ public class StaffInfo {
 	private String staffBasicSalary;		//기본급
 	private String staffPw;				
 	private String staffName;
-	private String staffStatus;				//재직상태
+	private String staffStatusCode;			//재직상태코드
 	private String employmentStatus;		//고용상태
 	private String companyInDate;			//입사일
 	private String companyOutDate;			//퇴사일
@@ -121,7 +121,7 @@ public class StaffInfo {
 	private String levelName;				//직급
 	private String positionName;			//직책
 	private String jojicName;				//소속
-	
+	private String jaejicStatusName;		//재직상태
 	public String getStaffNum() {
 		return staffNum;
 	}
@@ -176,11 +176,11 @@ public class StaffInfo {
 	public void setStaffName(String staffName) {
 		this.staffName = staffName;
 	}
-	public String getStaffStatus() {
-		return staffStatus;
+	public String getStaffStatusCode() {
+		return staffStatusCode;
 	}
-	public void setStaffStatus(String staffStatus) {
-		this.staffStatus = staffStatus;
+	public void setStaffStatusCode(String staffStatusCode) {
+		this.staffStatusCode = staffStatusCode;
 	}
 	public String getEmploymentStatus() {
 		return employmentStatus;
@@ -566,6 +566,12 @@ public class StaffInfo {
 	public void setJojicName(String jojicName) {
 		this.jojicName = jojicName;
 	}
+	public String getJaejicStatusName() {
+		return jaejicStatusName;
+	}
+	public void setJaejicStatusName(String jaejicStatusName) {
+		this.jaejicStatusName = jaejicStatusName;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -587,8 +593,8 @@ public class StaffInfo {
 		builder.append(staffPw);
 		builder.append(", staffName=");
 		builder.append(staffName);
-		builder.append(", staffStatus=");
-		builder.append(staffStatus);
+		builder.append(", staffStatusCode=");
+		builder.append(staffStatusCode);
 		builder.append(", employmentStatus=");
 		builder.append(employmentStatus);
 		builder.append(", companyInDate=");
@@ -717,10 +723,12 @@ public class StaffInfo {
 		builder.append(positionName);
 		builder.append(", jojicName=");
 		builder.append(jojicName);
+		builder.append(", jaejicStatusName=");
+		builder.append(jaejicStatusName);
 		builder.append("]");
 		return builder.toString();
 	}
 	
 	
-	
+
 }

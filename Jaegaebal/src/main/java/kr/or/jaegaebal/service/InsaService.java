@@ -62,7 +62,7 @@ public class InsaService {
 		
 		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
 		
-		List<StaffInfo> getStaffInfoList = insaMapper.getStaffInfo(parameterMap);
+		List<Map<String, Object>> getStaffInfoList = insaMapper.getStaffInfo(parameterMap);
 		
 		log.info("service getStaffInfoList ::::::::::::: {}", getStaffInfoList);
 		
