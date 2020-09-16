@@ -18,3 +18,11 @@
 .btn-right{
 	float:right;
 }
+
+.btn-add{
+	margin:71px 18px 5px;
+}
+
+.btn-del{
+	margin:5px 18px;
+}
