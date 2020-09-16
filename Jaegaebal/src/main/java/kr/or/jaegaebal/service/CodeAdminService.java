@@ -13,9 +13,22 @@ import kr.or.jaegaebal.mapper.CodeAdminMapper;
 @Transactional
 public class CodeAdminService {
 	
-	//코드추가
 	@Autowired private CodeAdminMapper codeAdminMapper;
 	
+	public CodeAdmin getWorkCode(String workCode) {
+		
+		return codeAdminMapper.getWorkCode(workCode);
+	
+		
+	}
+	
+	//코드 수정
+	public int updateWorkCode(CodeAdmin codeAdmin) {
+		return codeAdminMapper.updateWorkCode(codeAdmin);
+		
+	}
+	
+	//코드추가
 	public int addWorkCode(CodeAdmin codeAdmin) {
 		int result = codeAdminMapper.addWorkCode(codeAdmin);
 		

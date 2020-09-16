@@ -16,4 +16,9 @@ public interface CodeAdminMapper {
 	
 	//근무형태코드 리스트 
 	public List<CodeAdmin> getWorkCodeList();
+	
+	//
+	public int updateWorkCode(CodeAdmin codeAdmin);	
+	
+	public CodeAdmin getWorkCode(String workCode);
 }

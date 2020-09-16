@@ -52,7 +52,7 @@ public class CodeAdminController {
 	@GetMapping("/addWorkCode")
 	public String addWorkCode(Model model) {
 		model.addAttribute("title","근무형태코드 추가");
-		return "codeAdmin/workCodeList";
+		return "codeAdmin/addWorkCode";
 	}
 	
 	@PostMapping("/addWorkCode")
@@ -65,24 +65,24 @@ public class CodeAdminController {
 		System.out.println("근무명 -> "+workName);
 		System.out.println("사용유무 -> "+workUseOrNot);
 		codeAdminService.addWorkCode(codeAdmin);
-		return "redirect:codeAdmin/workCodeList";
+		return "redirect:/getWorkCodeList";
 	}
 	
+	@GetMapping("/updateWorkCode")
+	public String updateWorkCode(Model model
+			,@RequestParam(value="workCode",required=false) String workCode) {
+		CodeAdmin ca = codeAdminService.getWorkCode(workCode);
+		model.addAttribute("CodeAdmin",ca);
+		model.addAttribute("title","수정화면");
+		
+			return "codeAdmin/updateWorkCode";
+	}
 	
+	@PostMapping("/updateWorkCode")
+	public String updateWorkCode(CodeAdmin codeAdmin) {
+		codeAdminService.updateWorkCode(codeAdmin);
+		return "redirect:/getWorkCodeList";
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

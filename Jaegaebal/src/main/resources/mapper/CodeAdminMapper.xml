@@ -12,6 +12,21 @@
    		<result column="w_reg_date" property="workRegDate"/>
    	</resultMap>
    	
+   	<!-- 코드수정 -->
+   	<update id="updateWorkCode" parameterType="CodeAdmin">
+   		UPDATE 
+   			gt_work_code
+		SET
+			w_code = #{workCode},
+			w_name = #{workName},
+			w_use = #{workUseOrNot},
+			w_staff_name = #{workStaffName},
+			w_reg_date=NOW()
+		WHERE
+			w_code=#{workCode}
+   	</update>
+   	
+   	<!-- 코드목록 -->
    	<select id="getWorkCodeList" resultMap="codeResultMap">
    		SELECT 
    			  w_code
@@ -23,7 +38,21 @@
 			  gt_work_code
    	</select>
    	
+   	<!-- 코드조회 -->
+   	<select id="getWorkCode" parameterType = "String" resultMap="codeResultMap">
+   		SELECT 
+   			  w_code
+   			, w_name
+   			, w_use
+   			, w_staff_name
+   			, w_reg_date
+		FROM
+			  gt_work_code
+		WHERE
+			w_code=#{workCode}
+   	</select>
    	
+   	<!-- 코드 등록 -->
    	<insert id="addWorkCode" parameterType="CodeAdmin">
    		INSERT INTO 
    			gt_work_code
