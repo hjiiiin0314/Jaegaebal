@@ -38,23 +38,27 @@
                             <ul class="vertical-nav-menu">
 								<!-- 대분류 --------------------------------------------------------------------------------->
                                 <th:block th:each="ST : ${session.FIRSTMENU}" >
-                                <li class="app-sidebar__heading" th:text="${ST.menuName}"></li>                                
+                                <li class="app-sidebar__heading first_menu_li" th:text="${ST.menuName}"></li>                                
                                 <!-- 중분류--------------------------------------------------------------------------------->
-	                                <th:block th:each="ND : ${session.SECONDMENU}" >
-	                                <li th:if="${session.SECONDMENU ne null and ST.menuId eq ND.menuParent}">
+	                                <th:block th:with="NDlength=0" th:each="ND : ${session.SECONDMENU}" >
+	                                
+	                                <li class="second_menu_li" th:if="${session.SECONDMENU ne null and ST.menuId eq ND.menuParent}">
 	                                    <a th:href="${ND.menuLink}">
 	                                        <i th:class="${ND.menuIcon}"></i><span th:text="${ND.menuName}"></span>
-	                                        <i th:if="${session.THIRDMENU ne null}" class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+	                                        <i th:if="${NDlength eq 0}" class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
 	                                    </a>
 	                           	<!-- 소분류 start--------------------------------------------------------------------------->
-	                                    <ul th:if="${session.THIRDMENU ne null}">
-	                                    	<th:block th:each="RD : ${session.THIRDMENU}">
-	                                    	<li th:if="${ND.menuId eq RD.menuParent}">
+	                                    <ul th:if="${NDlength eq 0}">
+	                                    	<th:block th:with="RDlength=0" th:each="RD : ${session.THIRDMENU}">
+	                                    	<li class="third_menu_li" th:if="${ND.menuId eq RD.menuParent}">
+	                                    	<th:block th:each="THT : ${session.FOURTHMENU}">
+		                                    	<th:block th:if="${RD.menuId eq THT.menuParent}" th:with="RDlength=${RDlength}+1"></th:block>
+		                                    </th:block>
 	                                    		<a th:href="${RD.menuLink}">
 	                                                <i th:class="${RD.menuIcon}"></i><span th:text="${RD.menuName}"></span>  
-	                                                <i th:if="${session.FOURTHMENU ne null}" class="metismenu-state-icon pe-7s-angle-down caret-left"></i>                                 		
+	                                                <i th:if="${RDlength eq 0}" class="metismenu-state-icon pe-7s-angle-down caret-left"></i>                                 		
 	                                    		</a>
-	                                    		<ul th:if="${session.FOURTHMENU ne null}">
+	                                    		<ul th:if="${RDlength eq 0}">
 	                           	<!-- 더 작은 소분류 start--------------------------------------------------------------------->
 			                                    	<th:block th:each="TH : ${session.FOURTHMENU}">
 			                                    	<li th:if="${RD.menuId eq TH.menuParent}">
@@ -68,6 +72,7 @@
 	                                    	</th:block>
 	                                    </ul>
 	                                </li>
+	                                
 	                                </th:block>
 	                           	<!-- 더 작은 소분류 ------------------------------------------------------------end------------>	  
 	                           	</th:block>                                                                                          
