@@ -28,6 +28,8 @@
 					     <br>	
 								 <label for="workUseOrNot">사용유무</label>
 								 <select name="workUseOrNot" class="form-control">
+								 
+									  <option value="0" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">::사용유무::</option>
 									  <option value="Yes" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
 									  <option value="No" th:selected ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
 								</select>
@@ -37,7 +39,8 @@
 					   <br>
 								  <div class="widget-content-right header-user-info ml-10" align="center">
 			                            	
-			                          <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm" value="등록하기">
+			                         <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm submitBtn" value="등록하기">
+			                          
 			                                    
 			                      </div>
 			                   <br>
@@ -51,17 +54,35 @@
 	
 	
 	</th:block>
-	<script type="text/javascript">
-	$(function() {
-		//코드중복체크 및 유효성검사
-		$('#codeCheckBtn').click(function() {
+	<th:block layout:fragment="customJsScript">
+	<script>
+	
+	//근무형태코드 중복확인
+	
+	
+	//유효성검사
+	$(function(){
+		$('.submitBtn').click(function(){
+			
 			var workCode = $('input[name="workCode"]');
+			var workCode = $('input[name="workName"]');
+			
+			
 			if(workCode.val() == ''){
-				alert('코드를 입력해주세요.');
+				alert('근무형태코드를 입력해주세요.');
 				workCode.focus();
 				return false;
+			}else if(workName.val() == ''){
+				alert('근무이름을 입력해주세요.');
+				workName.focus();
+				return false;
 			}
+			
+		})
+	});
+	
 	</script>
+	</th:block>
 	
 	
 	

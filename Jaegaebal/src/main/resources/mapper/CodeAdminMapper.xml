@@ -95,5 +95,15 @@
 			 	
 			 )
    	</insert>
+   	
+   	<!-- 근무형태코드 중복검사 -->
+   	<select id="workCodeCheck" parameterType="String" resultType="String">
+		SELECT 
+			w_code
+		FROM 
+			gt_work_code
+		WHERE
+			w_code = #{workCode} 
+	</select>
    
    </mapper>

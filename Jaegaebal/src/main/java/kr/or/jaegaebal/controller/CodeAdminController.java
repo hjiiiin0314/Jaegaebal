@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.CodeAdmin;
 import kr.or.jaegaebal.service.CodeAdminService;
 
@@ -107,6 +109,19 @@ public class CodeAdminController {
 		codeAdminService.updateWorkCode(codeAdmin);
 		return "redirect:/getWorkCodeList";
 	}
+	
+	//코드 중복확인
+		@PostMapping(value = "/codeCheck", produces = "application/json")
+		@ResponseBody
+		public int codeCheck(@RequestParam(value="workCode") String workCode) {
+			CodeAdmin code = codeAdminService.codeCheck(workCode);
+			int result = 0;
+			if(code != null) {
+				result = 1;		
+			}
+			
+			return result;
+		}
 	
 
 }

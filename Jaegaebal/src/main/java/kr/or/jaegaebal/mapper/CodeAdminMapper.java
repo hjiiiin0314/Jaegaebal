@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+
 import kr.or.jaegaebal.dto.CodeAdmin;
 
 
@@ -29,4 +30,7 @@ public interface CodeAdminMapper {
 	
 	//근무형태코드 삭제
 	public int deleteWorkCode(String workCode);
+	
+	//근무형태코드 중복확인
+		public CodeAdmin codeCheck(String workCode);
 }

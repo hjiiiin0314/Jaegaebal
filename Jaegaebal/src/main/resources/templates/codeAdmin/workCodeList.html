@@ -10,36 +10,12 @@
 	<th:block layout:fragment="customContent">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/code.css}">
 	
-	<script type="text/javascript">
+	
+	
 		
-			$(function(){
 				
-				/* 검색어 sk클릭시 버튼의 value변경하기 */
-				$('#workCodeBtn').click(function(){
-					var workCodeBtnParentTag = $(this).parent();
-					$('#list').html($(this).html());
-					workCodeBtnParentTag.attr('class','dropdown-menu');        
-			 	});
-				$('#workNameBtn').click(function(){
-					var workNameBtnParentTag = $(this).parent();
-					$('#list').html($(this).html());
-					workNameBtnParentTag.attr('class','dropdown-menu');        
-			 	});
-				$('#workCodeCheckBtn').click(function(){
-					var workCodeCheckBtnParentTag = $(this).parent();
-					$('#list').html($(this).html());
-					workCodeCheckBtnParentTag.attr('class','dropdown-menu');        
-			 	});
-				$('#workStaffNameBtn').click(function(){
-					var workStaffNameBtnParentTag = $(this).parent();
-					$('#list').html($(this).html());
-					workStaffNameBtneParentTag.attr('class','dropdown-menu');        
-			 	});
-				
-				</script>
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
-	
 	
 	<!-- 메뉴설명 -->
 	<div class="app-main__inner">
@@ -70,7 +46,7 @@
    		</div>
     
     	<!-- 검색기능 -->
-    <div class="input-group col-md-4 p-l-none p-r-none p-b-xs">
+    		<div class="input-group col-md-4 p-l-none p-r-none p-b-xs">
 		           <div class="input-group-prepend">
 		               <button class="btn btn-outline-secondary" id="list">목록</button>
 		               <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
@@ -85,12 +61,14 @@
 		                      <div tabindex="-1" class="dropdown-divider"></div>
 		                         <button type="button" tabindex="0" class="dropdown-item" id="workStaffNameBtn">등록자</button>
 		                      </div>
-		            </div>
+		    		 </div>
 		                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
 		                     <div class="input-group-append">
 		                         <button class="btn btn-secondary" id="workCodeSearchBtn">검색</button>
 		                     </div>
-	</div>     
+			</div>     
+    
+    	
     
 		<!-- 리스트 테이블 -->
 		<div class="col-md-12 m-2">
@@ -114,11 +92,14 @@
 				 			<td th:text="${l.workUseOrNot}"></td>
 				 			<td th:text="${l.workStaffName}"></td>
 				 			<td th:text="${l.workRegDate}"></td>
-				 			<td><a th:href="@{/updateWorkCode(workCode=${l.workCode})}">수정</a></td>
+				 			<td>
+				 				<a th:href="@{/updateWorkCode(workCode=${l.workCode})}">
+				 					<button class="btn btn-primary">수정</button>	
+				 				</a>
+				 			</td>
 							<td>
-								<a th:href="@{/deleteWorkCode(workCode=${l.workCode})}">									
-		                         	<button class="btn btn-primary" id="deleteWorkCode">삭제</button>		                     	
-								</a>
+								<button type="button" class="btn btn-primary deleteWorkBtn" data-toggle="modal" data-target="#myModal">삭제</button>
+									                     	
 							</td>
 				 		</tr>
 				 	</tbody>
@@ -126,22 +107,63 @@
 			</div>
 		</div>
 </div>
+
+<!-- Modal -->
+                  <div class="modal fade" id="myModal">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title">알림</h4>
+					      </div>
+					      <div class="modal-body">
+                           		   <p>정말로 삭제하시겠습니까?</p>
+                          </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" id="deleteBtn">
+			       		 <!-- <a th:href="@{/deleteWorkCode(workCode=${l.workCode})}">예</a> -->
+			       		 예			       		
+			        </button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
       
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 	
 	</th:block>
+	
 	<th:block layout:fragment="customJsScript">
-		<script>
+	<script>
+	
 			$(function(){
-				$('#deleteWorkCode').click(function(){
-					alert('삭제하시겠습니까?');
-				
-					})
-				}
-			})
-		</script>
+				$('#deleteBtn').click(function(){
+					
+				var checkBtn = $('.deleteWorkBtn');
+
+
+                // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+                // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+                var tr = checkBtn.parent().parent();
+                var td = tr.children();
+                var workCode = td.eq(0).text(); //근무형태코드
+               
+                //텍스트형식으로 workCode에 담아서 주소로 보내기
+                location.href="/deleteWorkCode?workCode="+workCode;
+				})
+                
+
+		     });
+			
+			
+			
+			
+	</script>
 	</th:block>
+	
     
 </html>

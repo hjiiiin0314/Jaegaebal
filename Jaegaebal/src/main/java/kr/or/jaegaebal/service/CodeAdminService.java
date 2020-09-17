@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.CodeAdmin;
 import kr.or.jaegaebal.mapper.CodeAdminMapper;
 
@@ -53,4 +54,10 @@ public class CodeAdminService {
 		
 		return codeAdminMapper.getWorkCodeList();
 	}
+	
+	//근무형태코드 중복확인
+		public CodeAdmin codeCheck(String workCode) {
+		
+		return codeAdminMapper.codeCheck(workCode);
+		}
 }
