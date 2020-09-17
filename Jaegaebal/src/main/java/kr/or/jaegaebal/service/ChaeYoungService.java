@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.mapper.ChaeYoungMapper;
@@ -39,5 +40,11 @@ public class ChaeYoungService {
 	public ChaeYoungBoard cyBoardList(String jobNumber) {
 		
 		return chaeYoungMapper.cyBoardList(jobNumber);
+	};
+	
+	//이메일 중복 체크
+	public ChaeYoungApplicant emailCheck(String appEmail) {
+		
+		return chaeYoungMapper.emailCheck(appEmail);
 	};
 }
