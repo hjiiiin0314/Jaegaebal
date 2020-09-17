@@ -19,6 +19,38 @@
 		<result column="deadline"			property="deadline"/>
 		<result column="doc_coment"			property="docComent"/>
 	</resultMap>   
+	
+<!-- 결재함 - 내가 올린 결재문서목록 조회  -->
+	<select id="myAppList" resultType="UpmuDocument">
+		SELECT
+			app_code
+			,d.app_doc_code		as docCode
+			,t.doc_type			as docTypeName
+			,writer_buseo_code	as writerBuseoCode
+			,writer_num			as writerNum
+			,doc_title			as docTitle
+			,doc_contents		as docContents
+			,write_date			as writeDate
+			,doc_file			as docFile
+			,start_date			as startDate
+			,end_date			as endDate
+			,a.app_state		as appStateName
+			,SECURITY			as security
+			,deadline			as deadline
+			,d.doc_type			as docType
+		FROM
+			um_appstate AS a
+			INNER join
+			um_document AS d
+		ON
+			a.app_code=d.app_state
+		INNER join
+			um_doctype AS t
+		on
+			t.doc_code=d.doc_type;
+	
+	 
+	</select>
 <!-- 기안하기 - 결재라인 - 조직도 - 사원검색  -->
   <select id="getStaff" resultType="StaffInfo">
 	SELECT 

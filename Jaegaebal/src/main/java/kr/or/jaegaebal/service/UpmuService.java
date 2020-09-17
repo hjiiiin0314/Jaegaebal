@@ -20,6 +20,15 @@ public class UpmuService {
 
 	@Autowired private UpmuMapper upmumapper;
 	
+	//상신함 - 내가 올린 결재리스트
+		public List<UpmuDocument> myAppList(){
+			List<UpmuDocument> myAppList = upmumapper.myAppList();
+			System.out.println(myAppList + "<--상신리스트");
+			
+			return myAppList;
+		}
+		
+	
 	//기안하기 - 결재라인 - 조직도 - 사원
 		public List<StaffInfo> getStaff(){
 			List<StaffInfo> staff = upmumapper.getStaff();
