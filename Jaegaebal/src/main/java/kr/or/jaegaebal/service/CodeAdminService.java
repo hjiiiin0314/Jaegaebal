@@ -15,6 +15,19 @@ public class CodeAdminService {
 	
 	@Autowired private CodeAdminMapper codeAdminMapper;
 	
+	//근무형태코드 검색
+	public List<CodeAdmin> getSearchWorkCodeList(String sk, String sv){
+		List<CodeAdmin> workCodeList = codeAdminMapper.getSearchWorkCodeList(sk, sv);
+		return workCodeList;
+		
+	}
+	
+	//근무형태코드 삭제
+	public int deleteWorkCode(String workCode) {
+		return codeAdminMapper.deleteWorkCode(workCode);
+	}
+	
+	//근무코드로 조회
 	public CodeAdmin getWorkCode(String workCode) {
 		
 		return codeAdminMapper.getWorkCode(workCode);
@@ -22,20 +35,20 @@ public class CodeAdminService {
 		
 	}
 	
-	//코드 수정
+	//근무형태코드 수정
 	public int updateWorkCode(CodeAdmin codeAdmin) {
 		return codeAdminMapper.updateWorkCode(codeAdmin);
 		
 	}
 	
-	//코드추가
+	//근무형태코드 추가
 	public int addWorkCode(CodeAdmin codeAdmin) {
 		int result = codeAdminMapper.addWorkCode(codeAdmin);
 		
 		return result;
 	}
 	
-	//코드리스트
+	//근무형태코드 리스트
 	public List<CodeAdmin> getWorkCodeList(){
 		
 		return codeAdminMapper.getWorkCodeList();

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/code.css}">
+
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+<form action="/updateWorkCode" method="post">	
+	<div class="app-main__inner">
+	<div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-config icon-gradient bg-premium-dark">
+                    </i>
+                </div>
+                <div>근무형태코드관리
+                    <div class="page-title-subheading">근무형태코드를 관리합니다.
+                    </div>
+                </div>
+            </div>   
+         </div>
+    </div> 
+		<div class="code-btn">
+			<ul>
+				<li class="btn-group nav-item ">
+		                  <a href="/addWorkCode" class="nav-link">
+		                       <i class="nav-link-icon fa fa-edit"></i>신규코드등록
+		                  </a>
+		         </li>		
+			</ul>
+   		</div>
+
+		<div class="col-md-12 m-2">
+			<div class="main-card mb-10 card table-padding">
+				<table class="table table-hover">
+				 	<thead>
+				 		<tr>				 			
+				 			<th>근무형태코드</th>
+				 			<th>근무명</th>
+				 			<th>사용유무</th>
+				 			<th>등록자</th>
+				 			<th>등록일</th>
+				 			<th>수정</th>
+				 			<th>삭제</th>
+				 		</tr>
+				 	</thead>
+				 	<tbody>
+				 		<tr th:each="l : ${workCodeList}">
+				 			<td th:text="${l.workCode}"></td>
+				 			<td th:text="${l.workName}"></td>
+				 			<td th:text="${l.workUseOrNot}"></td>
+				 			<td th:text="${l.workStaffName}"></td>
+				 			<td th:text="${l.workRegDate}"></td>
+				 			<td><a th:href="@{/updateWorkCode(workCode=${l.workCode})}">수정</a></td>
+							<td><a th:href="@{/deleteWorkCode(workCode=${l.workCode})}>삭제</a></td>
+				 		</tr>
+				 	</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+		
+	
+	</th:block>
+    
+</html>

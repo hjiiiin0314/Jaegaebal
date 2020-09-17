@@ -15,23 +15,25 @@
 				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
 					<div class="col-md-20; m-5">						  
 							    <label for="workCode">근무형태코드</label>
-							    <input type="text" class="form-control input-lg" name="workCode" value="${codeAdmin.workCode}">
+							    <input type="text" class="form-control input-lg" name="workCode" th:value="${codeAdmin.workCode}">
 							 
-						 <br>	
+								<br>	
 							  
 							  	 <label for="workName">근무명</label>
-							   	 <input type="text" class="form-control input-lg" name="workName" value="${codeAdmin.workName}">
+							   	 <input type="text" class="form-control input-lg" name="workName" th:value="${codeAdmin.workName}">
 							  
-					     <br>	
+					    		<br>
+					    			
 								 <label for="workUseOrNot">사용유무</label>
 								 <select name="workUseOrNot" class="form-control">
 									  <option value="Yes" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
 									  <option value="No" th:selected ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
 								</select>
-						<br>  
+								
+								<br>  
 								 <label for="workStaffName">등록자</label>
-							   	 <input type="text" class="form-control input-lg" name="workStaffName" value="${codeAdmin.workStaffName}">
-					   <br>
+							   	 <input type="text" class="form-control input-lg" name="workStaffName" th:value="${codeAdmin.workStaffName}">
+					    <br>
 								  <div class="widget-content-right header-user-info ml-10" align="center">
 			                            	
 			                          <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm" value="수정하기">

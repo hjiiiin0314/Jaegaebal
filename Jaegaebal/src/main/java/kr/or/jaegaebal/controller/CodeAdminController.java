@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.jaegaebal.dto.CodeAdmin;
 import kr.or.jaegaebal.service.CodeAdminService;
 
+
 @Controller
 public class CodeAdminController {
 	
@@ -36,6 +37,29 @@ public class CodeAdminController {
 	public String empCode() {
 		
 		return "codeAdmin/empCode";
+	}
+	
+	
+	
+	//코드검색
+	@PostMapping("/searchWorkCode")
+	public String searchWorkCode(@RequestParam(value="sk",required = false) String sk,
+							   @RequestParam(value="sv",required = false) String sv,Model model) {
+		System.out.println(sk);
+		System.out.println(sv);
+		List<CodeAdmin> workCodeList = codeAdminService.getSearchWorkCodeList(sk, sv);
+				
+		model.addAttribute("workCodeList", workCodeList);
+		return "codeAdmin/getWorkCodeList";
+	}
+	
+	//코드 삭제
+	@GetMapping("/deleteWorkCode")
+	public String deleteMember(CodeAdmin codeAdmin) {
+		if(codeAdmin.getWorkCode() != null && !"".equals(codeAdmin.getWorkCode())) {
+			codeAdminService.deleteWorkCode(codeAdmin.getWorkCode());	
+		}
+		return "redirect:/getWorkCodeList";
 	}
 	
 	/* @GetMapping("/getWorkCodeList") */
@@ -72,7 +96,7 @@ public class CodeAdminController {
 	public String updateWorkCode(Model model
 			,@RequestParam(value="workCode",required=false) String workCode) {
 		CodeAdmin ca = codeAdminService.getWorkCode(workCode);
-		model.addAttribute("CodeAdmin",ca);
+		model.addAttribute("codeAdmin",ca);
 		model.addAttribute("title","수정화면");
 		
 			return "codeAdmin/updateWorkCode";
