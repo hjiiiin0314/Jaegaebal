@@ -51,18 +51,13 @@ public class ChaeYoungController {
 		
 		return "chaeyoung/add_cy_post_form";
 	}
-	@PostMapping("addCYPost")
+	@PostMapping("/addCYPost")
 	public String addCYPost(ChaeYoungBoard ChaeYoungBoard) {
 		//구인공고 등록
 		chaeYoungService.addCYBoardPost(ChaeYoungBoard);
 		return "redirect:/cyboardList";
 	}
 	
-	@GetMapping("applicantForm")
-	public String applicantLogin() {
-		
-		return "chaeyoung/applicantLogin";
-	}
 	//지원할 시 이메일 체크
 	@PostMapping(value = "/emailCheck", produces = "application/json")
 	@ResponseBody
@@ -74,5 +69,21 @@ public class ChaeYoungController {
 		}
 		
 		return result;
+	}
+	
+	//지원자 목록
+	@GetMapping("/appManagement")
+	public String appManagement(Model model) {
+		
+		List<ChaeYoungBoard> cyBoardList = chaeYoungService.cyBoardList();
+		model.addAttribute("cyBoardList", cyBoardList);
+		
+		return "chaeyoung/app_management";
+	}
+	@PostMapping(value = "/appManagement", produces = "application/json")
+	@ResponseBody
+	public List<ChaeYoungApplicant> appManagement(@RequestParam(value="appNumber",required = false) String appNumber) {
+			
+		return chaeYoungService.appManagement(appNumber);
 	}
 }

@@ -30,4 +30,7 @@ public interface ChaeYoungMapper {
 	
 	//이메일 중복체크
 	public ChaeYoungApplicant emailCheck(String appEmail);
+	
+	//지원자 목록 가져오기
+	public List<ChaeYoungApplicant> appManagement(String appNumber);
 }
