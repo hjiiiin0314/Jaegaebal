@@ -5,6 +5,22 @@
 	display:inline;
 }
 
+.table .date_left{
+	float:left;
+}
+
+.table .date_right{
+	float:right;
+}
+
+.table .flow-font{
+	font-size:25px;
+}
+
+.table .date-td{
+	text-align:center;
+}
+
 .table .t_head{
 	background:#f9f9f9;
 }
@@ -16,22 +32,36 @@
 	background:#ffffff;
 	border-top:none;
 }
+/*사원정보 테이블 스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
+.scroll-div{
+	overflow-x:hidden;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+/*체크박스 크기 조절 및 고정*/
+.checkbox-width{
+	width:25px;
+	height:25px;
+}
 
 @media(min-width:992px){
 	.emp-table{
 		height:836px;
 	}
-	/*스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
 	.scroll-div{
 		height:768px;
-		overflow-x:hidden;
-		scrollbar-width: none;
-		-ms-overflow-style: none;
 	}
 	.scroll-div::-webkit-scrollbar {
 	    display: none; /* Chrome, Safari, Opera*/
 	}
 	.table tr{
 		height:59px;
+	}
+}
+
+@media(max-width:992px){
+	.scroll-div{
+		height:468px;
 	}
 }

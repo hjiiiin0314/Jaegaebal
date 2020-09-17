@@ -169,8 +169,8 @@
 	  					$('input[name=data_expen_date2]').val('');
 	  				}
 	  				
-	  				if(data.dataTax != null){
-	  					if(data.dataTax == 1){
+	  				if(data.dataTaxdepart != null){
+	  					if(data.dataTaxdepart == 1){
 	  						$('input[name=data_tax]').prop('checked', true);
 	  						$('input[name=data_tax_per]').prop('readonly', false);
 	  						$('input[name=data_tax_date1]').prop('readonly', false);
@@ -186,8 +186,8 @@
 						}
 	  				}
 	  				
-	  				if(data.dataTaxPer != null){
-						$('input[name=data_tax_per]').val(data.dataTaxPer);
+	  				if(data.dataTax != null){
+						$('input[name=data_tax_per]').val(data.dataTax);
 	  				} else {
 	  					$('input[name=data_tax_per]').val('');
 	  				}
@@ -208,6 +208,48 @@
 	  			request.fail(function( jqXHR, textStatus ) {
 	  			  alert( "Request failed: " + textStatus );
 	  			});
+			});
+			
+			$('input[name=data_bate]').click(function(){
+				if($(this).prop('checked')){
+					$('input[name=data_bate_per]').prop('readonly', false);
+					$('input[name=data_bate_date1]').prop('readonly', false);
+					$('input[name=data_bate_date2]').prop('readonly', false);
+				} else {
+					$('input[name=data_bate_per]').prop('readonly', true);
+					$('input[name=data_bate_date1]').prop('readonly', true);
+					$('input[name=data_bate_date2]').prop('readonly', true);
+					$('input[name=data_bate_per]').val('');
+					$('input[name=data_bate_date1]').val('');
+					$('input[name=data_bate_date2]').val('');
+				}
+			});
+			
+			$('select[name=data_expen]').change(function(){
+				if($(this).val() == 1){
+					$('input[name=data_expen_date1]').prop('readonly', false);
+					$('input[name=data_expen_date2]').prop('readonly', false);
+				} else {
+					$('input[name=data_expen_date1]').prop('readonly', true);
+					$('input[name=data_expen_date2]').prop('readonly', true);
+					$('input[name=data_expen_date1]').val('');
+					$('input[name=data_expen_date2]').val('');
+				}
+			});
+			
+			$('input[name=data_tax]').click(function(){
+				if($(this).prop('checked')){
+					$('input[name=data_tax_per]').prop('readonly', false);
+					$('input[name=data_tax_date1]').prop('readonly', false);
+					$('input[name=data_tax_date2]').prop('readonly', false);
+				} else {
+					$('input[name=data_tax_per]').prop('readonly', true);
+					$('input[name=data_tax_date1]').prop('readonly', true);
+					$('input[name=data_tax_date2]').prop('readonly', true);
+					$('input[name=data_tax_per]').val('');
+					$('input[name=data_tax_date1]').val('');
+					$('input[name=data_tax_date2]').val('');
+				}
 			});
 		});
 	</script>
@@ -232,27 +274,27 @@
 			<div class="main-card mb-3 card">
 				<div class="card-body emp-table">
 					<h5 class="card-title">기본정보</h5>
-					<div class="scroll-div" style="height:768px;">
-					<div class="scrollbar-container">
-					<table class="mb-0 emp-table table table-hover tbline-del">
-						<thead>
-							<tr>
-								<th class="fixed_top">사원번호</th>
-								<th class="fixed_top">성명</th>
-								<th class="fixed_top">직급</th>
-								<th class="fixed_top">부서</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="IL : ${staffInfoList}">
-								<td th:text="${IL.staffNum}"></td>
-								<td th:text="${IL.staffName}"></td>
-								<td th:text="${IL.levelName}"></td>
-								<td th:text="${IL.jojicName}"></td>
-							</tr>
-						</tbody>
-					</table>
-					</div>
+					<div class="scroll-div">
+						<div class="scrollbar-container">
+							<table class="mb-0 emp-table table table-hover tbline-del">
+								<thead>
+									<tr>
+										<th class="fixed_top">사원번호</th>
+										<th class="fixed_top">성명</th>
+										<th class="fixed_top">직급</th>
+										<th class="fixed_top">부서</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="IL : ${staffInfoList}">
+										<td th:text="${IL.staffNum}"></td>
+										<td th:text="${IL.staffName}"></td>
+										<td th:text="${IL.levelName}"></td>
+										<td th:text="${IL.jojicName}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -291,7 +333,7 @@
 								<td class="t_head">거주지국</td>
 								<td><input type="text" name="staff_country" class="form-control" th:value="${salaryInfo.staffCountry}" readonly></td>
 								<td class="t_head">생산직구분</td>
-								<td><input type="checkbox" name="data_pro" class="form-control" th:checked="${salaryInfo.dataPro eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="data_pro" class="form-control checkbox-width" th:checked="${salaryInfo.dataPro eq 1 ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
 								<td class="t_head">은행</td>
@@ -313,7 +355,7 @@
 							</tr>
 							<tr>
 								<td class="t_head">수습여부</td>
-								<td><input type="checkbox" name="data_bate" class="form-control" th:checked="${salaryInfo.dataBate eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="data_bate" class="form-control checkbox-width" th:checked="${salaryInfo.dataBate eq 1 ? 'true' : 'false'}"></td>
 								<td class="t_head">수습급여 적용률</td>
 								<td>
 									<th:block th:if="${salaryInfo.dataBate eq 1}">
@@ -326,14 +368,16 @@
 							</tr>
 							<tr>
 								<td class="t_head">수습기간</td>
-								<td colspan="3">
+								<td colspan="3" class="date-td">
 									<th:block th:if="${salaryInfo.dataBate eq 1}">
-										<input type="date" name="data_bate_date1" class="form-control form_date" th:value="${salaryInfo.dataBateDate1}">
-										　~　<input type="date" name="data_bate_date2" class="form-control form_date" th:value="${salaryInfo.dataBateDate2}">
+										<input type="date" name="data_bate_date1" class="form-control form_date date_left" th:value="${salaryInfo.dataBateDate1}">
+										<span class="flow-font">~</span>
+										<input type="date" name="data_bate_date2" class="form-control form_date date_right" th:value="${salaryInfo.dataBateDate2}">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataBate eq 1}">
-										<input type="date" name="data_bate_date1" class="form-control form_date" readonly>
-										　~　<input type="date" name="data_bate_date2" class="form-control form_date" readonly>
+										<input type="date" name="data_bate_date1" class="form-control form_date date_left" readonly>
+										<span class="flow-font">~</span>
+										<input type="date" name="data_bate_date2" class="form-control form_date date_right" readonly>
 									</th:block>
 								</td>
 							</tr>
@@ -346,20 +390,22 @@
 							</tr>
 							<tr>
 								<td class="t_head">학자금 공제기간</td>
-								<td colspan="3">
+								<td colspan="3" class="date-td">
 									<th:block th:if="${salaryInfo.dataExpen eq 1}">
-										<input type="date" name="data_expen_date1" class="form-control form_date" th:value="${salaryInfo.dataExpenDate1}">
-										　~　<input type="date" name="data_expen_date2" class="form-control form_date" th:value="${salaryInfo.dataExpenDate2}">
+										<input type="date" name="data_expen_date1" class="form-control form_date date_left" th:value="${salaryInfo.dataExpenDate1}">
+										<span class="flow-font">~</span>
+										<input type="date" name="data_expen_date2" class="form-control form_date date_right" th:value="${salaryInfo.dataExpenDate2}">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataExpen eq 1}">
-										<input type="date" name="data_expen_date1" class="form-control form_date" readonly>
-										　~　<input type="date" name="data_expen_date2" class="form-control form_date" readonly>
+										<input type="date" name="data_expen_date1" class="form-control form_date date_left" readonly>
+										<span class="flow-font">~</span>
+										<input type="date" name="data_expen_date2" class="form-control form_date date_right" readonly>
 									</th:block>
 								</td>
 							</tr>
 							<tr>
 								<td class="t_head">소득세액 감면여부</td>
-								<td><input type="checkbox" name="data_tax" class="form-control" th:checked="${salaryInfo.dataTaxdepart eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="data_tax" class="form-control checkbox-width" th:checked="${salaryInfo.dataTaxdepart eq 1 ? 'true' : 'false'}"></td>
 								<td class="t_head">소득세액 감면비율</td>
 								<td>
 									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
@@ -372,14 +418,16 @@
 							</tr>
 							<tr>
 								<td class="t_head">감면기간</td>
-								<td colspan="3">
+								<td colspan="3" class="date-td">
 									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
-										<input type="date" name="data_tax_date1" class="form-control form_date" th:value="${salaryInfo.dataTaxDate1}">
-										　~　<input type="date" name="data_tax_date2" class="form-control form_date" th:value="${salaryInfo.dataTaxDate2}">
+										<input type="date" name="data_tax_date1" class="form-control form_date date_left" th:value="${salaryInfo.dataTaxDate1}">
+										<span class="flow-font">~</span>
+										<input type="date" name="data_tax_date2" class="form-control form_date date_right" th:value="${salaryInfo.dataTaxDate2}">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataTaxdepart eq 1}">
-										<input type="date" name="data_tax_date1" class="form-control form_date" readonly>
-										　~　<input type="date" name="data_tax_date2" class="form-control form_date" readonly>
+										<input type="date" name="data_tax_date1" class="form-control form_date date_left" readonly>
+										<span class="flow-font">~</span>
+										<input type="date" name="data_tax_date2" class="form-control form_date date_right" readonly>
 									</th:block>
 								</td>
 							</tr>

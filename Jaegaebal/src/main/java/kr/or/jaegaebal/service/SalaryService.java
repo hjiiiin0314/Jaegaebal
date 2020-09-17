@@ -21,9 +21,7 @@ public class SalaryService {
 	private SalaryMapper salaryMapper;
 	
 	public Map<String, Object> salaryInfoMap(String dataNum) {
-		System.out.println(dataNum+ " 맵퍼호출전");
 		Map<String, Object> salaryInfo = salaryMapper.salaryInfoMap(dataNum);
-		System.out.println(salaryInfo+ " 맵퍼호출후");
 		return salaryInfo;
 	}
 	

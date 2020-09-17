@@ -40,9 +40,7 @@ public class SalaryController {
 	@PostMapping(value = "/salary/salary_info", produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> salaryInfo(@RequestParam(value = "dataEmp", required = false) String dataEmp) {
-		System.out.println(dataEmp);
 		Map<String, Object> salaryInfo = salaryService.salaryInfoMap(dataEmp);
-		System.out.println(salaryInfo);
 		return salaryInfo;
 	}
 }
