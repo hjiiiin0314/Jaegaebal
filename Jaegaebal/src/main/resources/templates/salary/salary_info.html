@@ -41,8 +41,8 @@
 	  				
 	  				if(data.dataInsu != null){
 						$('select[name=data_insu]').children('option').each(function(){
-							if($(this).val() == data.dataInsu){
-								$(this).attr('selected', 'true');
+							if($(this).attr('value') == data.dataInsu){
+								$(this).prop('selected', 'true');
 							}
 						});
 	  				}
@@ -56,7 +56,7 @@
 	  				if(data.dataResi != null){
 						$('select[name=data_resi]').children('option').each(function(){
 							if($(this).val() == data.dataResi){
-								$(this).attr('selected', 'true');
+								$(this).prop('selected', true);
 							}
 						});
 	  				}
@@ -68,10 +68,10 @@
 	  				}
 	  				
 	  				if(data.dataResi != null){
-	  					if('$(input[name=data_pro]').val() == 1){
-	  						$('input[name=data_pro]').attr('checked', 'true');
+	  					if(data.dataResi == 1){
+	  						$('input[name=data_pro]').prop('checked', true);
 	  					} else {
-	  						$('input[name=data_pro]').attr('checked', 'false');
+	  						$('input[name=data_pro]').prop('checked', false);
 						}
 	  				}
 	  				
@@ -106,17 +106,102 @@
 	  				}
 	  				
 	  				if(data.dataBate != null){
-	  					if('$(input[name=data_bate]').val() == 1){
-	  						$('input[name=data_bate]').attr('checked', 'true');
+	  					if(data.dataBate == 1){
+	  						$('input[name=data_bate]').prop('checked', true);
+	  						$('input[name=data_bate_per]').prop('readonly', false);
+	  						$('input[name=data_bate_date1]').prop('readonly', false);
+	  						$('input[name=data_bate_date2]').prop('readonly', false);
 	  					} else {
-	  						$('input[name=data_bate]').attr('checked', 'false');
+	  						$('input[name=data_bate]').prop('checked', false);
+	  						$('input[name=data_bate_per]').prop('readonly', true);
+	  						$('input[name=data_bate_date1]').prop('readonly', true);
+	  						$('input[name=data_bate_date2]').prop('readonly', true);
+	  						$('input[name=data_bate_per]').val('');
+	  						$('input[name=data_bate_date1]').val('');
+	  						$('input[name=data_bate_date2]').val('');
 						}
 	  				}
 	  				
-	  				if(data.dataBate != null){
-						$('input[name=data_bate_per]').val(data.dataBate);
+	  				if(data.dataBatePer != null){
+						$('input[name=data_bate_per]').val(data.dataBatePer);
 	  				} else {
-	  					$('input[name=data_bate_per]').val(0);
+	  					$('input[name=data_bate_per]').val('');
+	  				}
+	  				
+	  				if(data.dataBateDate1 != null){
+						$('input[name=data_bate_date1]').val(data.dataBateDate1);
+	  				} else {
+	  					$('input[name=data_bate_date1]').val('');
+	  				}
+	  				
+	  				if(data.dataBateDate2 != null){
+						$('input[name=data_bate_date2]').val(data.dataBateDate2);
+	  				} else {
+	  					$('input[name=data_bate_date2]').val('');
+	  				}
+	  				
+	  				if(data.dataExpen != null){
+						$('select[name=data_expen]').children('option').each(function(){
+							if($(this).val() == data.dataExpen){
+								$(this).prop('selected', true);
+								if($(this).val() == 1){
+									$('input[name=data_expen_date1]').prop('readonly', false);
+									$('input[name=data_expen_date2]').prop('readonly', false);
+								} else {
+									$('input[name=data_expen_date1]').prop('readonly', true);
+									$('input[name=data_expen_date2]').prop('readonly', true);
+									$('input[name=data_expen_date1]').val('');
+			  						$('input[name=data_expen_date2]').val('');
+								}
+							}
+						});
+	  				}
+	  				
+	  				if(data.dataExpenDate1 != null){
+						$('input[name=data_expen_date1]').val(data.dataExpenDate1);
+	  				} else {
+	  					$('input[name=data_expen_date1]').val('');
+	  				}
+	  				
+	  				if(data.dataExpenDate2 != null){
+						$('input[name=data_expen_date2]').val(data.dataExpenDate2);
+	  				} else {
+	  					$('input[name=data_expen_date2]').val('');
+	  				}
+	  				
+	  				if(data.dataTax != null){
+	  					if(data.dataTax == 1){
+	  						$('input[name=data_tax]').prop('checked', true);
+	  						$('input[name=data_tax_per]').prop('readonly', false);
+	  						$('input[name=data_tax_date1]').prop('readonly', false);
+	  						$('input[name=data_tax_date2]').prop('readonly', false);
+	  					} else {
+	  						$('input[name=data_tax]').prop('checked', false);
+	  						$('input[name=data_tax_per]').prop('readonly', true);
+	  						$('input[name=data_tax_date1]').prop('readonly', true);
+	  						$('input[name=data_tax_date2]').prop('readonly', true);
+	  						$('input[name=data_tax_per]').val('');
+	  						$('input[name=data_tax_date1]').val('');
+	  						$('input[name=data_tax_date2]').val('');
+						}
+	  				}
+	  				
+	  				if(data.dataTaxPer != null){
+						$('input[name=data_tax_per]').val(data.dataTaxPer);
+	  				} else {
+	  					$('input[name=data_tax_per]').val('');
+	  				}
+	  				
+	  				if(data.dataTaxDate1 != null){
+						$('input[name=data_tax_date1]').val(data.dataTaxDate1);
+	  				} else {
+	  					$('input[name=data_tax_date1]').val('');
+	  				}
+	  				
+	  				if(data.dataTaxDate2 != null){
+						$('input[name=data_tax_date2]').val(data.dataTaxDate2);
+	  				} else {
+	  					$('input[name=data_tax_date2]').val('');
 	  				}
 	  			});
 	  			
@@ -230,12 +315,27 @@
 								<td class="t_head">수습여부</td>
 								<td><input type="checkbox" name="data_bate" class="form-control" th:checked="${salaryInfo.dataBate eq 1 ? 'true' : 'false'}"></td>
 								<td class="t_head">수습급여 적용률</td>
-								<td><input type="number" name="data_bate_per" class="form-control" th:readonly="${salaryInfo.dataBate eq 0 ? 'true' : 'false'}"></td>
+								<td>
+									<th:block th:if="${salaryInfo.dataBate eq 1}">
+										<input type="number" name="data_bate_per" class="form-control" th:value="${salaryInfo.dataBatePer}">
+									</th:block>
+									<th:block th:unless="${salaryInfo.dataBate eq 1}">
+										<input type="number" name="data_bate_per" class="form-control" readonly>
+									</th:block>
+								</td>
 							</tr>
 							<tr>
 								<td class="t_head">수습기간</td>
-								<td colspan="3"><input type="date" name="data_bate_date1" class="form-control form_date" th:readonly="${salaryInfo.dataBate eq 0 ? 'true' : 'false'}">
-								　~　<input type="date" name="data_bate_date2" class="form-control form_date" th:readonly="${salaryInfo.dataBate eq 0 ? 'true' : 'false'}"></td>
+								<td colspan="3">
+									<th:block th:if="${salaryInfo.dataBate eq 1}">
+										<input type="date" name="data_bate_date1" class="form-control form_date" th:value="${salaryInfo.dataBateDate1}">
+										　~　<input type="date" name="data_bate_date2" class="form-control form_date" th:value="${salaryInfo.dataBateDate2}">
+									</th:block>
+									<th:block th:unless="${salaryInfo.dataBate eq 1}">
+										<input type="date" name="data_bate_date1" class="form-control form_date" readonly>
+										　~　<input type="date" name="data_bate_date2" class="form-control form_date" readonly>
+									</th:block>
+								</td>
 							</tr>
 							<tr>
 								<td class="t_head">학자금상환 공제여부</td>
@@ -246,19 +346,42 @@
 							</tr>
 							<tr>
 								<td class="t_head">학자금 공제기간</td>
-								<td colspan="3"><input type="date" name="data_expen_date1" class="form-control form_date" th:readonly="${salaryInfo.dataExpen eq 0 ? 'true' : 'false'}">
-								　~　<input type="date" name="data_expen_date2" class="form-control form_date" th:readonly="${salaryInfo.dataExpen eq 0 ? 'true' : 'false'}"></td>
+								<td colspan="3">
+									<th:block th:if="${salaryInfo.dataExpen eq 1}">
+										<input type="date" name="data_expen_date1" class="form-control form_date" th:value="${salaryInfo.dataExpenDate1}">
+										　~　<input type="date" name="data_expen_date2" class="form-control form_date" th:value="${salaryInfo.dataExpenDate2}">
+									</th:block>
+									<th:block th:unless="${salaryInfo.dataExpen eq 1}">
+										<input type="date" name="data_expen_date1" class="form-control form_date" readonly>
+										　~　<input type="date" name="data_expen_date2" class="form-control form_date" readonly>
+									</th:block>
+								</td>
 							</tr>
 							<tr>
 								<td class="t_head">소득세액 감면여부</td>
-								<td><input type="checkbox" name="data_tax" class="form-control" th:checked="${salaryInfo.dataTax eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="data_tax" class="form-control" th:checked="${salaryInfo.dataTaxdepart eq 1 ? 'true' : 'false'}"></td>
 								<td class="t_head">소득세액 감면비율</td>
-								<td><input type="number" name="data_tax_per" class="form-control" th:readonly="${salaryInfo.dataTax eq 0 ? 'true' : 'false'}"></td>
+								<td>
+									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
+										<input type="number" name="data_tax_per" class="form-control" th:value="${salaryInfo.dataTax}">
+									</th:block>
+									<th:block th:unless="${salaryInfo.dataTaxdepart eq 1}">
+										<input type="number" name="data_tax_per" class="form-control" readonly>
+									</th:block>
+								</td>
 							</tr>
 							<tr>
 								<td class="t_head">감면기간</td>
-								<td colspan="3"><input type="date" name="data_tax_date1" class="form-control form_date" th:readonly="${salaryInfo.dataTax eq 0 ? 'true' : 'false'}">
-								　~　<input type="date" name="data_tax_date2" class="form-control form_date" th:readonly="${salaryInfo.dataTax eq 0 ? 'true' : 'false'}"></td>
+								<td colspan="3">
+									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
+										<input type="date" name="data_tax_date1" class="form-control form_date" th:value="${salaryInfo.dataTaxDate1}">
+										　~　<input type="date" name="data_tax_date2" class="form-control form_date" th:value="${salaryInfo.dataTaxDate2}">
+									</th:block>
+									<th:block th:unless="${salaryInfo.dataTaxdepart eq 1}">
+										<input type="date" name="data_tax_date1" class="form-control form_date" readonly>
+										　~　<input type="date" name="data_tax_date2" class="form-control form_date" readonly>
+									</th:block>
+								</td>
 							</tr>
 						</table>
 					</form>

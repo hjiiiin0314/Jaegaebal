@@ -26,7 +26,7 @@ public class SalaryInfo {
 	private int dataExpen;
 	private String dataExpenDate1;
 	private String dataExpenDate2;
-	private int dataTaxDepart;
+	private int dataTaxdepart;
 	private float dataTax;
 	private String dataTaxDate1;
 	private String dataTaxDate2;
@@ -182,11 +182,11 @@ public class SalaryInfo {
 	public void setDataExpenDate2(String dataExpenDate2) {
 		this.dataExpenDate2 = dataExpenDate2;
 	}
-	public int getDataTaxDepart() {
-		return dataTaxDepart;
+	public int getDataTaxdepart() {
+		return dataTaxdepart;
 	}
-	public void setDataTaxDepart(int dataTaxDepart) {
-		this.dataTaxDepart = dataTaxDepart;
+	public void setDataTaxDepart(int dataTaxdepart) {
+		this.dataTaxdepart = dataTaxdepart;
 	}
 	public float getDataTax() {
 		return dataTax;
@@ -216,7 +216,7 @@ public class SalaryInfo {
 				+ ", dataHost=" + dataHost + ", dataScrib=" + dataScrib + ", dataBate=" + dataBate + ", dataBatePer="
 				+ dataBatePer + ", dataBateDate1=" + dataBateDate1 + ", dataBateDate2=" + dataBateDate2 + ", dataExpen="
 				+ dataExpen + ", dataExpenDate1=" + dataExpenDate1 + ", dataExpenDate2=" + dataExpenDate2
-				+ ", dataTaxDepart=" + dataTaxDepart + ", dataTax=" + dataTax + ", dataTaxDate1=" + dataTaxDate1
+				+ ", dataTaxDepart=" + dataTaxdepart + ", dataTax=" + dataTax + ", dataTaxDate1=" + dataTaxDate1
 				+ ", dataTaxDate2=" + dataTaxDate2 + "]";
 	}
 	
