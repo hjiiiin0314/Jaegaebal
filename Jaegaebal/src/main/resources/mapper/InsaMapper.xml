@@ -107,6 +107,10 @@
 		<result column="military_service_type" 		property="militaryServiceType"/>
 		<result column="military_state" 			property="militaryState"/>
 		<result column="jaejic_status_name" 		property="jaejicStatusName"/>
+		<result column="military_in_day" 			property="militaryInDay"/>
+		<result column="military_out_day" 			property="militaryOutDay"/>
+		<result column="military_level" 			property="militaryLevel"/>
+		
 	
 	</resultMap>
 	

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="layout/default">
+     
+   <th:block layout:fragment="customTitle">
+      <title th:text="${title}"></title> 
+   </th:block>
+   
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+   </th:block>
+   
+   <th:block layout:fragment="customJs">
+   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		
+			$(function(){
+				
+			
+			});
+			
+		</script>
+	</th:block>
+   
+   <th:block layout:fragment="customContent">
+		<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+		
+		<div class="app-main__inner">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>직원 등록
+					       <div class="page-title-subheading">인사관리/직원관리/직원등록</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		    <div class="row">
+				<div class="col-lg-4">
+					<div class="main-card mb-2 card">
+						<div class="card-body emp-table">
+							<h5 class="card-title">기본정보</h5>
+							<div class="scroll-div" style="height:768px;">
+							<div class="scrollbar-container">
+							<form>
+								<table class="mb-0 table table-bordered ">
+								<!-- needs-validation was-validated 클래스에 넣기 -->
+									<tr>
+										<td class="t_head">사원번호</td>
+										<td><input type="text" name="human_num" class="form-control" readonly></td>
+									</tr>
+									<tr>
+										<td class="t_head">이름</td>
+										<td><input type="text" name="human_num" class="form-control"></td>
+										<div class="valid-feedback">
+                                                Looks good!
+                                        </div>
+									</tr>
+									<tr>
+										<td class="t_head">소속</td>
+										<td>
+											<select name="data_expen" class="form-control" id="sosocList">
+												<option th:each="l : ${sosocList}" th:text="${l.jojicName}" th:value="${l.jojicName}" name="jojic_name"></option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td class="t_head">권한</td>
+										<td>
+											<select name="data_expen" class="form-control" id="sosocList">
+												<option th:each="l : ${sosocList}" th:text="${l.jojicName}" th:value="${l.jojicName}" name="jojic_name"></option>
+											</select>
+										</td>									</tr>
+									<tr>
+										<td class="t_head">직급</td>
+										<td>
+											<select name="data_expen" class="form-control" id="sosocList">
+												<option th:each="l : ${sosocList}" th:text="${l.jojicName}" th:value="${l.jojicName}" name="jojic_name"></option>
+											</select>
+										</td>									</tr>
+									<tr>
+										<td class="t_head">직책</td>
+										<td>
+											<select name="data_expen" class="form-control" id="sosocList">
+												<option th:each="l : ${sosocList}" th:text="${l.jojicName}" th:value="${l.jojicName}" name="jojic_name"></option>
+											</select>
+										</td>									</tr>
+									<tr>
+										<td class="t_head">기본급</td>
+										<td><input type="text" name="human_num" class="form-control"></td>
+									</tr>
+									<tr>
+										<td class="t_head">고용형태</td>
+										<td>
+											<select name="data_expen" class="form-control" id="sosocList">
+												<option th:each="l : ${sosocList}" th:text="${l.jojicName}" th:value="${l.jojicName}" name="jojic_name"></option>
+											</select>
+										</td>									</tr>
+									<tr>
+										<td class="t_head">입사일</td>
+										<td>
+											<input type="date" name="human_num" class="form-control" >
+										</td>
+									</tr>
+								</table>
+							</form>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="main-card mb-3 card">
+						<div class="card-body">
+							<h5 class="card-title m-b-none">추가 기입 정보</h5>
+						</div>
+                            <div class="card-header p-l-none">
+                                <div class="btn-actions-pane-right">
+                                    <div class="nav">
+                                        <a data-toggle="tab" href="#isStaffBasicInfo" class="btn-pill btn-wide active btn btn-outline-alternate btn-sm">인적사항</a>
+                                        <a data-toggle="tab" href="#isStaffFamilyInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">가족정보</a>
+                                        <a data-toggle="tab" href="#isCareerInfoFromIn" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">사내경력</a>
+                                        <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">사외경력</a>
+                                        <a data-toggle="tab" href="#isCertificateInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">자격정보</a>
+                                        <a data-toggle="tab" href="#isEducationInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">학력정보</a>
+                                        <a data-toggle="tab" href="#isBalryoungInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">발령정보</a>
+                                        <a data-toggle="tab" href="#isMilitaryInfo" class="btn-pill btn-wide  btn btn-outline-alternate btn-sm">병역정보</a>
+                                    </div>
+                                </div>
+                          	</div>
+                            <div class="card-body">
+                                <div class="tab-content">
+									<form>
+										<table class="mb-0 table table-bordered">
+		                                    <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    </div>
+		                                    <div class="tab-pane" id="isStaffFamilyInfo" role="tabpanel">
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    </div>
+										</table>
+			                   		</form>           
+                                </div>
+                            </div>
+                              <div class="d-block text-right card-footer">
+                                  <a href="javascript:void(0);" class="btn-wide btn btn-success">등록하기</a>
+                              </div>
+					</div>
+				</div>
+			</div>			
+		</div>
+		
+		
+		
+		
+		<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+   </th:block>
+    
+</html>

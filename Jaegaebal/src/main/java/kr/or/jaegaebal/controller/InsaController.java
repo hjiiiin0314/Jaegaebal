@@ -103,5 +103,13 @@ public class InsaController {
 		 return jojicTeamName; 
 		 
 	 }
+	 
+	 //직원 등록하기 화면
+	 @GetMapping("/insa/insertStaff")
+	 public String insertStaff(Model model) {
+		 model.addAttribute("title", "직원 등록");
+		 return "insa/insert_staff";
+	 }
+	 
  
 }

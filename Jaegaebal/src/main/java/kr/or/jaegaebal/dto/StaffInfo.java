@@ -3,36 +3,37 @@ package kr.or.jaegaebal.dto;
 public class StaffInfo {
 
 	/* 컬럼명 */
-	//사원
+	//사원 is_staff
 	//staff_num, jojic_code, access_num, staff_level_code, staff_position, hobong, staff_basic_salary, staff_pw,
 	//staff_name, staff_status_code, employment_status, company_in_date, company_out_date, reg_staff_name, reg_date
 	
-	//인적정보
+	//인적정보 is_staff_basic_info
 	//basic_info_code, staff_eng_name, human_num, staff_gender, staff_nationality, staff_country,
 	//staff_phone, staff_email, staff_marriged, staff_addr
 	
-	//가족정보
+	//가족정보 is_staff_family_info
 	//family_info_code, relation, family_name, family_birthday, family_job, family_addr, family_phone
 	
-	//발령정보
+	//발령정보 is_balryoung_info
 	//balryoung_info_code, balryoung_staff_num, balryoung_code, balryoung_date, balryoung_stage, notes
 	
-	//사내경력정보
+	//사내경력정보 is_career_info_from_in
 	//career_info_from_in_code, project_name, project_start_date, project_end_date, project_access,
 	//project_level_name, project_work, project_position
 	
-	//사외경력정보
+	//사외경력정보 is_career_info_from_out
 	//career_info_from_out_code, company_name, company_access,company_position_from_out, company_work_form_out
 	//company_in_date_from_out, company_out_date_from_out, company_out_reason
 	
-	//자격증정보
+	//자격증정보 is_certificate_info
 	//certificate_info_code, certificate_name, issuing_agency, certificate_num, get_date, finished_date
 	
-	//학력정보
+	//학력정보 is_education_info
 	//education_info_code, school_name, hakryuck_status, major_name, minor_name, entrance_date, graduat_date, degree
 	
-	//병력정보
+	//병력정보 is_military_info
 	//military_info_code, military_service_type, military_state
+	//military_in_day,  military_out_day, military_level
 	
 	/*다른 테이블에서 외래키로 가져온 컬럼명*/
 	//level_name, position_name, jojic_name, jaejic_status_name
@@ -114,8 +115,11 @@ public class StaffInfo {
 	private String degree;					//학위
 	
 	private String militaryInfoCode;		//사원 병력정보 코드
-	private String militaryServiceType;		//복무형태
+	private String militaryServiceType;		//군종
 	private String militaryState;			//상태 (전역or예비군)
+	private String militaryInDay;			//입대일자
+	private String militaryOutDay;			//전역일자
+	private String militaryLevel;			//계급
 	
 	/*추가된것들*/
 	private String levelName;				//직급
@@ -548,6 +552,24 @@ public class StaffInfo {
 	public void setMilitaryState(String militaryState) {
 		this.militaryState = militaryState;
 	}
+	public String getMilitaryInDay() {
+		return militaryInDay;
+	}
+	public void setMilitaryInDay(String militaryInDay) {
+		this.militaryInDay = militaryInDay;
+	}
+	public String getMilitaryOutDay() {
+		return militaryOutDay;
+	}
+	public void setMilitaryOutDay(String militaryOutDay) {
+		this.militaryOutDay = militaryOutDay;
+	}
+	public String getMilitaryLevel() {
+		return militaryLevel;
+	}
+	public void setMilitaryLevel(String militaryLevel) {
+		this.militaryLevel = militaryLevel;
+	}
 	public String getLevelName() {
 		return levelName;
 	}
@@ -717,6 +739,12 @@ public class StaffInfo {
 		builder.append(militaryServiceType);
 		builder.append(", militaryState=");
 		builder.append(militaryState);
+		builder.append(", militaryInDay=");
+		builder.append(militaryInDay);
+		builder.append(", militaryOutDay=");
+		builder.append(militaryOutDay);
+		builder.append(", militaryLevel=");
+		builder.append(militaryLevel);
 		builder.append(", levelName=");
 		builder.append(levelName);
 		builder.append(", positionName=");
