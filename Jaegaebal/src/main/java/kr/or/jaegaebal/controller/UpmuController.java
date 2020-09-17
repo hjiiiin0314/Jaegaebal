@@ -28,10 +28,13 @@ public class UpmuController {
 	}
 	
 	//내가올린결재문서리스트화면연결
-	@GetMapping("/myAppList")
-	public String appBox() {
-		return "approval/appBox";
-	}
+		@GetMapping("/myAppList")
+		public String myAppList(Model model) {
+			List<UpmuDocument> myAppList = upmuService.myAppList();
+			model.addAttribute("myAppList", myAppList);
+			
+			return "approval/myAppList";
+		}
 	
 	//임시저장화면연결
 	@GetMapping("/storageBox")
