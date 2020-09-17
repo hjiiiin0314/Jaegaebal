@@ -16,25 +16,13 @@ public class UpmuDocument {
 	private String endDate;
 	private String appState;
 	private int security;
-	private String appReDate;
+	private String deadline;
 	private String regStaffName;
 	private String docTypeName;
 	private String umstCate;
 	private String docComent;
 	
 	
-	public String getDocComent() {
-		return docComent;
-	}
-	public void setDocComent(String docComent) {
-		this.docComent = docComent;
-	}
-	public String getUmstCate() {
-		return umstCate;
-	}
-	public void setUmstCate(String umstCate) {
-		this.umstCate = umstCate;
-	}
 	public String getDocCode() {
 		return docCode;
 	}
@@ -107,11 +95,11 @@ public class UpmuDocument {
 	public void setSecurity(int security) {
 		this.security = security;
 	}
-	public String getAppReDate() {
-		return appReDate;
+	public String getDeadline() {
+		return deadline;
 	}
-	public void setAppReDate(String appReDate) {
-		this.appReDate = appReDate;
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
 	}
 	public String getRegStaffName() {
 		return regStaffName;
@@ -125,16 +113,30 @@ public class UpmuDocument {
 	public void setDocTypeName(String docTypeName) {
 		this.docTypeName = docTypeName;
 	}
+	public String getUmstCate() {
+		return umstCate;
+	}
+	public void setUmstCate(String umstCate) {
+		this.umstCate = umstCate;
+	}
+	public String getDocComent() {
+		return docComent;
+	}
+	public void setDocComent(String docComent) {
+		this.docComent = docComent;
+	}
 	@Override
 	public String toString() {
 		return "UpmuDocument [docCode=" + docCode + ", docType=" + docType + ", writerBuseoCode=" + writerBuseoCode
 				+ ", writerNum=" + writerNum + ", docTitle=" + docTitle + ", docContents=" + docContents
 				+ ", writeDate=" + writeDate + ", docFile=" + docFile + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", appState=" + appState + ", security=" + security + ", appReDate=" + appReDate
+				+ endDate + ", appState=" + appState + ", security=" + security + ", deadline=" + deadline
 				+ ", regStaffName=" + regStaffName + ", docTypeName=" + docTypeName + ", umstCate=" + umstCate
 				+ ", docComent=" + docComent + "]";
 	}
 	
+	
+
 	
 	
 	
