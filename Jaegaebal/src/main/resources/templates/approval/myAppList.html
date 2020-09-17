@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>개인결재함</title>
-</head>
-<body>
-개인이 올린 결재문서의 진행상태를 알 수 있는 결재함입니다.
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	<th:block layout:fragment="customCss">
+		<!-- upmu.css  -->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+ 		<div class="col-md-10">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-note2 icon-gradient bg-happy-itmeo"></i>
+					    </div>
+					    <div>
+					    	<h3>개인결재함</h3>					    		
+					       	<div class="page-title-subheading">
+					       	</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+             <div class="main-card mb-10 card">
+                  <div class="card-body">  
+                  	<h4><i class="pe-7s-note2"></i> 상신함 </h4>
+                  	<form action="/myAppList" method="post">
+						<select name="sk" class="form-control select-form" >
+							<option value="" selected="selected" disabled="disabled">::검색조건::</option>
+							<option >문서유형</option>
+							<option >제목</option>
+							<option >결재상태</option>
+						</select>
+						<input type="text" name="sv" class="form-control select-form"  >	
+							<button type="submit" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
+					</form>
+					<br>
+					<table class="mb-0 table table-sm">
+                    	<thead>
+	                         <tr>
+	                             <th>문서코드</th>
+	                             <th>문서유형</th>
+	                             <th>제목</th>
+	                             <th>기안날짜</th>
+	                             <th>첨부파일</th>
+	                             <th>보안</th>
+	                             <th>마감요청일</th>
+	                             <th>결재상태</th>
+	                         </tr>
+	                    </thead>
+                        <tbody>
+	                        <tr th:each="l : ${myAppList}">
+	                            <td th:text="${l.docCode}"></td>
+	                            <td th:text="${l.docTypeName}"></td>
+	                            <td th:text="${l.docTitle}"></td>
+	                            <td th:text="${l.writeDate}"></td>
+	                            <td th:text="${l.docFile}"></td>
+	                            <td th:text="${l.security}"></td>
+	                            <td th:text="${l.deadline}"></td>
+	                            <td th:text="${l.appStateName}"></td>
+	                          
+	                        </tr>
+	                        
+                        </tbody>
+                    </table>
+                  </div>
+             </div> 
+       </div>          
+
+
+
+
+
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+
+	</th:block>
+    
 </html>
