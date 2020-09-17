@@ -15,14 +15,28 @@ public class UpmuDocument {
 	private String startDate;
 	private String endDate;
 	private String appState;
-	private int security;
+	private String security;
 	private String deadline;
 	private String regStaffName;
 	private String docTypeName;
 	private String umstCate;
 	private String docComent;
+	private String appStateName;
+	private String umstType;
 	
 	
+	public String getUmstType() {
+		return umstType;
+	}
+	public void setUmstType(String umstType) {
+		this.umstType = umstType;
+	}
+	public String getAppStateName() {
+		return appStateName;
+	}
+	public void setAppStateName(String appStateName) {
+		this.appStateName = appStateName;
+	}
 	public String getDocCode() {
 		return docCode;
 	}
@@ -89,10 +103,10 @@ public class UpmuDocument {
 	public void setAppState(String appState) {
 		this.appState = appState;
 	}
-	public int getSecurity() {
+	public String getSecurity() {
 		return security;
 	}
-	public void setSecurity(int security) {
+	public void setSecurity(String security) {
 		this.security = security;
 	}
 	public String getDeadline() {
@@ -132,8 +146,9 @@ public class UpmuDocument {
 				+ ", writeDate=" + writeDate + ", docFile=" + docFile + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", appState=" + appState + ", security=" + security + ", deadline=" + deadline
 				+ ", regStaffName=" + regStaffName + ", docTypeName=" + docTypeName + ", umstCate=" + umstCate
-				+ ", docComent=" + docComent + "]";
+				+ ", docComent=" + docComent + ", appStateName=" + appStateName + ", umstType=" + umstType + "]";
 	}
+	
 	
 	
 

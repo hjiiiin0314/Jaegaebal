@@ -26,3 +26,8 @@
 .btn-del{
 	margin:5px 18px;
 }
+
+.select-form{
+	width:25%;
+	display:inline;
+}

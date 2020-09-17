@@ -16,6 +16,9 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface UpmuMapper {
 	
+	//결재함 - 내가 올린 결재문서 목록
+		public List<UpmuDocument> myAppList();
+	
 	//기안하기 - 결재라인 - 조직도 - 사원
 		public List<StaffInfo> getStaff();
 		
