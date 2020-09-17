@@ -30,5 +30,5 @@ public interface InsaMapper {
 	public List<Map<Jojic, Object>> getJojicInfo();
 	
 	//팀명 가지고 오기
-	//public List<Map<Jojic, Object>> getJojicInfo();
+	public List<Jojic> getTeamName(String buseoName);
 }

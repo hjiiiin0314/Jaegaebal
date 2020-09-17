@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
@@ -92,11 +93,15 @@ public class InsaController {
 	}
 
 	// 팀명 가지고 오기
-/*	 @PostMapping("/getTeamName")
-	 public List<Map<Jojic, Object>> getBuseoName() { 
-		 List<Map<Jojic, Object>> TeamName = insaService.getTeamName();
-		 log.info("TeamName---> {}",TeamName);
-		 return TeamName; 
+	 @PostMapping(value = "/getTeamName", produces = "application/json")
+	 @ResponseBody
+	 public List<Jojic> getBuseoName(@RequestParam(value="buseoName") String buseoName) { 
+		 System.out.printf("buseoName>>>>>>>>>>>>>>>>>"+buseoName+"<<<<<");
+		 List<Jojic> jojicTeamName = insaService.getTeamName(buseoName);
+		 log.info("jojicTeamName---> {}", jojicTeamName);
+
+		 return jojicTeamName; 
+		 
 	 }
-*/	 
+ 
 }

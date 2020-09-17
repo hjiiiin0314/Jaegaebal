@@ -12,6 +12,7 @@
    </th:block>
    
    <th:block layout:fragment="customJs">
+   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript">
 		
 			$(function(){
@@ -39,22 +40,32 @@
 			 	});
 				
  				/* 소속 클릭시 ajax 호출 */
-/* 				$('#TeamName').click(function(){
-					var buseoNameVal = $('#TeamName').
+ 				$('#SelectBuseo').change(function(){
+					var buseoName = $(this).val();
+					console.log(buseoName);
  					var request = $.ajax({
 					  url: "/getTeamName",
 					  method: "POST",
 					  data: { buseoName : buseoName },
-					  dataType: "html"
+					  dataType: "json"
 					});
 					
 					request.done(function( data ) {
 						console.log(data);
+						$('#SelectTeam').children("option").remove();
+						$('#SelectTeam').append("<option selected='selected' disabled='disabled'>팀</option>");
+ 						for(var i=0; i<data.length; i++){
+ 							if(data[i].jojicName != null){
+								$('#SelectTeam').append("<option value="+data[i].jojicName + " id='teamName'>" + data[i].jojicName + "</option>");
+ 							}else{
+ 								$('#SelectTeam').append("<option value='자료가 없습니다.'" + " id='teamName'>" + data[i].jojicName + "</option>");
+ 							}
+						};
 					});
 					request.fail(function( jqXHR, textStatus ) {
 					  alert( "Request failed: " + textStatus );
 					});
-				});  */
+				});  
 			
 			});
 			
@@ -90,18 +101,11 @@
 		                     </div>
  							<select id="SelectBuseo" name="customSelect" class="custom-select">
 								<option selected="selected" disabled="disabled">부서</option>
-									<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}"></option>ㄴ
+									<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" th:name="${l.jojicName}"></option>
 							</select>
  							<select id="SelectTeam" name="customSelect" class="custom-select">
 								<option selected="selected" disabled="disabled">팀</option>
-								<th:block>
-									<option>Value 3</option>
-									<option>Value 4</option>
-									<option>Value 5</option>
-								</th:block>
 							</select>
-		                     
-							
 						</div>              
 						<div class="input-group col-md-5 p-l-none p-r-none p-b-xs">
 		                     <div class="input-group-prepend">

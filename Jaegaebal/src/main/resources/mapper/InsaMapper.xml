@@ -196,12 +196,12 @@
 	</select>
 	
 	<!-- 팀명 가지고 오기 -->
-	<select id="getTeamName" resultMap="JojicResultMap">
+ 	<select id="getTeamName" parameterType="String" resultMap="JojicResultMap">
 		SELECT
 				jojic_name
 		FROM
-				is_jojic
+				is_jojic 
 		WHERE
-				jojic_sosoc_name = '팀'
+				parent_jojic_name = #{buseoName}
 	</select>
 </mapper>	

@@ -29,7 +29,7 @@ public class StaffInfo {
 	//certificate_info_code, certificate_name, issuing_agency, certificate_num, get_date, finished_date
 	
 	//학력정보
-	//education_info_code, school_name, gakryuck_status, major_name, minor_name, entrance_date, graduat_date, degree
+	//education_info_code, school_name, hakryuck_status, major_name, minor_name, entrance_date, graduat_date, degree
 	
 	//병력정보
 	//military_info_code, military_service_type, military_state
@@ -106,7 +106,7 @@ public class StaffInfo {
 	
 	private String educationInfoCode;		//사원 학력정보 코드
 	private String schoolName;				//학교명
-	private String gakryuckStatus;			//상태 (졸업or재학중or휴학)
+	private String hakryuckStatus;			//상태 (졸업or재학중or휴학)
 	private String majorName;				//전공
 	private String minorName;				//부전공
 	private String entranceDate;			//입학일
@@ -494,11 +494,11 @@ public class StaffInfo {
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
-	public String getGakryuckStatus() {
-		return gakryuckStatus;
+	public String getHakryuckStatus() {
+		return hakryuckStatus;
 	}
-	public void setGakryuckStatus(String gakryuckStatus) {
-		this.gakryuckStatus = gakryuckStatus;
+	public void setHakryuckStatus(String hakryuckStatus) {
+		this.hakryuckStatus = hakryuckStatus;
 	}
 	public String getMajorName() {
 		return majorName;
@@ -699,8 +699,8 @@ public class StaffInfo {
 		builder.append(educationInfoCode);
 		builder.append(", schoolName=");
 		builder.append(schoolName);
-		builder.append(", gakryuckStatus=");
-		builder.append(gakryuckStatus);
+		builder.append(", hakryuckStatus=");
+		builder.append(hakryuckStatus);
 		builder.append(", majorName=");
 		builder.append(majorName);
 		builder.append(", minorName=");
@@ -730,5 +730,4 @@ public class StaffInfo {
 	}
 	
 	
-
 }

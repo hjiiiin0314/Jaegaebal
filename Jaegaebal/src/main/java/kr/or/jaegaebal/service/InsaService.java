@@ -89,10 +89,12 @@ public class InsaService {
 	};
 	
 	//팀명 가지고 오기
-	/*
-	 * public List<Map<Jojic, Object>> getTeamName() { List<Map<Jojic, Object>>
-	 * getTeamName = insaMapper.getTeamName(); if(getTeamName != null) {
-	 * 
-	 * return getTeamName; } };
-	 */
+	 public List<Jojic> getTeamName(String buseoName) { 
+		 
+		 List<Jojic> getTeamName = insaMapper.getTeamName(buseoName);
+		 
+		 return getTeamName;
+	 		
+	};
+	
 }
