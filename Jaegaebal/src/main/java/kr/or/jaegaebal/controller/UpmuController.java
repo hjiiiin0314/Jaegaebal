@@ -46,8 +46,8 @@ public class UpmuController {
 	//기안하기화면연결
 			@GetMapping("/appWrite")
 			public String appWrite(Model model) {
-				List<UpmuDocument> docCate = upmuService.getDocCate();	
-				model.addAttribute("docCate", docCate);
+				List<UpmuDocument> docType = upmuService.getDocType();	
+				model.addAttribute("docType", docType);
 				
 				List<Jojic> jojic = upmuService.getJojic();
 				model.addAttribute("jojic", jojic);

@@ -72,15 +72,11 @@
  </select>
  
  <!-- 기안하기에서 문서유형검색  -->
- <select id="getDocCate" resultType="UpmuDocument">
+ <select id="getDocType" resultType="UpmuDocument">
  	SELECT 
-		umst_code 	as docType
-		,umst_cate 	as umstCate
-		,umst_type 	as docTypeName
+ 		doc_type as docTypeName
 	FROM 
-		um_standard
-	WHERE
-		umst_cate = 'document';
+		um_doctype
  </select>
                         
 </mapper>

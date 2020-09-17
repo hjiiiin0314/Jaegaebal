@@ -40,7 +40,8 @@
 	                   	<div class="position-relative form-group document-form">
 	                   	<label for="docType" >문서양식</label>
 	                   	<select id="docType" class="form-control" name="docTypeName" >
-	                        <option th:each="doc : ${docCate}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
+	                   		<option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
+	                        <option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
 	                    </select>
 	                    </div>
 	                    <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
