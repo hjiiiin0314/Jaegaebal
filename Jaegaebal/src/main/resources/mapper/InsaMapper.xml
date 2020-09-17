@@ -207,5 +207,7 @@
 				is_jojic 
 		WHERE
 				parent_jojic_name = #{buseoName}
+		AND 
+				jojic_status = '활성'
 	</select>
 </mapper>	

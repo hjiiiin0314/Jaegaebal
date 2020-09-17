@@ -130,7 +130,6 @@
 	background-color : #f8f8f8;
 }
 
-@charset "UTF-8";
 
 .table .form_date{
 	width:44%;
@@ -139,8 +138,8 @@
 
 .table .t_head{
 	background:#f9f9f9;
+	
 }
-/**********************************************************************************/
 /*테이블 스크롤 시 thead고정*/
 .app-main .table .fixed_top{
 	position: sticky;
@@ -166,4 +165,14 @@
 	.table tr{
 		height:59px;
 	}
+}
+
+.staff-nationality-input {
+	font-color : #red;
+	background:#red;
+}
+
+.table .t_head2 {
+	background : #f9f9f9;
+	width:14%;
 }
