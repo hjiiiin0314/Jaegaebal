@@ -2,13 +2,16 @@ package kr.or.jaegaebal.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.service.ChaeYoungService;
@@ -60,5 +63,16 @@ public class ChaeYoungController {
 		
 		return "chaeyoung/applicantLogin";
 	}
-
+	//로그인 할 시 id체크
+	@PostMapping(value = "/emailCheck", produces = "application/json")
+	@ResponseBody
+	public int emailCheck(@RequestParam(value="appEmail") String appEmail) {
+		ChaeYoungApplicant app = chaeYoungService.emailCheck(appEmail);
+		int result = 0;
+		if(app != null) {
+			result = 1;		
+		}
+		
+		return result;
+	}
 }

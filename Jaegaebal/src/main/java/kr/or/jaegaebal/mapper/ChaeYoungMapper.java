@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.Jojic;
 
@@ -26,4 +27,7 @@ public interface ChaeYoungMapper {
 	
 	//작성된 게시글 화면에 뿌려주기(메서드오버로딩)
 	public ChaeYoungBoard cyBoardList(String jobNumber);
+	
+	//이메일 중복체크
+	public ChaeYoungApplicant emailCheck(String appEmail);
 }
