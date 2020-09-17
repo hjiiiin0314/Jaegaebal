@@ -14,7 +14,18 @@
 		<result column="job_reg_date" 		property="jobRegDate"/>
 		<result column="job_reg_staff"		property="jobRegStaff"/>
 	</resultMap>
+	<resultMap type="ChaeYoungApplicant" id="ChaeYoungApplicantResultMap">
 	
+		<result column="app_email" 		property="appEmail"/>
+		<result column="app_number" 	property="appNumber"/>
+		<result column="app_passward" 	property="appPassward"/>
+		<result column="app_name" 		property="appName"/>
+		<result column="app_phone" 		property="appPhone"/>
+		<result column="app_reg_date"	property="appRegDate"/>
+
+	</resultMap>
+
+
 	<!-- 구인공고 게시글 등록 -->
 	<insert id="addCYBoardPost" parameterType="String">
 		INSERT INTO cy_job_board(
@@ -64,5 +75,18 @@
 			cy_applicant_register
 		WHERE
 			app_email = #{appEmail} 
+	</select>
+	<select id="appManagement" parameterType="String" resultMap="ChaeYoungApplicantResultMap">
+		SELECT 
+			app_email
+			,app_number
+			,app_passward
+			,app_name
+			,app_phone
+			,app_reg_date
+		FROM 
+			cy_applicant_register
+		WHERE 
+			app_number = #{appNumber}
 	</select>
 </mapper>
