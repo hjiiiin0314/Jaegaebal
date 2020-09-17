@@ -14,7 +14,9 @@ import kr.or.jaegaebal.dto.StaffInfo;
  */
 @Mapper
 public interface SalaryMapper {
-	public SalaryInfo salaryInfo(String dataNum);
+	public Map<String, Object> salaryInfoMap(String dataNum);
+	
+	public List<Map<SalaryInfo, Object>> salaryInfo(String dataNum);
 	
 	public List<Map<StaffInfo,Object>> getSalaryStaffList();
 }

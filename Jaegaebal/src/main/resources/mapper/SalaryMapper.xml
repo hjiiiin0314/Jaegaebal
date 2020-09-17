@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
 <mapper namespace="kr.or.jaegaebal.mapper.SalaryMapper">
 	<resultMap type="SalaryInfo" id="SalaryInfoResultMap">
 		<result column="data_num" 		property="dataNum"/>
@@ -36,7 +37,56 @@
 	</resultMap>
 	
 	<!-- 회사 정보 목록 -->
-	<select id="salaryInfo" parameterType="String" resultType="SalaryInfo" resultMap="SalaryInfoResultMap">
+	<select id="salaryInfoMap" parameterType="String" resultType="Map">
+		SELECT 
+			data_num	AS	dataNum, 
+			data_emp	AS	dataEmp,
+			staff_name	AS	staffName,
+			level_name	AS	levelName,
+			human_num	AS	humanNum,
+			company_in_date	AS	companyInDate,
+			company_out_date	AS	companyOutDate,
+			staff_nationality	AS	staffNationality,
+			staff_country	AS	staffCountry,
+			staff_phone	AS	staffPhone,
+			staff_email	AS	staffEmail,
+			data_insu	AS	dataInsu, 
+			data_resi	AS	dataResi, 
+			data_pro	AS	dataPro, 
+			data_bank	AS	dataBank, 
+			data_account	AS	dataAccount, 
+			data_host	AS	dataHost, 
+			data_scrib	AS	dataScrib, 
+			data_bate	AS	dataBate, 
+			data_bate_per	AS	dataBatePer, 
+			data_bate_date1	AS	dataBateDate1, 
+			data_bate_date2	AS	dataBateDate2, 
+			data_expen	AS	dataExpen, 
+			data_expen_date1	AS	dataExpenDate1, 
+			data_expen_date2	AS	dataExpenDate2, 
+			data_taxdepart	AS	dataTaxdepart, 
+			data_tax	AS	dataTax, 
+			data_tax_date1	AS	dataTaxDate1, 
+			data_tax_date2	AS	dataTaxDate2
+	FROM sal_data a
+		INNER join
+	is_staff b
+		INNER join
+	is_level c
+		INNER join
+	is_staff_basic_info d
+		ON
+	a.data_emp = b.staff_num
+		AND
+	b.staff_level_code = c.level_code
+		AND
+	b.staff_num = d.staff_num
+		WHERE
+	data_emp = #{dataEmp}
+	</select>
+	
+	<!-- 회사 정보 목록 -->
+	<select id="salaryInfo" parameterType="String" resultMap="SalaryInfoResultMap">
 		SELECT 
 			data_num, 
 			data_emp,
