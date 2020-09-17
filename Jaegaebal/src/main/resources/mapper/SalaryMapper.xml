@@ -30,7 +30,7 @@
 		<result column="data_expen" property="dataExpen"/>
 		<result column="data_expen_date1" property="dataExpenDate1"/>
 		<result column="data_expen_date2" property="dataExpenDate2"/>
-		<result column="data_tax_depart" property="dataTaxDepart"/>
+		<result column="data_taxdepart" property="dataTaxdepart"/>
 		<result column="data_tax" property="dataTax"/>
 		<result column="data_tax_date1" property="dataTaxDate1"/>
 		<result column="data_tax_date2" property="dataTaxDate2"/>
