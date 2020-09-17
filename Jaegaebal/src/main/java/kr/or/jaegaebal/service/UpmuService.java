@@ -42,9 +42,9 @@ public class UpmuService {
 		}
 	
 	//기안하기-문서유형 option값	
-	public List<UpmuDocument> getDocCate(){
-		  List<UpmuDocument> docCate = upmumapper.getDocCate();
-		return docCate;
+	public List<UpmuDocument> getDocType(){
+		  List<UpmuDocument> docType = upmumapper.getDocType();
+		return docType;
 		
 	}
 	

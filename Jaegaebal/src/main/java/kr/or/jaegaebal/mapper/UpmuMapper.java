@@ -27,5 +27,5 @@ public interface UpmuMapper {
 
 
 	//기안하기 - 문서유형
-	public List<UpmuDocument> getDocCate();
+	public List<UpmuDocument> getDocType();
 }
