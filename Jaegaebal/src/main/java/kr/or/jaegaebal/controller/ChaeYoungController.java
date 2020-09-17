@@ -63,7 +63,7 @@ public class ChaeYoungController {
 		
 		return "chaeyoung/applicantLogin";
 	}
-	//로그인 할 시 id체크
+	//지원할 시 이메일 체크
 	@PostMapping(value = "/emailCheck", produces = "application/json")
 	@ResponseBody
 	public int emailCheck(@RequestParam(value="appEmail") String appEmail) {
