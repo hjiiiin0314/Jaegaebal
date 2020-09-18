@@ -17,11 +17,13 @@
 	<resultMap type="ChaeYoungApplicant" id="ChaeYoungApplicantResultMap">
 	
 		<result column="app_email" 		property="appEmail"/>
-		<result column="app_number" 	property="appNumber"/>
+		<result column="job_number" 	property="jobNumber"/>
 		<result column="app_passward" 	property="appPassward"/>
 		<result column="app_name" 		property="appName"/>
 		<result column="app_phone" 		property="appPhone"/>
 		<result column="app_reg_date"	property="appRegDate"/>
+		<result column="app_num_code"	property="appNumCode"/>
+		<result column="app_final_state"	property="appFinalState"/>
 
 	</resultMap>
 
@@ -40,7 +42,7 @@
 			,job_reg_staff
 			)
 			VALUES (
-			'cy001'
+			'cy003'
 			,#{jobJojicCode}
 			,#{jobJojicName}
 			,#{jobTitle}
@@ -76,17 +78,22 @@
 		WHERE
 			app_email = #{appEmail} 
 	</select>
-	<select id="appManagement" parameterType="String" resultMap="ChaeYoungApplicantResultMap">
+	<!-- 지원자 정보 가져오기 -->
+	<select id="appManagement" resultMap="ChaeYoungApplicantResultMap">
 		SELECT 
-			app_email
-			,app_number
-			,app_passward
-			,app_name
-			,app_phone
-			,app_reg_date
+			areg.app_email
+			,areg.job_number
+			,areg.app_passward
+			,areg.app_name
+			,areg.app_phone
+			,areg.app_reg_date
+			,anum.app_num_code
+			,anum.app_final_state
 		FROM 
-			cy_applicant_register
-		WHERE 
-			app_number = #{appNumber}
+			cy_applicant_register AS areg
+			INNER JOIN
+			cy_applicant_number AS anum
+			on
+			areg.app_email = anum.app_email
 	</select>
 </mapper>

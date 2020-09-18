@@ -32,5 +32,5 @@ public interface ChaeYoungMapper {
 	public ChaeYoungApplicant emailCheck(String appEmail);
 	
 	//지원자 목록 가져오기
-	public List<ChaeYoungApplicant> appManagement(String appNumber);
+	public List<ChaeYoungApplicant> appManagement();
 }

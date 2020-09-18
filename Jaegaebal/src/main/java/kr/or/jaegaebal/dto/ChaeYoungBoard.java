@@ -12,6 +12,7 @@ public class ChaeYoungBoard {
 	private String jobRegDate; //공고등록일
 	private String jobRegStaff; //공고등록자
 	
+	
 	public String getJobCareer() {
 		return jobCareer;
 	}

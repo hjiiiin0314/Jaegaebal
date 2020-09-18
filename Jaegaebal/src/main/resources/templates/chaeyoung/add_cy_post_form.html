@@ -67,7 +67,7 @@
                     			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}" th:selected="${cyboard.jobJojicCode eq j.jojicCode}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
-		                     	<input type="hidden" name="jobJojicName" value="${j.jojicName}">		                      
+		                	                      
 		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
 		                          <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
 		                          <option value="경력" th:selected="${cyboard.jobCareer eq '경력'}">경력</option>
@@ -90,7 +90,7 @@
 				</th:block>
 				<!-- 초기 게시글 등록화면 -->
 			<th:block th:if="${cyboard == null}">
-				<form action="/addCYPost" method="post">
+				<form id="addPost" action="/addCYPost" method="post">
 		  			<div class="col-md-12">
 		              <div class="main-card mb-12 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
@@ -98,7 +98,7 @@
                     			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
-								<input type="hidden" name="jobJojicName" value="${j.jojicName}">	                      
+								<input type="hidden" name="jobJojicName" id="jobJojicName">	                      
 		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
 		                          <option value="신입">신입</option>
 		                          <option value="경력">경력</option>
@@ -110,7 +110,7 @@
 		                      <textarea id="summernote" name="jobContent"></textarea>
 		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
 		                      </div>             
-		                      <div align="center"><button class="mt-1 btn btn-primary" type="submit" id="addcyPostBtn">등록하기</button></div>               
+		                      <div align="center"><button class="mt-1 btn btn-primary" type="button" id="addcyPostBtn">등록하기</button></div>               
 		                  </div>
 		              </div>
 		          </div>
@@ -121,11 +121,8 @@
 		
 	</th:block>
 		<th:block layout:fragment="customJsScript">
-		
-		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-		<!-- include libraries(jQuery, bootstrap) -->
 
-		
+	
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 		
 		<!-- include summernote css/js -->
@@ -146,6 +143,14 @@
 						  placeholder: '내용을 입력하세요'	//placeholder 설정
 				          
 					});
+				});
+				
+				$('#addcyPostBtn').click(function() {
+					
+					var jojicName = $('#jojicCode option:selected').text(); //셀렉트박스에 노출되는 text를 가져온다.				
+					$('#jobJojicName').val(jojicName); //히든 인풋박스에 name 값을 저장
+					
+					$('#addPost').submit();
 				});
 			});
 		</script>
