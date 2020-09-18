@@ -114,11 +114,8 @@ public class CodeAdminController {
 		@PostMapping(value = "/codeCheck", produces = "application/json")
 		@ResponseBody
 		public int codeCheck(@RequestParam(value="workCode") String workCode) {
-			CodeAdmin code = codeAdminService.codeCheck(workCode);
-			int result = 0;
-			if(code != null) {
-				result = 1;		
-			}
+			
+			int result = codeAdminService.codeCheck(workCode);
 			
 			return result;
 		}

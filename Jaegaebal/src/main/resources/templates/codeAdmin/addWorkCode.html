@@ -11,12 +11,14 @@
 		
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 	 
-		<form action="/addWorkCode" method="post">
 			<div class="col-md-20; m-5">
 				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
 					<div class="col-md-20; m-5">						  
+		<form action="/addWorkCode" method="post" id="signIn">
+								<input type="hidden" id="codeCheckResult" value=1>
+								<input type="hidden" id="CheckCode">
 							    <label for="workCode">근무형태코드</label>
-							    <input type="text" class="form-control input-lg" name="workCode" placeholder="근무형태코드">
+							    <input type="text" class="form-control input-lg" name="workCode" id="workCode" placeholder="근무형태코드">
 							    <br>
 							    <span class="input-group-btn"><button class="btn btn-primary" type="button" id="codeCheckBtn">중복확인</button></span>
 							 
@@ -37,17 +39,16 @@
 								 <label for="workStaffName">등록자</label>
 							   	 <input type="text" class="form-control input-lg" name="workStaffName" placeholder="등록자명">
 					   <br>
+		</form>
 								  <div class="widget-content-right header-user-info ml-10" align="center">
 			                            	
 			                         <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm submitBtn" value="등록하기">
-			                          
-			                                    
+			                          			                                    
 			                      </div>
 			                   <br>
 					 </div>
 				</div>
 			</div>
-		</form>
 		
 	
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
@@ -59,13 +60,51 @@
 	
 	//근무형태코드 중복확인
 	
-	
+	$(function() {
+		//아이디중복체크 및 유효성검사
+		$('#codeCheckBtn').click(function() {
+			var workCode = $('input[name="workCode"]');
+			
+			
+			if(workCode.val() == ''){
+				alert('근무형태코드를 입력해주세요.');
+				workCode.focus();
+				return false;
+				}
+			
+				var request = $.ajax({
+
+					  url: "/codeCheck",
+					  method: "POST",
+					  data: { workCode : workCode.val() },
+					  dataType: "json" 
+				});
+			
+				request.done(function( data ) {
+					var codeCheckResult = $('#codeCheckResult');
+					var CheckCode = $('#CheckCode');
+					
+					if(data == 0){
+						alert('사용 가능한 코드 입니다.');
+						CheckCode.val(workCode.val());
+					}else{
+						alert('사용중인 코드 입니다.');
+					}
+					codeCheckResult.val(data);	             
+				});
+				
+				
+			}); 
+		}); 
+	 
 	//유효성검사
 	$(function(){
 		$('.submitBtn').click(function(){
 			
 			var workCode = $('input[name="workCode"]');
-			var workCode = $('input[name="workName"]');
+			var workName = $('input[name="workName"]');
+			var codeCheckResult = $('#codeCheckResult').val();
+			var CheckCode = $('#CheckCode').val();
 			
 			
 			if(workCode.val() == ''){
@@ -76,8 +115,13 @@
 				alert('근무이름을 입력해주세요.');
 				workName.focus();
 				return false;
+			}else if(codeCheckResult == 1 || workCode.val() != CheckCode){
+				alert('코드중복검사를 진행해주세요.');
+				workCode.focus();
+				return false;
 			}
-			
+			$('#signIn').submit();
+			alert('코드등록 완료.');
 		})
 	});
 	

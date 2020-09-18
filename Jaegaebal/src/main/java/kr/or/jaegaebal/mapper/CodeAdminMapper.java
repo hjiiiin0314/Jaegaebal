@@ -32,5 +32,5 @@ public interface CodeAdminMapper {
 	public int deleteWorkCode(String workCode);
 	
 	//근무형태코드 중복확인
-		public CodeAdmin codeCheck(String workCode);
+		public String codeCheck(String workCode);
 }

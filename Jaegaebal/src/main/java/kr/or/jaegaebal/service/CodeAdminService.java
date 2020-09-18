@@ -56,8 +56,14 @@ public class CodeAdminService {
 	}
 	
 	//근무형태코드 중복확인
-		public CodeAdmin codeCheck(String workCode) {
-		
-		return codeAdminMapper.codeCheck(workCode);
+		public int codeCheck(String workCode) {
+			
+			int result = 0;
+			String code = codeAdminMapper.codeCheck(workCode);
+			if(code != null && !"".equals(code.trim())) {
+				result = 1;
+			}
+			return result;
 		}
+		
 }
