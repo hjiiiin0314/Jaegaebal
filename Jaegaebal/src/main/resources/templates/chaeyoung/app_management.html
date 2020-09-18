@@ -13,7 +13,7 @@
            <div class="app-page-title">
                <div class="page-title-wrapper">
                    <div class="page-title-heading">
-                   	헤드라인
+                   	지원자 목록
 					</div>
                        <div class="page-title-actions">
                            <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
@@ -26,7 +26,7 @@
                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
                    <li class="nav-item" th:each="cy : ${cyBoardList}">
                        <a role="tab" class="nav-link" th:id="@{'tab-'+${cyStat.index}}" data-toggle="tab" th:href="@{'#tab-content-'+${cyStat.index}}">
-                           <span class="testTest"th:text=${cy.jobNumber}></span>
+                           <span class="testTest"th:text=${cy.jobJojicName}></span>
                        </a>
                    </li>
                </ul>
@@ -36,7 +36,8 @@
                        <div class="row">
 						<div class="col-md-12">
                          <div class="main-card mb-3 card">
-                             <div class="card-header" th:text="${cyStat.index}">지원자명단
+                             <div class="card-header">
+                             	<a th:href="@{/addCYPostForm(jobNumber=${cy.jobNumber})}" th:text="${cy.jobTitle}"></a>
                                  <div class="btn-actions-pane-right">
                                      <div role="group" class="btn-group-sm btn-group">
                                          <button class="active btn btn-focus">Last Week</button>
@@ -51,7 +52,7 @@
                                      <thead>
                                      <tr>
                                          <th class="text-center">지원자접수번호</th>
-                                         <th>자기소개서</th>
+                                         <th>지원자 정보</th>
                                          <th class="text-center">City</th>
                                          <th class="text-center">Status</th>
                                          <th class="text-center">이력서조회</th>
@@ -60,7 +61,7 @@
                                      <tbody>
                                      <th:block th:each="app : ${appList}" th:if="${cy.jobNumber eq app.jobNumber}">
                                      <tr>
-                                         <td id="test" class="text-center text-muted" th:text="${app.appName}"></td>
+                                         <td id="test" class="text-center text-muted" th:text="${app.appNumCode}"></td>
                                          <td>
                                              <div class="widget-content p-0">
                                                  <div class="widget-content-wrapper">
@@ -70,7 +71,7 @@
                                                          </div>
                                                      </div>
                                                      <div class="widget-content-left flex2">
-                                                         <div class="widget-heading">John Doe</div>
+                                                         <div class="widget-heading" th:text="${app.appName}"></div>
                                                          <div class="widget-subheading opacity-7">Web Developer</div>
                                                      </div>
                                                  </div>
@@ -78,10 +79,13 @@
                                          </td>
                                          <td class="text-center">Madrid</td>
                                          <td class="text-center">
-                                             <div class="badge badge-warning">Pending</div>
+                                         	<th:block th:switch="${app.appFinalState}">
+                                             <div th:case="임시저장" class="badge badge-warning" th:text="${app.appFinalState}"></div>
+                                             <div th:case="*" class="badge badge-success" th:text="${app.appFinalState}"></div>
+                                             </th:block>
                                          </td>
                                          <td class="text-center">
-                                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">이력서 보기</button>
+                                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm ">이력서 보기</button>
                                          </td>
                                      </tr>
                                      </th:block>
@@ -92,8 +96,7 @@
                                  </table>
                              </div>
                              <div class="d-block text-center card-footer">
-                                 <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                 <button class="btn-wide btn btn-success">Save</button>
+                                 	페이징 위치
                              </div>
                          </div>
                      </div>           

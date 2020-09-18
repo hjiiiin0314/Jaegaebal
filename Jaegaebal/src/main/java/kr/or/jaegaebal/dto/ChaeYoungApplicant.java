@@ -8,6 +8,23 @@ public class ChaeYoungApplicant {
 	 private String appName; //지원자이름
 	 private String appPhone; //지원자 핸드폰번호
 	 private String appRegDate; //지원날짜
+	 
+	 private String appNumCode; //지원자접수번호
+	 private String appFinalState; //지원자상태
+	
+	 
+	public String getAppFinalState() {
+		return appFinalState;
+	}
+	public void setAppFinalState(String appFinalState) {
+		this.appFinalState = appFinalState;
+	}
+	public String getAppNumCode() {
+		return appNumCode;
+	}
+	public void setAppNumCode(String appNumCode) {
+		this.appNumCode = appNumCode;
+	}
 	public String getAppEmail() {
 		return appEmail;
 	}
