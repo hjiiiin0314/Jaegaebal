@@ -76,14 +76,21 @@ public class ChaeYoungController {
 	public String appManagement(Model model) {
 		
 		List<ChaeYoungBoard> cyBoardList = chaeYoungService.cyBoardList();
+		List<ChaeYoungApplicant> appList = chaeYoungService.appManagement();
 		model.addAttribute("cyBoardList", cyBoardList);
+		model.addAttribute("appList", appList);
 		
 		return "chaeyoung/app_management";
 	}
-	@PostMapping(value = "/appManagement", produces = "application/json")
-	@ResponseBody
-	public List<ChaeYoungApplicant> appManagement(@RequestParam(value="appNumber",required = false) String appNumber) {
-			
-		return chaeYoungService.appManagement(appNumber);
-	}
+	/*
+	 * @PostMapping(value = "/appManagement", produces = "application/json")
+	 * 
+	 * @ResponseBody public List<ChaeYoungApplicant>
+	 * appManagement(@RequestParam(value="appNumber",required = false) String
+	 * appNumber,Model model) {
+	 * 
+	 * List<ChaeYoungApplicant> list = chaeYoungService.appManagement(appNumber);
+	 * 
+	 * model.addAttribute("list", list); return list; }
+	 */
 }

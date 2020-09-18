@@ -3,7 +3,7 @@ package kr.or.jaegaebal.dto;
 public class ChaeYoungApplicant {
 
 	 private String appEmail; //지원자 이메일
-	 private String appNumber; //구인공고번호
+	 private String jobNumber; //구인공고번호
 	 private String appPassward; //지원자 비밀번호
 	 private String appName; //지원자이름
 	 private String appPhone; //지원자 핸드폰번호
@@ -14,11 +14,11 @@ public class ChaeYoungApplicant {
 	public void setAppEmail(String appEmail) {
 		this.appEmail = appEmail;
 	}
-	public String getAppNumber() {
-		return appNumber;
+	public String getJobNumber() {
+		return jobNumber;
 	}
-	public void setAppNumber(String appNumber) {
-		this.appNumber = appNumber;
+	public void setJobNumber(String appNumber) {
+		this.jobNumber = appNumber;
 	}
 	public String getAppPassward() {
 		return appPassward;

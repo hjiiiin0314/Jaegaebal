@@ -17,7 +17,7 @@
 	<resultMap type="ChaeYoungApplicant" id="ChaeYoungApplicantResultMap">
 	
 		<result column="app_email" 		property="appEmail"/>
-		<result column="app_number" 	property="appNumber"/>
+		<result column="job_number" 	property="jobNumber"/>
 		<result column="app_passward" 	property="appPassward"/>
 		<result column="app_name" 		property="appName"/>
 		<result column="app_phone" 		property="appPhone"/>
@@ -76,17 +76,15 @@
 		WHERE
 			app_email = #{appEmail} 
 	</select>
-	<select id="appManagement" parameterType="String" resultMap="ChaeYoungApplicantResultMap">
+	<select id="appManagement" resultMap="ChaeYoungApplicantResultMap">
 		SELECT 
 			app_email
-			,app_number
+			,job_number
 			,app_passward
 			,app_name
 			,app_phone
 			,app_reg_date
 		FROM 
 			cy_applicant_register
-		WHERE 
-			app_number = #{appNumber}
 	</select>
 </mapper>
