@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.StaffInfo;
@@ -27,14 +30,29 @@ public class UpmuController {
 		return "approval/retrievalBox";
 	}
 	
-	//내가올린결재문서리스트화면연결
-		@GetMapping("/myAppList")
-		public String myAppList(Model model) {
-			List<UpmuDocument> myAppList = upmuService.myAppList();
-			model.addAttribute("myAppList", myAppList);
+	//상신함 검색리스트
+		@PostMapping(value="/myAppList", produces = "application/json")
+		public @ResponseBody List<UpmuDocument>searchAppList(@RequestParam(value = "sk")String sk
+															,@RequestParam(value = "sv")String sv
+															){
+			System.out.println(sk + "<---sk로 들어온 값 controller");
+			System.out.println(sv + "<---sv로 들어온 값 controller");
+				
+				List<UpmuDocument> searchAppList = upmuService.searchAppList(sk,sv);
+				
+				return searchAppList;		
+
 			
-			return "approval/myAppList";
 		}
+		
+		//상신함-화면연결
+			@GetMapping("/myAppList")
+			public String myAppList(Model model) {
+				List<UpmuDocument> myAppList = upmuService.myAppList();
+				model.addAttribute("myAppList", myAppList);
+				
+				return "approval/myAppList";
+			}
 	
 	//임시저장화면연결
 	@GetMapping("/storageBox")

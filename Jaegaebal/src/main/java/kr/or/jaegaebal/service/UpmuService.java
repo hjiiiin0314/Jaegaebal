@@ -20,11 +20,15 @@ public class UpmuService {
 
 	@Autowired private UpmuMapper upmumapper;
 	
+	//상신함 - 검색
+	public List<UpmuDocument> searchAppList(String sk, String sv){
+		List<UpmuDocument> searchAppList = upmumapper.searchAppList(sk,sv);		
+		return searchAppList;
+	}
+	
 	//상신함 - 내가 올린 결재리스트
 		public List<UpmuDocument> myAppList(){
 			List<UpmuDocument> myAppList = upmumapper.myAppList();
-			System.out.println(myAppList + "<--상신리스트");
-			
 			return myAppList;
 		}
 		

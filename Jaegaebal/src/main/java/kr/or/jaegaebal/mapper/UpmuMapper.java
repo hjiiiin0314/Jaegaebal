@@ -16,7 +16,11 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface UpmuMapper {
 	
-	//결재함 - 내가 올린 결재문서 목록
+	//상신함 - 검색목록
+		public List<UpmuDocument> searchAppList(String sk, String sv);
+		
+		
+	//상신함 - 전체목록
 		public List<UpmuDocument> myAppList();
 	
 	//기안하기 - 결재라인 - 조직도 - 사원
@@ -27,5 +31,5 @@ public interface UpmuMapper {
 
 
 	//기안하기 - 문서유형
-	public List<UpmuDocument> getDocType();
+		public List<UpmuDocument> getDocType();
 }

@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">
 	</th:block>
 	
+    
 	<th:block layout:fragment="customContent">
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
  		<div class="col-md-10">
@@ -18,7 +19,7 @@
 				<div class="page-title-wrapper">
 					<div class="page-title-heading">
 					    <div class="page-title-icon">
-					        <i class="pe-7s-note2 icon-gradient bg-happy-itmeo"></i>
+					        <i class="pe-7s-note2 icon-gradient bg-happy-itmeo "></i>
 					    </div>
 					    <div>
 					    	<h3>개인결재함</h3>					    		
@@ -31,15 +32,15 @@
              <div class="main-card mb-10 card">
                   <div class="card-body">  
                   	<h4><i class="pe-7s-note2"></i> 상신함 </h4>
-                  	<form action="/myAppList" method="post">
+                  	<form >
 						<select name="sk" class="form-control select-form" >
 							<option value="" selected="selected" disabled="disabled">::검색조건::</option>
-							<option >문서유형</option>
-							<option >제목</option>
-							<option >결재상태</option>
+							<option value="t.doc_type">문서유형</option>
+							<option value="doc_title">제목</option>
+							<option value="a.app_state">결재상태</option>
 						</select>
-						<input type="text" name="sv" class="form-control select-form"  >	
-							<button type="submit" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
+						<input type="text" name="sv" class="form-control select-form">	
+							<button type="button" id="seachBtn" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
 					</form>
 					<br>
 					<table class="mb-0 table table-sm">
@@ -55,17 +56,16 @@
 	                             <th>결재상태</th>
 	                         </tr>
 	                    </thead>
-                        <tbody>
+                        <tbody id="myAppList">
 	                        <tr th:each="l : ${myAppList}">
-	                            <td th:text="${l.docCode}"></td>
-	                            <td th:text="${l.docTypeName}"></td>
-	                            <td th:text="${l.docTitle}"></td>
-	                            <td th:text="${l.writeDate}"></td>
-	                            <td th:text="${l.docFile}"></td>
-	                            <td th:text="${l.security}"></td>
-	                            <td th:text="${l.deadline}"></td>
-	                            <td th:text="${l.appStateName}"></td>
-	                          
+	                            <td th:text="${l.docCode}" id="docCode"></td>
+	                            <td th:text="${l.docTypeName}" id="docTypeName"></td>
+	                            <td th:text="${l.docTitle}" id="docTitle"></td>
+	                            <td th:text="${l.writeDate}" id="writeDate"></td>
+	                            <td th:text="${l.docFile}"  id="docFile"></td>
+	                            <td th:text="${l.security}" id="security"></td>
+	                            <td th:text="${l.deadline}" id="deadline"></td>
+	                            <td th:text="${l.appStateName}" id="appStateName"></td>	                        	
 	                        </tr>
 	                        
                         </tbody>
@@ -83,5 +83,44 @@
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 
 	</th:block>
-    
+    <th:block layout:fragment="customJsScript">     
+     <script type="text/javascript">
+    	$(function(){	
+    		$('#seachBtn').click(function(){
+    			var sk = $('select[name="sk"]');
+    			var sv = $('input[name="sv"]');
+    			var request = $.ajax({
+				    				url: "/myAppList",
+									method: "POST",
+									data: { sk : sk.val(),
+											sv : sv.val()},
+									dataType: "json"
+    			});
+    			
+    			 request.done(function(data){
+    				console.log(data);					
+				  	$('#myAppList').children("tr").remove();
+				  	if(data == undefined || data == ''){
+				  		alert('검색결과가 없습니다.');				  		
+				  	}
+				  	else{
+				  		for(var i=0; i<data.length; i++){	
+			    			console.log(data[i].appStateName);
+		    				 $('#myAppList').append("<tr><td>"+ data[i].docCode + "</td>"
+		    						 				+ "<td>"+ data[i].docTypeName + "</td>"
+		    						 				+ "<td>"+ data[i].docTitle + "</td>"
+		    						 				+ "<td>"+ data[i].writeDate + "</td>"
+		    						 				+ "<td>"+ data[i].docFile + "</td>"
+		    						 				+ "<td>"+ data[i].security + "</td>"
+		    						 				+ "<td>"+ data[i].deadline + "</td>"
+		    						 				+ "<td>"+ data[i].appStateName + "</td></tr>");
+		    				 
+			    			}				  		
+				  	}
+    			}); 
+    		});
+    		
+    	});
+	</script>	
+    </th:block>
 </html>
