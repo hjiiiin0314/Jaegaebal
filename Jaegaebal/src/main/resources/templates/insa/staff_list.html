@@ -39,32 +39,51 @@
 					BtnPhoneParentTag.attr('class','dropdown-menu');        
 			 	});
 				
- 				/* 소속 클릭시 ajax 호출 */
+ 				/* 부서 옵션 클릭시 ajax 호출 */
  				$('#SelectBuseo').change(function(){
 					var buseoName = $(this).val();
 					console.log(buseoName);
  					var request = $.ajax({
-					  url: "/getTeamName",
+					  url: "/getStaffInfoByParentJojicName",
 					  method: "POST",
 					  data: { buseoName : buseoName },
 					  dataType: "json"
 					});
 					
 					request.done(function( data ) {
-						console.log(data);
+						console.log(data.staffInfoByParentJojicName[0]);
+						$('.tr-2').children("td").remove();
 						$('#SelectTeam').children("option").remove();
 						$('#SelectTeam').append("<option selected='selected' disabled='disabled'>팀</option>");
- 						for(var i=0; i<data.length; i++){
- 							if(data[i].jojicName != null){
-								$('#SelectTeam').append("<option value="+data[i].jojicName + " id='teamName'>" + data[i].jojicName + "</option>");
+ 						for(var i=0; i<data.jojicTeamName.length; i++){
+ 							if(data.jojicTeamName[i].jojicName != null){
+									$('#SelectTeam').append("<option value="+ data.jojicTeamName[i].jojicName + " id='teamName'>" + data.jojicTeamName[i].jojicName + "</option>");
  							}else{
  								$('#SelectTeam').append("<option value='자료가 없습니다.'" + " id='teamName'>" + data[i].jojicName + "</option>");
- 							}
+ 							} 
 						};
+						for(var i=0; i<data.staffInfoByParentJojicName.length; i++){
+							$('.tr-2').append("<td>" + [i+1] + " </td>");
+							
+							console.log(data.staffInfoByParentJojicName[i].staffNum + "<-- data.staffInfoByParentJojicName[" + i + "].staffNum");
+							
+						 	if(data.staffInfoByParentJojicName[i].staffNum != null){
+						 		
+						 		$('.tr-2').append("<td>" + data.staffInfoByParentJojicName[i].staffNum + " </td>");
+						 		
+							}else if(data.staffInfoByParentJojicName[i].staffNum == null || data.staffInfoByParentJojicName[i].staffNum == ""){
+								
+								$('.tr-2').append("<td>" + "''" + " </td>");
+							} 
+							
+							/* $('.tr-2').append("<td value='" + data.staffInfoByParentJojicName[i].jojicName + "'" + " </td>");  */
+						}
 					});
 					request.fail(function( jqXHR, textStatus ) {
 					  alert( "Request failed: " + textStatus );
 					});
+			
+					
 				});  
 			
 			});
@@ -101,12 +120,12 @@
 		                     </div>
  							<select id="SelectBuseo" name="customSelect" class="custom-select">
 								<option selected="selected" disabled="disabled">부서</option>
-									<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" th:name="${l.jojicName}"></option>
+								<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" th:name="${l.jojicName}"></option>
 							</select>
  							<select id="SelectTeam" name="customSelect" class="custom-select">
 								<option selected="selected" disabled="disabled">팀</option>
 							</select>
-						</div>              
+						</div>   
 						<div class="input-group col-md-5 p-l-none p-r-none p-b-xs">
 		                     <div class="input-group-prepend">
 		                         <button class="btn btn-outline-secondary" id="mocroc">목록</button>
@@ -148,7 +167,7 @@
 			            <tbody>
 				            <tr th:each="l, index : ${staffInfoList}" class="tr-2">
 				               	<td th:text="${index.count}"></td>
-				                <td><a th:text="${l.staffNum}" ></a></td>
+				                <td id="td1"><a th:text="${l.staffNum}" ></a></td>
 				                <td><a th:text="${l.jojicName}" ></a></td>
 				                <td><a th:text="${l.levelName}" ></a></td>
 				                <td><a th:text="${l.positionName}" ></a></td>

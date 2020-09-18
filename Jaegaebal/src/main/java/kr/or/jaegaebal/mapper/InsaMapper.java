@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.StaffInfo;
 
 
 /**
@@ -31,4 +32,7 @@ public interface InsaMapper {
 	
 	//팀명 가지고 오기
 	public List<Jojic> getTeamName(String buseoName);
+	
+	//부서별 직원 목록 리스트 가져오기
+	public List<StaffInfo> getStaffInfoByParentJojicName(String parentJojicName);
 }

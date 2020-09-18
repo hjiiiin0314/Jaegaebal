@@ -97,4 +97,29 @@ public class InsaService {
 	 		
 	};
 	
+	//부서별 직원 목록 리스트 가져오기
+	public List<StaffInfo> getStaffInfoByParentJojicName(String parentJojicName){
+	
+		List<StaffInfo> getStaffInfoByParentJojicName = insaMapper.getStaffInfoByParentJojicName(parentJojicName);
+		
+		return getStaffInfoByParentJojicName;
+	};
+	
+	/*
+	 * //페이징 하기 public Map<String, Object> getStaffInfoList(int currentPage){ final
+	 * int ROW_PER_PAGE = 15; //보여줄 행의 갯수 int startRow = 0; //보여줄 행의 시작점 초기화 int
+	 * startPageNum = 1; //시작페이지번호 int lastPageNum = ROW_PER_PAGE; //끝페이지번호
+	 * 
+	 * //6번째 가운데 위치 if(currentPage > (ROW_PER_PAGE/2)) { startPageNum = currentPage
+	 * - ((lastPageNum/2)-1); lastPageNum += (startPageNum-1); } // 페이징 알고리즘
+	 * startRow = (currentPage - 1) * ROW_PER_PAGE;
+	 * 
+	 * Map<String, Object> parameterMap = new HashMap<String, Object>();
+	 * parameterMap.put("startRow", startRow); parameterMap.put("rowPerPage",
+	 * ROW_PER_PAGE);
+	 * 
+	 * double totalRowCount = insaMapper.getStaffInfoListCount();
+	 * 
+	 * int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE)); }
+	 */
 }

@@ -126,6 +126,7 @@ public class StaffInfo {
 	private String positionName;			//직책
 	private String jojicName;				//소속
 	private String jaejicStatusName;		//재직상태
+	
 	public String getStaffNum() {
 		return staffNum;
 	}
