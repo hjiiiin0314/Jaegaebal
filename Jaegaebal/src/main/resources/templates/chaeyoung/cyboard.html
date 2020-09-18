@@ -2,100 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="layout/default">
-	  <th:block layout:fragment="customCss">
-	  <style>
-
-.form-wrap {
-    width: 380px;
-    height: 480px;
-    position: relative;
-    margin: auto;
-    background: #f3f3f3;
-    padding: 5px;
-    overflow: hidden;
-}
-.button-wrap {
-    width: 230px;
-    margin: 35px auto;
-    position: relative;
-    box-shadow: 0 0 600px 9px #fcae8f;
-    border-radius: 30px;
-}
-.togglebtn {
-    padding: 10px 30px;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    outline: none;
-    position: relative;
-}
-#btn {
-    top: 0;
-    left: 0;
-    position: absolute;
-    width: 110px;
-    height: 100%;
-    background: linear-gradient(25deg, #5f22e8, #6457e8, #627ee8, #55a3e7);
-    border-radius: 30px;
-    transition: .5s;
-}
-.social-icons {
-    margin: 30px auto;
-    text-align: center;
-}
-.social-icons img {
-    width: 30px ;
-    cursor: pointer;
-}
-.input-group {
-    top: 180px;
-    position: absolute;
-    width: 280px;
-    transition: .5s;
-}
-.input-field {
-    width: 100%;
-    padding: 10px 0;
-    margin: 5px 0;
-    border: none;
-    border-bottom: 1px solid #999;
-    outline: none;
-    background: transparent;
-}
-.submit {
-    width: 85%;
-    padding: 10px 30px;
-    cursor: pointer;
-    display: block;
-    margin: auto;
-    background: linear-gradient(25deg, #5f22e8, #6457e8, #627ee8, #55a3e7);
-    border: 0;
-    outline: none;
-    border-radius: 30px;
-}
-.checkbox {
-    margin: 30px 10px 30px 0;
-}
-
-#login {
-    left: 50px;
-}
-#register {
-    left: 450px;
-} 
-
-.naemam .carousel{
-	height:200px;
-}
-
-.naemam .carousel-inner{
-	height:200px;
-}
-
-.naemam .carousel-inner img{
-	height:200px;
-}
-</style>
+<th:block layout:fragment="customCss">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/chaeyoung.css}">
 </th:block>
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title> 
@@ -104,23 +12,36 @@
 	<th:block layout:fragment="customContent">
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 		<div class="app-main__inner">
+		        <div class="app-page-title">
+               <div class="page-title-wrapper">
+                   <div class="page-title-heading">
+                   	채용공고 게시판
+					</div>
+                       <div class="page-title-actions">
+                           <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="공을 넣으려면 일단 공을 차야 한다.">
+                               <i class="fa fa-star"></i>
+                           </button>
+
+                       </div>    
+                    </div>
+               </div>   
 			<div class="card-body">
 				<div class="row">
 
 <div class="col-md-12 naemam">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Basic Bootstrap 4 Carousel</h5>
+                                       
                                         <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item">
-                                                    <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="First slide">
+                                                    <img class="d-block w-100" src="img/1.png" alt="First slide">
                                                 </div>
                                                 <div class="carousel-item active">
-                                                    <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="Second slide">
+                                                    <img class="d-block w-100" src="img/2.png" alt="Second slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="Third slide">
+                                                    <img class="d-block w-100" src="img/3.png" alt="Third slide">
                                                 </div>
                                             </div>
                                             <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
@@ -140,7 +61,7 @@
 
 			<div class="col-md-12">
                     <div class="main-card mb-3 card">
-                        <div class="card-header">구인공고 게시판
+                        <div class="card-header">채용공고 게시판
                             <div class="btn-actions-pane-right">
                                 <div role="group" class="btn-group-sm btn-group">
 									<input type="text">

@@ -3,8 +3,9 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="layout/default">
 	 <th:block layout:fragment="customCss">
-	 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
-	 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="summernote/summernote-lite.css">
 	 	<style>
 .index-front{
    z-index:1;
@@ -27,42 +28,28 @@
 	
 	<th:block layout:fragment="customContent">
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
-			<div class="card-body">
-				<div class="row">
-                    <div class="col-md-6 col-xl-6">
-                        <div class="card mb-3 widget-content bg-midnight-bloom">
-                            <div class="widget-content-wrapper text-white">
-                                <div class="widget-content-left">
-                                    <div class="widget-heading">오늘의 지원자 인원</div>
-                                    <div class="widget-subheading">Today's number of applicants</div>
-                                </div>
-                                <div class="widget-content-right">
-                                    <div class="widget-numbers text-white"><span>1896</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-6">
-                        <div class="card mb-3 widget-content bg-arielle-smile">
-                            <div class="widget-content-wrapper text-white">
-                                <div class="widget-content-left">
-                                    <div class="widget-heading">시계놓을꺼임</div>
-                                    <div class="widget-subheading">진짜임</div>
-                                </div>
-                                <div class="widget-content-right">
-                                    <div class="widget-numbers text-white"><span>$ 568</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-			</div>
+	<div class="app-main__inner">
+		<div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                   	채용공고 등록
+				</div>
+                   <div class="page-title-actions">
+                       <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="버티는게 이기는 것이다.">
+                        <i class="fa fa-star"></i>
+                       </button>
+
+                   </div>    
+             </div>
+         </div> 
+
 			<!-- 조회한 게시글 화면  -->
 			<th:block th:if="${cyboard != null}">
-				<form action="/addCYPost" method="post">
+				<div class="row">
 		  			<div class="col-md-12">
-		              <div class="main-card mb-12 card">
+		              <div class="main-card mb-3 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
+							<form action="/addCYPost" method="post">
 		                      <div class="position-relative form-group"><label>채용부서</label><select name="jojicCode" id="jobFieldCode" class="form-control">
                     			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}" th:selected="${cyboard.jobJojicCode eq j.jojicCode}"></option>
 		                      </select></div>
@@ -79,6 +66,7 @@
 		                      <textarea id="summernote" name="jobContent" th:text=${cyboard.jobContent}></textarea>
 		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
 		                      </div>             
+							</form>
 		                     	<div class="d-block text-center">
 		                            <button class="mb-2 mr-2 btn btn-info" type="button">수정하기</button>
 		                            <button class="mb-2 mr-2 btn btn-danger" type="button" id="cyPostDelete"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기</button>
@@ -86,19 +74,20 @@
 		                  </div>
 		              </div>
 		          </div>
-				</form>
-				</th:block>
+				</div>
+			</th:block>
 				<!-- 초기 게시글 등록화면 -->
 			<th:block th:if="${cyboard == null}">
-				<form id="addPost" action="/addCYPost" method="post">
+				<div class="row">
 		  			<div class="col-md-12">
-		              <div class="main-card mb-12 card">
+		              <div class="main-card mb-3 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
-		                      <div class="position-relative form-group"><label>채용부서</label><select name="jobJojicCode" id="jojicCode" class="form-control">
-                    			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}"></option>
-		                      </select></div>
+							<form id="addPost" action="/addCYPost" method="post">
+		                      	<div class="position-relative form-group"><label>채용부서</label><select name="jobJojicCode" id="jojicCode" class="form-control">
+                    				<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}"></option>
+		                     	 </select></div>
 		                      <div class="position-relative form-group index-front">
-								<input type="hidden" name="jobJojicName" id="jobJojicName">	                      
+									<input type="hidden" name="jobJojicName" id="jobJojicName">	                      
 		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
 		                          <option value="신입">신입</option>
 		                          <option value="경력">경력</option>
@@ -111,11 +100,13 @@
 		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
 		                      </div>             
 		                      <div align="center"><button class="mt-1 btn btn-primary" type="button" id="addcyPostBtn">등록하기</button></div>               
+							</form>
 		                  </div>
 		              </div>
 		          </div>
-				</form>
-				</th:block>
+		        </div>
+			</th:block>
+		</div>
 				
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 		
@@ -127,7 +118,11 @@
 		
 		<!-- include summernote css/js -->
 		
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
+		<script src="/summernote/summernote-lite.js"></script>
+		<script src="/summernote/lang/summernote-ko-KR.js"></script>
+
+
 		
 		<script type="text/javascript">
 			$(function() {
