@@ -5,11 +5,11 @@
 	display:inline;
 }
 
-.table .date_left{
+.date_left{
 	float:left;
 }
 
-.table .date_right{
+.date_right{
 	float:right;
 }
 
@@ -21,7 +21,7 @@
 	text-align:center;
 }
 
-.table .t_head{
+.table-detail tr td:nth-child( 2n-1 ){
 	background:#f9f9f9;
 }
 
@@ -31,6 +31,8 @@
 	top: 0;
 	background:#ffffff;
 	border-top:none;
+	background:#e9ecef;
+	padding:20px;
 }
 /*사원정보 테이블 스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
 .scroll-div{
@@ -47,10 +49,10 @@
 
 @media(min-width:992px){
 	.emp-table{
-		height:836px;
+		height:876px;
 	}
 	.scroll-div{
-		height:768px;
+		height:805px;
 	}
 	.scroll-div::-webkit-scrollbar {
 	    display: none; /* Chrome, Safari, Opera*/

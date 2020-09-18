@@ -29,11 +29,20 @@ public class SalaryController {
 	@GetMapping("/salary/salary_info")
 	public String salaryInfo(Model model) {
 		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
-		String dataEmp = "20010100";
-		List<Map<SalaryInfo, Object>> salaryInfo = salaryService.salaryInfo(dataEmp);
+		SalaryInfo salaryInfo = salaryService.salaryInfo();
 		model.addAttribute("staffInfoList", staffInfoList);
-		model.addAttribute("salaryInfo", salaryInfo.get(0));
+		model.addAttribute("salaryInfo", salaryInfo);
 		return "salary/salary_info";
+	}
+	
+	//급여기본정보화면 수정처리
+	@PostMapping("/salary/salary_info")
+	public String salaryInfo(SalaryInfo salaryInfo) {
+		System.out.println(salaryInfo);
+		int result = salaryService.updateSalaryInfo(salaryInfo);
+		
+		System.out.println(result + " <- 급여정보수정 처리 결과");
+		return "redirect:/salary/salary_info";
 	}
 	
 	//사원정보 클릭시 급여 ajax조회

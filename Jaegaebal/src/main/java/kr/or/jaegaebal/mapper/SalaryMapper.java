@@ -14,9 +14,15 @@ import kr.or.jaegaebal.dto.StaffInfo;
  */
 @Mapper
 public interface SalaryMapper {
+	//급여정보 수정
+	public int updateSalaryInfo(SalaryInfo salaryInfo);
+	
+	//사원정보 클릭 시 해당 사원 급여정보 조회
 	public Map<String, Object> salaryInfoMap(String dataNum);
 	
-	public List<Map<SalaryInfo, Object>> salaryInfo(String dataNum);
+	//화면로딩 시 급여상세정보 1줄 조회
+	public SalaryInfo salaryInfo();
 	
+	//사원기본정보 조회
 	public List<Map<StaffInfo,Object>> getSalaryStaffList();
 }

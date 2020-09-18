@@ -14,19 +14,19 @@ public class SalaryInfo {
 	private String staffEmail; //Join emp 이메일
 	private int dataInsu;
 	private int dataResi;
-	private int dataPro;
+	private boolean dataPro;
 	private String dataBank;
 	private String dataAccount;
 	private String dataHost;
 	private int dataScrib;
-	private int dataBate;
+	private boolean dataBate;
 	private float dataBatePer;
 	private String dataBateDate1;
 	private String dataBateDate2;
 	private int dataExpen;
 	private String dataExpenDate1;
 	private String dataExpenDate2;
-	private int dataTaxdepart;
+	private boolean dataTaxdepart;
 	private float dataTax;
 	private String dataTaxDate1;
 	private String dataTaxDate2;
@@ -110,10 +110,10 @@ public class SalaryInfo {
 	public void setDataResi(int dataResi) {
 		this.dataResi = dataResi;
 	}
-	public int getDataPro() {
+	public boolean getDataPro() {
 		return dataPro;
 	}
-	public void setDataPro(int dataPro) {
+	public void setDataPro(boolean dataPro) {
 		this.dataPro = dataPro;
 	}
 	public String getDataBank() {
@@ -140,10 +140,10 @@ public class SalaryInfo {
 	public void setDataScrib(int dataScrib) {
 		this.dataScrib = dataScrib;
 	}
-	public int getDataBate() {
+	public boolean getDataBate() {
 		return dataBate;
 	}
-	public void setDataBate(int dataBate) {
+	public void setDataBate(boolean dataBate) {
 		this.dataBate = dataBate;
 	}
 	public float getDataBatePer() {
@@ -182,10 +182,10 @@ public class SalaryInfo {
 	public void setDataExpenDate2(String dataExpenDate2) {
 		this.dataExpenDate2 = dataExpenDate2;
 	}
-	public int getDataTaxdepart() {
+	public boolean getDataTaxdepart() {
 		return dataTaxdepart;
 	}
-	public void setDataTaxDepart(int dataTaxdepart) {
+	public void setDataTaxDepart(boolean dataTaxdepart) {
 		this.dataTaxdepart = dataTaxdepart;
 	}
 	public float getDataTax() {

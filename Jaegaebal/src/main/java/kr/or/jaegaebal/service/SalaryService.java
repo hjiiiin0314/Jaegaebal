@@ -20,13 +20,18 @@ public class SalaryService {
 	@Autowired
 	private SalaryMapper salaryMapper;
 	
+	public int updateSalaryInfo(SalaryInfo salaryInfo) {
+		int result = salaryMapper.updateSalaryInfo(salaryInfo);
+		return result;
+	}
+	
 	public Map<String, Object> salaryInfoMap(String dataNum) {
 		Map<String, Object> salaryInfo = salaryMapper.salaryInfoMap(dataNum);
 		return salaryInfo;
 	}
 	
-	public List<Map<SalaryInfo, Object>> salaryInfo(String dataNum) {
-		List<Map<SalaryInfo, Object>> salaryInfo = salaryMapper.salaryInfo(dataNum);
+	public SalaryInfo salaryInfo() {
+		SalaryInfo salaryInfo = salaryMapper.salaryInfo();
 		return salaryInfo;
 	}
 	

@@ -7,252 +7,13 @@
 		<title th:text="${title}"></title> 
 	</th:block>
 	
-	<th:block layout:fragment="customContent">
+<th:block layout:fragment="customContent">
+<th:block layout:fragment="customCss">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/salary.css}">
-	<script>
-		$(function(){
-			$('.emp-table').children('tbody').children('tr').click(function(){
-				var dataEmp = $(this).children('td').eq(0).text();
-				var request = $.ajax({
-	  				url : "/salary/salary_info",
-	  				method : "POST",
-	  				data : { dataEmp : dataEmp },
-	  				dataType : "json"
-	  			});
-				
-				request.done(function(data){
-	  				if(data.humanNum != null){
-						$('input[name=human_num]').val(data.humanNum);
-	  				} else {
-	  					$('input[name=human_num]').val('');
-	  				}
-	  				
-	  				if(data.companyInDate != null){
-						$('input[name=company_in_date]').val(data.companyInDate);
-	  				} else {
-	  					$('input[name=company_in_date]').val('');
-	  				}
-	  				
-	  				if(data.companyOutDate != null){
-						$('input[name=company_out_date]').val(data.companyOutDate);
-	  				} else {
-	  					$('input[name=company_out_date]').val('');
-	  				}
-	  				
-	  				if(data.dataInsu != null){
-						$('select[name=data_insu]').children('option').each(function(){
-							if($(this).attr('value') == data.dataInsu){
-								$(this).prop('selected', 'true');
-							}
-						});
-	  				}
-	  				
-	  				if(data.staffNationality != null){
-						$('input[name=staff_nationality]').val(data.staffNationality);
-	  				} else {
-	  					$('input[name=staff_nationality]').val('');
-	  				}
-	  				
-	  				if(data.dataResi != null){
-						$('select[name=data_resi]').children('option').each(function(){
-							if($(this).val() == data.dataResi){
-								$(this).prop('selected', true);
-							}
-						});
-	  				}
-	  				
-	  				if(data.staffCountry != null){
-						$('input[name=staff_country]').val(data.staffCountry);
-	  				} else {
-	  					$('input[name=staff_country]').val('');
-	  				}
-	  				
-	  				if(data.dataResi != null){
-	  					if(data.dataResi == 1){
-	  						$('input[name=data_pro]').prop('checked', true);
-	  					} else {
-	  						$('input[name=data_pro]').prop('checked', false);
-						}
-	  				}
-	  				
-	  				if(data.dataBank != null){
-						$('input[name=data_bank]').val(data.dataBank);
-	  				} else {
-	  					$('input[name=data_bank]').val('');
-	  				}
-	  				
-	  				if(data.dataAccount != null){
-						$('input[name=data_account]').val(data.dataAccount);
-	  				} else {
-	  					$('input[name=data_account]').val('');
-	  				}
-	  				
-	  				if(data.dataHost != null){
-						$('input[name=data_host]').val(data.dataHost);
-	  				} else {
-	  					$('input[name=data_host]').val('');
-	  				}
-	  				
-	  				if(data.staffPhone != null){
-						$('input[name=staff_phone]').val(data.staffPhone);
-	  				} else {
-	  					$('input[name=staff_phone]').val('');
-	  				}
-	  				
-	  				if(data.staffEmail != null){
-						$('input[name=staff_email]').val(data.staffEmail);
-	  				} else {
-	  					$('input[name=staff_email]').val('');
-	  				}
-	  				
-	  				if(data.dataBate != null){
-	  					if(data.dataBate == 1){
-	  						$('input[name=data_bate]').prop('checked', true);
-	  						$('input[name=data_bate_per]').prop('readonly', false);
-	  						$('input[name=data_bate_date1]').prop('readonly', false);
-	  						$('input[name=data_bate_date2]').prop('readonly', false);
-	  					} else {
-	  						$('input[name=data_bate]').prop('checked', false);
-	  						$('input[name=data_bate_per]').prop('readonly', true);
-	  						$('input[name=data_bate_date1]').prop('readonly', true);
-	  						$('input[name=data_bate_date2]').prop('readonly', true);
-	  						$('input[name=data_bate_per]').val('');
-	  						$('input[name=data_bate_date1]').val('');
-	  						$('input[name=data_bate_date2]').val('');
-						}
-	  				}
-	  				
-	  				if(data.dataBatePer != null){
-						$('input[name=data_bate_per]').val(data.dataBatePer);
-	  				} else {
-	  					$('input[name=data_bate_per]').val('');
-	  				}
-	  				
-	  				if(data.dataBateDate1 != null){
-						$('input[name=data_bate_date1]').val(data.dataBateDate1);
-	  				} else {
-	  					$('input[name=data_bate_date1]').val('');
-	  				}
-	  				
-	  				if(data.dataBateDate2 != null){
-						$('input[name=data_bate_date2]').val(data.dataBateDate2);
-	  				} else {
-	  					$('input[name=data_bate_date2]').val('');
-	  				}
-	  				
-	  				if(data.dataExpen != null){
-						$('select[name=data_expen]').children('option').each(function(){
-							if($(this).val() == data.dataExpen){
-								$(this).prop('selected', true);
-								if($(this).val() == 1){
-									$('input[name=data_expen_date1]').prop('readonly', false);
-									$('input[name=data_expen_date2]').prop('readonly', false);
-								} else {
-									$('input[name=data_expen_date1]').prop('readonly', true);
-									$('input[name=data_expen_date2]').prop('readonly', true);
-									$('input[name=data_expen_date1]').val('');
-			  						$('input[name=data_expen_date2]').val('');
-								}
-							}
-						});
-	  				}
-	  				
-	  				if(data.dataExpenDate1 != null){
-						$('input[name=data_expen_date1]').val(data.dataExpenDate1);
-	  				} else {
-	  					$('input[name=data_expen_date1]').val('');
-	  				}
-	  				
-	  				if(data.dataExpenDate2 != null){
-						$('input[name=data_expen_date2]').val(data.dataExpenDate2);
-	  				} else {
-	  					$('input[name=data_expen_date2]').val('');
-	  				}
-	  				
-	  				if(data.dataTaxdepart != null){
-	  					if(data.dataTaxdepart == 1){
-	  						$('input[name=data_tax]').prop('checked', true);
-	  						$('input[name=data_tax_per]').prop('readonly', false);
-	  						$('input[name=data_tax_date1]').prop('readonly', false);
-	  						$('input[name=data_tax_date2]').prop('readonly', false);
-	  					} else {
-	  						$('input[name=data_tax]').prop('checked', false);
-	  						$('input[name=data_tax_per]').prop('readonly', true);
-	  						$('input[name=data_tax_date1]').prop('readonly', true);
-	  						$('input[name=data_tax_date2]').prop('readonly', true);
-	  						$('input[name=data_tax_per]').val('');
-	  						$('input[name=data_tax_date1]').val('');
-	  						$('input[name=data_tax_date2]').val('');
-						}
-	  				}
-	  				
-	  				if(data.dataTax != null){
-						$('input[name=data_tax_per]').val(data.dataTax);
-	  				} else {
-	  					$('input[name=data_tax_per]').val('');
-	  				}
-	  				
-	  				if(data.dataTaxDate1 != null){
-						$('input[name=data_tax_date1]').val(data.dataTaxDate1);
-	  				} else {
-	  					$('input[name=data_tax_date1]').val('');
-	  				}
-	  				
-	  				if(data.dataTaxDate2 != null){
-						$('input[name=data_tax_date2]').val(data.dataTaxDate2);
-	  				} else {
-	  					$('input[name=data_tax_date2]').val('');
-	  				}
-	  			});
-	  			
-	  			request.fail(function( jqXHR, textStatus ) {
-	  			  alert( "Request failed: " + textStatus );
-	  			});
-			});
-			
-			$('input[name=data_bate]').click(function(){
-				if($(this).prop('checked')){
-					$('input[name=data_bate_per]').prop('readonly', false);
-					$('input[name=data_bate_date1]').prop('readonly', false);
-					$('input[name=data_bate_date2]').prop('readonly', false);
-				} else {
-					$('input[name=data_bate_per]').prop('readonly', true);
-					$('input[name=data_bate_date1]').prop('readonly', true);
-					$('input[name=data_bate_date2]').prop('readonly', true);
-					$('input[name=data_bate_per]').val('');
-					$('input[name=data_bate_date1]').val('');
-					$('input[name=data_bate_date2]').val('');
-				}
-			});
-			
-			$('select[name=data_expen]').change(function(){
-				if($(this).val() == 1){
-					$('input[name=data_expen_date1]').prop('readonly', false);
-					$('input[name=data_expen_date2]').prop('readonly', false);
-				} else {
-					$('input[name=data_expen_date1]').prop('readonly', true);
-					$('input[name=data_expen_date2]').prop('readonly', true);
-					$('input[name=data_expen_date1]').val('');
-					$('input[name=data_expen_date2]').val('');
-				}
-			});
-			
-			$('input[name=data_tax]').click(function(){
-				if($(this).prop('checked')){
-					$('input[name=data_tax_per]').prop('readonly', false);
-					$('input[name=data_tax_date1]').prop('readonly', false);
-					$('input[name=data_tax_date2]').prop('readonly', false);
-				} else {
-					$('input[name=data_tax_per]').prop('readonly', true);
-					$('input[name=data_tax_date1]').prop('readonly', true);
-					$('input[name=data_tax_date2]').prop('readonly', true);
-					$('input[name=data_tax_per]').val('');
-					$('input[name=data_tax_date1]').val('');
-					$('input[name=data_tax_date2]').val('');
-				}
-			});
-		});
-	</script>
+</th:block>
+<th:block layout:fragment="customJs">
+	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
+</th:block>
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 <div class="app-main__inner">
 	<div class="app-page-title">
@@ -303,135 +64,139 @@
 			<div class="main-card mb-3 card">
 				<div class="card-body">
 					<h5 class="card-title">상세정보</h5>
-					<form>
-						<table class="mb-0 table table-bordered">
+					<form action="/salary/salary_info" onsubmit="return updateCheck(this);" method="POST">
+						<table class="mb-0 table table-bordered table-detail">
 							<tr>
-								<td class="t_head">주민등록번호</td>
-								<td><input type="text" name="human_num" class="form-control" th:value="${salaryInfo.humanNum}" readonly></td>
-								<td class="t_head">입사일</td>
+								<td>주민등록번호</td>
+								<td>
+								<!-- 급여기본정보 기본키 -->
+								<input type="hidden" name="dataNum" th:value="${salaryInfo.dataNum}">
+								<input type="text" name="human_num" class="form-control" th:value="${salaryInfo.humanNum}" readonly></td>
+								<td>입사일</td>
 								<td><input type="text" name="company_in_date" class="form-control" th:value="${salaryInfo.companyInDate}" readonly></td>
 							</tr>
 							<tr>
-								<td class="t_head">퇴사일</td>
+								<td>퇴사일</td>
 								<td><input type="text" name="company_out_date" class="form-control" th:value="${salaryInfo.companyOutDate}" readonly></td>
-								<td class="t_head">고용보험대상여부</td>
-								<td><select name="data_insu" class="form-control">
+								<td>고용보험대상여부</td>
+								<td><select name="dataInsu" class="form-control">
 									<option value="1" th:selected="${salaryInfo.dataInsu eq 1 ? 'true' : 'false'}">여</option>
 									<option value="0" th:selected="${salaryInfo.dataInsu eq 0 ? 'true' : 'false'}">부</option>
 								</select></td>
 							</tr>
 							<tr>
-								<td class="t_head">내외국인구분</td>
+								<td>내외국인구분</td>
 								<td><input type="text" name="staff_nationality" class="form-control" th:value="${salaryInfo.staffNationality}" readonly></td>
-								<td class="t_head">거주구분</td>
-								<td><select name="data_resi" class="form-control">
+								<td>거주구분</td>
+								<td><select name="dataResi" class="form-control">
 									<option value="1" th:selected="${salaryInfo.dataResi eq 1 ? 'true' : 'false'}">거주</option>
 									<option value="0" th:selected="${salaryInfo.dataResi eq 0 ? 'true' : 'false'}">비거주</option>
 								</select></td>
 							</tr>
 							<tr>
-								<td class="t_head">거주지국</td>
+								<td>거주지국</td>
 								<td><input type="text" name="staff_country" class="form-control" th:value="${salaryInfo.staffCountry}" readonly></td>
-								<td class="t_head">생산직구분</td>
-								<td><input type="checkbox" name="data_pro" class="form-control checkbox-width" th:checked="${salaryInfo.dataPro eq 1 ? 'true' : 'false'}"></td>
+								<td>생산직구분</td>
+								<td><input type="checkbox" name="dataPro" class="form-control checkbox-width" th:checked="${salaryInfo.dataPro eq 1 ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
-								<td class="t_head">은행</td>
-								<td><input type="text" name="data_bank" class="form-control" th:value="${salaryInfo.dataBank}"></td>
-								<td class="t_head">계좌번호</td>
-								<td><input type="text" name="data_account" class="form-control" th:value="${salaryInfo.dataAccount}"></td>
+								<td>은행</td>
+								<td><input type="text" name="dataBank" class="form-control" th:value="${salaryInfo.dataBank}"></td>
+								<td>계좌번호</td>
+								<td><input type="text" name="dataAccount" class="form-control" th:value="${salaryInfo.dataAccount}"></td>
 							</tr>
 							<tr>
-								<td class="t_head">예금주</td>
-								<td><input type="text" name="data_host" class="form-control" th:value="${salaryInfo.dataHost}"></td>
-								<td class="t_head">주 소정근로시간</td>
-								<td><input type="text" name="data_scrib" class="form-control" th:value="${salaryInfo.dataScrib}"></td>
+								<td>예금주</td>
+								<td><input type="text" name="dataHost" class="form-control" th:value="${salaryInfo.dataHost}"></td>
+								<td>주 소정근로시간</td>
+								<td><input type="text" name="dataScrib" class="form-control" th:value="${salaryInfo.dataScrib}"></td>
 							</tr>
 							<tr>
-								<td class="t_head">핸드폰</td>
+								<td>핸드폰</td>
 								<td><input type="text" name="staff_phone" class="form-control" th:value="${salaryInfo.staffPhone}" readonly></td>
-								<td class="t_head">이메일</td>
+								<td>이메일</td>
 								<td><input type="text" name="staff_email" class="form-control" th:value="${salaryInfo.staffEmail}" readonly></td>
 							</tr>
 							<tr>
-								<td class="t_head">수습여부</td>
-								<td><input type="checkbox" name="data_bate" class="form-control checkbox-width" th:checked="${salaryInfo.dataBate eq 1 ? 'true' : 'false'}"></td>
-								<td class="t_head">수습급여 적용률</td>
+								<td>수습여부</td>
+								<td><input type="checkbox" name="dataBate" class="form-control checkbox-width" th:checked="${salaryInfo.dataBate eq 1 ? 'true' : 'false'}"></td>
+								<td>수습급여 적용률</td>
 								<td>
 									<th:block th:if="${salaryInfo.dataBate eq 1}">
-										<input type="number" name="data_bate_per" class="form-control" th:value="${salaryInfo.dataBatePer}">
+										<input type="number" name="dataBatePer" class="form-control" th:value="${salaryInfo.dataBatePer}" step="0.01">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataBate eq 1}">
-										<input type="number" name="data_bate_per" class="form-control" readonly>
+										<input type="number" name="dataBatePer" class="form-control" step="0.01" readonly>
 									</th:block>
 								</td>
 							</tr>
 							<tr>
-								<td class="t_head">수습기간</td>
+								<td>수습기간</td>
 								<td colspan="3" class="date-td">
 									<th:block th:if="${salaryInfo.dataBate eq 1}">
-										<input type="date" name="data_bate_date1" class="form-control form_date date_left" th:value="${salaryInfo.dataBateDate1}">
+										<input type="date" name="dataBateDate1" class="form-control form_date date_left" th:value="${salaryInfo.dataBateDate1}">
 										<span class="flow-font">~</span>
-										<input type="date" name="data_bate_date2" class="form-control form_date date_right" th:value="${salaryInfo.dataBateDate2}">
+										<input type="date" name="dataBateDate2" class="form-control form_date date_right" th:value="${salaryInfo.dataBateDate2}">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataBate eq 1}">
-										<input type="date" name="data_bate_date1" class="form-control form_date date_left" readonly>
+										<input type="date" name="dataBateDate1" class="form-control form_date date_left" readonly>
 										<span class="flow-font">~</span>
-										<input type="date" name="data_bate_date2" class="form-control form_date date_right" readonly>
+										<input type="date" name="dataBateDate2" class="form-control form_date date_right" readonly>
 									</th:block>
 								</td>
 							</tr>
 							<tr>
-								<td class="t_head">학자금상환 공제여부</td>
-								<td colspan="3"><select name="data_expen" class="form-control">
+								<td>학자금상환 공제여부</td>
+								<td colspan="3"><select name="dataExpen" class="form-control">
 									<option value="1" th:selected="${salaryInfo.dataExpen eq 1 ? 'true' : 'false'}">여</option>
 									<option value="0" th:selected="${salaryInfo.dataExpen eq 0 ? 'true' : 'false'}">부</option>
 								</select></td>
 							</tr>
 							<tr>
-								<td class="t_head">학자금 공제기간</td>
+								<td>학자금 공제기간</td>
 								<td colspan="3" class="date-td">
 									<th:block th:if="${salaryInfo.dataExpen eq 1}">
-										<input type="date" name="data_expen_date1" class="form-control form_date date_left" th:value="${salaryInfo.dataExpenDate1}">
+										<input type="date" name="dataExpenDate1" class="form-control form_date date_left" th:value="${salaryInfo.dataExpenDate1}">
 										<span class="flow-font">~</span>
-										<input type="date" name="data_expen_date2" class="form-control form_date date_right" th:value="${salaryInfo.dataExpenDate2}">
+										<input type="date" name="dataExpenDate2" class="form-control form_date date_right" th:value="${salaryInfo.dataExpenDate2}">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataExpen eq 1}">
-										<input type="date" name="data_expen_date1" class="form-control form_date date_left" readonly>
+										<input type="date" name="dataExpenDate1" class="form-control form_date date_left" readonly>
 										<span class="flow-font">~</span>
-										<input type="date" name="data_expen_date2" class="form-control form_date date_right" readonly>
+										<input type="date" name="dataExpenDate2" class="form-control form_date date_right" readonly>
 									</th:block>
 								</td>
 							</tr>
 							<tr>
-								<td class="t_head">소득세액 감면여부</td>
-								<td><input type="checkbox" name="data_tax" class="form-control checkbox-width" th:checked="${salaryInfo.dataTaxdepart eq 1 ? 'true' : 'false'}"></td>
-								<td class="t_head">소득세액 감면비율</td>
+								<td>소득세액 감면여부</td>
+								<td><input type="checkbox" name="dataTaxdepart" class="form-control checkbox-width" th:checked="${salaryInfo.dataTaxdepart eq 1 ? 'true' : 'false'}"></td>
+								<td>소득세액 감면비율</td>
 								<td>
 									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
-										<input type="number" name="data_tax_per" class="form-control" th:value="${salaryInfo.dataTax}">
+										<input type="number" name="dataTax" class="form-control" th:value="${salaryInfo.dataTax}" step="0.01">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataTaxdepart eq 1}">
-										<input type="number" name="data_tax_per" class="form-control" readonly>
+										<input type="number" name="dataTax" class="form-control" step="0.01" readonly>
 									</th:block>
 								</td>
 							</tr>
 							<tr>
-								<td class="t_head">감면기간</td>
+								<td>감면기간</td>
 								<td colspan="3" class="date-td">
 									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
-										<input type="date" name="data_tax_date1" class="form-control form_date date_left" th:value="${salaryInfo.dataTaxDate1}">
+										<input type="date" name="dataTaxDate1" class="form-control form_date date_left" th:value="${salaryInfo.dataTaxDate1}">
 										<span class="flow-font">~</span>
-										<input type="date" name="data_tax_date2" class="form-control form_date date_right" th:value="${salaryInfo.dataTaxDate2}">
+										<input type="date" name="dataTaxDate2" class="form-control form_date date_right" th:value="${salaryInfo.dataTaxDate2}">
 									</th:block>
 									<th:block th:unless="${salaryInfo.dataTaxdepart eq 1}">
-										<input type="date" name="data_tax_date1" class="form-control form_date date_left" readonly>
+										<input type="date" name="dataTaxDate1" class="form-control form_date date_left" readonly>
 										<span class="flow-font">~</span>
-										<input type="date" name="data_tax_date2" class="form-control form_date date_right" readonly>
+										<input type="date" name="dataTaxDate2" class="form-control form_date date_right" readonly>
 									</th:block>
 								</td>
 							</tr>
 						</table>
+						<input type="submit" class="mt-2 btn btn-primary date_right" value="저장">
 					</form>
 				</div>
 			</div>

@@ -36,7 +36,64 @@
 		<result column="data_tax_date2" property="dataTaxDate2"/>
 	</resultMap>
 	
-	<!-- 회사 정보 목록 -->
+	<update id="updateSalaryInfo" parameterType="SalaryInfo">
+		UPDATE
+			sal_data
+		<trim prefix="SET" suffixOverrides=",">
+			data_insu = #{dataInsu}
+			,data_resi = #{dataResi}
+			<if test="dataPro != null and dataPro neq ''.toString()">
+				,data_pro = #{dataPro}
+			</if>
+			<if test="dataBank != null and dataBank neq ''.toString()">
+				,data_bank = #{dataBank}
+			</if>
+			<if test="dataAccount != null and dataAccount neq ''.toString()">
+				,data_account = #{dataAccount}
+			</if>
+			<if test="dataHost != null and dataHost neq ''.toString()">
+				,data_host = #{dataHost}
+			</if>
+			<if test="dataScrib != null and dataScrib neq ''.toString()">
+				,data_scrib = #{dataScrib}
+			</if>
+			<if test="dataBate != null and dataBate neq ''.toString()">
+				,data_bate = #{dataBate}
+			</if>
+			<if test="dataBatePer != null and dataBatePer neq ''.toString()">
+				,data_bate_per = #{dataBatePer}
+			</if>
+			<if test="dataBateDate1 != null and dataBateDate1 neq ''.toString()">
+				,data_bate_date1 = #{dataBateDate1}
+			</if>
+			<if test="dataBateDate2 != null and dataBateDate2 neq ''.toString()">
+				,data_bate_date2 = #{dataBateDate2}
+			</if>
+			,data_expen = #{dataExpen}
+			<if test="dataExpenDate1 != null and dataExpenDate1 neq ''.toString()">
+				,data_expen_date1 = #{dataExpenDate1}
+			</if>
+			<if test="dataExpenDate2 != null and dataExpenDate2 neq ''.toString()">
+				,data_expen_date2 = #{dataExpenDate2}
+			</if>
+			<if test="dataTaxdepart != null and dataTaxdepart neq ''.toString()">
+				,data_taxdepart = #{dataTaxdepart}
+			</if>
+			<if test="dataTax != null and dataTax neq ''.toString()">
+				,data_tax = #{dataTax}
+			</if>
+			<if test="dataTaxDate1 != null and dataTaxDate1 neq ''.toString()">
+				,data_tax_date1 = #{dataTaxDate1}
+			</if>
+			<if test="dataTaxDate2 != null and dataTaxDate2 neq ''.toString()">
+				,data_tax_date2 = #{dataTaxDate2}
+			</if>
+		</trim>
+		WHERE
+			data_num = #{dataNum}
+	</update>
+	
+	<!-- 회사 정보 목록 ajax 호출을 위한 맵 타입으로 받기 -->
 	<select id="salaryInfoMap" parameterType="String" resultType="Map">
 		SELECT 
 			data_num	AS	dataNum, 
@@ -85,8 +142,8 @@
 	data_emp = #{dataEmp}
 	</select>
 	
-	<!-- 회사 정보 목록 -->
-	<select id="salaryInfo" parameterType="String" resultMap="SalaryInfoResultMap">
+	<!-- 화면 첫 로딩 시 기본정보 가장 상단 데이터 1줄 조회 -->
+	<select id="salaryInfo" resultType="SalaryInfo" resultMap="SalaryInfoResultMap">
 		SELECT 
 			data_num, 
 			data_emp,
@@ -130,8 +187,7 @@
 	b.staff_level_code = c.level_code
 		AND
 	b.staff_num = d.staff_num
-		WHERE
-	data_emp = #{dataEmp}
+		limit 1
 	</select>	
 	
 	<!-- 기본급여정보 사원리스트 조회 -->
