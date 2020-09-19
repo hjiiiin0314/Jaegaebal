@@ -22,6 +22,9 @@ public interface ChaeYoungMapper {
 	//게시글 등록
 	public int addCYBoardPost(ChaeYoungBoard ChaeYoungBoard);
 	
+	//게시글 수정
+	public int updateCYPost(ChaeYoungBoard ChaeYoungBoard);
+	
 	//게시글 리스트
 	public List<ChaeYoungBoard> cyBoardList();
 	
