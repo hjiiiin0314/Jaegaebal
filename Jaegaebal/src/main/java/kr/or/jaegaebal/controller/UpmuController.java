@@ -31,28 +31,27 @@ public class UpmuController {
 	}
 	
 	//상신함 검색리스트
-		@PostMapping(value="/myAppList", produces = "application/json")
-		public @ResponseBody List<UpmuDocument>searchAppList(@RequestParam(value = "sk")String sk
-															,@RequestParam(value = "sv")String sv
-															){
-			System.out.println(sk + "<---sk로 들어온 값 controller");
-			System.out.println(sv + "<---sv로 들어온 값 controller");
-				
-				List<UpmuDocument> searchAppList = upmuService.searchAppList(sk,sv);
-				
-				return searchAppList;		
-
+	@PostMapping(value="/myAppList", produces = "application/json")
+	public @ResponseBody List<UpmuDocument>searchAppList(@RequestParam(value = "sk")String sk
+														,@RequestParam(value = "sv")String sv
+														){
+		System.out.println(sk + "<---sk로 들어온 값 controller");
+		System.out.println(sv + "<---sv로 들어온 값 controller");
 			
-		}
+		List<UpmuDocument> searchAppList = upmuService.searchAppList(sk,sv);
+			
+		return searchAppList;		
+	
+	}
 		
-		//상신함-화면연결
-			@GetMapping("/myAppList")
-			public String myAppList(Model model) {
-				List<UpmuDocument> myAppList = upmuService.myAppList();
-				model.addAttribute("myAppList", myAppList);
-				
-				return "approval/myAppList";
-			}
+	//상신함-화면연결
+	@GetMapping("/myAppList")
+	public String myAppList(Model model) {
+		List<UpmuDocument> myAppList = upmuService.myAppList();
+		model.addAttribute("myAppList", myAppList);
+		
+		return "approval/myAppList";
+	}
 	
 	//임시저장화면연결
 	@GetMapping("/storageBox")
@@ -61,20 +60,23 @@ public class UpmuController {
 	}
 	
 
-	//기안하기화면연결
-			@GetMapping("/appWrite")
-			public String appWrite(Model model) {
-				List<UpmuDocument> docType = upmuService.getDocType();	
-				model.addAttribute("docType", docType);
+	//기안하기-화면연결
+	@GetMapping("/appWrite")
+	public String appWrite(Model model) {
+		List<UpmuDocument> docType = upmuService.getDocType();	
+		model.addAttribute("docType", docType);
+		
+		List<Jojic> jojic = upmuService.getJojic();
+		model.addAttribute("jojic", jojic);
+		
+		List<Jojic> team = upmuService.getTeam();
+		model.addAttribute("team", team);
 				
-				List<Jojic> jojic = upmuService.getJojic();
-				model.addAttribute("jojic", jojic);
-				
-				List<StaffInfo> staff = upmuService.getStaff();
-				model.addAttribute("staff", staff);
-				
-				return "approval/appWrite";
-			}
+		List<StaffInfo> staff = upmuService.getStaff();
+		model.addAttribute("staff", staff);
+		
+		return "approval/appWrite";
+	}
 
 
 	//출퇴근화면이동

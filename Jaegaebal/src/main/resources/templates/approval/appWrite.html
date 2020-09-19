@@ -11,13 +11,11 @@
 	
 	<th:block layout:fragment="customCss">
 		<!-- include summernote css/js -->
-		<script type="text/javascript" th:src="@{/summernote/summernote-bootstpap.css}"></script>
+		<link rel="stylesheet" href="summernote/summernote-lite.css">
 		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 		<!-- upmu.css  -->
-		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">
-		<!--tree  -->
-		<script type="text/javascript" th:src="@{/tree/themes/default/style.css}"></script>
-		<script type="text/javascript" th:src="@{/tree/themes/default-dark/style.css}"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">	
+		
 	</th:block>
 	
 	
@@ -75,9 +73,7 @@
                      <button type="button" id="appSubmit" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                
                      <button type="button" id="appKeep" class="mb-2 mr-2 btn btn-success active btn-right"><i class= "pe-7s-drawer"></i>  저장하기</button>                
                   </div>
-              </div>
-          </div>
-         
+
          <!------------------- appModal 시작   ------------------------>     
          <div  class="modal fade " id="appModal">
 	  	 	<div class="modal-dialog modal-lg">
@@ -88,26 +84,31 @@
 				     </div>
 	     			<div class="modal-body">
 	     				<div class="main-card col-lg-5 card">
-	     					<div class="card-body">
-	       						<h4>조직도</h4>
-	       						<div class="form-group">
-	       							<div class="jstree">
-		       							<div id="jojic">		       								
-										  <ul>
-										  	<th:block th:each="j : ${jojic}" >
-											    <li th:value="${j.jojicCode}" >[[${j.jojicName}]]
-											      <ul>											      	
-													<li th:each="s : ${staff}" th:if="${j.jojicCode} == ${s.jojicCode}"  th:value="${s.jojicCode}" >[[${s.staffName}]]</li>																		       										      	
-											      </ul>											     
-											    </li>
-										  	</th:block>
-										  
-										  </ul>
-										</div>		       						
-	       							</div>
-	       						</div>
+		     				<div class="card-body">
+		       					<h4>조직도</h4>
+		       						<div class="form-group form-scroll">
+		       							<ul class="tree">
+			       							 <li>
+										      <input type="checkbox" id="root">
+										      <label for="root">ROOT</label>
+										      <ul>
+										        <li><a href="https://opentutorials.org">node1</a></li>
+										        <li><a href="https://opentutorials.org">node2</a></li>
+										        <li>
+										          <input type="checkbox" id="node3">
+										          <label for="node3">node3</label>
+										          <ul>
+										            <li><a href="https://opentutorials.org">node31</a></li>
+										            <li><a href="https://opentutorials.org">node32</a></li>
+										            <li><a href="https://opentutorials.org">node33</a></li>
+										          </ul>
+										        </li>
+										      </ul>
+										    </li>
+										   </ul>		       							
+		       						</div>
+	       						</div>	       							
 	       					</div>
-       					</div>
        					<div class="col-lg-2">
        						<button type="button" id="rightMove" class="btn-add"><i class="pe-7s-add-user"></i>  추가</button>
 							<button type="button" id="leftMove" class="btn-del"><i class="pe-7s-delete-user"></i>  제외</button>
@@ -139,33 +140,26 @@
 
 	<!-- 사용자 지정 script -->
 	<th:block layout:fragment="customJsScript">		
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>	
-		<!-- include summernote-ko-KR 한글처리-->
-		<script src="lang/summernote-ko-KR.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>	
-		<!-- include tree  -->
-		<script type="text/javascript" th:src="@{/tree/jstree.js}"></script>
+		 <script src="/summernote/summernote-lite.js"></script>
+      <script src="/summernote/lang/summernote-ko-KR.js"></script>
+	
 
 		
 		<!-- summernote 관련-->
-			<script type="text/javascript">
-				$(document).ready(function() {
-					
-					
-					//여기 아래 부분
-					$('#summernote').summernote({
-						  height: 300,                 // 에디터 높이
-						  minHeight: null,             // 최소 높이
-						  maxHeight: null,             // 최대 높이
-						  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-						  lang: "ko-KR",					// 한글 설정
-						  placeholder: '내용을 입력하세요'	//placeholder 설정
-				          
-					});
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				  height: 300,                 // 에디터 높이
+				  minHeight: null,             // 최소 높이
+				  maxHeight: null,             // 최대 높이
+				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				  lang: "ko-KR",					// 한글 설정
+				  placeholder: '내용을 입력하세요'	//placeholder 설정
+			          
 				});
-				$('#jojic').jstree();
-			</script>
-			<!--  결재라인 모달  관련 -->
+			});				
+		</script>
+		<!--  결재라인 모달  관련 -->
 			<script>
 				$(function(){
 					$('#rightMove').click(function(){	

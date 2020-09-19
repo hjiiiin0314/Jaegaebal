@@ -39,7 +39,13 @@ public class UpmuService {
 			return staff;
 		}
 		
-		//기안하기 - 결재라인 - 조직도
+	//기안하기 - 결재라인 - 조직도
+		public List<Jojic> getTeam(){
+			List<Jojic> team = upmumapper.getTeam();
+			return team;
+		}
+		
+	//기안하기 - 결재라인 - 조직도
 		public List<Jojic> getJojic(){
 			List<Jojic> jojic = upmumapper.getJojic();
 			return jojic;

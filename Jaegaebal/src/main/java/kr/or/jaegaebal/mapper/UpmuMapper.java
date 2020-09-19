@@ -23,10 +23,13 @@ public interface UpmuMapper {
 	//상신함 - 전체목록
 		public List<UpmuDocument> myAppList();
 	
-	//기안하기 - 결재라인 - 조직도 - 사원
+	//기안하기 - 결재라인  - 사원
 		public List<StaffInfo> getStaff();
+	
+	//기안하기 - 결재라인 - 팀
+		public List<Jojic> getTeam();
 		
-		//기안하기 - 결재라인 - 조직도
+	//기안하기 - 결재라인 - 최상위(부서)
 		public List<Jojic> getJojic();
 
 
