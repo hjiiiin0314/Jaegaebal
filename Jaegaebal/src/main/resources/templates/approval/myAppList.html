@@ -43,31 +43,31 @@
 							<button type="button" id="seachBtn" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
 					</form>
 					<br>
-					<table class="mb-0 table table-sm">
+					<table class="mb-0 table table-hover ">
                     	<thead>
 	                         <tr>
 	                             <th>문서코드</th>
 	                             <th>문서유형</th>
 	                             <th>제목</th>
-	                             <th>기안날짜</th>
 	                             <th>첨부파일</th>
 	                             <th>보안</th>
 	                             <th>마감요청일</th>
+	                             <th>기안날짜</th>
 	                             <th>결재상태</th>
 	                         </tr>
 	                    </thead>
-                        <tbody id="myAppList">
+                        <tbody id="myAppList">                       
 	                        <tr th:each="l : ${myAppList}">
 	                            <td th:text="${l.docCode}" id="docCode"></td>
 	                            <td th:text="${l.docTypeName}" id="docTypeName"></td>
-	                            <td th:text="${l.docTitle}" id="docTitle"></td>
-	                            <td th:text="${l.writeDate}" id="writeDate"></td>
+	                            <td th:text="${l.docTitle}" id="docTitle"><a th:href="@{/addCYPostForm(jobNumber=${cy.jobNumber})}"></a></td>
 	                            <td th:text="${l.docFile}"  id="docFile"></td>
 	                            <td th:text="${l.security}" id="security"></td>
 	                            <td th:text="${l.deadline}" id="deadline"></td>
+	                            <td th:text="${l.writeDate}" id="writeDate"></td>
 	                            <td th:text="${l.appStateName}" id="appStateName"></td>	                        	
 	                        </tr>
-	                        
+	                       
                         </tbody>
                     </table>
                   </div>
