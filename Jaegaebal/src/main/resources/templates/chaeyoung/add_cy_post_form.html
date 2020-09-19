@@ -145,7 +145,10 @@
 					var jojicName = $('#jojicCode option:selected').text(); //셀렉트박스에 노출되는 text를 가져온다.				
 					$('#jobJojicName').val(jojicName); //히든 인풋박스에 name 값을 저장
 					
-					$('#addPost').submit();
+					var dd = $('#addPost input[name=jobDeadLine]').val();
+			
+					console.log(dd);
+					/* $('#addPost').submit(); */
 				});
 			});
 		</script>

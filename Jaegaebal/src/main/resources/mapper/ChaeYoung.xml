@@ -29,7 +29,28 @@
 
 
 	<!-- 구인공고 게시글 등록 -->
-	<insert id="addCYBoardPost" parameterType="String">
+	<insert id="addCYBoardPost" parameterType="ChaeYoungBoard">
+	
+		<selectKey resultType="String" keyProperty="jobNumber" order="BEFORE">
+			SELECT
+				case 
+					when 
+						MAX(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1 <![CDATA[<]]> 10 
+					then 
+						CONCAT('cy000',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1)
+					when 
+						max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1 <![CDATA[<]]> 100 
+					then 
+						CONCAT('cy00',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1)
+					when 
+						max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1 <![CDATA[<]]> 1000 
+					then 
+						CONCAT('cy0',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1)
+					else
+						CONCAT('cy',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1) END as jobNumber				
+			FROM
+				cy_job_board
+		</selectKey>
 		INSERT INTO cy_job_board(
 			job_number
 			,job_jojic_code
@@ -42,7 +63,7 @@
 			,job_reg_staff
 			)
 			VALUES (
-			'cy003'
+			#{jobNumber}
 			,#{jobJojicCode}
 			,#{jobJojicName}
 			,#{jobTitle}
