@@ -24,6 +24,14 @@ import kr.or.jaegaebal.service.UpmuService;
 public class UpmuController {
 	@Autowired private UpmuService upmuService;
 	
+	
+	//문서 자세히 보기
+	@GetMapping("/docDetail")
+	public String docDetail() {
+		
+		return "approval/docDetail";
+	}
+	
 	//반려/회수함화면연결
 	@GetMapping("/retrievalBox")
 	public String retrievalBox() {

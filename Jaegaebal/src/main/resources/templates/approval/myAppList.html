@@ -46,26 +46,28 @@
 					<table class="mb-0 table table-hover ">
                     	<thead>
 	                         <tr>
-	                             <th>문서코드</th>
-	                             <th>문서유형</th>
-	                             <th>제목</th>
-	                             <th>첨부파일</th>
-	                             <th>보안</th>
-	                             <th>마감요청일</th>
-	                             <th>기안날짜</th>
-	                             <th>결재상태</th>
+	                             <th class="text-center">문서코드</th>
+	                             <th class="text-center">문서유형</th>
+	                             <th class="text-center">제목</th>
+	                             <th class="text-center">첨부파일</th>
+	                             <th class="text-center" >보안</th>
+	                             <th class="text-center">마감요청일</th>
+	                             <th class="text-center">기안날짜</th>
+	                             <th class="text-center">결재상태</th>
+	                             <th class="text-center">회수</th>
 	                         </tr>
 	                    </thead>
                         <tbody id="myAppList">                       
 	                        <tr th:each="l : ${myAppList}">
-	                            <td th:text="${l.docCode}" id="docCode"></td>
-	                            <td th:text="${l.docTypeName}" id="docTypeName"></td>
-	                            <td th:text="${l.docTitle}" id="docTitle"><a th:href="@{/addCYPostForm(jobNumber=${cy.jobNumber})}"></a></td>
-	                            <td th:text="${l.docFile}"  id="docFile"></td>
-	                            <td th:text="${l.security}" id="security"></td>
-	                            <td th:text="${l.deadline}" id="deadline"></td>
-	                            <td th:text="${l.writeDate}" id="writeDate"></td>
-	                            <td th:text="${l.appStateName}" id="appStateName"></td>	                        	
+	                            <td th:text="${l.docCode}" id="docCode" class='text-center'></td>
+	                            <td th:text="${l.docTypeName}" id="docTypeName" class='text-center'></td>
+	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail}"></a></td>
+	                            <td th:text="${l.docFile}"  id="docFile" class='text-center'></td>
+	                            <td th:text="${l.security}" id="security" class='text-center'></td>
+	                            <td th:text="${l.deadline}" id="deadline" class='text-center'></td>
+	                            <td th:text="${l.writeDate}" id="writeDate" class='text-center'></td>
+	                            <td th:text="${l.appStateName}" id="appStateName" class='text-center'></td>	                        	
+	                            <td class='text-center'><button type="button" id="retrievalBtn" class="mb-2 mr-2 btn btn-primary" >회수하기</button></td>	                        	
 	                        </tr>
 	                       
                         </tbody>
@@ -83,7 +85,8 @@
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 
 	</th:block>
-    <th:block layout:fragment="customJsScript">     
+    <th:block layout:fragment="customJsScript">   
+    <!-- 조건검색 후 뿌려주기 ajax  -->  
      <script type="text/javascript">
     	$(function(){	
     		$('#seachBtn').click(function(){
@@ -105,22 +108,42 @@
 				  	}
 				  	else{
 				  		for(var i=0; i<data.length; i++){	
-			    			console.log(data[i].appStateName);
-		    				 $('#myAppList').append("<tr><td>"+ data[i].docCode + "</td>"
-		    						 				+ "<td>"+ data[i].docTypeName + "</td>"
-		    						 				+ "<td>"+ data[i].docTitle + "</td>"
-		    						 				+ "<td>"+ data[i].writeDate + "</td>"
-		    						 				+ "<td>"+ data[i].docFile + "</td>"
-		    						 				+ "<td>"+ data[i].security + "</td>"
-		    						 				+ "<td>"+ data[i].deadline + "</td>"
-		    						 				+ "<td>"+ data[i].appStateName + "</td></tr>");
-		    				 
-			    			}				  		
+			    			console.log(data[i].appStateName);			    			
+			    			if(data[i].docFile == null || data[i].docFile == '' ){
+			    				data[i].docFile = "-";
+			    			}
+			    			if(data[i].security == null || data[i].security == '' ){
+			    				data[i].security = "-";
+			    			}
+			    							    			
+		    				 $('#myAppList').append("<tr><td class='text-center'>"+ data[i].docCode + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].docTypeName + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].docTitle + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].docFile + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].security + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].deadline + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].writeDate + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].appStateName + "</td>"
+		    						 				+ "<td class='text-center'><button type='button' id='retrievalBtn' class='mb-2 mr-2 btn btn-primary' >회수하기</button></td></tr>");
+			    			
+			    		}
+				  	
 				  	}
+				  	/* 회수하기 */
+				  	
     			}); 
     		});
     		
     	});
+	</script>
+	
+	<!-- 회수하기  -->
+	<script>
+		$(function(){
+			$('#retrievalBtn').click(function(){
+				alert('확인');
+			
+		});
 	</script>	
     </th:block>
 </html>
