@@ -43,6 +43,7 @@ public class ChaeYoungController {
 		//지원부서코드를 가져온다.
 		List<Jojic> jojicCode = chaeYoungService.getJojicCode();
 		if(jobNumber != null && !"".equals(jobNumber)) {
+			//리스트에서 클릭하여 form 화면으로 올 경우.
 			ChaeYoungBoard chaeYoungboard = chaeYoungService.cyBoardList(jobNumber);
 			model.addAttribute("cyboard", chaeYoungboard);
 		}
@@ -53,11 +54,17 @@ public class ChaeYoungController {
 	}
 	@PostMapping("/addCYPost")
 	public String addCYPost(ChaeYoungBoard ChaeYoungBoard) {
-		//구인공고 등록
+		//채용공고 등록
 		chaeYoungService.addCYBoardPost(ChaeYoungBoard);
 		return "redirect:/cyboardList";
 	}
-	
+	@PostMapping("/updateCYPost")
+	public String updateCYPost(ChaeYoungBoard ChaeYoungBoard) {
+		//채용공고 수정
+
+		chaeYoungService.updateCYPost(ChaeYoungBoard);
+		return "redirect:/cyboardList";
+	}
 	//지원할 시 이메일 체크
 	@PostMapping(value = "/emailCheck", produces = "application/json")
 	@ResponseBody

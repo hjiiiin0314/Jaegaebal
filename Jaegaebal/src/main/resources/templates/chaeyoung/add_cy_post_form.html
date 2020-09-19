@@ -49,12 +49,13 @@
 		  			<div class="col-md-12">
 		              <div class="main-card mb-3 card">
 		                  <div class="card-body"><h5 class="card-title">구인공고등록</h5>                     
-							<form action="/addCYPost" method="post">
-		                      <div class="position-relative form-group"><label>채용부서</label><select name="jojicCode" id="jobFieldCode" class="form-control">
+							<form action="/updateCYPost" method="post">
+		                      <div class="position-relative form-group"><label>채용부서</label><select name="jobJojicCode" id="jobFieldCode" class="form-control">
                     			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}" th:selected="${cyboard.jobJojicCode eq j.jojicCode}"></option>
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
-		                	                      
+		                	      <input type="hidden" name="jobJojicName" th:value="${cyboard.jobJojicName}">	   
+		                	      <input type="hidden" name="jobNumber" th:value="${cyboard.jobNumber}">	   
 		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
 		                          <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
 		                          <option value="경력" th:selected="${cyboard.jobCareer eq '경력'}">경력</option>
@@ -66,11 +67,11 @@
 		                      <textarea id="summernote" name="jobContent" th:text=${cyboard.jobContent}></textarea>
 		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
 		                      </div>             
-							</form>
 		                     	<div class="d-block text-center">
-		                            <button class="mb-2 mr-2 btn btn-info" type="button">수정하기</button>
+		                            <button class="mb-2 mr-2 btn btn-info" type="submit">수정하기</button>
 		                            <button class="mb-2 mr-2 btn btn-danger" type="button" id="cyPostDelete"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기</button>
 	       						</div>             
+							</form>
 		                  </div>
 		              </div>
 		          </div>
@@ -140,12 +141,27 @@
 					});
 				});
 				
+				//채용공고등록 유효성검사
 				$('#addcyPostBtn').click(function() {
 					
 					var jojicName = $('#jojicCode option:selected').text(); //셀렉트박스에 노출되는 text를 가져온다.				
 					$('#jobJojicName').val(jojicName); //히든 인풋박스에 name 값을 저장
 					
-					$('#addPost').submit();
+					var jobDeadLine = $('#addPost input[name=jobDeadLine]').val(); // 채용마감일
+					var jobTitle = $('#addPost input[name=jobTitle]'); // 제목
+					var jobContent = $('#addPost textarea[name=jobContent]'); // 내용
+			
+					if(jobDeadLine == '') {
+						alert('마감일을 입력해 주세요');
+						return false;
+					}else if(jobTitle.val() == '') {
+						alert('제목을 입력해 주세요');
+						return false;
+					}else if(jobContent.val() == '') {
+						alert('내용을 입력해 주세요');
+						return false;
+					}
+					  $('#addPost').submit(); 
 				});
 			});
 		</script>

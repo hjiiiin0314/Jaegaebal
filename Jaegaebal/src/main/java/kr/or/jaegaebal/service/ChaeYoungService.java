@@ -25,18 +25,24 @@ public class ChaeYoungService {
 		return chaeYoungMapper.getJojicCode();
 	};
 	
-	//구인공고 게시글 등록
+	//채용공고 게시글 등록
 	public int addCYBoardPost(ChaeYoungBoard ChaeYoungBoard) {
 		
 		return chaeYoungMapper.addCYBoardPost(ChaeYoungBoard);
 	};
 	
-	//구인공고 리스트
+	//채용공고 수정
+	public int updateCYPost(ChaeYoungBoard ChaeYoungBoard) {
+		
+		return chaeYoungMapper.updateCYPost(ChaeYoungBoard);
+	};
+	
+	//채용공고 리스트
 	public List<ChaeYoungBoard> cyBoardList() {
 		
 		return chaeYoungMapper.cyBoardList();
 	};
-	//등록된 구인공고 불러오기(메서드 오버로딩)
+	//등록된 채용공고 불러오기(메서드 오버로딩)
 	public ChaeYoungBoard cyBoardList(String jobNumber) {
 		
 		return chaeYoungMapper.cyBoardList(jobNumber);

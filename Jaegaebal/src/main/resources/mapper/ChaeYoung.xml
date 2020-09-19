@@ -28,8 +28,29 @@
 	</resultMap>
 
 
-	<!-- 구인공고 게시글 등록 -->
-	<insert id="addCYBoardPost" parameterType="String">
+	<!-- 채용공고 게시글 등록 -->
+	<insert id="addCYBoardPost" parameterType="ChaeYoungBoard">
+	
+		<selectKey resultType="String" keyProperty="jobNumber" order="BEFORE">
+			SELECT
+				case 
+					when 
+						MAX(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1 <![CDATA[<]]> 10 
+					then 
+						CONCAT('cy000',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1)
+					when 
+						max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1 <![CDATA[<]]> 100 
+					then 
+						CONCAT('cy00',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1)
+					when 
+						max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1 <![CDATA[<]]> 1000 
+					then 
+						CONCAT('cy0',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1)
+					else
+						CONCAT('cy',max(cast(SUBSTRING(job_number,'3')AS DECIMAL))+1) END as jobNumber				
+			FROM
+				cy_job_board
+		</selectKey>
 		INSERT INTO cy_job_board(
 			job_number
 			,job_jojic_code
@@ -42,7 +63,7 @@
 			,job_reg_staff
 			)
 			VALUES (
-			'cy003'
+			#{jobNumber}
 			,#{jobJojicCode}
 			,#{jobJojicName}
 			,#{jobTitle}
@@ -50,10 +71,54 @@
 			,#{jobCareer}
 			,#{jobDeadLine}
 			,NOW()
-			,'개발자'
+			,'개발자' <!-- seesion 아이디 값으로 변경해야 함. -->
 			)
 	</insert>
-	<!-- 구인공고 게시글 가져오기 -->
+	<!-- 채용공고 수정 -->
+	<update id="updateCYPost" parameterType="ChaeYoungBoard">
+		UPDATE cy_job_board
+			<!-- 맨 마지막에 ,가 있으면 지워준다. -->
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="jobJojicCode != null and jobJojicCode neq ''.toString()">
+					job_jojic_code = #{jobJojicCode},
+				</if>
+				<if test="jobJojicName != null and jobJojicName neq ''.toString()">
+					job_jojic_name = #{jobJojicName},
+				</if>
+				<if test="jobTitle != null and jobTitle neq ''.toString()">
+					job_title = #{jobTitle},
+				</if>
+				<if test="jobContent != null and jobContent neq ''.toString()">
+					job_content = #{jobContent},
+				</if>
+				<if test="jobCareer != null and jobCareer neq ''.toString()">
+					job_career = #{jobCareer},
+				</if>
+				<if test="jobDeadLine != null and jobDeadLine neq ''.toString()">
+					job_deadline = #{jobDeadLine}
+				</if>
+			</trim>
+		WHERE 
+			job_number=#{jobNumber}
+	</update>
+	<!-- 채용공고 삭제 -->
+	<delete id="deleteCYPost" parameterType="String">
+		DELETE FROM cy_job_board WHERE job_number=#{jobNumber}
+		
+<!-- DELETE FROM cy_job_board 
+		WHERE 
+			job_number={GET방식으로 전달}
+		and
+		(SELECT
+			{조회된 아이디}
+		 from
+		 	사원테이블
+		 where
+			아이디컬럼명 = {session 저장된 아이디} and 비밀번호컬럼명 = {입력받은 비밀번호} 	 
+		 ) = '{session에 저장된 아이디}'
+		  -->
+	</delete>
+	<!-- 채용공고 게시글 가져오기 -->
 	<select id="cyBoardList" parameterType="String" resultMap="ChaeYoungBoardResultMap">
 		SELECT job_number, job_jojic_code, job_jojic_name, job_title, job_content, job_career, job_deadline, job_reg_date, job_reg_staff
 		FROM cy_job_board
