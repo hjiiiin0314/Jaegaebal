@@ -24,17 +24,20 @@ import kr.or.jaegaebal.service.UpmuService;
 public class UpmuController {
 	@Autowired private UpmuService upmuService;
 	
-	
-	//문서 자세히 보기
+	//문서상세보기
 	@GetMapping("/docDetail")
-	public String docDetail() {
+	public String docDetail(Model model
+							, @RequestParam(value = "docCode",required = false)String docCode) {
+		System.out.println(docCode + "<----상세보기할 문서코드");
 		
 		return "approval/docDetail";
 	}
 	
+	
+	
 	//반려/회수함화면연결
 	@GetMapping("/retrievalBox")
-	public String retrievalBox() {
+	public @ResponseBody String retrievalBox() {
 		return "approval/retrievalBox";
 	}
 	

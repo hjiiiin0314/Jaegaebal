@@ -1,10 +1,122 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-결재문서 상세보기 페이지 입니다.
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+
+	
+	<th:block layout:fragment="customCss">
+		<!-- include summernote css/js -->
+		<link rel="stylesheet" href="summernote/summernote-lite.css">
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+		<!-- upmu.css  -->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">	
+		
+	</th:block>
+	
+	
+	<th:block layout:fragment="customContent">
+
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
+
+  	<div class="col-md-10">
+		<div class="app-page-title">
+			<div class="page-title-wrapper">
+				<div class="page-title-heading">
+				    <div class="page-title-icon">
+				        <i class="pe-7s-eyedropper icon-gradient bg-happy-itmeo">
+				        </i>
+				    </div>
+				    <div>
+				    	<h2>상세보기</h2>
+				       <div class="page-title-subheading"></div>
+				    </div>
+				</div>
+			</div>
+		</div>                
+		
+	
+		<form>
+			<table class="mb-12 table table-bordered">
+				<tr>
+					<td class="t_head" >담당자</td>
+					<td>
+						<input type="text"  class="text-center" value="개발부"><br>
+						<input type="text"  class="text-center" value="장현지">
+					</td>
+		        </tr>
+				<tr th:each="a : ${appLine}">
+					<td class="t_head text-center" th:text="${a.staffLevelName}"></td>
+					<td>
+						<input type="text" class="text-center" th:text="${a.appJojicName}">
+						<input type="text" class="text-center"  th:text="${a.appStaffName}">
+					</td>
+		        </tr>
+		    </table>
+		 </form> 		
+		<div class="position-relative form-group index-front">
+          	<div class="position-relative form-group document-form">
+             		<label for="docType" >문서양식</label>
+             			<select id="docType" class="form-control" name="docTypeName" >
+             				<option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
+                  		<option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
+              		</select>
+              </div>
+              <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
+              	<input type="date" class="form-control" name="deadline">   
+              </div>
+        </div>       
+             <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
+            		<input id="docTitle" type="text" class="form-control" name="docTitle" >
+             </div>                  
+			 <textarea id="summernote" name="docContents"></textarea>
+             <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
+             	<textarea name="docComent" id="docComent" class="form-control"></textarea>
+             </div>
+             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
+              	<input name="docFile" id="docFile" type="file" class="form-control-file">
+             </div>
+             <div class="position-relative form-group"> <label for="security" class="">보안처리</label>
+               	<input type="checkbox" name="security" value="1">
+             </div>
+                   
+     </div>
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+
+
+
+
+	</th:block>
+
+	<!-- 사용자 지정 script -->
+	<th:block layout:fragment="customJsScript">		
+		 <script src="/summernote/summernote-lite.js"></script>
+      <script src="/summernote/lang/summernote-ko-KR.js"></script>
+	
+
+		
+		<!-- summernote 관련-->
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				  height: 300,                 // 에디터 높이
+				  minHeight: null,             // 최소 높이
+				  maxHeight: null,             // 최대 높이
+				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				  lang: "ko-KR",					// 한글 설정
+				  placeholder: '내용을 입력하세요'	//placeholder 설정
+			          
+				});
+			});				
+		</script>
+		
+	
+	</th:block>
+
 </html>

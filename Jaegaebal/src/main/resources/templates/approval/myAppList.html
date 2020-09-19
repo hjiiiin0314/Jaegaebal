@@ -61,7 +61,7 @@
 	                        <tr th:each="l : ${myAppList}">
 	                            <td th:text="${l.docCode}" th:value="${l.docCode}" id="docCode" class='text-center'></td>
 	                            <td th:text="${l.docTypeName}" id="docTypeName" class='text-center'></td>
-	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail}"></a></td>
+	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${l.docCode})}"></a></td>
 	                            <td th:text="${l.docFile}"  id="docFile" class='text-center'></td>
 	                            <td th:text="${l.security}" id="security" class='text-center'></td>
 	                            <td th:text="${l.deadline}" id="deadline" class='text-center'></td>
