@@ -37,6 +37,9 @@ public interface ChaeYoungMapper {
 	//지원자 목록 가져오기
 	public List<ChaeYoungApplicant> appManagement();
 	
+	//지원자 특정인원 가져오기
+	public ChaeYoungApplicant appManagement(String appNumCode);
+	
 	//지원자 이메일 등록
 	public int addApplicant(ChaeYoungApplicant chaeYoungApplicant);
 	

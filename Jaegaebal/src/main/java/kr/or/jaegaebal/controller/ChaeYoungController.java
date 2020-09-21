@@ -90,10 +90,13 @@ public class ChaeYoungController {
 	}
 	//지원자 이력서 작성form
 	@GetMapping("/appResumeForm")
-	public String appResumeForm(@RequestParam(value="jobNumber") String jobNumber,Model model) {
+	public String appResumeForm(@RequestParam(value="appNumCode") String appNumCode,Model model) {
+		if(appNumCode != null) {
+			ChaeYoungApplicant chaeYoungApplicant = chaeYoungService.appManagement(appNumCode);
+			model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
+		}
 		
 		model.addAttribute("title", "이력서 작성 form");
-		model.addAttribute("jobNumber", jobNumber);
 		return "chaeyoung/app_resumeForm";
 	}
 	//지원하기 버튼 누른 후 지원
@@ -102,7 +105,7 @@ public class ChaeYoungController {
 		
 		chaeYoungService.addApplicant(chaeYoungApplicant);
 		
-		model.addAttribute("jobNumber", chaeYoungApplicant.getJobNumber());
+		model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
 		return "chaeyoung/app_resumeForm";
 	}
 }

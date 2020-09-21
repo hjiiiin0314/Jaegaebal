@@ -60,6 +60,12 @@ public class ChaeYoungService {
 		return chaeYoungMapper.appManagement();
 	};
 	
+	//지원자 특정인원 가져오기
+	public ChaeYoungApplicant appManagement(String appNumCode) {
+		
+		return chaeYoungMapper.appManagement(appNumCode);
+	};
+	
 	//지원자 이메일 등록
 	public int addApplicant(ChaeYoungApplicant chaeYoungApplicant) {
 		int result = 0;

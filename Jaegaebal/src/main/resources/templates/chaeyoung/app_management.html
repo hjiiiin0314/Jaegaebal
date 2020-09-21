@@ -72,7 +72,7 @@
                                                      </div>
                                                      <div class="widget-content-left flex2">
                                                          <div class="widget-heading" th:text="${app.appName}"></div>
-                                                         <div class="widget-subheading opacity-7">Web Developer</div>
+                                               
                                                      </div>
                                                  </div>
                                              </div>
@@ -85,7 +85,7 @@
                                              </th:block>
                                          </td>
                                          <td class="text-center">
-                                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm ">이력서 보기</button>
+                                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm d app_resume">이력서 보기</button>
                                          </td>
                                      </tr>
                                      </th:block>
@@ -110,5 +110,20 @@
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+		<script>
+			$(function() {
+				$('.app_resume').click(function() {
+					var appNum = $(this).parent().parent().children().eq(0).text();
+					var appNum1 = $(this).parent().parent().children().eq(1).text().trim();
+
+					if(confirm(appNum1 + '님 이력서를 보시겠습니까?')) {
+						location.href="/appResumeForm?appNumCode="+appNum;
+					}
+				});
+			});
+		</script>
 	</th:block>
 </html>

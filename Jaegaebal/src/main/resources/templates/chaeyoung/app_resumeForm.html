@@ -23,7 +23,7 @@
                     </i>
                 </div>
                 <div>지원자 이력서 등록
-                    <div class="page-title-subheading">지원자 이력서 작성/수정을 돕는다.
+                    <div class="page-title-subheading">지원자 이력서 작성/수정/지원취소
                     </div>
                 </div>
             </div>   
@@ -36,16 +36,26 @@
 					<h5 class="card-title">기본정보</h5>
 			
 						
-							<table class="mb-0 table table-bordered">
-
+							<table class="mb-0 table table-bordered" th:with="cy = ${chaeYoungApplicant}">
 									<tr>
-										<td></td>
-										<td th:text=${jobNumber} colspan="2"></td>
+										<td>지원자 접수번호 : </td>
+										<td th:text=${cy.appNumCode}></td>
 									</tr>
 									<tr>
-										<td></td>
-										<td th:text=${jobNumber} colspan="1"></td>
-										<td>dd</td>
+										<td>지원자 이메일 : </td>
+										<td><input type="email" th:value="${cy.appEmail}"></td>
+									</tr>
+									<tr>
+										<td>지원자 비밀번호 : </td>
+										<td><input type="password" th:value="${cy.appPassward}"></td>
+									</tr>
+									<tr>
+										<td>지원자 이름 : </td>
+										<td th:text=${cy.appName}></td>
+									</tr>
+									<tr>
+										<td>지원자 핸드폰번호 : </td>
+										<td><input type="text" th:value="${cy.appPhone}"></td>
 									</tr>
 							</table>
 				

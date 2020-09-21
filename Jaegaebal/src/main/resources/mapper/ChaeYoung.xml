@@ -144,7 +144,7 @@
 			app_email = #{appEmail} 
 	</select>
 	<!-- 지원자 정보 가져오기 -->
-	<select id="appManagement" resultMap="ChaeYoungApplicantResultMap">
+	<select id="appManagement" parameterType="String" resultMap="ChaeYoungApplicantResultMap">
 		SELECT 
 			areg.app_email
 			,areg.job_number
@@ -160,6 +160,10 @@
 			cy_applicant_number AS anum
 			on
 			areg.app_email = anum.app_email
+		<if test="appNumCode != null and appNumCode neq ''.toString()">
+		where
+			anum.app_num_code = #{appNumCode}
+		</if>
 	</select>
 	
 	<!-- 지원자 이메일 등록 -->
