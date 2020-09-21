@@ -5,6 +5,73 @@
  */
 
 $(function(){
+	//사원 검색 기능
+	$('#search_submit').click(function(){
+		var searchCate = $('[name=searchCate]').val();
+		var searchText = $('[name=searchText]').val();
+		var searchLevel = $('[name=searchLevel]').val();
+		var searchJojic = $('[name=searchJojic]').val();
+		var ajaxArray = new Array();
+		ajaxArray.push(searchCate);
+		ajaxArray.push(searchText);
+		ajaxArray.push(searchLevel);
+		ajaxArray.push(searchJojic);
+		var request = $.ajax({
+			url : "/salary/salary_search",
+			method : "POST",
+			data : { "ajaxArray[]" : ajaxArray },
+			dataType : "json"
+		});
+		
+		request.done(function(data){
+			$('.emp-table').children('tbody').children('tr').remove();
+			for(var i=0;i<data.length;i++){
+				$('.emp-table').children('tbody').append('<tr><td>'+data[i].staffNum+'</td><td>'+data[i].staffName+'</td><td>'+data[i].levelName+'</td><td>'+data[i].jojicName+'</td></tr>');
+			}
+		});
+		
+		request.fail(function( jqXHR, textStatus ) {
+			alert( "Request failed: " + textStatus );
+		});
+	});
+	
+	$('[name=searchCate]').change(function(){
+		if($(this).val() == 1){
+			$('[name=searchText]').removeClass('search-none');
+			if(!$('[name=searchLevel]').hasClass('search-none')){
+				$('[name=searchLevel]').addClass('search-none');
+			}
+			if(!$('[name=searchJojic]').hasClass('search-none')){
+				$('[name=searchJojic]').addClass('search-none');
+			}
+		} else if($(this).val() == 2){
+			$('[name=searchText]').removeClass('search-none');
+			if(!$('[name=searchLevel]').hasClass('search-none')){
+				$('[name=searchLevel]').addClass('search-none');
+			}
+			if(!$('[name=searchJojic]').hasClass('search-none')){
+				$('[name=searchJojic]').addClass('search-none');
+			}
+		} else if($(this).val() == 3){
+			$('[name=searchLevel]').removeClass('search-none');
+			if(!$('[name=searchText]').hasClass('search-none')){
+				$('[name=searchText]').addClass('search-none');
+			}
+			if(!$('[name=searchJojic]').hasClass('search-none')){
+				$('[name=searchJojic]').addClass('search-none');
+			}
+		} else {
+			$('[name=searchJojic]').removeClass('search-none');
+			if(!$('[name=searchText]').hasClass('search-none')){
+				$('[name=searchText]').addClass('search-none');
+			}
+			if(!$('[name=searchLevel]').hasClass('search-none')){
+				$('[name=searchLevel]').addClass('search-none');
+			}
+		}
+		
+	});
+	
 	//사원 정보 클릭시 ajax통신을 통한 급여정보 조회
 	$('.emp-table').children('tbody').children('tr').click(function(){
 		var dataEmp = $(this).children('td').eq(0).text();
@@ -217,6 +284,7 @@ $(function(){
 		});
 	});
 	
+	//체크박스 클릭 시 연관 입력폼 활성화,비활성화
 	$('input[name=dataBate]').click(function(){
 		if($(this).prop('checked')){
 			$('input[name=dataBatePer]').prop('readonly', false);
@@ -258,12 +326,12 @@ $(function(){
 			$('input[name=dataTaxDate2]').val('');
 		}
 	});
-});
-
-//급여상세정보 저장 전 재확인 메세지
-function updateCheck(form){
-	var result = confirm('급여상세정보를 저장하시겠습니까?');
-	if(!result){
-		return false;
+	
+	//급여상세정보 저장 전 재확인 메세지
+	function updateCheck(form){
+		var result = confirm('급여상세정보를 저장하시겠습니까?');
+		if(!result){
+			return false;
+		}
 	}
-}
+});

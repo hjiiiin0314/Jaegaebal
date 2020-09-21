@@ -190,6 +190,65 @@
 		limit 1
 	</select>	
 	
+	<!-- 검색어에 따른 사원 조회 -->
+	<select id="getStaffListMap" parameterType="String" resultType="Map">
+		SELECT
+			staff_num	AS	staffNum,
+			staff_name	AS	staffName,
+			level_name	AS	levelName,
+			jojic_name	AS	jojicName
+		FROM
+			is_staff a
+		INNER join
+			is_level b
+		INNER join
+			is_jojic c
+		ON
+			a.staff_level_code=b.level_code
+		AND
+			a.jojic_code=c.jojic_code
+		<if test="searchCate eq 1 or searchCate eq 2">
+			<if test="searchText != null or searchText neq ''.toString">
+				<trim prefix="WHERE">
+					<if test="searchCate eq 1">
+						staff_num like '%${searchText}%'
+					</if>
+					<if test="searchCate eq 2">
+						staff_name like '%${searchText}%'
+					</if>
+				</trim>
+			</if>
+		</if>
+		<if test="searchCate eq 3 or searchCate eq 4">
+			<trim prefix="WHERE">
+				<if test="searchCate eq 3">
+					level_code like '%${searchLevel}%'
+				</if>
+				<if test="searchCate eq 4">
+					a.jojic_code like '%${searchJojic}%'
+				</if>
+			</trim>
+		</if>
+	</select>
+	
+	<!-- 직급 코드 조회 -->
+	<select id="getLevelList" resultType="Map">
+		SELECT
+			level_code,
+			level_name
+		FROM
+			is_level
+	</select>
+	
+	<!-- 부서 코드 조회 -->
+	<select id="getJojicList" resultType="Map">
+		SELECT
+			jojic_code,
+			jojic_name
+		FROM
+			is_jojic
+	</select>
+	
 	<!-- 기본급여정보 사원리스트 조회 -->
 	<select id="getSalaryStaffList" resultType="Map">
 		SELECT

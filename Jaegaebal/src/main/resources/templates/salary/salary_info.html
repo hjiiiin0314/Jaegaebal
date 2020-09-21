@@ -34,10 +34,26 @@
 		<div class="col-lg-4">
 			<div class="main-card mb-3 card">
 				<div class="card-body emp-table">
-					<h5 class="card-title">기본정보</h5>
-					<div class="scroll-div">
+					<h5 class="mt-2 card-title search-left">기본정보</h5>
+					<div class="date_right">
+						<select class="search-select" name="searchCate">
+							<option value="1">사원번호</option>
+							<option value="2">성명</option>
+							<option value="3">직급</option>
+							<option value="4">부서</option>
+						</select>
+						<input class="search-input" type="text" id="search_text" name="searchText">
+						<select class="search-select search-none" name="searchLevel">
+							<option th:each="l : ${levelList}" th:value="${l.level_code}" th:text="${l.level_name}"></option>
+						</select>
+						<select class="search-select search-none" name="searchJojic">
+							<option th:each="l : ${jojicList}" th:value="${l.jojic_code}" th:text="${l.jojic_name}"></option>
+						</select>
+						<button class="btn btn-primary date_right" id="search_submit">검색</button>
+					</div>
+					<div class="scroll-div date_left">
 						<div class="scrollbar-container">
-							<table class="mb-0 emp-table table table-hover tbline-del">
+							<table class="mb-0 emp-table table table-hover tbline-del text-center">
 								<thead>
 									<tr>
 										<th class="fixed_top">사원번호</th>
@@ -63,7 +79,7 @@
 		<div class="col-lg-8">
 			<div class="main-card mb-3 card">
 				<div class="card-body">
-					<h5 class="card-title">상세정보</h5>
+					<h5 class="mt-2 card-title mb-4">상세정보</h5>
 					<form action="/salary/salary_info" onsubmit="return updateCheck(this);" method="POST">
 						<table class="mb-0 table table-bordered table-detail">
 							<tr>
@@ -109,7 +125,7 @@
 								<td>예금주</td>
 								<td><input type="text" name="dataHost" class="form-control" th:value="${salaryInfo.dataHost}"></td>
 								<td>주 소정근로시간</td>
-								<td><input type="text" name="dataScrib" class="form-control" th:value="${salaryInfo.dataScrib}"></td>
+								<td><input type="number" name="dataScrib" class="form-control" th:value="${salaryInfo.dataScrib}"></td>
 							</tr>
 							<tr>
 								<td>핸드폰</td>
@@ -181,7 +197,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>감면기간</td>
+								<td>소득세액 감면기간</td>
 								<td colspan="3" class="date-td">
 									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
 										<input type="date" name="dataTaxDate1" class="form-control form_date date_left" th:value="${salaryInfo.dataTaxDate1}">

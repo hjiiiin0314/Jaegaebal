@@ -13,6 +13,10 @@
 	float:right;
 }
 
+.text-center{
+	text-align:center;
+}
+
 .table .flow-font{
 	font-size:25px;
 }
@@ -36,6 +40,7 @@
 }
 /*사원정보 테이블 스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
 .scroll-div{
+	width:100%;
 	overflow-x:hidden;
 	scrollbar-width: none;
 	-ms-overflow-style: none;
@@ -47,12 +52,29 @@
 	height:25px;
 }
 
+.search-left{
+	width:26%;
+	float:left;
+}
+
+.search-input{
+	width:100px;
+	margin: 0 5px 15px 0;
+	padding:4px;
+}
+
+.search-select{
+	margin: 0 5px 15px 0;
+	padding:6px;
+}
+
+.search-none{
+	display:none;
+}
+
 @media(min-width:992px){
-	.emp-table{
-		height:876px;
-	}
 	.scroll-div{
-		height:805px;
+		height:809px;
 	}
 	.scroll-div::-webkit-scrollbar {
 	    display: none; /* Chrome, Safari, Opera*/

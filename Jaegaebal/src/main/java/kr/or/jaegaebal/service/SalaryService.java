@@ -1,7 +1,6 @@
 package kr.or.jaegaebal.service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,21 @@ import kr.or.jaegaebal.mapper.SalaryMapper;
 public class SalaryService {
 	@Autowired
 	private SalaryMapper salaryMapper;
+	
+	public List<Map<String, Object>> getStaffListMap(String searchCate, String searchText, String searchLevel, String searchJojic){
+		List<Map<String, Object>> staffList = salaryMapper.getStaffListMap(searchCate, searchText, searchLevel, searchJojic);
+		return staffList;
+	}
+	
+	public List<Map<String, Object>> getLevelList(){
+		List<Map<String, Object>> levelList = salaryMapper.getLevelList();
+		return levelList;
+	}
+	
+	public List<Map<String, Object>> getJojicList(){
+		List<Map<String, Object>> jojicList = salaryMapper.getJojicList();
+		return jojicList;
+	}
 	
 	public int updateSalaryInfo(SalaryInfo salaryInfo) {
 		int result = salaryMapper.updateSalaryInfo(salaryInfo);
