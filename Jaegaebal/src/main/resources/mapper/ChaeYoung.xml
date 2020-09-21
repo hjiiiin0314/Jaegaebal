@@ -161,4 +161,47 @@
 			on
 			areg.app_email = anum.app_email
 	</select>
+	
+	<!-- 지원자 이메일 등록 -->
+	<insert id="addApplicant" parameterType="ChaeYoungApplicant">
+		INSERT INTO cy_applicant_register (
+			app_email
+			,job_number
+			,app_passward
+			,app_name
+			,app_phone
+			,app_reg_date)
+		VALUES (
+			#{appEmail}
+			,#{jobNumber}
+			,#{appPassward}
+			,#{appName}
+			,#{appPhone}
+			,NOW())
+	</insert>
+	<!-- 지원자 이메일 등록과 동시에 지원자접수번호 생성 -->
+	<insert id="addAppNumCode" parameterType="ChaeYoungApplicant">
+		<selectKey resultType="String" keyProperty="appNumCode" order="BEFORE">
+			SELECT 
+				CONCAT(subString(DATE_FORMAT(NOW(),"%Y%m%d"),3,4),
+						right(#{jobNumber},4),
+						LPAD((
+							select
+								max(cast(SUBSTRING(cyNum.app_num_code,'9')AS DECIMAL))+1
+							from
+								cy_applicant_number AS cyNum		
+							),4,0)
+					) AS 'appNumCode'
+		</selectKey>
+		INSERT INTO cy_applicant_number (
+			app_num_code
+			,job_number
+			,app_email
+			,app_final_state)
+		VALUES (
+			#{appNumCode}
+			,#{jobNumber}
+			,#{appEmail}
+			,'임시저장')
+	</insert>
 </mapper>

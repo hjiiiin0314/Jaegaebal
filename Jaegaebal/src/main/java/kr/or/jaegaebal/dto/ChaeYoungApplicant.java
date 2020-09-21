@@ -61,6 +61,12 @@ public class ChaeYoungApplicant {
 	public void setAppRegDate(String appRegDate) {
 		this.appRegDate = appRegDate;
 	}
+	@Override
+	public String toString() {
+		return "ChaeYoungApplicant [appEmail=" + appEmail + ", jobNumber=" + jobNumber + ", appPassward=" + appPassward
+				+ ", appName=" + appName + ", appPhone=" + appPhone + ", appRegDate=" + appRegDate + ", appNumCode="
+				+ appNumCode + ", appFinalState=" + appFinalState + "]";
+	}
 	 
 	 
 }

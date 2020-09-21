@@ -49,7 +49,7 @@ public class ChaeYoungService {
 	};
 	
 	//이메일 중복 체크
-	public ChaeYoungApplicant emailCheck(String appEmail) {
+	public String emailCheck(String appEmail) {
 		
 		return chaeYoungMapper.emailCheck(appEmail);
 	};
@@ -58,5 +58,18 @@ public class ChaeYoungService {
 	public List<ChaeYoungApplicant> appManagement() {
 			
 		return chaeYoungMapper.appManagement();
+	};
+	
+	//지원자 이메일 등록
+	public int addApplicant(ChaeYoungApplicant chaeYoungApplicant) {
+		int result = 0;
+		if(chaeYoungApplicant != null) {
+			
+			result += chaeYoungMapper.addApplicant(chaeYoungApplicant);
+			result += chaeYoungMapper.addAppNumCode(chaeYoungApplicant);
+		}
+		
+		
+		return result;
 	};
 }

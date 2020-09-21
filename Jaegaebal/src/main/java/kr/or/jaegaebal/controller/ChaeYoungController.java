@@ -28,9 +28,9 @@ public class ChaeYoungController {
 	
 	@GetMapping("/cyboardList")
 	public String cyBoardList(Model model) {
-		//구인공고 게시판 리스트를 가져온다.
+		//채용공고 게시판 리스트를 가져온다.
 		List<ChaeYoungBoard> cyBoardList = chaeYoungService.cyBoardList();
-		model.addAttribute("title", "구인공고게시판");
+		model.addAttribute("title", "채용공고게시판");
 		model.addAttribute("cyBoardList", cyBoardList);
 		
 		return "chaeyoung/cyboard";
@@ -69,12 +69,11 @@ public class ChaeYoungController {
 	@PostMapping(value = "/emailCheck", produces = "application/json")
 	@ResponseBody
 	public int emailCheck(@RequestParam(value="appEmail") String appEmail) {
-		ChaeYoungApplicant app = chaeYoungService.emailCheck(appEmail);
+		String app = chaeYoungService.emailCheck(appEmail);
 		int result = 0;
 		if(app != null) {
 			result = 1;		
 		}
-		
 		return result;
 	}
 	
@@ -89,15 +88,21 @@ public class ChaeYoungController {
 		
 		return "chaeyoung/app_management";
 	}
-	/*
-	 * @PostMapping(value = "/appManagement", produces = "application/json")
-	 * 
-	 * @ResponseBody public List<ChaeYoungApplicant>
-	 * appManagement(@RequestParam(value="appNumber",required = false) String
-	 * appNumber,Model model) {
-	 * 
-	 * List<ChaeYoungApplicant> list = chaeYoungService.appManagement(appNumber);
-	 * 
-	 * model.addAttribute("list", list); return list; }
-	 */
+	//지원자 이력서 작성form
+	@GetMapping("/appResumeForm")
+	public String appResumeForm(@RequestParam(value="jobNumber") String jobNumber,Model model) {
+		
+		model.addAttribute("title", "이력서 작성 form");
+		model.addAttribute("jobNumber", jobNumber);
+		return "chaeyoung/app_resumeForm";
+	}
+	//지원하기 버튼 누른 후 지원
+	@PostMapping("/addApplicant")
+	public String addApplicant(ChaeYoungApplicant chaeYoungApplicant,Model model) {
+		
+		chaeYoungService.addApplicant(chaeYoungApplicant);
+		
+		model.addAttribute("jobNumber", chaeYoungApplicant.getJobNumber());
+		return "chaeyoung/app_resumeForm";
+	}
 }
