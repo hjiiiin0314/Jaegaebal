@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/code.css}">
+		
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+	<!-- 메뉴설명 -->
+	<div class="app-main__inner">
+	<div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-config icon-gradient bg-premium-dark">
+                    </i>
+                </div>
+                <div>인사코드관리
+                    <div class="page-title-subheading">인사관련 코드를 관리합니다.
+                    </div>
+                </div>
+            </div>   
+         </div>
+    </div> 
+    
+    	<!-- 코드등록버튼 -->
+		<div class="code-btn">
+			<ul>
+				<li class="btn-group nav-item ">
+		                  <a href="/addInsaCode" class="nav-link">
+		                       <i class="nav-link-icon fa fa-edit"></i>신규코드등록
+		                  </a>
+		         </li>		
+			</ul>
+   		</div>
+    
+    	<!-- 검색기능 -->
+    		<div class="input-group col-md-4 p-l-none p-r-none p-b-xs">
+		           <div class="input-group-prepend">
+		               <button class="btn btn-outline-secondary" id="list">목록</button>
+		               <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
+		             	 	<span class="sr-only"></span>
+		            	 </button>
+		                     <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+		                         <button type="button" tabindex="0" class="dropdown-item" id="insaCodeBtn">근무형태코드</button>
+		                      <div tabindex="-1" class="dropdown-divider"></div>
+		                         <button type="button" tabindex="0" class="dropdown-item" id="insaNameBtn">근무명</button>
+		                      <div tabindex="-1" class="dropdown-divider"></div>
+		                         <button type="button" tabindex="0" class="dropdown-item" id="insaCodeCheckBtn">사용유무</button>
+		                      <div tabindex="-1" class="dropdown-divider"></div>
+		                         <button type="button" tabindex="0" class="dropdown-item" id="insaStaffNameBtn">등록자</button>
+		                      </div>
+		    		 </div>
+		                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
+		                     <div class="input-group-append">
+		                         <button class="btn btn-secondary" id="insaCodeSearchBtn">검색</button>
+		                     </div>
+			</div>     
+    
+    	
+    
+		<!-- 리스트 테이블 -->
+		<div class="col-md-12 m-2">
+			<div class="main-card mb-10 card table-padding">
+				<table class="table table-hover">
+				 	<thead>
+				 		<tr>				 			
+				 			<th>인사코드</th>
+				 			<th>코드명</th>
+				 			<th>등록자</th>
+				 			<th>등록일</th>
+				 			<th>수정</th>
+				 			<th>삭제</th>
+				 		</tr>
+				 	</thead>
+				 	<tbody>
+				 		<tr th:each="l : ${insaCodeList}">
+				 			<td th:text="${l.insaCode}"></td>
+				 			<td th:text="${l.insaName}"></td>
+				 			<td th:text="${l.insaStaffName}"></td>
+				 			<td th:text="${l.insaRegDate}"></td>
+				 			<td>
+				 				<a th:href="@{/updateInsaCode(insaCode=${l.insaCode})}">
+				 					<button class="btn btn-primary">수정</button>	
+				 				</a>
+				 			</td>
+							<td>
+								<button type="button" class="btn btn-primary deleteInsaBtn" data-toggle="modal" data-target="#myModal">삭제</button>
+									                     	
+							</td>
+				 		</tr>
+				 	</tbody>
+				</table>
+			</div>
+		</div>
+</div>
+
+<!-- Modal -->
+                  <div class="modal fade" id="myModal">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title">알림</h4>
+					      </div>
+					      <div class="modal-body">
+                           		   <p>정말로 삭제하시겠습니까?</p>
+                          </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" id="deleteBtn">
+			       		 <!-- <a th:href="@{/deleteInsaCode(insaCode=${l.insaCode})}">예</a> -->
+			       		 예			       		
+			        </button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
+
+
+
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+		
+		
+	
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+	<script>
+	
+			$(function(){
+				$('#deleteBtn').click(function(){
+					
+				var checkBtn = $('.deleteInsaBtn');
+
+
+                // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+                // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+                var tr = checkBtn.parent().parent();
+                var td = tr.children();
+                var insaCode = td.eq(0).text(); //인사코드
+               
+                //텍스트형식으로 insaCode에 담아서 주소로 보내기
+                location.href="/deleteInsaCode?insaCode="+insaCode;
+				})
+                
+
+		     });
+			
+			
+			
+			
+	</script>
+    
+</html>

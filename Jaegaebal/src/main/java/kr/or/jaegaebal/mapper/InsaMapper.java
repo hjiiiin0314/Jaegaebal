@@ -23,7 +23,7 @@ public interface InsaMapper {
 	//일반 직원일때 직원 목록
 	public List<Map<String, Object>> getStaffInfo(Map<String, Object> parameterMap);
 	//일반 직원일때 직원 목록의 전체 행 갯수
-	public int getStaffInfoListCount();
+	public int getStaffInfoListCount(Map<String, Object> map);
 	
 	//부서명 가지고 오기
 	public List<Map<Jojic, Object>> getJojicInfo();

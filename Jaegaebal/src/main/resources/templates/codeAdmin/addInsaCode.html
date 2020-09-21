@@ -14,30 +14,22 @@
 			<div class="col-md-20; m-5">
 				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
 					<div class="col-md-20; m-5">						  
-		<form action="/addWorkCode" method="post" id="signIn">
-								<input type="hidden" id="codeCheckResult" value=1>
-								<input type="hidden" id="CheckCode">
-							    <label for="workCode">근무형태코드</label>
-							    <input type="text" class="form-control input-lg" name="workCode" id="workCode" placeholder="근무형태코드">
+		<form action="/addInsaCode" method="post" id="signIn">
+								<input type="hidden" id="insaCodeCheckResult" value=1>
+								<input type="hidden" id="InsaCheckCode">
+							    <label for="insaCode">인사코드</label>
+							    <input type="text" class="form-control input-lg" name="insaCode" id="insaCode" placeholder="인사코드">
 							    <br>
 							    <span class="input-group-btn"><button class="btn btn-primary" type="button" id="codeCheckBtn">중복확인</button></span>
 							 
 						 <br>	
 							  <br>
-							  	 <label for="workName">근무명</label>
-							   	 <input type="text" class="form-control input-lg" name="workName" placeholder="근무명">
-							  
-					     <br>	
-								 <label for="workUseOrNot">사용유무</label>
-								 <select name="workUseOrNot" class="form-control">
-								 
-									  <option value="0" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">::사용유무::</option>
-									  <option value="Yes" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
-									  <option value="No" th:selected ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
-								</select>
+							  	 <label for="insaName">코드명</label>
+							   	 <input type="text" class="form-control input-lg" name="insaName" placeholder="코드명">
+						
 						<br>  
-								 <label for="workStaffName">등록자</label>
-							   	 <input type="text" class="form-control input-lg" name="workStaffName" placeholder="등록자명">
+								 <label for="insaStaffName">등록자</label>
+							   	 <input type="text" class="form-control input-lg" name="insaStaffName" placeholder="등록자명">
 					   <br>
 		</form>
 								  <div class="widget-content-right header-user-info ml-10" align="center">
@@ -64,34 +56,34 @@
 	$(function() {
 		//아이디중복체크 및 유효성검사
 		$('#codeCheckBtn').click(function() {
-			var workCode = $('input[name="workCode"]');
+			var insaCode = $('input[name="insaCode"]');
 			
 			
-			if(workCode.val() == ''){
-				alert('근무형태코드를 입력해주세요.');
-				workCode.focus();
+			if(insaCode.val() == ''){
+				alert('인사코드를 입력해주세요.');
+				insaCode.focus();
 				return false;
 				}
 			
 				var request = $.ajax({
 
-					  url: "/codeCheck",
+					  url: "/insaCodeCheck",
 					  method: "POST",
-					  data: { workCode : workCode.val() },
+					  data: { insaCode : insaCode.val() },
 					  dataType: "json" 
 				});
 			
 				request.done(function( data ) {
-					var codeCheckResult = $('#codeCheckResult');
-					var CheckCode = $('#CheckCode');
+					var insaCodeCheckResult = $('#insaCodeCheckResult');
+					var InsaCheckCode = $('#InsaCheckCode');
 					
 					if(data == 0){
 						alert('사용 가능한 코드 입니다.');
-						CheckCode.val(workCode.val());
+						InsaCheckCode.val(insaCode.val());
 					}else{
 						alert('사용중인 코드 입니다.');
 					}
-					codeCheckResult.val(data);	             
+					insaCodeCheckResult.val(data);	             
 				});
 				
 				
@@ -102,23 +94,23 @@
 	$(function(){
 		$('.submitBtn').click(function(){
 			
-			var workCode = $('input[name="workCode"]');
-			var workName = $('input[name="workName"]');
-			var codeCheckResult = $('#codeCheckResult').val();
-			var CheckCode = $('#CheckCode').val();
+			var insaCode = $('input[name="insaCode"]');
+			var insaName = $('input[name="insaName"]');
+			var insaCodeCheckResult = $('#insaCodeCheckResult').val();
+			var InsaCheckCode = $('#InsaCheckCode').val();
 			
 			
-			if(workCode.val() == ''){
-				alert('근무형태코드를 입력해주세요.');
-				workCode.focus();
+			if(insaCode.val() == ''){
+				alert('인사코드를 입력해주세요.');
+				insaCode.focus();
 				return false;
-			}else if(workName.val() == ''){
-				alert('근무이름을 입력해주세요.');
-				workName.focus();
+			}else if(insaName.val() == ''){
+				alert('코드명을 입력해주세요.');
+				insaName.focus();
 				return false;
-			}else if(codeCheckResult == 1 || workCode.val() != CheckCode){
+			}else if(insaCodeCheckResult == 1 || insaCode.val() != InsaCheckCode){
 				alert('코드중복검사를 진행해주세요.');
-				workCode.focus();
+				insaCode.focus();
 				return false;
 			}
 			$('#signIn').submit();

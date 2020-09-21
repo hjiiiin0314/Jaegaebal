@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+	 <form action="/updateInsaCode" method="post">
+			<div class="col-md-20; m-5">
+				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
+					<div class="col-md-20; m-5">						  
+							    <label for="insaCode">인사코드</label>
+							    <input type="text" class="form-control input-lg" name="insaCode" th:value="${InsaCodeAdmin.insaCode}">
+							 
+								<br>	
+							  
+							  	 <label for="insaName">코드명</label>
+							   	 <input type="text" class="form-control input-lg" name="insaName" th:value="${InsaCodeAdmin.insaName}">
+							  								
+								<br>  
+								 <label for="insaStaffName">등록자</label>
+							   	 <input type="text" class="form-control input-lg" name="insaStaffName" th:value="${InsaCodeAdmin.insaStaffName}">
+					    <br>
+								  <div class="widget-content-right header-user-info ml-10" align="center">
+			                            	
+			                          <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm" value="수정하기">
+			                                    
+			                      </div>
+			                   <br>
+					 </div>
+				</div>
+			</div>
+		</form>
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	
+	
+	</th:block>
+    
+</html>
