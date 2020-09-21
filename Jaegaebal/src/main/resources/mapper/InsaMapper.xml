@@ -139,7 +139,7 @@
 	</select>	
 	
 	<!-- 일반 직원일때 직원 목록 -->
-	<select id="getStaffInfo" resultMap="StaffInfoResultMap">
+	<select id="getStaffInfo" parameterType="Map" resultMap="StaffInfoResultMap">
 		SELECT 
 				 sf.staff_num
 				,jojic_name
@@ -163,15 +163,18 @@
 		AND sf.staff_position_code 	= ps.position_code
 		AND sf.jojic_code 			= jj.jojic_code
 		AND sf.staff_num 			= sbif.staff_num
-		AND sf.staff_status_code 	= jaejic.jaejic_status_code
-		
-		ORDER BY sf.staff_num
-		
-		LIMIT #{startRow}, #{rowPerPage};
+		AND sf.staff_status_code 	= jaejic.jaejic_status_code		
+		<where>
+			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString()">
+				AND sf.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+	 		</if>
+		</where>
+		ORDER BY 			sf.staff_num
+		LIMIT 				#{startRow}, #{rowPerPage};
 	</select>
 	
 	<!-- 일반 직원일때 직원 목록의 전체 행 갯수 -->
-	<select id="getStaffInfoListCount" resultType="int">
+	<select id="getStaffInfoListCount" parameterType="Map" resultType="int">
 		SELECT 
 				COUNT(*)
 				
@@ -187,7 +190,11 @@
 		AND sf.jojic_code 			= jj.jojic_code
 		AND sf.staff_num 			= sbif.staff_num
 		AND sf.staff_status_code 	= jaejic.jaejic_status_code
-		
+		<where>
+			<if test="sk neq null and sk neq ''.toString() and sv neq null and sv neq ''.toString()">
+				AND sf.${sk} LIKE CONCAT('%',#{sv},'%')
+	 		</if>
+		</where>		
 		ORDER BY sf.staff_num	
 	</select>
 	

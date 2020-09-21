@@ -48,11 +48,13 @@ public class InsaController {
 
 	// 일반 직원일때 직원 목록
 	@GetMapping("/insa/staffInfoList")
-	public String getUserList(Model model,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+	public String getStaffList(		 Model model
+									,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage
+									,@RequestParam Map<String, Object> map) {
+		log.info("map>>>>>>>>>>>> - {}", map);
 		
 		List<Map<Jojic, Object>> jojicInfo = insaService.getJojicInfo();		//가지고 오기
-		Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage);
+		Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage, map);
 
 		model.addAttribute("title", "직원 목록");
 		model.addAttribute("jojicInfo", jojicInfo);
@@ -66,6 +68,16 @@ public class InsaController {
 
 		return "insa/staff_list";
 	}
+	
+	/*
+	 * //검색 조건시 전체 화면
+	 * 
+	 * @PostMapping("/insa/staffInfoList") public String getStaffListBySearching(
+	 * Model model, ,@RequestParam(value = "currentPage", required = false,
+	 * defaultValue = "1") int currentPage ,) {
+	 * 
+	 * return null; }
+	 */
 
 	// 관리자 직원일때 직원 목록
 	@GetMapping("/insa/adminStaffInfoList")

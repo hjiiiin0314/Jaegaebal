@@ -21,23 +21,38 @@
 				$('#BtnStaffnum').click(function(){
 					var BtnStaffnumParentTag = $(this).parent();
 					$('#mocroc').html($(this).html());
+					$('#mocrocVal').attr("value", "staff_num");
 					BtnStaffnumParentTag.attr('class','dropdown-menu');        
 			 	});
 				$('#BtnName').click(function(){
 					var BtnNameParentTag = $(this).parent();
 					$('#mocroc').html($(this).html());
+					$('#mocrocVal').attr("value", "staff_name");
 					BtnNameParentTag.attr('class','dropdown-menu');        
 			 	});
 				$('#BtnEmail').click(function(){
 					var BtnEmailParentTag = $(this).parent();
 					$('#mocroc').html($(this).html());
+					$('#mocrocVal').attr("value", "staff_email");
 					BtnEmailParentTag.attr('class','dropdown-menu');        
 			 	});
 				$('#BtnPhone').click(function(){
 					var BtnPhoneParentTag = $(this).parent();
 					$('#mocroc').html($(this).html());
+					$('#mocrocVal').attr("value", "staff_phone");
 					BtnPhoneParentTag.attr('class','dropdown-menu');        
 			 	});
+				
+				/*검색 버튼 클릭시 목록 꼭 선택하게 하기*/
+				$('#staffSearchBtn').click(function(){
+					var mocroc = $('#mocrocVal').attr("value");
+					if(mocroc == null){
+						alert("목록을 선택해주세요");
+						false;
+					}else{
+						$('#staffSearchBtn').submit();
+					}
+				});
 				
  				/* 부서 옵션 클릭시 ajax 호출 */
  				$('#SelectBuseo').change(function(){
@@ -172,7 +187,7 @@
 				</div>
 			</div>
 			<div class="continer">
-				<form style="width:100%;" name="sk">
+				<form style="width:100%;" action="/insa/staffInfoList">
 					<div class="row col-md-12" style="background-color : white;">
 						<div class="col-md-12">
 							<h5 class="card-title col-md-12 m-t-sm p-l-none">직원 검색</h5>
@@ -181,33 +196,34 @@
 		                     <div class="input-group-prepend">
 		                     	<span class="input-group-text" id="inputGroupPrepend">소속</span>
 		                     </div>
- 							<select id="SelectBuseo" name="customSelect" class="custom-select">
+ 							<select id="SelectBuseo" class="custom-select" name="jojic_sosoc_name">
 								<option selected="selected" disabled="disabled">부서</option>
-								<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" th:name="${l.jojicName}"></option>
+								<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" ></option>
 							</select>
- 							<select id="SelectTeam" name="customSelect" class="custom-select">
+ 							<select id="SelectTeam" class="custom-select" name="jojic_name">
 								<option selected="selected" disabled="disabled">팀</option>
 							</select>
 						</div>   
 						<div class="input-group col-md-5 p-l-none p-r-none p-b-xs">
 		                     <div class="input-group-prepend">
-		                         <button type="text" class="btn btn-outline-secondary" id="mocroc" >목록</button>
+		                         <button type="text" class="btn btn-outline-secondary" id="mocroc">목록</button>
+		                         <input type="hidden" id="mocrocVal" name="sk"/>
 		                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
 		                       	 	<span class="sr-only"></span>
 		                       	 </button>
 		                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnStaffnum">사원번호</button>
+		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnStaffnum" name="staff_num">사원번호</button>
 		                             <div tabindex="-1" class="dropdown-divider"></div>
-		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnName">이름</button>
+		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnName" name="staff_name">이름</button>
 		                             <div tabindex="-1" class="dropdown-divider"></div>
-		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnEmail">이메일</button>
+		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnEmail" name="staff_email">이메일</button>
 		                             <div tabindex="-1" class="dropdown-divider"></div>
-		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPhone">휴대폰</button>
+		                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPhone" name="staff_phone">휴대폰</button>
 		                         </div>
 		                     </div>
 		                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
 		                     <div class="input-group-append">
-		                         <button class="btn btn-secondary" id="staffSearchBtn">검색</button>
+		                         <button type="submit" class="btn btn-secondary" id="staffSearchBtn">검색</button>
 		                     </div>
 						</div>              
 					</div>
