@@ -12,7 +12,6 @@
 	<th:block layout:fragment="customCss">
 		<!-- include summernote css/js -->
 		<link rel="stylesheet" href="summernote/summernote-lite.css">
-		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 		<!-- upmu.css  -->
 		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">	
 		
@@ -23,7 +22,7 @@
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
 
-  			<div class="col-md-10">
+  			<div class="col-md-12">
 		<div class="app-page-title">
 				<div class="page-title-wrapper">
 					<div class="page-title-heading">
@@ -73,6 +72,7 @@
                      <button type="button" id="appSubmit" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                
                      <button type="button" id="appKeep" class="mb-2 mr-2 btn btn-success active btn-right"><i class= "pe-7s-drawer"></i>  저장하기</button>                
                   </div>
+    
 
          <!------------------- appModal 시작   ------------------------>     
          <div  class="modal fade " id="appModal">
@@ -140,8 +140,8 @@
 
 	<!-- 사용자 지정 script -->
 	<th:block layout:fragment="customJsScript">		
-		 <script src="/summernote/summernote-lite.js"></script>
-      <script src="/summernote/lang/summernote-ko-KR.js"></script>
+		<script src="/summernote/summernote-lite.js"></script>
+      	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	
 
 		
