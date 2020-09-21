@@ -7,47 +7,208 @@
       <title th:text="${title}"></title> 
    </th:block>
    
+   <th:block layout:fragment="customCss">
+   		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+    </th:block>
+    
    <th:block layout:fragment="customContent">
-   <link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
-      <div class="app-main__outer">
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
-
-<div class="app-main__inner">
-	<div class="app-page-title">
-		<div class="page-title-wrapper">
-			<div class="page-title-heading">
-			    <div class="page-title-icon">
-			        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
-			        </i>
-			    </div>
-			    <div>조직도
-			       <div class="page-title-subheading">인사관리/조직관리/조직도</div>
-			    </div>
+		<div class="app-main__inner">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>조직도
+					       <div class="page-title-subheading">인사관리/조직관리/조직도</div>
+					    </div>
+					</div>
+				</div>
+		    </div> 
+		    <div class="row" style="background-color: white;">
+				<div class="col-md-5 p-r-none">
+					<div class="card-body emp-table">
+						<h5 class="card-title">조직도</h5>
+						<div class="scroll-div">
+							<div class="scrollbar-container">
+								<div class="tree-div" style="border-color: #red;">
+									<div id="left" class="span3">
+							            <ul id="menu-group-1" class="nav menu">  
+							                <li class="item-8 deeper parent">
+							                    <a class="" href="#">
+							                        <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-1" class="sign"><i class="pe-7s-less"></i></span>
+							                        <span class="lbl">대표</span>                      
+							                    </a>
+							                    <ul class="children nav-child unstyled small collapse" id="sub-item-1">
+							                        <li class="item-2 deeper parent active">
+							                            <a class="" href="#">
+							                                <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2" class="sign"><i class="pe-7s-less"></i></span>
+							                                <span class="lbl">이사</span> 
+							                            </a>
+							                            <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+							                                <li class="item-3 current active">
+							                                    <a class="" href="#">
+							                                        <span class="sign"><i class="pe-7s-less"></i></span>
+							                                        <span class="lbl">경영관리부</span>
+							                                    </a>
+									                             <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">회계팀</span>
+									                                    </a>
+									                                </li>
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">채용팀</span> 
+									                                    </a>
+									                                </li>                                
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">인사팀</span> 
+									                                    </a>
+									                                </li>                                
+									                            </ul>
+							                                </li>
+							                               <li class="item-3 current active">
+							                                    <a class="" href="#">
+							                                        <span class="sign"><i class="pe-7s-less"></i></span>
+							                                        <span class="lbl">개발부</span> 
+							                                    </a>
+							                                   <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">개발1팀</span>
+									                                    </a>
+									                                </li>
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">개발2팀</span> 
+									                                    </a>
+									                                </li>                                
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">인사팀</span> 
+									                                    </a>
+									                                </li>                                
+									                            </ul>
+							                                </li>                                
+							                            </ul>
+							                        </li>
+							                    </ul>
+							                </li>
+							            </ul>          
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1 p-none" style="background-color: #f9f9f9">
+					<div>
+						<button class="mb-2 mr-2 btn btn-light m-none arrow-btn1 pe-7s-angle-up"></button>
+					</div>
+					<div>
+						<button class="mb-2 mr-2 btn btn-light m-none arrow-btn pe-7s-angle-down"></button>
+					</div>
+					<div>
+						<button class="mb-2 mr-2 btn btn-light m-none arrow-btn pe-7s-angle-left"></button>
+					</div>
+					<div>
+						<button class="mb-2 mr-2 btn btn-light m-none arrow-btn pe-7s-angle-right"></button>
+					</div>
+					<div>	
+						<button class="mb-2 mr-2 btn btn-light m-none arrow-btn2">저장</button>
+					</div>
+				</div>
+				<div class="col-md-6 p-l-none">
+					<div class="card-body">
+						<h5 class="card-title">활성화 되지 않은 부서</h5>
+						<div class="scroll-div">
+							<div class="scrollbar-container">
+								<div class="tree-div" style="border-color: #red;">
+									<div id="left" class="span3">
+							            <ul id="menu-group-1" class="nav menu">  
+							                <li class="item-1 deeper parent active">
+							                    <a class="" href="#">
+							                        <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-1" class="sign"><i class="pe-7s-less"></i></span>
+							                        <span class="lbl">대표</span>                      
+							                    </a>
+							                    <ul class="children nav-child unstyled small collapse" id="sub-item-1">
+							                        <li class="item-2 deeper parent active">
+							                            <a class="" href="#">
+							                                <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2" class="sign"><i class="pe-7s-less"></i></span>
+							                                <span class="lbl">이사</span> 
+							                            </a>
+							                            <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+							                                <li class="item-3 current active">
+							                                    <a class="" href="#">
+							                                        <span class="sign"><i class="pe-7s-less"></i></span>
+							                                        <span class="lbl">경영관리부</span>
+							                                    </a>
+								                                  
+									                            <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+									                                <li class="item-4">
+									                                	<label>
+										                                    	<input type="checkbox">
+										                                        <span class="lbl">회계팀</span>
+									                                	</label>
+									                                </li>
+		                              
+									                           </ul>
+							                                </li>
+							                               <li class="item-3 current active">
+							                                    <a class="" href="#">
+							                                        <span class="sign"><i class="pe-7s-less"></i></span>
+							                                        <span class="lbl">개발부</span> 
+							                                    </a>
+							                                   <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">개발1팀</span>
+									                                    </a>
+									                                </li>
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">개발2팀</span> 
+									                                    </a>
+									                                </li>                                
+									                                <li class="item-4">
+									                                    <a class="" href="#">
+									                                        <span class="sign"><i class="pe-7s-less"></i></span>
+									                                        <span class="lbl">인사팀</span> 
+									                                    </a>
+									                                </li>                                
+									                            </ul>
+							                                </li>                                
+							                            </ul>
+							                        </li>
+							                    </ul>
+							                </li>
+							            </ul>          
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="continer-fluid">
-		<div class="row" style="background-color : white;">
-			<div class="col-md-12 m-t-sm m-b-sm">
-				<table class="mb-0 table table-bordered">
-						
-				</table>
-				
-			<!-- 	<a class="btn btn-b" th:if="${session.SLEVEL eq '1'}" th:href="@{/user/modifyUser(userId=${userDetailsInfo.userId})}">수정하러가기</a> -->
-			</div>	
-		</div>	
-	</div>
-</div>
+
 
 
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
-         <div th:replace="fragments/footer :: footerFragment"></div>
-      </div>
-      <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-      
-   
    </th:block>
     
 </html>

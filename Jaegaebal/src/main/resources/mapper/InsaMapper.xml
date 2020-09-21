@@ -164,8 +164,10 @@
 		AND sf.jojic_code 			= jj.jojic_code
 		AND sf.staff_num 			= sbif.staff_num
 		AND sf.staff_status_code 	= jaejic.jaejic_status_code
+		
 		ORDER BY sf.staff_num
-		LIMIT #{startRow},#{rowPerPage};
+		
+		LIMIT #{startRow}, #{rowPerPage};
 	</select>
 	
 	<!-- 일반 직원일때 직원 목록의 전체 행 갯수 -->
@@ -212,7 +214,7 @@
 	</select>
 	
 	<!-- 부서별 직원 목록 리스트 가져오기 -->
-	<select id="getStaffInfoByParentJojicName" parameterType="String" resultMap="StaffInfoResultMap">
+	<select id="getStaffInfoByParentJojicName" parameterType="HashMap" resultMap="StaffInfoResultMap">
 		SELECT 
 				 sf.staff_num
 				,jojic_name
@@ -232,7 +234,6 @@
 		JOIN	is_staff_basic_info 		AS sbif
 		JOIN 	is_jaejic 					AS jaejic
 		
-		
 		ON		sf.staff_level_code 		= lv.level_code
 		AND		sf.staff_position_code 		= ps.position_code
 		AND 	sf.jojic_code 				= jj.jojic_code
@@ -241,6 +242,99 @@
 		
 		WHERE parent_jojic_name = #{buseoName}
 
-		ORDER BY sf.staff_num;
+		ORDER BY sf.staff_num
+		
+		LIMIT #{startRow}, #{rowPerPage};
+	</select>
+	
+	<!-- 부서별 직원 목록 리스트의 전체 행 갯수-->
+	<select id="getStaffInfoListCountByBuseoName" parameterType="String" resultType="int">	
+		SELECT 
+				COUNT(*)
+				
+		FROM 	is_staff 					AS sf
+		JOIN 	is_level 					AS lv
+		JOIN 	is_position 				AS ps
+		JOIN 	is_jojic 					AS jj
+		JOIN	is_staff_basic_info 		AS sbif
+		JOIN 	is_jaejic 					AS jaejic
+		
+		ON		sf.staff_level_code 		= lv.level_code
+		AND		sf.staff_position_code 		= ps.position_code
+		AND 	sf.jojic_code 				= jj.jojic_code
+		AND 	sf.staff_num 				= sbif.staff_num
+		AND 	sf.staff_status_code 		= jaejic.jaejic_status_code
+		
+		WHERE	parent_jojic_name = #{buseoName}
+	</select>
+	
+	<!-- 팀별 부서 리스트 가져오기 -->
+	<select id="getStaffInfoByTeamName" parameterType="HashMap" resultMap="StaffInfoResultMap">
+		SELECT 
+				 sf.staff_num
+				,jojic_name
+				,level_name
+				,position_name
+				,staff_name
+				,staff_status_code
+				,staff_email
+				,staff_phone
+				,jaejic_status_name
+				,parent_jojic_name
+				
+		FROM 	is_staff 					AS sf
+		JOIN 	is_level 					AS lv
+		JOIN 	is_position 				AS ps
+		JOIN 	is_jojic 					AS jj
+		JOIN	is_staff_basic_info 		AS sbif
+		JOIN 	is_jaejic 					AS jaejic
+		
+		ON		sf.staff_level_code 		= lv.level_code
+		AND		sf.staff_position_code 		= ps.position_code
+		AND 	sf.jojic_code 				= jj.jojic_code
+		AND 	sf.staff_num 				= sbif.staff_num
+		AND 	sf.staff_status_code 		= jaejic.jaejic_status_code
+		
+		WHERE	jojic_name = #{teamName}
+
+		ORDER 	BY sf.staff_num
+		
+		LIMIT 	#{startRow}, #{rowPerPage};
+	</select>	
+	
+	<!-- 팀별 부서 리스트 전체 행 갯수 -->
+	<select id="getStaffInfoListCountByTeamName" parameterType="String" resultType="int">	
+		SELECT 
+				COUNT(*)
+				
+		FROM 	is_staff 					AS sf
+		JOIN 	is_level 					AS lv
+		JOIN 	is_position 				AS ps
+		JOIN 	is_jojic 					AS jj
+		JOIN	is_staff_basic_info 		AS sbif
+		JOIN 	is_jaejic 					AS jaejic
+		
+		ON		sf.staff_level_code 		= lv.level_code
+		AND		sf.staff_position_code 		= ps.position_code
+		AND 	sf.jojic_code 				= jj.jojic_code
+		AND 	sf.staff_num 				= sbif.staff_num
+		AND 	sf.staff_status_code 		= jaejic.jaejic_status_code
+		
+		WHERE 	jojic_name = #{teamName}
+	</select>	
+	
+	<!-- 조직 테이블 가져오기 -->
+	<select id="getJojicInfoAll" resultMap="StaffInfoResultMap">
+		SELECT 
+				 jojic_code
+				,jojic_name
+				,jojic_sosoc_name
+				,parent_jojic_name
+				,jojic_manager_name
+				,reg_staff_name
+				,reg_date
+				,jojic_status
+		FROM 
+				 is_jojic
 	</select>
 </mapper>	

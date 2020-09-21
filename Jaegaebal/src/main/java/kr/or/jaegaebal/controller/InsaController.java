@@ -1,6 +1,5 @@
 package kr.or.jaegaebal.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
-import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.service.InsaService;
 
 /**
@@ -88,27 +86,14 @@ public class InsaController {
 		return "insa/admin_staff_list";
 	}
 
-	// 조직도
-	@GetMapping("/insa/jojicdo")
-	public String jojicdo(Model model) {
-		model.addAttribute("title", "조직도");
-		return "insa/jojicdo";
-	}
-
 	/*
-	 * // 팀명 가지고 오기
+	 * // 조직도
 	 * 
-	 * @PostMapping(value = "/getTeamName", produces = "application/json")
+	 * @GetMapping("/insa/jojicdo") public String jojicdo(Model model) {
+	 * model.addAttribute("title", "조직도");
 	 * 
-	 * @ResponseBody public List<Jojic>
-	 * getBuseoName(@RequestParam(value="buseoName") String buseoName) {
-	 * System.out.printf("buseoName>>>>>>>>>>>>>>>>>"+buseoName+"<<<<<");
-	 * List<Jojic> jojicTeamName = insaService.getTeamName(buseoName);
-	 * log.info("jojicTeamName---> {}", jojicTeamName);
 	 * 
-	 * return jojicTeamName;
-	 * 
-	 * }
+	 * return "insa/jojicdo"; }
 	 */
 	 
 	 //직원 등록하기 화면
@@ -121,22 +106,51 @@ public class InsaController {
 	//부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
 	 @PostMapping(value = "/getStaffInfoByParentJojicName", produces = "application/json")
 	 @ResponseBody
-	 public Map<String, Object> getStaffInfoByParentJojicName(	 @RequestParam(value="buseoName") String buseoName
+	 public Map<String, Object> getStaffInfoByParentJojicName(	 Model model
+			 													,@RequestParam(value="buseoName") String buseoName
 			 													,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) { 
-		 System.out.printf("parentJojicName>>>>>	"+buseoName+"		<<<<<");
 		 
 		 Map<String, Object> data = new HashMap<String, Object>();
 		 
 		 List<Jojic> jojicTeamName = insaService.getTeamName(buseoName);
-		 List<StaffInfo> staffInfoByParentJojicName = insaService.getStaffInfoByParentJojicName(buseoName);
+		 Map<String, Object> staffInfoByParentJojicName = insaService.getStaffInfoByParentJojicName(buseoName, currentPage);
 		 
 		 data.put("jojicTeamName", jojicTeamName);
 		 data.put("staffInfoByParentJojicName", staffInfoByParentJojicName);
-		 
 		 
 		 log.info("data---> {}", data);
 
 		 return data; 
 		 
+	 }
+	 
+	 //팀별 직원 목록 리스트 가져오기
+	 @PostMapping(value = "/getStaffInfoByTeamName", produces = "application/json")
+	 @ResponseBody
+	 public Map<String, Object> getStaffInfoListByTeamName(	 Model model
+			 												,@RequestParam(value="teamName") String teamName
+			 												,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) { 
+		 	
+		 Map<String, Object> data = new HashMap<String, Object>();
+		 
+		 Map<String, Object> staffInfoByteamName = insaService.getStaffInfoByTeamName(teamName, currentPage);
+		 
+		 data.put("staffInfoByteamName", staffInfoByteamName);
+		 
+		 log.info("data---> {}", data);
+		 
+		 return data; 
+		 
+	 }
+	 
+	 //조직테이블 인포 다 가져오기
+	 @GetMapping("/insa/jojicdo")
+	 public String getJojicInfoAll(Model model){
+		model.addAttribute("title", "조직도");
+		List<Jojic> jojicInfoList = insaService.getJojicInfoAll();
+		
+		model.addAttribute("jojicInfoList", jojicInfoList);
+		
+		return "insa/jojicdo";
 	 }
 }

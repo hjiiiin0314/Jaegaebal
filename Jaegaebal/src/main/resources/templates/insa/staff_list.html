@@ -42,7 +42,7 @@
  				/* 부서 옵션 클릭시 ajax 호출 */
  				$('#SelectBuseo').change(function(){
 					var buseoName = $(this).val();
-					console.log(buseoName);
+					console.log(buseoName, "<---클릭한 부서명");
  					var request = $.ajax({
 					  url: "/getStaffInfoByParentJojicName",
 					  method: "POST",
@@ -51,10 +51,13 @@
 					});
 					
 					request.done(function( data ) {
-						console.log(data.staffInfoByParentJojicName[0]);
-						$('.tr-2').children("td").remove();
+						console.log(data);
+						console.log(data.staffInfoByParentJojicName.getStaffInfoList[0].staffNum);
+						$('.pagination').empty();
+						$('#t-body').children("tr").remove();
 						$('#SelectTeam').children("option").remove();
 						$('#SelectTeam').append("<option selected='selected' disabled='disabled'>팀</option>");
+						
  						for(var i=0; i<data.jojicTeamName.length; i++){
  							if(data.jojicTeamName[i].jojicName != null){
 									$('#SelectTeam').append("<option value="+ data.jojicTeamName[i].jojicName + " id='teamName'>" + data.jojicTeamName[i].jojicName + "</option>");
@@ -62,21 +65,32 @@
  								$('#SelectTeam').append("<option value='자료가 없습니다.'" + " id='teamName'>" + data[i].jojicName + "</option>");
  							} 
 						};
-						for(var i=0; i<data.staffInfoByParentJojicName.length; i++){
-							$('.tr-2').append("<td>" + [i+1] + " </td>");
-							
-							console.log(data.staffInfoByParentJojicName[i].staffNum + "<-- data.staffInfoByParentJojicName[" + i + "].staffNum");
-							
-						 	if(data.staffInfoByParentJojicName[i].staffNum != null){
-						 		
-						 		$('.tr-2').append("<td>" + data.staffInfoByParentJojicName[i].staffNum + " </td>");
-						 		
-							}else if(data.staffInfoByParentJojicName[i].staffNum == null || data.staffInfoByParentJojicName[i].staffNum == ""){
-								
-								$('.tr-2').append("<td>" + "''" + " </td>");
-							} 
-							
-							/* $('.tr-2').append("<td value='" + data.staffInfoByParentJojicName[i].jojicName + "'" + " </td>");  */
+						for(var i=0; i<data.staffInfoByParentJojicName.getStaffInfoList.length; i++){
+							var insertVal = data.staffInfoByParentJojicName.getStaffInfoList[i];
+							var infoName = [insertVal.staffNum, insertVal.jojicName, insertVal.levelName, insertVal.positionName, insertVal.staffName, insertVal.jaejicStatusName, insertVal.staffEmail, insertVal.staffPhone];
+							var appendStr = "";
+							for(var n=0; n<infoName.length; n++){
+								if(infoName[n] != null){
+ 									if(infoName[n] == '재직중'){
+										appendStr += '<td><div class="mb-2 mr-2 badge badge-success">재직중</div></td>';
+									}else if(infoName[n] == '개발'){
+										appendStr += '<td><div class="mb-2 mr-2 badge badge-danger">개발</div></td>';
+									}else if(infoName[n] == '출장중'){
+										appendStr += '<td><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>';
+									}else if(infoName[n] == '휴가중'){
+										appendStr += '<td><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>';
+									}else if(infoName[n] == '퇴사'){
+										appendStr += '<td><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>';
+									}else if(infoName[n] == '기타'){
+										appendStr += '<td><div class="mb-2 mr-2 badge badge-focus">기타</div></td>';
+									}else{
+										appendStr += '<td>' + infoName[n] + '</td>';
+									}
+								}else{
+									appendStr += '<td>' + "''" + '</td>';
+								}
+							}
+							$('#t-body').append("<tr><td>" + [i+1] + " </td>" + appendStr + "</tr>");
 						}
 					});
 					request.fail(function( jqXHR, textStatus ) {
@@ -85,6 +99,55 @@
 			
 					
 				});  
+ 				
+ 				$('#SelectTeam').change(function(){
+ 					var teamName = $(this).val();
+ 					console.log(teamName, "<---클릭한 팀명");
+ 					var request = $.ajax({
+					  url: "/getStaffInfoByTeamName",
+					  method: "POST",
+					  data: { teamName : teamName },
+					  dataType: "json"
+ 					});
+ 					request.done(function( data ) {
+						console.log(data);
+						//console.log(data.staffInfoByteamName.getStaffInfoList[0].staffNum);
+ 						$('.pagination').empty();
+						$('#t-body').children("tr").remove();
+						if(data.staffInfoByteamName != null){
+	 						for(var i=0; i<data.staffInfoByteamName.getStaffInfoList.length; i++){
+								var insertVal = data.staffInfoByteamName.getStaffInfoList[i];
+								var infoName = [insertVal.staffNum, insertVal.jojicName, insertVal.levelName, insertVal.positionName, insertVal.staffName, insertVal.jaejicStatusName, insertVal.staffEmail, insertVal.staffPhone];
+								var appendStr = "";
+								for(var n=0; n<infoName.length; n++){
+									if(infoName[n] != null){
+	 									if(infoName[n] == '재직중'){
+											appendStr += '<td><div class="mb-2 mr-2 badge badge-success">재직중</div></td>';
+										}else if(infoName[n] == '개발'){
+											appendStr += '<td><div class="mb-2 mr-2 badge badge-danger">개발</div></td>';
+										}else if(infoName[n] == '출장중'){
+											appendStr += '<td><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>';
+										}else if(infoName[n] == '휴가중'){
+											appendStr += '<td><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>';
+										}else if(infoName[n] == '퇴사'){
+											appendStr += '<td><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>';
+										}else if(infoName[n] == '기타'){
+											appendStr += '<td><div class="mb-2 mr-2 badge badge-focus">기타</div></td>';
+										}else{
+											appendStr += '<td>' + infoName[n] + '</td>';
+										}
+									}else{
+										appendStr += '<td>' + "''" + '</td>';
+									}
+								}
+								$('#t-body').append("<tr><td>" + [i+1] + " </td>" + appendStr + "</tr>");
+							}
+						}
+					});
+					request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					});
+ 				});
 			
 			});
 			
@@ -128,7 +191,7 @@
 						</div>   
 						<div class="input-group col-md-5 p-l-none p-r-none p-b-xs">
 		                     <div class="input-group-prepend">
-		                         <button class="btn btn-outline-secondary" id="mocroc">목록</button>
+		                         <button type="text" class="btn btn-outline-secondary" id="mocroc" >목록</button>
 		                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
 		                       	 	<span class="sr-only"></span>
 		                       	 </button>
@@ -164,7 +227,7 @@
 				                <th>연락처</th>
 				            </tr>
 			            </thead>
-			            <tbody>
+			            <tbody id="t-body">
 				            <tr th:each="l, index : ${staffInfoList}" class="tr-2">
 				               	<td th:text="${index.count}"></td>
 				                <td id="td1"><a th:text="${l.staffNum}" ></a></td>
@@ -189,7 +252,7 @@
 		     		</table>
 				</div>	
 				
-				<div class="row">
+ 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4 m-t-xs">
 						<nav class="" aria-label="Page navigation example">

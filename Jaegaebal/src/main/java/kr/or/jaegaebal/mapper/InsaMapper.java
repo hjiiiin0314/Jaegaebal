@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
-import kr.or.jaegaebal.dto.StaffInfo;
 
 
 /**
@@ -23,7 +22,6 @@ public interface InsaMapper {
 	
 	//일반 직원일때 직원 목록
 	public List<Map<String, Object>> getStaffInfo(Map<String, Object> parameterMap);
-	
 	//일반 직원일때 직원 목록의 전체 행 갯수
 	public int getStaffInfoListCount();
 	
@@ -33,6 +31,16 @@ public interface InsaMapper {
 	//팀명 가지고 오기
 	public List<Jojic> getTeamName(String buseoName);
 	
-	//부서별 직원 목록 리스트 가져오기
-	public List<StaffInfo> getStaffInfoByParentJojicName(String parentJojicName);
+	//부서별 직원 목록
+	public List<Map<String, Object>> getStaffInfoByParentJojicName(Map<String, Object> parameterMap);
+	//부서별 직원 목록의 전체 행 갯수
+	public int getStaffInfoListCountByBuseoName(String buseoName);
+	
+	//팀별 직원 목록
+	public List<Map<String, Object>> getStaffInfoByTeamName(Map<String, Object> parameterMap);
+	//팀별 직원 목록의 전체 행 갯수
+	public int getStaffInfoListCountByTeamName(String teamName);
+	
+	//조직테이블 인포 다 가져오기
+	public List<Jojic> getJojicInfoAll();
 }
