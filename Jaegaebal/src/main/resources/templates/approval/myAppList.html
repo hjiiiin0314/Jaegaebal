@@ -59,15 +59,15 @@
 	                    </thead>
                         <tbody id="myAppList">                       
 	                        <tr th:each="l : ${myAppList}">
-	                            <td th:text="${l.docCode}" id="docCode" class='text-center'></td>
+	                            <td th:text="${l.docCode}" th:value="${l.docCode}" id="docCode" class='text-center'></td>
 	                            <td th:text="${l.docTypeName}" id="docTypeName" class='text-center'></td>
-	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail}"></a></td>
+	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${l.docCode})}"></a></td>
 	                            <td th:text="${l.docFile}"  id="docFile" class='text-center'></td>
 	                            <td th:text="${l.security}" id="security" class='text-center'></td>
 	                            <td th:text="${l.deadline}" id="deadline" class='text-center'></td>
 	                            <td th:text="${l.writeDate}" id="writeDate" class='text-center'></td>
-	                            <td th:text="${l.appStateName}" id="appStateName" class='text-center'></td>	                        	
-	                            <td class='text-center'><button type="button" id="retrievalBtn" class="mb-2 mr-2 btn btn-primary" >회수하기</button></td>	                        	
+	                            <td th:text="${l.appStateName}" th:value="${l.appStateName}" id="appStateName" class='text-center'></td>	                        	
+	                            <td class='text-center'><button type="button" class="mb-2 mr-2 btn btn-primary retrievalBtn" >회수하기</button></td>	                        	
 	                        </tr>
 	                       
                         </tbody>
@@ -124,25 +124,33 @@
 		    						 				+ "<td  class='text-center'>"+ data[i].deadline + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].writeDate + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].appStateName + "</td>"
-		    						 				+ "<td class='text-center'><button type='button' id='retrievalBtn' class='mb-2 mr-2 btn btn-primary' >회수하기</button></td></tr>");
+		    						 				+ "<td class='text-center'><button type='button' class='mb-2 mr-2 btn btn-primary retrievalBtn' >회수하기</button></td></tr>");
 			    			
-			    		}
-				  	
-				  	}
-				  	/* 회수하기 */
-				  	
+			    		}	
+				  	}				  				  	
     			}); 
-    		});
-    		
+    		});    		
     	});
 	</script>
 	
-	<!-- 회수하기  -->
+	<!-- 회수 가능 여부  -->
 	<script>
 		$(function(){
-			$('#retrievalBtn').click(function(){
-				alert('확인');
-			
+	 		$('.retrievalBtn').click(function(){
+				
+				var retrievalBtn = $(this);
+				var tr = retrievalBtn.parent().parent();
+			    var td = tr.children();
+				var appStateName = td.eq(7).text();
+				console.log(appStateName +"<--appStateName");
+				if(appStateName == "미열람" ){
+					alert('반려/회수함으로 이동되었습니다.');
+					return false;
+				}else{
+					alert('미열람 시에만 회수하실 수 있습니다.');
+				}
+								
+	  		});		
 		});
 	</script>	
     </th:block>
