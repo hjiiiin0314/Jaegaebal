@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+<th:block layout:fragment="customContent">
+<th:block layout:fragment="customCss">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/salary.css}">
+</th:block>
+<th:block layout:fragment="customJs">
+</th:block>
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+<div class="app-main__inner">
+	<div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-map icon-gradient bg-premium-dark">
+                    </i>
+                </div>
+                <div>지원자 이력서 등록
+                    <div class="page-title-subheading">지원자 이력서 작성/수정/지원취소
+                    </div>
+                </div>
+            </div>   
+         </div>
+    </div> 
+    <div class="row">
+		<div class="col-lg-4">
+			<div class="main-card mb-3 card">
+				<div class="card-body emp-table">
+					<h5 class="card-title">기본정보</h5>
+			
+						
+							<table class="mb-0 table table-bordered" th:with="cy = ${chaeYoungApplicant}">
+									<tr>
+										<td>지원자 접수번호 : </td>
+										<td th:text=${cy.appNumCode}></td>
+									</tr>
+									<tr>
+										<td>지원자 이메일 : </td>
+										<td><input type="email" th:value="${cy.appEmail}"></td>
+									</tr>
+									<tr>
+										<td>지원자 비밀번호 : </td>
+										<td><input type="password" th:value="${cy.appPassward}"></td>
+									</tr>
+									<tr>
+										<td>지원자 이름 : </td>
+										<td th:text=${cy.appName}></td>
+									</tr>
+									<tr>
+										<td>지원자 핸드폰번호 : </td>
+										<td><input type="text" th:value="${cy.appPhone}"></td>
+									</tr>
+							</table>
+				
+			
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+					<div class="main-card card">
+						<div class="card-body">
+							<h5 class="card-title">추가 기입 정보</h5>
+						</div>
+                            <div class="card-header">
+                                <div class="btn-actions-pane-right">
+                                    <div class="nav">
+                                        <a data-toggle="tab" href="#isStaffBasicInfo" class="btn-pill btn-wide active btn btn-outline-alternate btn-sm">인적사항</a>
+                                        <a data-toggle="tab" href="#isStaffFamilyInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">가족정보</a>
+                                        <a data-toggle="tab" href="#isCareerInfoFromIn" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">사내경력</a>
+                                        <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">사외경력</a>
+                                        <a data-toggle="tab" href="#isCertificateInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">자격정보</a>
+                                        <a data-toggle="tab" href="#isEducationInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">학력정보</a>
+                                        <a data-toggle="tab" href="#isBalryoungInfo" class="btn-pill btn-wide mr-1 ml-1  btn btn-outline-alternate btn-sm">발령정보</a>
+                                        <a data-toggle="tab" href="#isMilitaryInfo" class="btn-pill btn-wide  btn btn-outline-alternate btn-sm">병역정보</a>
+                                    </div>
+                                </div>
+                          	</div>
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
+										<form>
+											<table class="mb-12 table table-bordered">
+												<tr>
+													<td class="t_head2">영문이름</td>
+													<td><input type="text" name="staff_eng_name" class="form-control"></td>
+													<td class="t_head2">성별</td>
+													<td>
+														<label><input type="radio" name="staff_gender" value="여" checked="checked"> 여</label>
+														<label><input type="radio" name="staff_gender" value="남"> 남</label>													
+													</td>
+													<td class="t_head2">주민등록번호</td>
+													<td>
+														<input type="text" name="human_num1" class="form-control" >－
+														<input type="text" name="human_num2" class="form-control" >
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">내외국인</td>
+													<td>
+														<label><input type="radio" name="staff_nationality" value="내국인" checked="checked" class="staff-nationality-input"> 내국인</label>
+														<label><input type="radio" name="staff_nationality" value="외국인" class="staff-nationality-input"> 외국인</label>
+													<td class="t_head2">국적</td>
+													<td><input type="text" name="staff_country" class="form-control" ></td>
+													<td class="t_head2">결혼여부</td>
+													<td>
+														<label><input type="radio" name="staff_marriged" value="미혼" checked="checked"> 미혼 </label>
+														<label><input type="radio" name="staff_marriged" value="기혼"> 기혼</label>
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">연락처</td>
+													<td>
+														<input type="text" name="staff_phone1" class="form-control">－
+														<input type="text" name="staff_phone2" class="form-control">－
+														<input type="text" name="staff_phone3" class="form-control">
+													</td>
+													<td class="t_head2">이메일</td>
+													<td>
+														<input type="text" name="staff_email" class="form-control">
+													</td>
+													<td class="t_head2">주소</td>
+													<td>
+														<input type="text" name="staff_addr" class="form-control" >
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="is_staff_basic_info.notes" class="form-control"></textarea>
+													</td>
+												</tr> 
+											</table>
+				                   		</form>           
+                                    </div>
+                                    <div class="tab-pane" id="isStaffFamilyInfo" role="tabpanel">
+                                    
+                                    
+                                    
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="d-block text-right card-footer">
+                                  <a href="javascript:void(0);" class="btn-wide btn btn-success">등록하기</a>
+                              </div>
+					</div>
+				</div>
+	</div>
+</div>
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	</th:block>
+    
+</html>

@@ -10,19 +10,19 @@
 	<th:block layout:fragment="customContent">
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 		<div class="app-main__inner">
-           <div class="app-page-title">
-               <div class="page-title-wrapper">
-                   <div class="page-title-heading">
-                   	지원자 목록
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>지원자목록
+					       <div class="page-title-subheading">지원자 목록 조회</div>
+					    </div>
 					</div>
-                       <div class="page-title-actions">
-                           <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
-                               <i class="fa fa-star"></i>
-                           </button>
-
-                       </div>    
-                    </div>
-               </div>            
+				</div>
+			</div>          
                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
                    <li class="nav-item" th:each="cy : ${cyBoardList}">
                        <a role="tab" class="nav-link" th:id="@{'tab-'+${cyStat.index}}" data-toggle="tab" th:href="@{'#tab-content-'+${cyStat.index}}">
@@ -72,7 +72,7 @@
                                                      </div>
                                                      <div class="widget-content-left flex2">
                                                          <div class="widget-heading" th:text="${app.appName}"></div>
-                                                         <div class="widget-subheading opacity-7">Web Developer</div>
+                                               
                                                      </div>
                                                  </div>
                                              </div>
@@ -85,7 +85,7 @@
                                              </th:block>
                                          </td>
                                          <td class="text-center">
-                                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm ">이력서 보기</button>
+                                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm d app_resume">이력서 보기</button>
                                          </td>
                                      </tr>
                                      </th:block>
@@ -110,5 +110,20 @@
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+		<script>
+			$(function() {
+				$('.app_resume').click(function() {
+					var appNum = $(this).parent().parent().children().eq(0).text();
+					var appNum1 = $(this).parent().parent().children().eq(1).text().trim();
+
+					if(confirm(appNum1 + '님 이력서를 보시겠습니까?')) {
+						location.href="/appResumeForm?appNumCode="+appNum;
+					}
+				});
+			});
+		</script>
 	</th:block>
 </html>
