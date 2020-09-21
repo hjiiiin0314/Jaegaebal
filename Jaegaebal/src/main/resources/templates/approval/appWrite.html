@@ -29,7 +29,7 @@
 				<div class="page-title-wrapper">
 					<div class="page-title-heading">
 					    <div class="page-title-icon">
-					        <i class="pe-7s-eyedropper icon-gradient bg-happy-itmeo">
+					        <i class=" pe-7s-monitor icon-gradient bg-mean-fruit">
 					        </i>
 					    </div>
 					    <div>
@@ -82,7 +82,8 @@
            </div>
         </div>
        </div> 
-    
+    	
+    	
 
          <!------------------- appModal 시작   ------------------------>     
          <div  class="modal fade " id="appModal">
@@ -96,32 +97,42 @@
 	     				<div class="main-card col-lg-5 card">
 		     				<div class="card-body">
 		       					<h4>조직도</h4>
-		       					<div class="form-group form-scroll" >	       						
+		       					<div class="form-group form-scroll" >
+		       										
 	       							<div id="jojic">		       								
 									  <ul>
-									  	<th:block th:each="j : ${jojic}" >
-										    <li th:value="${j.jojicCode}" >
-										    	<span th:text="${j.parentJojicName}"></span>
-										    	<th:block th:each="t : ${team}">
-												     <ul th:if="${j.parentJojicName eq t.parentJojicName}">
-												      	<li  th:each="t : ${team}">
-												      		<span th:text="${t.jojicName}"></span>
-												      		<ul>
-																<li th:each="s : ${staff}" th:if="${s.jojicName} == ${t.jojicName}" >[[${s.staffName}]]</li>																		       										      											      		
-												      		</ul>
-												      	</li>											      	
-												     </ul>									     
-										    	</th:block>
-										    </li>
-									  	</th:block>									  
+									  	<th:block th:each="j : ${jojic}" >	
+									  		<li>	   
+										    	<span th:text="${j.parentJojicName}"></span> 
+										    	
+								    			<ul th:each="s : ${staff}">
+								    				<li th:if="${s.jojicName eq j.parentJojicName and s.jojicSosocName ne '팀'}">
+								    					<span th:text="${s.staffName}"></span>
+								    				</li>
+								    			</ul>									    			
+									    		
+										    	<th:block th:each="t : ${team}" th:if="${t.parentJojicName eq j.parentJojicName}">
+										    		<ul th:if="${t.jojicName ne j.parentJojicName and t.jojicSosocName eq '팀'}">
+										    			<li>
+										    				<span th:text="${t.jojicName}"></span>
+											    			<ul th:each="s : ${staff}">
+											    				<li th:if="${s.jojicName eq t.jojicName}">
+											    					<span th:text="${s.staffName}"></span>
+											    				</li>
+											    			</ul>
+										    			</li>
+										    		</ul>										    				    		
+										    	</th:block>		
+									    	</li>   
+									  	</th:block>										  									  
 									  </ul>
 									</div>		       							       							
 	       						</div>
 	       					</div>	       							
 	       				</div>
        					<div class="col-lg-2">
-       						<button type="button" id="rightMove" class="btn-add"><i class="pe-7s-add-user"></i>  추가</button>
-							<button type="button" id="leftMove" class="btn-del"><i class="pe-7s-delete-user"></i>  제외</button>
+       						<button type="button" id="rightMove" class="mb-2 mr-2 btn-transition btn btn-outline-secondary btn-add"><i class="pe-7s-add-user"></i>  추가</button>
+							<button type="button" id="leftMove" class="mb-2 mr-2 btn-transition btn btn-outline-secondary btn-del"><i class="pe-7s-delete-user"></i>  제외</button>
 						</div>
 	       				<div class="main-card col-lg-5">
 	     					<div class="card-body">
