@@ -29,7 +29,7 @@
 				<div class="page-title-wrapper">
 					<div class="page-title-heading">
 					    <div class="page-title-icon">
-					        <i class=" pe-7s-monitor icon-gradient bg-mean-fruit">
+					        <i class="pe-7s-monitor icon-gradient bg-mean-fruit">
 					        </i>
 					    </div>
 					    <div>
@@ -42,9 +42,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="main-card mb-3 card"> 
-					<div class="card-body">              
+					<div class="card-body">
+						<h4><i class="pe-7s-eyedropper"></i>       기안하기 </h4><br>           
 					<!-- form 시작  -->
-					<form  action="/myAppList" method="post" >
+					<form  id="appSubmit">
 	                   <div class="position-relative form-group ">
 	                   	<button id="appLine"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
 	                   		<i class="pe-7s-users"></i>  결재라인선택하기
@@ -58,25 +59,25 @@
 		                        <option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
 		                    </select>
 		                    </div>
-		                    <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
+		                    <div class="position-relative form-group deadline-form"><label for="deadline" >마감요청일</label>
 		                    	<input type="date" class="form-control" name="deadline">   
 		                    </div>
 		                </div>       
-	                   <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
+	                   <div class="position-relative form-group"><label for="docTitle">제목</label>
 	                   		<input id="docTitle" type="text" class="form-control" name="docTitle" >
 	                   </div>                  
 	  					<textarea id="summernote" name="docContents"></textarea>
-	                    <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
+	                    <div class="position-relative form-group"><label for="exampleText" >코멘트</label>
 	                    <textarea name="docComent" id="docComent" class="form-control"></textarea></div>
-	                    <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
+	                    <div class="position-relative form-group" ><label for="docFile" >첨부파일</label>
 	                     	<input name="docFile" id="docFile" type="file" class="form-control-file">
 	                    </div>
-	                    <div class="position-relative form-group"> <label for="security" class="">보안처리</label>
-	                      	<input type="checkbox" name="security" value="1">
+	                    <div class="position-relative form-group"> <label for="security" >보안처리</label>
+	                      	<input type="checkbox" name="security" value="보안">
 	                    </div>
 					</form>
-                     <button type="button" id="appSubmit" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                
-                     <button type="button" id="appKeep" class="mb-2 mr-2 btn btn-success active btn-right"><i class= "pe-7s-drawer"></i>  저장하기</button>                
+                     <button type="button" id="appSubmitBtn" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                
+                     <button type="button" id="appKeepBtn" class="mb-2 mr-2 btn btn-success active btn-right"><i class= "pe-7s-drawer"></i>  저장하기</button>                
                   </div>
                </div>
            </div>
@@ -138,7 +139,7 @@
 	     					<div class="card-body">
 			       				<h4>결재자</h4>
 			       				<div class="form-group  form-scroll">
-									<select id="appStaff" multiple="multiple"></select>
+									
 			       				</div>
 	      					</div>
 	      				</div>
@@ -181,10 +182,13 @@
 				});
 			});	
 		</script>
+		
 		<!--  결재라인 모달  관련 -->
 		<script>
 		$('#jojic').jstree();
-						
+
+		
+		
 				$(function(){
 					$('#rightMove').click(function(){	
 						var getJojic = $('#jojic').find('');
@@ -192,15 +196,42 @@
 						$('#appStaff').append(getjojic);	
 					});
 	
-					$('#leftMove').click(function(){	
-						var getAppStaff = $('#appStaff option:selected');	
-						console.log(getAppStaff);	
-						$('#jojic').append(getAppStaff);
-		
-					});	
+				
 				});
 				
-		</script>		
+		</script>
+		
+		<!-- 결재올리기버튼 이벤트 -->	
+		<script type="text/javascript">
+					
+			$(function(){			
+				$('#appSubmitBtn').click(function(){		
+					alert('결재를 올리시겠습니까?');
+								
+						
+				
+				});
+			});
+				
+		</script>
+		<script type="text/javascript">
+					
+			$(function(){			
+				$('#appKeepBtn').click(function(){							
+					 if(confirm("저장하시겠습니까 ?") == true){
+					    alert("임시저장함으로 이동합니다.");
+						window.location.href="/storageBox";	
+					        
+					  }else{
+					        return ;
+					    }
+		
+				
+				});
+			});
+				
+		</script>
+			
 	</th:block>
 
 </html>
