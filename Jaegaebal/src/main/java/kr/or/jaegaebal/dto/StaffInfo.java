@@ -45,8 +45,8 @@ public class StaffInfo {
 	private String staffPosition;			//직책코드
 	private String hobong;					//호봉
 	private String staffBasicSalary;		//기본급
-	private String staffPw;				
-	private String staffName;
+	private String staffPw;					//비밀번호
+	private String staffName;				//이름
 	private String staffStatusCode;			//재직상태코드
 	private String employmentStatus;		//고용상태
 	private String companyInDate;			//입사일

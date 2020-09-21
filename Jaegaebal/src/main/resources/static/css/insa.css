@@ -202,8 +202,50 @@
     margin-top : 50px !important;
     
 }
+.font-icon-wrapper{
+	font-size: 15px;
+}
 
- 
+.addDiv {
+	text-align: center;
+}
+
+.input-width21 {
+	width: 40%;
+	float : left;
+}
+.input-width22 {
+	width: 40%;
+	float : right;
+}
+.input-width31 {
+	width: 25%;
+	float : left;
+}
+.input-width32 {
+	width: 25%;
+    display: inline;
+    position: relative;
+    top: -2px;
+}
+.input-width33 {
+	width: 25%;
+	float : right;
+}
+
+.inputmaineus{
+	text-align: center;
+}
+
+.span-font {
+	font-size : 25px;
+}
+.span-1 {
+	margin-right: 6px;
+}
+.span-2 {
+	margin-left: 10px;
+}
 
 /*************************************************************************************************************/
 /* MENU-LEFT
