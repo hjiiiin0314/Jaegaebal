@@ -14,7 +14,9 @@
 		<link rel="stylesheet" href="summernote/summernote-lite.css">
 		<!-- upmu.css  -->
 		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">	
-		
+		<!--jstree  -->
+		<link rel="stylesheet" type="text/css" th:href="@{/tree/themes/default/style.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/tree/themes/default-dark/style.css}">
 	</th:block>
 	
 	
@@ -86,29 +88,29 @@
 	     				<div class="main-card col-lg-5 card">
 		     				<div class="card-body">
 		       					<h4>조직도</h4>
-		       						<div class="form-group form-scroll">
-		       							<ul class="tree">
-			       							 <li>
-										      <input type="checkbox" id="root">
-										      <label for="root">ROOT</label>
-										      <ul>
-										        <li><a href="https://opentutorials.org">node1</a></li>
-										        <li><a href="https://opentutorials.org">node2</a></li>
-										        <li>
-										          <input type="checkbox" id="node3">
-										          <label for="node3">node3</label>
-										          <ul>
-										            <li><a href="https://opentutorials.org">node31</a></li>
-										            <li><a href="https://opentutorials.org">node32</a></li>
-										            <li><a href="https://opentutorials.org">node33</a></li>
-										          </ul>
-										        </li>
-										      </ul>
+		       					<div class="form-group" style="height: 400px; overflow-y: scroll;">	       						
+	       							<div id="jojic">		       								
+									  <ul>
+									  	<th:block th:each="j : ${jojic}" >
+										    <li th:value="${j.jojicCode}" >
+										    	<span th:text="${j.parentJojicName}"></span>
+										    	<th:block th:each="t : ${team}">
+												     <ul th:if="${j.parentJojicName eq t.parentJojicName}">
+												      	<li  th:each="t : ${team}">
+												      		<span th:text="${t.jojicName}"></span>
+												      		<ul>
+																<li  th:each="s : ${staff}" th:if="${s.jojicName} == ${t.jojicName}" >[[${s.staffName}]]</li>																		       										      											      		
+												      		</ul>
+												      	</li>											      	
+												     </ul>									     
+										    	</th:block>
 										    </li>
-										   </ul>		       							
-		       						</div>
-	       						</div>	       							
-	       					</div>
+									  	</th:block>									  
+									  </ul>
+									</div>		       							       							
+	       						</div>
+	       					</div>	       							
+	       				</div>
        					<div class="col-lg-2">
        						<button type="button" id="rightMove" class="btn-add"><i class="pe-7s-add-user"></i>  추가</button>
 							<button type="button" id="leftMove" class="btn-del"><i class="pe-7s-delete-user"></i>  제외</button>
@@ -142,7 +144,8 @@
 	<th:block layout:fragment="customJsScript">		
 		<script src="/summernote/summernote-lite.js"></script>
       	<script src="/summernote/lang/summernote-ko-KR.js"></script>
-	
+	<!-- jstree  -->
+		<script type="text/javascript" th:src="@{/tree/jstree.js}"></script>
 
 		
 		<!-- summernote 관련-->
@@ -157,10 +160,12 @@
 				  placeholder: '내용을 입력하세요'	//placeholder 설정
 			          
 				});
-			});				
+			});	
 		</script>
 		<!--  결재라인 모달  관련 -->
-			<script>
+		<script>
+		$('#jojic').jstree();
+						
 				$(function(){
 					$('#rightMove').click(function(){	
 						var getJojic = $('#jojic').find('');
@@ -176,8 +181,7 @@
 					});	
 				});
 				
-			</script>	
-	
+		</script>		
 	</th:block>
 
 </html>
