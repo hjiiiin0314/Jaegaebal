@@ -24,7 +24,7 @@
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
 
-  			<div class="col-md-12">
+  		<div class="col-md-10">
 		<div class="app-page-title">
 				<div class="page-title-wrapper">
 					<div class="page-title-heading">
@@ -33,47 +33,55 @@
 					        </i>
 					    </div>
 					    <div>
-					    	<h2>기안하기</h2>
+					    	<h2>전자결재</h2>
 					       <div class="page-title-subheading"></div>
 					    </div>
 					</div>
 				</div>
-		</div>                
-				<!-- form 시작  -->
-				<form  action="/myAppList" method="post" >
-                   <div class="position-relative form-group ">
-                   	<button id="appLine"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
-                   		<i class="pe-7s-users"></i>  결재라인선택하기
-                   	</button>
-                   </div>
-                   <div class="position-relative form-group index-front">
-	                   	<div class="position-relative form-group document-form">
-	                   	<label for="docType" >문서양식</label>
-	                   	<select id="docType" class="form-control" name="docTypeName" >
-	                   		<option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
-	                        <option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
-	                    </select>
+		</div> 
+		<div class="row">
+			<div class="col-md-12">
+				<div class="main-card mb-3 card"> 
+					<div class="card-body">              
+					<!-- form 시작  -->
+					<form  action="/myAppList" method="post" >
+	                   <div class="position-relative form-group ">
+	                   	<button id="appLine"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
+	                   		<i class="pe-7s-users"></i>  결재라인선택하기
+	                   	</button>
+	                   </div>
+	                   <div class="position-relative form-group index-front">
+		                   	<div class="position-relative form-group document-form">
+		                   	<label for="docType" >문서양식</label>
+		                   	<select id="docType" class="form-control" name="docTypeName" >
+		                   		<option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
+		                        <option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
+		                    </select>
+		                    </div>
+		                    <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
+		                    	<input type="date" class="form-control" name="deadline">   
+		                    </div>
+		                </div>       
+	                   <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
+	                   		<input id="docTitle" type="text" class="form-control" name="docTitle" >
+	                   </div>                  
+	  					<textarea id="summernote" name="docContents"></textarea>
+	                    <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
+	                    <textarea name="docComent" id="docComent" class="form-control"></textarea></div>
+	                    <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
+	                     	<input name="docFile" id="docFile" type="file" class="form-control-file">
 	                    </div>
-	                    <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
-	                    	<input type="date" class="form-control" name="deadline">   
+	                    <div class="position-relative form-group"> <label for="security" class="">보안처리</label>
+	                      	<input type="checkbox" name="security" value="1">
 	                    </div>
-	                </div>       
-                   <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
-                   		<input id="docTitle" type="text" class="form-control" name="docTitle" >
-                   </div>                  
-  					<textarea id="summernote" name="docContents"></textarea>
-                    <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
-                    <textarea name="docComent" id="docComent" class="form-control"></textarea></div>
-                    <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
-                     	<input name="docFile" id="docFile" type="file" class="form-control-file">
-                    </div>
-                    <div class="position-relative form-group"> <label for="security" class="">보안처리</label>
-                      	<input type="checkbox" name="security" value="1">
-                    </div>
-				</form>
+					</form>
                      <button type="button" id="appSubmit" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                
                      <button type="button" id="appKeep" class="mb-2 mr-2 btn btn-success active btn-right"><i class= "pe-7s-drawer"></i>  저장하기</button>                
                   </div>
+               </div>
+           </div>
+        </div>
+       </div> 
     
 
          <!------------------- appModal 시작   ------------------------>     
@@ -88,7 +96,7 @@
 	     				<div class="main-card col-lg-5 card">
 		     				<div class="card-body">
 		       					<h4>조직도</h4>
-		       					<div class="form-group" style="height: 400px; overflow-y: scroll;">	       						
+		       					<div class="form-group form-scroll" >	       						
 	       							<div id="jojic">		       								
 									  <ul>
 									  	<th:block th:each="j : ${jojic}" >
@@ -99,7 +107,7 @@
 												      	<li  th:each="t : ${team}">
 												      		<span th:text="${t.jojicName}"></span>
 												      		<ul>
-																<li  th:each="s : ${staff}" th:if="${s.jojicName} == ${t.jojicName}" >[[${s.staffName}]]</li>																		       										      											      		
+																<li th:each="s : ${staff}" th:if="${s.jojicName} == ${t.jojicName}" >[[${s.staffName}]]</li>																		       										      											      		
 												      		</ul>
 												      	</li>											      	
 												     </ul>									     
@@ -118,7 +126,7 @@
 	       				<div class="main-card col-lg-5">
 	     					<div class="card-body">
 			       				<h4>결재자</h4>
-			       				<div class="form-group">
+			       				<div class="form-group  form-scroll">
 									<select id="appStaff" multiple="multiple"></select>
 			       				</div>
 	      					</div>
