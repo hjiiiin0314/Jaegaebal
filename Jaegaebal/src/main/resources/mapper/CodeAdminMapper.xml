@@ -12,9 +12,106 @@
    		<result column="w_staff_name" property="workStaffName"/>
    		<result column="w_reg_date" property="workRegDate"/>
    	</resultMap>
+   	<resultMap type="InsaCodeAdmin" id="insaCodeResultMap">
+   		<result column="code" property="insaCode"/>
+   		<result column="code_name" property="insaName"/>
+   		<result column="reg_staff_name" property="insaStaffName"/>
+   		<result column="reg_date" property="insaRegDate"/>
+   	</resultMap>
+   	<resultMap type="DocCodeAdmin" id="docCodeResultMap">
+   		<result column="docCode" property="docCode"/>
+   		<result column="docType" property="docName"/>
+   		<result column="reg_staff_name" property="docStaffName"/>
+   		<result column="reg_date" property="docRegDate"/>
+   	</resultMap>
    	
+   	<!-- ==========문서코드관리========== -->
+   	<select id="getDocCodeList" resultMap="docCodeResultMap">
+	   	SELECT
+	   	  	  doc_code
+	   	 	, doc_type
+	   	 	, reg_staff_name
+	   	 	, reg_date
+		FROM
+			 um_doctype
+   	
+   	</select>
+   	<!-- ==========인사코드관리========== -->
+   	
+   	<!-- 인사코드목록 -->
+   	<select id="getInsaCodeList" resultMap="insaCodeResultMap">
+	   	SELECT 
+	   		  code
+	   		, code_name
+	   		, reg_staff_name
+	   		, reg_date
+		FROM
+			 is_code
+   	</select>
+   	
+   	<!-- 인사코드등록 -->
+   	<insert id="addInsaCode" parameterType="InsaCodeAdmin">
+   		INSERT INTO
+   			 is_code
+			 (code
+			, code_name
+			, reg_staff_name
+			, reg_date)
+		VALUES (
+		  #{insaCode}
+		, #{insaName}
+		, #{insaStaffName}
+		, NOW())
+   	</insert> 
+   	
+   	<!-- 인사코드 중복검사 -->
+   	<select id="insaCodeCheck" parameterType = "String" resultType = "String">
+	   	SELECT 
+	   		  code
+		FROM
+			 is_code
+		WHERE
+			code = #{insaCode}
+	</select>
+	
+	<!-- 인사코드 수정 -->
+   	<update id="updateInsaCode" parameterType="InsaCodeAdmin">
+   		UPDATE 
+   			is_code
+		SET
+			code = #{insaCode},
+			code_name = #{insaName},
+			reg_staff_name = #{insaStaffName},
+			reg_date=NOW()
+		WHERE
+			 code = #{insaCode}
+   	</update>
+   	
+   	<!-- 인사코드조회 -->
+   	<select id="getInsaCode" parameterType = "String" resultType="InsaCodeAdmin" resultMap="insaCodeResultMap">
+   		SELECT
+   		   code
+   		 , code_name
+   		 , reg_staff_name
+   		 , reg_date
+		FROM
+			 is_code
+		WHERE
+			code = #{insaCode}
+   	</select>
+   	
+   	<!-- 근무코드삭제 -->
+   	<delete id="deleteInsaCode" parameterType="String">
+   		DELETE
+   		FROM
+   			 is_code
+   		WHERE
+   		 	code=#{insaCode}
+   	</delete>
+   	
+   	<!-- ==========근무형태코드관리========== -->
    	<!-- 근무코드 검색 -->
-   	<select id="getSearchWorkCodeList" parameterType="String" resultMap="codeResultMap">
+   	<select id="getSearchWorkCodeList" parameterType="String" resultMap="insaCodeResultMap">
 	   	SELECT
 		   	  w_code
 		   	, w_name

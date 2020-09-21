@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.CodeAdmin;
+import kr.or.jaegaebal.dto.DocCodeAdmin;
+import kr.or.jaegaebal.dto.InsaCodeAdmin;
 import kr.or.jaegaebal.service.CodeAdminService;
 
 
@@ -23,17 +24,20 @@ public class CodeAdminController {
 	
 	@Autowired private CodeAdminService codeAdminService;
 	
-	@GetMapping("/insaCode")
-	public String insaCode() {
+/* ==========문서코드관리========== */
+	
+	//문서코드리스트
+	/* @GetMapping("/getDocCodeList") */
+	@RequestMapping(value="/getDocCodeList", method=RequestMethod.GET)
+	public String getDocCodeList(Model model) {
+		List<DocCodeAdmin> docCodeList = codeAdminService.getDocCodeList();
+		System.out.println("docCodeList -> " + docCodeList);
+		model.addAttribute("docCodeList",docCodeList);
+		model.addAttribute("title","코드리스트");
 		
-		return "codeAdmin/insaCode";
+		return "codeAdmin/docCodeList";
 	}
 	
-	@GetMapping("/docCode")
-	public String docCode() {
-		
-		return "codeAdmin/docCode";
-	}
 	
 	@GetMapping("/empCode")
 	public String empCode() {
@@ -41,7 +45,76 @@ public class CodeAdminController {
 		return "codeAdmin/empCode";
 	}
 	
+	/* ==========인사코드관리========== */
 	
+	//인사코드리스트
+	/* @GetMapping("/getInsaCodeList") */
+	@RequestMapping(value="/getInsaCodeList", method=RequestMethod.GET)
+	public String getInsaCodeList(Model model) {
+		List<InsaCodeAdmin> insaCodeList = codeAdminService.getInsaCodeList();
+		System.out.println("insaCodeList -> " + insaCodeList);
+		model.addAttribute("insaCodeList",insaCodeList);
+		model.addAttribute("title","코드리스트");
+		
+		return "codeAdmin/insaCodeList";
+	}
+	
+	//인사코드 등록
+	@GetMapping("/addInsaCode")
+	public String addInsaCode(Model model) {
+		model.addAttribute("title","근무형태코드 추가");
+		return "CodeAdmin/addInsaCode";
+	}
+	
+	@PostMapping("/addInsaCode")
+	public String addInsaCode(InsaCodeAdmin insaCodeAdmin
+			,@RequestParam(value="insaCode",required = false) String insaCode
+			,@RequestParam(value="insaName",required = false) String insaName
+			) {
+		System.out.println("근무형태코드 -> "+insaCode);
+		System.out.println("근무명 -> "+insaName);
+		
+		codeAdminService.addInsaCode(insaCodeAdmin);
+		return "redirect:/getInsaCodeList";
+	}
+	
+	//코드 중복확인
+			@PostMapping(value = "/insaCodeCheck", produces = "application/json")
+			@ResponseBody
+			public int insaCodeCheck(@RequestParam(value="insaCode") String insaCode) {
+				
+				int result = codeAdminService.insaCodeCheck(insaCode);
+				
+				return result;
+			}
+			
+	//인사코드 수정
+			@GetMapping("/updateInsaCode")
+			public String updateInsaCode(Model model
+					,@RequestParam(value="insaCode",required=false) String insaCode) {
+				InsaCodeAdmin isca = codeAdminService.getInsaCode(insaCode);
+				model.addAttribute("InsaCodeAdmin",isca);
+				model.addAttribute("title","수정화면");
+				
+					return "codeAdmin/updateInsaCode";
+			}
+			
+			@PostMapping("/updateInsaCode")
+			public String updateInsaCode(InsaCodeAdmin insaCodeAdmin) {
+				codeAdminService.updateInsaCode(insaCodeAdmin);
+				return "redirect:/getInsaCodeList";
+			}
+	
+	//인사코드 삭제
+			@GetMapping("/deleteInsaCode")
+			public String deleteMember(InsaCodeAdmin insaCodeAdmin) {
+				if(insaCodeAdmin.getInsaCode() != null && !"".equals(insaCodeAdmin.getInsaCode())) {
+					codeAdminService.deleteInsaCode(insaCodeAdmin.getInsaCode());	
+				}
+				return "redirect:/getInsaCodeList";
+			}
+			
+	/* ==========근무형태코드관리========== */
 	
 	//코드검색
 	@PostMapping("/searchWorkCode")
