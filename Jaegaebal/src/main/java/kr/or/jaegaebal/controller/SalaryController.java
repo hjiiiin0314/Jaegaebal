@@ -38,7 +38,7 @@ public class SalaryController {
 	}
 	
 	//급여기본정보화면
-	@GetMapping("/salary/salary_info")
+	@GetMapping("/salary/salary_info1")
 	public String salaryInfo(Model model) {
 		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
 		SalaryInfo salaryInfo = salaryService.salaryInfo();
@@ -69,16 +69,5 @@ public class SalaryController {
 		return salaryInfo;
 	}
 	
-	//사원정보 검색 ajax조회
-	@PostMapping(value = "/salary/salary_search", produces = "application/json")
-	@ResponseBody
-	public List<Map<String, Object>> salaryInfo(@RequestParam(value = "ajaxArray[]", required = false) String[] ajaxArray) {
-		String searchCate = ajaxArray[0];
-		String searchText = ajaxArray[1];
-		String searchLevel = ajaxArray[2];
-		String searchJojic = ajaxArray[3];
-		List<Map<String, Object>> staffList = salaryService.getStaffListMap(searchCate, searchText, searchLevel, searchJojic);
-		System.out.println(staffList);
-		return staffList;
-	}
+
 }
