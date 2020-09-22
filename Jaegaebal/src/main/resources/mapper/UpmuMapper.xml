@@ -3,6 +3,31 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
+
+<!-- 임시저장함 - 전체검색  -->
+	<select id="storageBox" resultType="UpmuDocument">
+		SELECT
+				app_doc_code 		AS docCode
+			, t.doc_type 			AS docTypeName
+			, s.doc_type 			AS docType
+			, writer_buseo_code 	AS writerBuseoCode
+			, writer_num			AS writerNum
+			, doc_title				AS docTitle
+			, doc_contents			AS docContents
+			, write_date			AS writeDate
+			, doc_file				AS docFile
+			, start_date			AS startDate
+			, end_date				AS endDate
+			,`security`				as security
+			, deadline				AS deadline
+		FROM
+				um_storage_box AS s
+			join
+				um_doctype AS t
+			ON 
+				s.doc_type = t.doc_code
+	
+	</select>
 		
 <!-- 상신함 - 조건검색 -->	
 	<select id="searchAppList" resultType="UpmuDocument">

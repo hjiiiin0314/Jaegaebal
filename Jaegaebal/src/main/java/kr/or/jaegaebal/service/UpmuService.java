@@ -20,6 +20,12 @@ public class UpmuService {
 
 	@Autowired private UpmuMapper upmumapper;
 	
+	//임시저장함 -전체
+	public List<UpmuDocument> storageBox(){
+		List<UpmuDocument> storageBox = upmumapper.storageBox();
+		return storageBox;
+	}
+	
 	//상신함 - 검색
 	public List<UpmuDocument> searchAppList(String sk, String sv){
 		List<UpmuDocument> searchAppList = upmumapper.searchAppList(sk,sv);		

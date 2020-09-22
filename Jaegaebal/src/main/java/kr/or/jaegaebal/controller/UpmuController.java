@@ -64,12 +64,13 @@ public class UpmuController {
 		return "approval/myAppList";
 	}
 	
-	//임시저장화면연결
+	//임시저장화면연결 - 전체리스트 조회
 	@GetMapping("/storageBox")
-	public String storageBox() {
+	public String storageBox(Model model) {		
+		List<UpmuDocument> storageBox = upmuService.storageBox();
+		model.addAttribute("storageBox", storageBox);
 		return "approval/storageBox";
 	}
-	
 
 	//기안하기-화면연결
 	@GetMapping("/appWrite")
