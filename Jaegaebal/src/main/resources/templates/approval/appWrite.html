@@ -87,8 +87,8 @@
     	
 
          <!------------------- appModal 시작   ------------------------>     
-         <div  class="modal fade " id="appModal">
-	  	 	<div class="modal-dialog modal-lg">
+         <div  class="modal fade" id="appModal">
+	  	 	<div class="modal-dialog modal-lg" style="width: auto; ">
 	     		<div class="modal-content">
 	     			<div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal"></button>
@@ -108,7 +108,7 @@
 										    	
 								    			<ul th:each="s : ${staff}">
 								    				<li th:if="${s.jojicName eq j.parentJojicName and s.jojicSosocName ne '팀'}">
-								    					<span th:text="${s.staffName}"></span>
+								    					<span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}"></span>
 								    				</li>
 								    			</ul>									    			
 									    		
@@ -118,7 +118,7 @@
 										    				<span th:text="${t.jojicName}"></span>
 											    			<ul th:each="s : ${staff}">
 											    				<li th:if="${s.jojicName eq t.jojicName}">
-											    					<span th:text="${s.staffName}"></span>
+											    					<span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}"></span>
 											    				</li>
 											    			</ul>
 										    			</li>
@@ -131,15 +131,21 @@
 	       						</div>
 	       					</div>	       							
 	       				</div>
-       					<div class="col-lg-2 modal-inform">
-       						<button type="button" id="rightMove" class="mb-2 mr-2 btn-transition btn btn-outline-secondary btn-add"><i class="pe-7s-add-user"></i>  추가</button>
-							<button type="button" id="leftMove" class="mb-2 mr-2 btn-transition btn btn-outline-secondary btn-del"><i class="pe-7s-delete-user"></i>  제외</button>
-						</div>
-	       				<div class="main-card col-lg-5 modal-inform">
+       					
+	       				<div class="main-card col-lg-7 modal-inform">
 	     					<div class="card-body">
 			       				<h4>결재자</h4>
 			       				<div class="form-group  form-scroll">
-									
+									<table id="appStaff" class="mb-0 table table-bordered">
+										<tr>
+											<td><input id="checkAll" type="checkbox" class="text-center"></td>
+											<td class="text-center">부서</td>
+											<td class="text-center">직급</td>
+											<td class="text-center">이름</td>
+											<td class="text-center">참조</td>
+										</tr>
+									</table>
+									<button id="delBtn" class="mb-2 mr-2 btn-transition btn btn-outline-focus btn-del"><i class="pe-7s-delete-user"> 제외</i></button>
 			       				</div>
 	      					</div>
 	      				</div>
@@ -187,17 +193,59 @@
 		<script>
 		$('#jojic').jstree();
 
-		
-		
-				$(function(){
-					$('#rightMove').click(function(){	
-						var getJojic = $('#jojic').find('');
-						console.log(getJojic);
-						$('#appStaff').append(getjojic);	
-					});
-	
+			$(function(){
+				$(document).on('click','.choice-staff',function(){
+				    var staffNum = $(this).attr('data-staffNum');
+				    var staffLevelCode= $(this).attr('data-staffLevelCode');
+				    var levelName= $(this).attr('data-levelName');
+				    var staffName= $(this).attr('data-staffName');
+				    var jojicName= $(this).attr('data-jojicName');
+				    
+				    console.log(staffNum);
+				    console.log(staffLevelCode);
+				    console.log(levelName);
+				    console.log(staffName);
+				    console.log(jojicName);
+				    
+				    $(document).ready(function(){
+				        //최상단 체크박스 클릭
+				        $("#checkAll").click(function(){
+				            //클릭되었으면
+				            if($("#checkAll").prop("checked")){
+				                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+				                $("input[name=check]").prop("checked",true);
+				                //클릭이 안되있으면
+				            }else{
+				                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+				                $("input[name=check]").prop("checked",false);
+				            }
+				        });
+				    });
+				   
 				
+				    if(staffNum != null){
+				    	
+				    		$('#appStaff').append("<tr class='addStaff'><td><input name='check' type='checkbox'></td><td class='text-center'>"
+				    								+ jojicName 
+				    								+ "</td><td>"
+				    								+ levelName
+				    								+ "</td><td>"
+				    								+ staffName
+				    								+ "</td><td><input type='checkbox' name='chamjo'></td></tr>");
+				    	
+				    }
+				   
+				    $('#delBtn').click(function(){				    	
+				    	$('input[name=check]').each(function(){
+				    		if($(this).prop('checked')){
+				    			$(this).parent("td").parent("tr").remove();
+				    		}
+				    	})
+				    });
 				});
+
+			
+			});
 				
 		</script>
 		

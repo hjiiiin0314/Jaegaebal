@@ -19,12 +19,11 @@
 	float:right;
 }
 
-.btn-add{
-	margin:71px 18px 5px;
-}
-
 .btn-del{
-	margin:5px 18px;
+	left: 33px;
+    position: absolute;
+    bottom: -4px;
+}
 }
 
 .select-form{
@@ -32,7 +31,7 @@
 	display:inline;
 }
 .form-scroll{
-	height: 200px;
+	height: 300px;
 	overflow-y: scroll;
 }
 
@@ -45,4 +44,4 @@
 	float: left;
 }
 
-
+}
