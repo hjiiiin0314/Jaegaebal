@@ -83,8 +83,34 @@
    			gt_emp_code
    		WHERE
    			emp_code = #{empCode}
-   			
-   			
+   			   			
+   	</select>
+   	
+   	<!-- 고용코드수정 -->
+   	
+   	<update id="updateEmpCode" parameterType="EmpCodeAdmin">
+	   	UPDATE
+	   		 gt_emp_code
+		SET
+			emp_code = #{empCode},
+			emp_type = #{empType},
+			emp_salary_type = #{empSalaryType},
+			emp_attribution = #{empAttri},
+			emp_start_date = #{empStartDate},
+			reg_staff_name = #{empStaffName},
+			reg_date=NOW()
+		WHERE
+		 	emp_code = #{empCode}
+   	</update>
+   	
+   	<!-- 고용코드로 조회 -->
+   	<select id="getEmpCode" parameterType = "String" resultType="EmpCodeAdmin" resultMap="empCodeResultMap">
+   		SELECT 
+   			emp_code
+		FROM
+			 gt_emp_code
+		WHERE
+			emp_code = #{empCode}
    	</select>
    	
    	<!-- ==========문서코드관리========== -->

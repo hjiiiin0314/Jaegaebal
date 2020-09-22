@@ -26,8 +26,9 @@
 					    			
 								 <label for="workUseOrNot">사용유무</label>
 								 <select name="workUseOrNot" class="form-control">
-									  <option value="Yes" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
-									  <option value="No" th:selected ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
+								 	  <option value="0">::사용유무::</option>
+									  <option value="Yes"  th:select ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
+									  <option value="No" th:select ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
 								</select>
 								
 								<br>  
@@ -49,5 +50,6 @@
 	
 	
 	</th:block>
+   
     
 </html>

@@ -27,7 +27,7 @@
 							  	 <label for="empType">고용형태</label>
 								 <select name="empType" class="form-control">
 								 
-									  <option value="0" th:selected ="${empType eq Yes ? 'true' : 'false'}">::고용형태::</option>
+									  <option value="0">::고용형태::</option>
 									  <option value="임시직" th:select ="${empType eq Yes ? 'true' : 'false'}">임시직</option>
 									  <option value="계약직" th:select ="${empType eq No ? 'true' : 'false'}">계약직</option>
 									  <option value="일용직" th:select ="${empType eq No ? 'true' : 'false'}">일용직</option>
@@ -38,7 +38,7 @@
 							  	 <label for="empSalaryType">사원구분</label>
 								 <select name="empSalaryType" class="form-control">
 								 
-									  <option value="0" th:selected ="${empSalaryType eq Yes ? 'true' : 'false'}">::급여형태::</option>
+									  <option value="0">::급여형태::</option>
 									  <option value="연봉제" th:select ="${empSalaryType eq Yes ? 'true' : 'false'}">연봉제</option>
 									  <option value="월급제" th:select ="${empSalaryType eq No ? 'true' : 'false'}">월급제</option>
 									
@@ -48,7 +48,7 @@
 							  	 <label for="empAttri">귀속구분</label>
 								 <select name="empAttri" class="form-control">
 								 
-									  <option value="0" th:selected ="${empAttri eq Yes ? 'true' : 'false'}">::귀속구분::</option>
+									  <option value="0">::귀속구분::</option>
 									  <option value="당월" th:select ="${empAttri eq Yes ? 'true' : 'false'}">당월</option>
 									  <option value="전월" th:select ="${empAttri eq No ? 'true' : 'false'}">전월</option>
 									
@@ -56,7 +56,7 @@
 								
 								<br>  
 								 <label for="empStartDate">시작일</label>
-							   	 <input type="text" class="form-control input-lg" name="empStartDate" placeholder="시작일(숫자만 입력가능)">
+							   	 <input type="text" class="form-control input-lg" name="empStartDate" placeholder="시작일">
 						
 								<br>  
 								 <label for="empStaffName">등록자</label>

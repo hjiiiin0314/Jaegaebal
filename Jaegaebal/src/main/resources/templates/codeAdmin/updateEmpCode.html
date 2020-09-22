@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+	 
+			<div class="col-md-20; m-5">
+				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
+					<div class="col-md-20; m-5">						  
+		<form action="/addEmpCode" method="post" id="signIn">
+								<input type="hidden" id="empCodeCheckResult" value=1>
+								<input type="hidden" id="empCheckCode">
+							    <label for="empCode">고용코드</label>
+							    <input type="text" class="form-control input-lg" name="empCode" th:value="${EmpCodeAdmin.empCode}">
+							    
+							 
+						 <br>	
+							  <br>
+							  	 <label for="empType">고용형태</label>
+								 <select name="empType" class="form-control">
+								 
+									  <option value="0" th:selected ="${empType eq Yes ? 'true' : 'false'}">::고용형태::</option>
+									  <option value="임시직" th:select ="${empType eq Yes ? 'true' : 'false'}">임시직</option>
+									  <option value="계약직" th:select ="${empType eq No ? 'true' : 'false'}">계약직</option>
+									  <option value="일용직" th:select ="${empType eq No ? 'true' : 'false'}">일용직</option>
+									  <option value="상용직" th:select ="${empType eq No ? 'true' : 'false'}">상용직</option>
+								</select>
+								
+								<br>
+							  	 <label for="empSalaryType">사원구분</label>
+								 <select name="empSalaryType" class="form-control">
+								 
+									  <option value="0" th:selected ="${empSalaryType eq Yes ? 'true' : 'false'}">::급여형태::</option>
+									  <option value="연봉제" th:select ="${empSalaryType eq Yes ? 'true' : 'false'}">연봉제</option>
+									  <option value="월급제" th:select ="${empSalaryType eq No ? 'true' : 'false'}">월급제</option>
+									
+								</select>
+								
+								<br>
+							  	 <label for="empAttri">귀속구분</label>
+								 <select name="empAttri" class="form-control">
+								 
+									  <option value="0" th:selected ="${empAttri eq Yes ? 'true' : 'false'}">::귀속구분::</option>
+									  <option value="당월" th:select ="${empAttri eq Yes ? 'true' : 'false'}">당월</option>
+									  <option value="전월" th:select ="${empAttri eq No ? 'true' : 'false'}">전월</option>
+									
+								</select>
+								
+								<br>  
+								 <label for="empStartDate">시작일</label>
+							   	 <input type="text" class="form-control input-lg" name="empStartDate" th:value="${EmpCodeAdmin.empStartDate}">
+						
+								<br>  
+								 <label for="empStaffName">등록자</label>
+							   	 <input type="text" class="form-control input-lg" name="empStaffName" th:value="${EmpCodeAdmin.empStaffName}">
+					  			 <br>
+		</form>
+								  <div class="widget-content-right header-user-info ml-10" align="center">
+			                            	
+			                         <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm submitBtn" value="등록하기">
+			                          			                                    
+			                      </div>
+			                   <br>
+					 </div>
+				</div>
+			</div>
+		
+	
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	
+	
+	</th:block>
+	
+		    
+</html>

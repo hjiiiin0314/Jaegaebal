@@ -26,6 +26,11 @@ public class CodeAdminController {
 	
 	@Autowired private CodeAdminService codeAdminService;
 	
+	@GetMapping("/empCode")
+	public String empCode() {
+		
+		return "codeAdmin/empCode";
+	}
 /* ==========고용형태코드관리========== */
 	
 	//고용형태코드리스트
@@ -67,7 +72,7 @@ public class CodeAdminController {
 			return "redirect:/getEmpCodeList";
 		}
 		
-		//문서코드 중복확인
+		//고용코드 중복확인
 		@PostMapping(value = "/empCodeCheck", produces = "application/json")
 		@ResponseBody
 		public int empCodeCheck(@RequestParam(value="empCode") String empCode) {
@@ -75,6 +80,23 @@ public class CodeAdminController {
 			int result = codeAdminService.empCodeCheck(empCode);
 			
 			return result;
+		}
+		
+		//고용코드 수정
+		@GetMapping("/updateEmpCode")
+		public String updateEmpCode(Model model
+				,@RequestParam(value="empCode",required=false) String empCode) {
+			EmpCodeAdmin empca = codeAdminService.getEmpCode(empCode);
+			model.addAttribute("EmpCodeAdmin",empca);
+			model.addAttribute("title","수정화면");
+			
+				return "codeAdmin/updateEmpCode";
+		}
+		
+		@PostMapping("/updateEmpCode")
+		public String updateEmpCode(EmpCodeAdmin empCodeAdmin) {
+			codeAdminService.updateEmpCode(empCodeAdmin);
+			return "redirect:/getEmpCodeList";
 		}
 	
 /* ==========문서코드관리========== */
@@ -92,11 +114,6 @@ public class CodeAdminController {
 	}
 	
 	
-	@GetMapping("/empCode")
-	public String empCode() {
-		
-		return "codeAdmin/empCode";
-	}
 	
 	//문서코드 등록
 	@GetMapping("/addDocCode")

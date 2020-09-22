@@ -36,9 +36,19 @@ public class CodeAdminService {
 		 String eCode = codeAdminMapper.empCodeCheck(empCode);
 		 if(eCode != null && !"".equals(eCode.trim())) {
 		 result = 1;
-	 }
+		 }
 		 return result;
 	 }
+	 
+	 //고용코드 수정
+	 public int updateEmpCode(EmpCodeAdmin empCodeAdmin) {
+		 return codeAdminMapper.updateEmpCode(empCodeAdmin);
+	 }
+	 
+	//고용코드로 조회
+		public EmpCodeAdmin getEmpCode(String empCode) {
+			return codeAdminMapper.getEmpCode(empCode);
+		}
 	
 	
 	/* ==========문서코드관리========== */

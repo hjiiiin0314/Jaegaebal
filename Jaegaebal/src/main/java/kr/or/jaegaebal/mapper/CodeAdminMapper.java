@@ -25,6 +25,12 @@ public interface CodeAdminMapper {
 	//고용형태 중복확인
 	public String empCodeCheck(String empCode);
 	
+	//고용형태 중복확인
+	public int updateEmpCode(EmpCodeAdmin empCodeAdmin);
+	
+	//고용코드로 조회
+	public EmpCodeAdmin getEmpCode(String empCode);
+	
 	
 	/* ==========문서코드관리========== */
 	//문서코드리스트
