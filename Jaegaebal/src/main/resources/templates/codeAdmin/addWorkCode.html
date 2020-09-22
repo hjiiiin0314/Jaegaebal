@@ -32,8 +32,8 @@
 								 <select name="workUseOrNot" class="form-control">
 								 
 									  <option value="0" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">::사용유무::</option>
-									  <option value="Yes" th:selected ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
-									  <option value="No" th:selected ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
+									  <option value="Yes" th:select ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
+									  <option value="No" th:select ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
 								</select>
 						<br>  
 								 <label for="workStaffName">등록자</label>
@@ -104,6 +104,7 @@
 			
 			var workCode = $('input[name="workCode"]');
 			var workName = $('input[name="workName"]');
+			var workUseOrNot = $('select[name="workUseOrNot"]');
 			var codeCheckResult = $('#codeCheckResult').val();
 			var CheckCode = $('#CheckCode').val();
 			
@@ -113,8 +114,11 @@
 				workCode.focus();
 				return false;
 			}else if(workName.val() == ''){
-				alert('근무이름을 입력해주세요.');
+				alert('근무명을 입력해주세요.');
 				workName.focus();
+				return false;
+			}else if(workUseOrNot.val() == '0'){
+				alert('사용 유무를 선택해주세요.');
 				return false;
 			}else if(codeCheckResult == 1 || workCode.val() != CheckCode){
 				alert('코드중복검사를 진행해주세요.');

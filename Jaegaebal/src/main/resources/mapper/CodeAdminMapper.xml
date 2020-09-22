@@ -12,20 +12,84 @@
    		<result column="w_staff_name" property="workStaffName"/>
    		<result column="w_reg_date" property="workRegDate"/>
    	</resultMap>
+   	
    	<resultMap type="InsaCodeAdmin" id="insaCodeResultMap">
    		<result column="code" property="insaCode"/>
    		<result column="code_name" property="insaName"/>
    		<result column="reg_staff_name" property="insaStaffName"/>
    		<result column="reg_date" property="insaRegDate"/>
    	</resultMap>
+   	
    	<resultMap type="DocCodeAdmin" id="docCodeResultMap">
-   		<result column="docCode" property="docCode"/>
-   		<result column="docType" property="docName"/>
+   		<result column="doc_code" property="docCode"/>
+   		<result column="doc_type" property="docType"/>
    		<result column="reg_staff_name" property="docStaffName"/>
    		<result column="reg_date" property="docRegDate"/>
    	</resultMap>
    	
+   	<resultMap type="EmpCodeAdmin" id="empCodeResultMap">
+   		<result column="emp_code" property="empCode"/>
+   		<result column="emp_type" property="empType"/>
+   		<result column="emp_salary_type" property="empSalaryType"/>
+   		<result column="emp_attribution" property="empAttri"/>
+   		<result column="emp_start_date" property="empStartDate"/>
+   		<result column="reg_staff_name" property="empStaffName"/>
+   		<result column="reg_date" property="empRegDate"/>
+   	</resultMap>
+   	
+   	<!-- ==========고용형태코드관리========== -->
+   	
+   	<!-- 고용형태코드목록 -->
+   	<select id="getEmpCodeList" resultMap="empCodeResultMap">
+	   	SELECT
+	   		   emp_code
+	   		 , emp_type
+	   		 , emp_salary_type
+	   		 , emp_attribution
+	   		 , emp_start_date
+	   		 , reg_staff_name
+	   		 , reg_date
+		FROM	
+			 gt_emp_code
+   	
+   	</select>
+   	
+   	<!-- 고용형태코드등록 -->
+   	<insert id="addEmpCode" parameterType="EmpCodeAdmin">
+   		INSERT INTO
+   			 gt_emp_code(
+   			 	  emp_code
+   			 	, emp_type
+   			 	, emp_salary_type
+   			 	, emp_attribution
+   			 	, emp_start_date
+   			 	, reg_staff_name
+   			 	, reg_date)
+		VALUES (
+			  #{empCode}
+			, #{empType}
+			, #{empSalaryType}
+			, #{empAttri}
+			, #{empStartDate}
+			, #{empStaffName}
+			, NOW())
+   	</insert> 
+   	
+   	<!-- 고용코드중복체크 -->
+   	<select id="empCodeCheck" parameterType = "String" resultType = "String">
+   		SELECT
+   			emp_code
+   		FROM
+   			gt_emp_code
+   		WHERE
+   			emp_code = #{empCode}
+   			
+   			
+   	</select>
+   	
    	<!-- ==========문서코드관리========== -->
+   	
+   	<!-- 문서코드목록 -->
    	<select id="getDocCodeList" resultMap="docCodeResultMap">
 	   	SELECT
 	   	  	  doc_code
@@ -36,6 +100,69 @@
 			 um_doctype
    	
    	</select>
+   	
+   	<!-- 문서코드등록 -->
+   	<insert id="addDocCode" parameterType="DocCodeAdmin">
+   		INSERT INTO
+   			 um_doctype(
+   			    doc_code
+   			  , doc_type
+   			  , reg_staff_name
+   			  , reg_date)
+		VALUES (
+			  #{docCode}
+			, #{docType}
+			, #{docStaffName}
+			, NOW())
+   	</insert> 
+   	
+   	<!-- 문서코드수정 -->
+   	
+   	<update id="updateDocCode" parameterType="DocCodeAdmin">
+	   	UPDATE
+	   		 um_doctype
+		SET
+			doc_code=#{docCode},
+			doc_type=#{docType},
+			reg_staff_name=#{docStaffName},
+			reg_date=NOW()
+		WHERE
+			 doc_code=#{docCode}
+   	</update>
+   	
+   	<!-- 문서코드로 조회 -->
+   	<select id="getDocCode" parameterType = "String" resultType="DocCodeAdmin" resultMap="docCodeResultMap">
+   		SELECT
+	   		   doc_code
+	   		 , doc_type
+	   		 , reg_staff_name
+	   		 , reg_date
+		FROM 
+				um_doctype
+		WHERE
+			doc_code = #{docCode}
+   	</select>
+   	
+   	
+   	<!-- 문서코드중복체크 -->
+   	<select id="docCodeCheck" parameterType = "String" resultType = "String">
+	   	SELECT
+	   		   doc_code
+	   		
+		FROM 
+				um_doctype
+		WHERE
+			doc_code = #{docCode}
+   	</select>
+   	
+   	<!-- 문서코드삭제 -->
+   	<delete id="deleteDocCode" parameterType="String">
+   		DELETE
+   		FROM
+   			 um_doctype
+   		WHERE
+   			 doc_code=#{docCode}
+   	</delete>
    	<!-- ==========인사코드관리========== -->
    	
    	<!-- 인사코드목록 -->

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.CodeAdmin;
 import kr.or.jaegaebal.dto.DocCodeAdmin;
+import kr.or.jaegaebal.dto.EmpCodeAdmin;
 import kr.or.jaegaebal.dto.InsaCodeAdmin;
 import kr.or.jaegaebal.service.CodeAdminService;
+
 
 
 @Controller
@@ -23,6 +25,57 @@ public class CodeAdminController {
 	
 	
 	@Autowired private CodeAdminService codeAdminService;
+	
+/* ==========고용형태코드관리========== */
+	
+	//고용형태코드리스트
+	/* @GetMapping("/getInsaCodeList") */
+	@RequestMapping(value="/getEmpCodeList", method=RequestMethod.GET)
+	public String getEmpCodeList(Model model) {
+		
+		 List<EmpCodeAdmin> empCodeList = codeAdminService.getEmpCodeList();
+		 System.out.println("empCodeList -> " + empCodeList);
+		 model.addAttribute("empCodeList",empCodeList);
+		
+		model.addAttribute("title","코드리스트");
+		
+		return "codeAdmin/empCodeList";
+	}
+	
+	//고용코드 등록
+		@GetMapping("/addEmpCode")
+		public String addEmpCode(Model model) {
+			model.addAttribute("title","근무형태코드 추가");
+			return "CodeAdmin/addEmpCode";
+		}
+		
+		@PostMapping("/addEmpCode")
+		public String addEmpCode(EmpCodeAdmin empCodeAdmin
+				,@RequestParam(value="empCode",required = false) String empCode
+				,@RequestParam(value="empType",required = false) String empType
+				,@RequestParam(value="empSalaryType",required = false) String empSalaryType
+				,@RequestParam(value="empAttri",required = false) String empAttri
+				,@RequestParam(value="empStartDate",required = false) String empStartDate
+				) {
+			System.out.println("고용코드 -> "+empCode);
+			System.out.println("고용형태 -> "+empType);
+			System.out.println("사원구분 -> "+empSalaryType);
+			System.out.println("귀속구분 -> "+empAttri);
+			System.out.println("시작일 -> "+empStartDate);
+			
+			codeAdminService.addEmpCode(empCodeAdmin);
+			return "redirect:/getEmpCodeList";
+		}
+		
+		//문서코드 중복확인
+		@PostMapping(value = "/empCodeCheck", produces = "application/json")
+		@ResponseBody
+		public int empCodeCheck(@RequestParam(value="empCode") String empCode) {
+			
+			int result = codeAdminService.empCodeCheck(empCode);
+			
+			return result;
+		}
 	
 /* ==========문서코드관리========== */
 	
@@ -43,6 +96,61 @@ public class CodeAdminController {
 	public String empCode() {
 		
 		return "codeAdmin/empCode";
+	}
+	
+	//문서코드 등록
+	@GetMapping("/addDocCode")
+	public String addDocCode(Model model) {
+		model.addAttribute("title","근무형태코드 추가");
+		return "CodeAdmin/addDocCode";
+	}
+	
+	@PostMapping("/addDocCode")
+	public String addDocCode(DocCodeAdmin docCodeAdmin
+			,@RequestParam(value="docCode",required = false) String docCode
+			,@RequestParam(value="docType",required = false) String docType
+			) {
+		System.out.println("문서코드 -> "+docCode);
+		System.out.println("문서명 -> "+docType);
+		
+		codeAdminService.addDocCode(docCodeAdmin);
+		return "redirect:/getDocCodeList";
+	}
+	
+	//문서코드 중복확인
+	@PostMapping(value = "/docCodeCheck", produces = "application/json")
+	@ResponseBody
+	public int docCodeCheck(@RequestParam(value="docCode") String docCode) {
+		
+		int result = codeAdminService.docCodeCheck(docCode);
+		
+		return result;
+	}
+	
+	//문서코드 수정
+	@GetMapping("/updateDocCode")
+	public String updateDocCode(Model model
+			,@RequestParam(value="docCode",required=false) String docCode) {
+		DocCodeAdmin docca = codeAdminService.getDocCode(docCode);
+		model.addAttribute("DocCodeAdmin",docca);
+		model.addAttribute("title","수정화면");
+		
+			return "codeAdmin/updateDocCode";
+	}
+	
+	@PostMapping("/updateDocCode")
+	public String updateDocCode(DocCodeAdmin docCodeAdmin) {
+		codeAdminService.updateDocCode(docCodeAdmin);
+		return "redirect:/getDocCodeList";
+	}
+	
+	//문서코드 삭제
+	@GetMapping("/deleteDocCode")
+	public String deleteMember(DocCodeAdmin docCodeAdmin) {
+		if(docCodeAdmin.getDocCode() != null && !"".equals(docCodeAdmin.getDocCode())) {
+			codeAdminService.deleteDocCode(docCodeAdmin.getDocCode());		
+		}
+		return "redirect:/getMemberList";
 	}
 	
 	/* ==========인사코드관리========== */

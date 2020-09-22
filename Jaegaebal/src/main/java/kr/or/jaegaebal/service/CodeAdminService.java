@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.jaegaebal.dto.CodeAdmin;
 import kr.or.jaegaebal.dto.DocCodeAdmin;
+import kr.or.jaegaebal.dto.EmpCodeAdmin;
 import kr.or.jaegaebal.dto.InsaCodeAdmin;
 import kr.or.jaegaebal.mapper.CodeAdminMapper;
 
@@ -18,10 +19,64 @@ public class CodeAdminService {
 	
 	@Autowired private CodeAdminMapper codeAdminMapper;
 	
-	/* ==========인사코드관리========== */
+	/* ==========고용코드관리========== */
+	//고용코드 리스트
+	
+	 public List<EmpCodeAdmin> getEmpCodeList(){
+	 return codeAdminMapper.getEmpCodeList();	 
+	 }
+	 
+	 //고용형태코드 등록
+	 public int addEmpCode(EmpCodeAdmin empCodeAdmin) {
+		 return codeAdminMapper.addEmpCode(empCodeAdmin);
+	 }
+	 //고용코드 중복확인
+	 public int empCodeCheck(String empCode) {
+		 int result=0;
+		 String eCode = codeAdminMapper.empCodeCheck(empCode);
+		 if(eCode != null && !"".equals(eCode.trim())) {
+		 result = 1;
+	 }
+		 return result;
+	 }
+	
+	
+	/* ==========문서코드관리========== */
+	//문서리스트
 	public List<DocCodeAdmin> getDocCodeList(){
 		return codeAdminMapper.getDocCodeList();
 	}
+	
+	//문서코드 추가
+	public int addDocCode(DocCodeAdmin docCodeAdmin) {
+		return codeAdminMapper.addDocCode(docCodeAdmin);
+	}
+	
+	//문서코드 중복확인
+	public int docCodeCheck(String docCode) {
+		int result=0;
+		String dCode = codeAdminMapper.docCodeCheck(docCode);
+		if(dCode != null && !"".equals(dCode.trim())) {
+			result = 1;
+		}
+		return result;
+	}
+	
+	//문서코드 수정
+	public int updateDocCode(DocCodeAdmin docCodeAdmin) {
+		return codeAdminMapper.updateDocCode(docCodeAdmin);
+	}
+	
+	//문서코드로 조회
+	public DocCodeAdmin getDocCode(String docCode) {
+		return codeAdminMapper.getDocCode(docCode);
+	}
+	
+	//문서코드 삭제
+	public int deleteDocCode(String docCode) {
+		return codeAdminMapper.deleteDocCode(docCode);
+	}
+	
 	
 	/* ==========인사코드관리========== */
 	
@@ -38,7 +93,7 @@ public class CodeAdminService {
 			return result;
 		}
 	
-		//근무형태코드 중복확인
+		//인사코드 중복확인
 	
 	 public int insaCodeCheck(String insaCode) {
 	 

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.CodeAdmin;
 import kr.or.jaegaebal.dto.DocCodeAdmin;
+import kr.or.jaegaebal.dto.EmpCodeAdmin;
 import kr.or.jaegaebal.dto.InsaCodeAdmin;
 
 
@@ -14,9 +15,35 @@ import kr.or.jaegaebal.dto.InsaCodeAdmin;
 @Mapper
 public interface CodeAdminMapper {
 	
+	/* ==========고용형태코드관리========== */
+	//고용형태코드리스트
+	public List<EmpCodeAdmin> getEmpCodeList();
+	
+	//고용형태코드등록
+	public int addEmpCode(EmpCodeAdmin empCodeAdmin);
+	
+	//고용형태 중복확인
+	public String empCodeCheck(String empCode);
+	
+	
 	/* ==========문서코드관리========== */
-	//인사코드리스트
+	//문서코드리스트
 	public List<DocCodeAdmin> getDocCodeList();
+	
+	//문서코드등록
+	public int addDocCode(DocCodeAdmin docCodeAdmin);
+	
+	//문서코드 중복확인
+	public String docCodeCheck(String docCode);
+	
+	//문서코드로 조회
+	public DocCodeAdmin getDocCode(String docCode);
+	
+	//문서코드 수정
+	public int updateDocCode(DocCodeAdmin docCodeAdmin);
+	
+	//문서코드 삭제
+	public int deleteDocCode(String docCode);
 	
 	/* ==========인사코드관리========== */
 	//인사코드리스트
