@@ -2,6 +2,7 @@ package kr.or.jaegaebal.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class ChaeYoungService {
 	};
 	
 	//이메일 중복 체크
-	public String emailCheck(String appEmail) {
+	public ChaeYoungApplicant emailCheck(String appEmail) {
 		
 		return chaeYoungMapper.emailCheck(appEmail);
 	};
@@ -61,7 +62,7 @@ public class ChaeYoungService {
 	};
 	
 	//지원자 특정인원 가져오기
-	public ChaeYoungApplicant appManagement(String appNumCode) {
+	public ChaeYoungApplicant appManagement(ChaeYoungApplicant appNumCode) {
 		
 		return chaeYoungMapper.appManagement(appNumCode);
 	};
@@ -70,12 +71,14 @@ public class ChaeYoungService {
 	public int addApplicant(ChaeYoungApplicant chaeYoungApplicant) {
 		int result = 0;
 		if(chaeYoungApplicant != null) {
-			
-			result += chaeYoungMapper.addApplicant(chaeYoungApplicant);
-			result += chaeYoungMapper.addAppNumCode(chaeYoungApplicant);
-		}
-		
-		
+			try {
+				result += chaeYoungMapper.addApplicant(chaeYoungApplicant);
+				result += chaeYoungMapper.addAppNumCode(chaeYoungApplicant);
+				
+			}catch (Exception e) {
+				result = 0;
+			}
+		}	
 		return result;
 	};
 }

@@ -32,13 +32,13 @@ public interface ChaeYoungMapper {
 	public ChaeYoungBoard cyBoardList(String jobNumber);
 	
 	//이메일 중복체크
-	public String emailCheck(String appEmail);
+	public ChaeYoungApplicant emailCheck(String appEmail);
 	
 	//지원자 목록 가져오기
 	public List<ChaeYoungApplicant> appManagement();
 	
 	//지원자 특정인원 가져오기
-	public ChaeYoungApplicant appManagement(String appNumCode);
+	public ChaeYoungApplicant appManagement(ChaeYoungApplicant chaeYoungApplicant);
 	
 	//지원자 이메일 등록
 	public int addApplicant(ChaeYoungApplicant chaeYoungApplicant);

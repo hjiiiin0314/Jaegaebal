@@ -68,13 +68,16 @@ public class ChaeYoungController {
 	//지원할 시 이메일 체크
 	@PostMapping(value = "/emailCheck", produces = "application/json")
 	@ResponseBody
-	public int emailCheck(@RequestParam(value="appEmail") String appEmail) {
-		String app = chaeYoungService.emailCheck(appEmail);
-		int result = 0;
-		if(app != null) {
-			result = 1;		
+	public ChaeYoungApplicant emailCheck(@RequestParam(value="appEmail") String appEmail) {
+		ChaeYoungApplicant app = chaeYoungService.emailCheck(appEmail);
+		if(app == null) {
+			//값이 없을 경우 임의적으로 값을 셋팅한다
+			ChaeYoungApplicant app2 = new ChaeYoungApplicant(); 
+			app2.setAppEmail(null);
+			return app2;
+			
 		}
-		return result;
+		return app;
 	}
 	
 	//지원자 목록
@@ -90,10 +93,10 @@ public class ChaeYoungController {
 	}
 	//지원자 이력서 작성form
 	@GetMapping("/appResumeForm")
-	public String appResumeForm(@RequestParam(value="appNumCode") String appNumCode,Model model) {
-		if(appNumCode != null) {
-			ChaeYoungApplicant chaeYoungApplicant = chaeYoungService.appManagement(appNumCode);
-			model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
+	public String appResumeForm(ChaeYoungApplicant chaeYoungApplicant,Model model) {
+		if(chaeYoungApplicant != null) {
+			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+			model.addAttribute("chaeYoungApplicant", applicant);
 		}
 		
 		model.addAttribute("title", "이력서 작성 form");
@@ -103,8 +106,11 @@ public class ChaeYoungController {
 	@PostMapping("/addApplicant")
 	public String addApplicant(ChaeYoungApplicant chaeYoungApplicant,Model model) {
 		
-		chaeYoungService.addApplicant(chaeYoungApplicant);
+		int result = chaeYoungService.addApplicant(chaeYoungApplicant);
 		
+		if(result == 0) {
+			return "redirect:/cyboardList";
+		}
 		model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
 		return "chaeyoung/app_resumeForm";
 	}

@@ -22,6 +22,34 @@
             }
             
             $(function() {
+            	
+            	function pwCheck(pw){
+            		var appEmail = $("#login input[name='appEmail']").val();
+            		
+            		(async () => {
+
+            			const { value: password } = await Swal.fire({
+            			  title: '비밀번호를 입력해 주세요.',
+            			  input: 'password',
+            			  inputPlaceholder: 'Enter your password',
+            			  inputAttributes: {
+            			    maxlength: 10,
+            			    autocapitalize: 'off',
+            			    autocorrect: 'off'
+            			  }
+            			})
+
+            			if (password) {
+            			  if(pw == password) {
+            				  location.href="/appResumeForm?appEmail="+appEmail; 
+            			  }else {
+            				  alert('비밀번호가 틀렸습니다.');
+            				  return ;
+            			  }          			
+            			}           			
+            		})()
+            	}
+
             	$('.applicantBtn').click(function() {
 
     	            var checkBtn = $(this);
@@ -95,24 +123,26 @@
         					//히든 inputBox 중복검사여부를 담는다.
         					var emailCheckResult = $('#emailCheckResult');
         					var appEmailCheck = $('#appEmailCheck');
-        					var jobNumber = $("#login input[name='jobNumber']").val();
-        					if(data == 0){
+        					var appEmail = $("#login input[name='appEmail']").val();
+        					var hiddenPassward = $('#hiddenPassward');
+        					var pw = data.appPassward;
+        					var result = 1;
+
+        					if(data.appEmail != null){
+        						var question = confirm('이미 지원하신 이메일입니다. 수정화면으로 이동 하시겠습니까?');
+        						if(question) {
+        							pwCheck(pw);    							
+        						}
+        					}else{
         						alert('지원가능한 이메일 입니다.');
         						//히든 input 박스에 중복확인 통과한 이메일값을 담는다.
-        						console.log(jobNumber);
-        						appEmailCheck.val(appEmail.val());
-        					}else{
-        						var result = confirm('이미 지원하신 이메일입니다. 수정화면으로 이동 하시겠습니까?');
-        						
-        						if(result) {
-        							
-        							location.href="/appResumeForm?jobNumber="+jobNumber;
-        						}
+        						appEmailCheck.val(appEmail);
+        						result = 0;
         					}
         	                //히든 input박스에 값 넣어주기.중복검사 했는지 안했는지 확인하기 위함.
-        					emailCheckResult.val(data);	
+        					emailCheckResult.val(result);	
         					
-        					console.log(data, '이메일 중복검사 결과');
+        					console.log(result, '이메일 중복검사 결과');
         					//이 값을 이용하면 회원가입 버튼을 눌렀을 때 중복확인을 끝낸 이메일로 지원을 시도하는지 안하는지 알 수 있음. 
         					console.log(appEmailCheck.val(),'이메일');
         				});

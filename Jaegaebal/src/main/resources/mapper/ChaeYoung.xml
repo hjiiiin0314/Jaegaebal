@@ -135,9 +135,10 @@
 		FROM is_jojic
 	</select>
 	<!-- 지원자 이메일 중복검사 -->
-	<select id="emailCheck" parameterType="String" resultType="String">
+	<select id="emailCheck" parameterType="String" resultMap="ChaeYoungApplicantResultMap">
 		SELECT 
-			app_email as appEmail
+			app_email
+			,app_passward
 		FROM 
 			cy_applicant_register
 		WHERE
@@ -163,6 +164,10 @@
 		<if test="appNumCode != null and appNumCode neq ''.toString()">
 		where
 			anum.app_num_code = #{appNumCode}
+		</if>
+		<if test="appEmail != null and appEmail neq ''.toString()">
+		where
+			areg.app_email = #{appEmail}
 		</if>
 	</select>
 	
