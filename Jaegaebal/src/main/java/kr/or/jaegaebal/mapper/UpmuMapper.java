@@ -16,6 +16,9 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface UpmuMapper {
 	
+	//임시저장함 - 조건검색
+		public List<UpmuDocument> searchStorage(String sk, String sv);
+	
 	//임시저장함 - 전체목록
 		public List<UpmuDocument> storageBox();
 	

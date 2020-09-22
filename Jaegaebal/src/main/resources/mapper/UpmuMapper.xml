@@ -3,6 +3,34 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
+<!-- 임시저장함 - 조건검색 -->	
+	<select id="searchStorage" resultType="UpmuDocument">
+		SELECT 
+			s.app_doc_code 			AS docCode
+			, s.doc_type			AS docType
+			, t.doc_type			AS docTypeName				
+			, writer_buseo_code		AS writerBuseoCode
+			, writer_num			AS writerNum
+			, doc_title				AS docTitle
+			, doc_contents			AS docContents
+			, write_date			AS writeDate
+			, doc_file				AS docFile
+			, start_date			AS startDate
+			, end_date				AS endDate
+			, `security`			AS security
+			, deadline				AS deadline
+		FROM 
+				um_storage_box AS s
+			join
+				um_doctype AS t
+			on
+				s.doc_type = t.doc_code
+		<if test="sk neq ''.toString">
+		where
+		${sk} LIKE CONCAT('%',#{sv},'%')
+		</if>
+	</select>
+
 
 <!-- 임시저장함 - 전체검색  -->
 	<select id="storageBox" resultType="UpmuDocument">
@@ -101,6 +129,7 @@
 		,staff_name as staffName 
 		,s.jojic_code as jojicCode
 		,j.jojic_name AS jojicName
+		,j.jojic_sosoc_name AS jojicSosocName
 	FROM 
 		is_staff AS s
 	join
@@ -117,8 +146,6 @@
 		,parent_jojic_name	as parentJojicName
 	FROM
 		is_jojic
-	where
-		 jojic_sosoc_name = "팀";
   </select>
   
  <!-- 기안하기 - 결재라인-최상위(부서) 검색  -->

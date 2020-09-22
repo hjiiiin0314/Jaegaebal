@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.UpmuDocument;
@@ -55,7 +56,7 @@ public class UpmuController {
 	
 	}
 		
-	//상신함-화면연결
+	//상신함-화면연결- 전체리스트조회
 	@GetMapping("/myAppList")
 	public String myAppList(Model model) {
 		List<UpmuDocument> myAppList = upmuService.myAppList();
@@ -64,13 +65,33 @@ public class UpmuController {
 		return "approval/myAppList";
 	}
 	
+	//임시저장 - 검색조건 리스트
+	@PostMapping("/storageBox")
+	public String storageBox(Model model
+			,@RequestParam(value = "sk",required = false)String sk
+			,@RequestParam(value = "sv", required = false)String sv) {
+		if(sk != null && !"".equals(sk) 
+				&& sv != null && !"".equals(sv)){
+			List<UpmuDocument> storageBox = upmuService.storageBox(sk,sv);
+			model.addAttribute("storageBox",storageBox);
+		}else {
+				List<UpmuDocument> storageBox = upmuService.storageBox();
+				model.addAttribute("storageBox",storageBox);
+		
+		}
+		return "approval/storageBox";
+		
+	}
+	
 	//임시저장화면연결 - 전체리스트 조회
 	@GetMapping("/storageBox")
 	public String storageBox(Model model) {		
 		List<UpmuDocument> storageBox = upmuService.storageBox();
 		model.addAttribute("storageBox", storageBox);
+		
 		return "approval/storageBox";
 	}
+	
 
 	//기안하기-화면연결
 	@GetMapping("/appWrite")

@@ -32,15 +32,14 @@
              <div class="main-card mb-10 card">
                   <div class="card-body">  
                   	<h4><i class="pe-7s-box1"></i> 임시저장함 </h4><br>
-                  	<form >
+                  	<form action="/storageBox" method="post">
 						<select name="sk" class="form-control select-form" >
 							<option value="" selected="selected" disabled="disabled">::검색조건::</option>
 							<option value="t.doc_type">문서유형</option>
-							<option value="doc_title">제목</option>
-							<option value="a.app_state">결재상태</option>
+							<option value="doc_title">제목</option>							
 						</select>
 						<input type="text" name="sv" class="form-control select-form">	
-							<button type="button" id="seachBtn" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
+							<button type="submit" id="seachBtn" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
 					</form>
 					<br>
 					<table class="mb-0 table table-hover ">
