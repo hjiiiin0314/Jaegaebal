@@ -123,19 +123,24 @@
 	 
 	</select>
 <!-- 기안하기 - 결재라인 - 조직도 - 사원  -->
-  <select id="getStaff" resultType="StaffInfo">
+   <select id="getStaff" resultType="StaffInfo">
 	SELECT 
-		staff_num  	as staffNum
-		,staff_name as staffName 
-		,s.jojic_code as jojicCode
-		,j.jojic_name AS jojicName
+		staff_num  			as staffNum
+		,staff_name 		as staffName 
+		,s.staff_level_code	AS staffLevelCode
+		,j.jojic_name 		AS jojicName
 		,j.jojic_sosoc_name AS jojicSosocName
+		,l.level_name 		AS levelName
 	FROM 
 		is_staff AS s
 	join
 		is_jojic AS j
 	on
-	s.jojic_code = j.jojic_code;  
+		s.jojic_code = j.jojic_code
+	join
+		is_level AS l
+	on
+		s.staff_level_code=l.level_code;  
   </select>
 
 <!-- 기안하기 - 결재라인 - 조직도 - 팀  -->
