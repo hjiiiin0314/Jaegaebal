@@ -5,6 +5,9 @@
 <th:block layout:fragment="customCss">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/chaeyoung.css}">
 </th:block>
+	<th:block layout:fragment="customJs">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	</th:block>
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title> 
 	</th:block>
@@ -96,7 +99,7 @@
                                     <td class="text-center deadLine" th:text="${cy.jobDeadLine}"></td>
                                     <td class="text-center" th:text="${cy.jobRegDate}"></td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-primary btn-sm applicantBtn" data-toggle="modal" data-target="#myModal">지원하기</button>
+                                        <button type="button" class="btn btn-primary btn-sm applicantBtn" data-toggle="modal" data-target="#myModal" >지원하기</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -104,6 +107,7 @@
                         </div>
                         <div class="d-block text-center card-footer">
                             <button class="btn-wide btn btn-success" onclick="location.href='/addCYPostForm'">글등록하기</button>
+                            <button type="button" id="testBtn">이잉</button>
            				</div>
 			        </div>
 			    </div>
@@ -137,6 +141,7 @@
 					                    <button type="button" class="togglebtn" onclick="register()">이력서</button>
 					                </div>
 					                <form id="login" class="input-group appInsertForm" action="/addApplicant" method="post">
+					                	<input type="hidden" id="hiddenPassward"> 
 					                    <input type="hidden" id="emailCheckResult">
 					                    <input type="hidden" id="appEmailCheck">
 					                    <input type="hidden" id="hiddenJobNumber" name="jobNumber">
@@ -157,13 +162,15 @@
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
-				
+					
+			
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 		
 
 	</th:block>  
 	<th:block layout:fragment="customJsScript">
 		<script type="text/javascript" th:src="@{/assets/scripts/chaeyoungBoard.js}"></script>
+		
 		<script>
 		
 		//핸드폰번호 하이픈생성

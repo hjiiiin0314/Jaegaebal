@@ -50,7 +50,7 @@ public class ChaeYoungService {
 	};
 	
 	//이메일 중복 체크
-	public String emailCheck(String appEmail) {
+	public ChaeYoungApplicant emailCheck(String appEmail) {
 		
 		return chaeYoungMapper.emailCheck(appEmail);
 	};
