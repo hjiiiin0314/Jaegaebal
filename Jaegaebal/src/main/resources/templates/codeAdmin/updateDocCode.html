@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+	 <form action="/updateDocCode" method="post">
+			<div class="col-md-20; m-5">
+				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
+					<div class="col-md-20; m-5">						  
+							    <label for="docCode">문서코드</label>
+							    <input type="text" class="form-control input-lg" name="docCode" th:value="${DocCodeAdmin.docCode}">
+							 
+								<br>	
+							  
+							  	 <label for="docType">문서명</label>
+							   	 <input type="text" class="form-control input-lg" name="docType" th:value="${DocCodeAdmin.docType}">
+													
+								<br>  
+								 <label for="docStaffName">등록자</label>
+							   	 <input type="text" class="form-control input-lg" name="docStaffName" th:value="${DocCodeAdmin.docStaffName}">
+					    <br>
+								  <div class="widget-content-right header-user-info ml-10" align="center">
+			                            	
+			                          <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm" value="수정하기">
+			                                    
+			                      </div>
+			                   <br>
+					 </div>
+				</div>
+			</div>
+		</form>
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	
+	
+	</th:block>
+    
+</html>

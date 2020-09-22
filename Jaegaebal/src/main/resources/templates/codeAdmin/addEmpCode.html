@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+	 
+			<div class="col-md-20; m-5">
+				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
+					<div class="col-md-20; m-5">						  
+		<form action="/addEmpCode" method="post" id="signIn">
+								<input type="hidden" id="empCodeCheckResult" value=1>
+								<input type="hidden" id="empCheckCode">
+							    <label for="empCode">고용코드</label>
+							    <input type="text" class="form-control input-lg" name="empCode" id="empCode" placeholder="고용코드">
+							    <br>
+							    <span class="input-group-btn"><button class="btn btn-primary" type="button" id="codeCheckBtn">중복확인</button></span>
+							 
+						 <br>	
+							  <br>
+							  	 <label for="empType">고용형태</label>
+								 <select name="empType" class="form-control">
+								 
+									  <option value="0" th:selected ="${empType eq Yes ? 'true' : 'false'}">::고용형태::</option>
+									  <option value="임시직" th:select ="${empType eq Yes ? 'true' : 'false'}">임시직</option>
+									  <option value="계약직" th:select ="${empType eq No ? 'true' : 'false'}">계약직</option>
+									  <option value="일용직" th:select ="${empType eq No ? 'true' : 'false'}">일용직</option>
+									  <option value="상용직" th:select ="${empType eq No ? 'true' : 'false'}">상용직</option>
+								</select>
+								
+								<br>
+							  	 <label for="empSalaryType">사원구분</label>
+								 <select name="empSalaryType" class="form-control">
+								 
+									  <option value="0" th:selected ="${empSalaryType eq Yes ? 'true' : 'false'}">::급여형태::</option>
+									  <option value="연봉제" th:select ="${empSalaryType eq Yes ? 'true' : 'false'}">연봉제</option>
+									  <option value="월급제" th:select ="${empSalaryType eq No ? 'true' : 'false'}">월급제</option>
+									
+								</select>
+								
+								<br>
+							  	 <label for="empAttri">귀속구분</label>
+								 <select name="empAttri" class="form-control">
+								 
+									  <option value="0" th:selected ="${empAttri eq Yes ? 'true' : 'false'}">::귀속구분::</option>
+									  <option value="당월" th:select ="${empAttri eq Yes ? 'true' : 'false'}">당월</option>
+									  <option value="전월" th:select ="${empAttri eq No ? 'true' : 'false'}">전월</option>
+									
+								</select>
+								
+								<br>  
+								 <label for="empStartDate">시작일</label>
+							   	 <input type="text" class="form-control input-lg" name="empStartDate" placeholder="시작일(숫자만 입력가능)">
+						
+								<br>  
+								 <label for="empStaffName">등록자</label>
+							   	 <input type="text" class="form-control input-lg" name="empStaffName" placeholder="등록자명">
+					  			 <br>
+		</form>
+								  <div class="widget-content-right header-user-info ml-10" align="center">
+			                            	
+			                         <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm submitBtn" value="등록하기">
+			                          			                                    
+			                      </div>
+			                   <br>
+					 </div>
+				</div>
+			</div>
+		
+	
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	
+	
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+	<script>
+	
+	//근무형태코드 중복확인
+	
+	$(function() {
+		//아이디중복체크 및 유효성검사
+		$('#codeCheckBtn').click(function() {
+			var empCode = $('input[name="empCode"]');
+			
+			
+			if(empCode.val() == ''){
+				alert('고용코드를 입력해주세요.');
+				empCode.focus();
+				return false;
+				}
+			
+				var request = $.ajax({
+
+					  url: "/empCodeCheck",
+					  method: "POST",
+					  data: { empCode : empCode.val() },
+					  dataType: "json" 
+				});
+			
+				request.done(function( data ) {
+					var empCodeCheckResult = $('#empCodeCheckResult');
+					var empCheckCode = $('#empCheckCode');
+					
+					if(data == 0){
+						alert('사용 가능한 코드 입니다.');
+						empCheckCode.val(empCode.val());
+					}else{
+						alert('사용중인 코드 입니다.');
+					}
+					empCodeCheckResult.val(data);	             
+				});
+				
+				
+			}); 
+		}); 
+	 
+	//유효성검사
+	$(function(){
+		$('.submitBtn').click(function(){
+			
+			var empCode = $('input[name="empCode"]');
+			var empType = $('select[name="empType"]');
+			var empSalaryType = $('select[name="empSalaryType"]');
+			var empAttri = $('select[name="empAttri"]');
+			var empStartDate = $('input[name="empStartDate"]');
+			var empCodeCheckResult = $('#empCodeCheckResult').val();
+			var empCheckCode = $('#empCheckCode').val();
+			
+			
+			if(empCode.val() == ''){
+				alert('고용코드를 입력해주세요.');
+				empCode.focus();
+				return false;
+			}else if(empType.val() == '0'){
+				alert('고옹형태를 선택해주세요.');
+				return false;
+			}else if(empSalaryType.val() == '0'){
+				alert('급여형태를 선택해주세요.');				
+				return false;
+			}else if(empAttri.val() == '0'){
+				alert('귀속구분을 선택해주세요.');				
+				return false;
+			}else if(empStartDate.val() == ''){
+				alert('시작일을 입력해주세요.');
+				empStartDate.focus();
+				return false;
+			}else if(empCodeCheckResult == 1 || empCode.val() != empCheckCode){
+				alert('코드중복검사를 진행해주세요.');
+				empCode.focus();
+				return false;
+			}
+			$('#signIn').submit();
+			alert('코드등록 완료.');
+		})
+	});
+	
+	</script>
+	</th:block>
+	
+	
+	
+    
+</html>
