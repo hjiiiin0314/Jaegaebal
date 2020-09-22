@@ -32,9 +32,6 @@
 	</resultMap>
 	
 	<resultMap type="StaffInfo" id="StaffInfoResultMap">
-		<result column="level_name" 				property="levelName"/>
-		<result column="position_name" 				property="positionName"/>
-		<result column="jojic_name" 				property="jojicName"/>
 		<result column="staff_num" 					property="staffNum"/>
 		<result column="jojic_code" 				property="jojicCode"/>
 		<result column="access_num" 				property="accessNum"/>
@@ -110,10 +107,23 @@
 		<result column="military_in_day" 			property="militaryInDay"/>
 		<result column="military_out_day" 			property="militaryOutDay"/>
 		<result column="military_level" 			property="militaryLevel"/>
-		
+		<result column="level_name" 				property="levelName"/>
+		<result column="position_name" 				property="positionName"/>
+		<result column="jojic_name" 				property="jojicName"/>		
+		<result column="access_name" 				property="accessName"/>		
+		<result column="position_code" 				property="positionCode"/>		
 	
 	</resultMap>
-	
+	<resultMap type="Code" id="CodeResultMap">
+		<result column="access_num" 				property="accessNum"/>
+		<result column="access_name" 				property="accessName"/>
+		<result column="jojic_code" 				property="jojicCode"/>
+		<result column="jojic_name" 				property="jojicName"/>
+		<result column="level_code" 				property="levelCode"/>
+		<result column="level_name" 				property="levelName"/>
+		<result column="position_code" 				property="positionCode"/>
+		<result column="position_name" 				property="positionName"/>
+	</resultMap>
 	
 	<!-- 회사 정보 목록 -->
 	<select id="getCompanyInfo" resultMap="CompanyResultMap">
@@ -343,5 +353,46 @@
 				,jojic_status
 		FROM 
 				 is_jojic
+	</select>
+
+	<!-- 소속 코드, 명 가져오기 -->
+	<select id="getJojicInfo1" resultMap="CodeResultMap">
+		SELECT 
+				 jojic_code
+				,jojic_name
+		FROM 
+				 is_jojic	
+	</select>
+	
+	<!-- 권한 레벨, 명 가져오기 -->
+	<select id="getAccessInfo" resultMap="CodeResultMap">
+		SELECT 
+				 access_num
+				,access_name
+		FROM 
+				 is_access	
+	</select>
+	
+	<!-- 직급 코드, 명 가져오기 -->
+	<select id="getLevelInfo" resultMap="CodeResultMap">
+		SELECT 
+				 level_code
+				,level_name
+		FROM 
+				 is_level	
+	</select>
+	
+	<!-- 직책 코드, 명 가져오기 -->
+	<select id="getPositionInfo" resultMap="CodeResultMap">
+		SELECT 
+				 position_code
+				,position_name
+		FROM 
+				 is_position
+	</select>
+	
+	<!-- 사번 생성해서 가져오기 -->
+	<select id="makeStaffNum" resultType="String">
+		SELECT fn_make_staff_num()
 	</select>
 </mapper>	

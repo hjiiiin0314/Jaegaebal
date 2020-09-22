@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.jaegaebal.dto.Code;
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.mapper.InsaMapper;
@@ -163,5 +164,29 @@ public class InsaService {
 	public List<Jojic> getJojicInfoAll(){
 		List<Jojic> getJojicInfoAll = insaMapper.getJojicInfoAll();
 		return getJojicInfoAll;
+	};
+	
+	//직원 등록시 권한,직책,직급,소속 코드와 명 가져오기
+	public Map<String, Object> getCodeAndName(){
+		Map<String, Object> codeAndName	= new HashMap<String, Object>();
+		
+		List<Code> accessInfo 					= insaMapper.getAccessInfo();
+		List<Code> jojicInfo 					= insaMapper.getJojicInfo1();
+		List<Code> levelInfo 					= insaMapper.getLevelInfo();
+		List<Code> positionInfo 				= insaMapper.getPositionInfo();
+		
+		codeAndName.put("accessInfo", accessInfo);
+		codeAndName.put("jojicInfo", jojicInfo);
+		codeAndName.put("levelInfo", levelInfo);
+		codeAndName.put("positionInfo", positionInfo);
+		
+		return codeAndName;
+	}
+	
+	//사번 생성 후 가져오기
+	public String makeStaffNum() {
+		String staffNum = insaMapper.makeStaffNum();
+		
+		return staffNum;
 	};
 }

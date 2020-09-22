@@ -4,14 +4,14 @@ public class StaffInfo {
 
 	/* 컬럼명 */
 	//사원 is_staff
-	//staff_num, jojic_code, access_num, staff_level_code, staff_position, hobong, staff_basic_salary, staff_pw,
+	//staff_num, jojic_code, access_num, staff_level_code, staff_position_code, hobong, staff_basic_salary, staff_pw,
 	//staff_name, staff_status_code, employment_status, company_in_date, company_out_date, reg_staff_name, reg_date
 	
 	//인적정보 is_staff_basic_info
 	//basic_info_code, staff_eng_name, human_num, staff_gender, staff_nationality, staff_country,
 	//staff_phone, staff_email, staff_marriged, staff_addr
 	
-	//가족정보 is_staff_family_info
+	//가족정보 is_staff_basic_info
 	//family_info_code, relation, family_name, family_birthday, family_job, family_addr, family_phone
 	
 	//발령정보 is_balryoung_info
@@ -36,13 +36,13 @@ public class StaffInfo {
 	//military_in_day,  military_out_day, military_level
 	
 	/*다른 테이블에서 외래키로 가져온 컬럼명*/
-	//level_name, position_name, jojic_name, jaejic_status_name
+	//level_name, position_name, jojic_name, jaejic_status_name, access_name, position_code
 	
 	private String staffNum;				//사원번호
 	private String jojicCode;				//소속
 	private String accessNum;				//권한레벨	
 	private String staffLevelCode;			//직급코드
-	private String staffPosition;			//직책코드
+	private String staffPositionCode;		//직책코드
 	private String hobong;					//호봉
 	private String staffBasicSalary;		//기본급
 	private String staffPw;					//비밀번호
@@ -122,18 +122,48 @@ public class StaffInfo {
 	private String militaryLevel;			//계급
 	
 	/*추가된것들*/
-	private String levelName;				//직급
-	private String positionName;			//직책
-	private String jojicName;				//소속
+	private String levelName;				//직급명
+	private String positionName;			//직책명
+	private String jojicName;				//소속명
 	private String jaejicStatusName;		//재직상태
 	private String jojicSosocName;			//소속이름
+	private String accessName;				//권한명
+	private String positionCode;			//직책코드
 	
 	
-	public String getJojicSosocName() {
-		return jojicSosocName;
-	}
-	public void setJojicSosocName(String jojicSosocName) {
-		this.jojicSosocName = jojicSosocName;
+	@Override
+	public String toString() {
+		return "StaffInfo [staffNum=" + staffNum + ", jojicCode=" + jojicCode + ", accessNum=" + accessNum
+				+ ", staffLevelCode=" + staffLevelCode + ", staffPositionCode=" + staffPositionCode + ", hobong="
+				+ hobong + ", staffBasicSalary=" + staffBasicSalary + ", staffPw=" + staffPw + ", staffName="
+				+ staffName + ", staffStatusCode=" + staffStatusCode + ", employmentStatus=" + employmentStatus
+				+ ", companyInDate=" + companyInDate + ", companyOutDate=" + companyOutDate + ", regStaffName="
+				+ regStaffName + ", regDate=" + regDate + ", basicInfoCode=" + basicInfoCode + ", staffEngName="
+				+ staffEngName + ", humanNum=" + humanNum + ", staffGender=" + staffGender + ", staffNationality="
+				+ staffNationality + ", staffCountry=" + staffCountry + ", staffPhone=" + staffPhone + ", staffEmail="
+				+ staffEmail + ", staffMarriged=" + staffMarriged + ", staffAddr=" + staffAddr + ", familyInfoCode="
+				+ familyInfoCode + ", relation=" + relation + ", familyName=" + familyName + ", familyBirthday="
+				+ familyBirthday + ", familyJob=" + familyJob + ", familyAddr=" + familyAddr + ", familyPhone="
+				+ familyPhone + ", balryoungInfoCode=" + balryoungInfoCode + ", balryoungStaffNum=" + balryoungStaffNum
+				+ ", balryoungCode=" + balryoungCode + ", balryoungDate=" + balryoungDate + ", balryoungStage="
+				+ balryoungStage + ", notes=" + notes + ", careerInfoFromInCode=" + careerInfoFromInCode
+				+ ", projectName=" + projectName + ", projectStartDate=" + projectStartDate + ", projectEndDate="
+				+ projectEndDate + ", projectAccess=" + projectAccess + ", projectLevelName=" + projectLevelName
+				+ ", projectWork=" + projectWork + ", projectPosition=" + projectPosition + ", careerInfoFromOutCode="
+				+ careerInfoFromOutCode + ", companyName=" + companyName + ", companyAccess=" + companyAccess
+				+ ", companyPositionFromOut=" + companyPositionFromOut + ", companyWorkFormOut=" + companyWorkFormOut
+				+ ", companyInDateFromOut=" + companyInDateFromOut + ", companyOutDateFromOut=" + companyOutDateFromOut
+				+ ", companyOutReason=" + companyOutReason + ", certificateInfoCode=" + certificateInfoCode
+				+ ", certificateName=" + certificateName + ", issuingAgency=" + issuingAgency + ", certificateNum="
+				+ certificateNum + ", getDate=" + getDate + ", finishedDate=" + finishedDate + ", educationInfoCode="
+				+ educationInfoCode + ", schoolName=" + schoolName + ", hakryuckStatus=" + hakryuckStatus
+				+ ", majorName=" + majorName + ", minorName=" + minorName + ", entranceDate=" + entranceDate
+				+ ", graduatDate=" + graduatDate + ", degree=" + degree + ", militaryInfoCode=" + militaryInfoCode
+				+ ", militaryServiceType=" + militaryServiceType + ", militaryState=" + militaryState
+				+ ", militaryInDay=" + militaryInDay + ", militaryOutDay=" + militaryOutDay + ", militaryLevel="
+				+ militaryLevel + ", levelName=" + levelName + ", positionName=" + positionName + ", jojicName="
+				+ jojicName + ", jaejicStatusName=" + jaejicStatusName + ", jojicSosocName=" + jojicSosocName
+				+ ", accessName=" + accessName + ", positionCode=" + positionCode + "]";
 	}
 	public String getStaffNum() {
 		return staffNum;
@@ -159,11 +189,11 @@ public class StaffInfo {
 	public void setStaffLevelCode(String staffLevelCode) {
 		this.staffLevelCode = staffLevelCode;
 	}
-	public String getStaffPosition() {
-		return staffPosition;
+	public String getStaffPositionCode() {
+		return staffPositionCode;
 	}
-	public void setStaffPosition(String staffPosition) {
-		this.staffPosition = staffPosition;
+	public void setStaffPositionCode(String staffPositionCode) {
+		this.staffPositionCode = staffPositionCode;
 	}
 	public String getHobong() {
 		return hobong;
@@ -603,39 +633,27 @@ public class StaffInfo {
 	public void setJaejicStatusName(String jaejicStatusName) {
 		this.jaejicStatusName = jaejicStatusName;
 	}
-	@Override
-	public String toString() {
-		return "StaffInfo [staffNum=" + staffNum + ", jojicCode=" + jojicCode + ", accessNum=" + accessNum
-				+ ", staffLevelCode=" + staffLevelCode + ", staffPosition=" + staffPosition + ", hobong=" + hobong
-				+ ", staffBasicSalary=" + staffBasicSalary + ", staffPw=" + staffPw + ", staffName=" + staffName
-				+ ", staffStatusCode=" + staffStatusCode + ", employmentStatus=" + employmentStatus + ", companyInDate="
-				+ companyInDate + ", companyOutDate=" + companyOutDate + ", regStaffName=" + regStaffName + ", regDate="
-				+ regDate + ", basicInfoCode=" + basicInfoCode + ", staffEngName=" + staffEngName + ", humanNum="
-				+ humanNum + ", staffGender=" + staffGender + ", staffNationality=" + staffNationality
-				+ ", staffCountry=" + staffCountry + ", staffPhone=" + staffPhone + ", staffEmail=" + staffEmail
-				+ ", staffMarriged=" + staffMarriged + ", staffAddr=" + staffAddr + ", familyInfoCode=" + familyInfoCode
-				+ ", relation=" + relation + ", familyName=" + familyName + ", familyBirthday=" + familyBirthday
-				+ ", familyJob=" + familyJob + ", familyAddr=" + familyAddr + ", familyPhone=" + familyPhone
-				+ ", balryoungInfoCode=" + balryoungInfoCode + ", balryoungStaffNum=" + balryoungStaffNum
-				+ ", balryoungCode=" + balryoungCode + ", balryoungDate=" + balryoungDate + ", balryoungStage="
-				+ balryoungStage + ", notes=" + notes + ", careerInfoFromInCode=" + careerInfoFromInCode
-				+ ", projectName=" + projectName + ", projectStartDate=" + projectStartDate + ", projectEndDate="
-				+ projectEndDate + ", projectAccess=" + projectAccess + ", projectLevelName=" + projectLevelName
-				+ ", projectWork=" + projectWork + ", projectPosition=" + projectPosition + ", careerInfoFromOutCode="
-				+ careerInfoFromOutCode + ", companyName=" + companyName + ", companyAccess=" + companyAccess
-				+ ", companyPositionFromOut=" + companyPositionFromOut + ", companyWorkFormOut=" + companyWorkFormOut
-				+ ", companyInDateFromOut=" + companyInDateFromOut + ", companyOutDateFromOut=" + companyOutDateFromOut
-				+ ", companyOutReason=" + companyOutReason + ", certificateInfoCode=" + certificateInfoCode
-				+ ", certificateName=" + certificateName + ", issuingAgency=" + issuingAgency + ", certificateNum="
-				+ certificateNum + ", getDate=" + getDate + ", finishedDate=" + finishedDate + ", educationInfoCode="
-				+ educationInfoCode + ", schoolName=" + schoolName + ", hakryuckStatus=" + hakryuckStatus
-				+ ", majorName=" + majorName + ", minorName=" + minorName + ", entranceDate=" + entranceDate
-				+ ", graduatDate=" + graduatDate + ", degree=" + degree + ", militaryInfoCode=" + militaryInfoCode
-				+ ", militaryServiceType=" + militaryServiceType + ", militaryState=" + militaryState
-				+ ", militaryInDay=" + militaryInDay + ", militaryOutDay=" + militaryOutDay + ", militaryLevel="
-				+ militaryLevel + ", levelName=" + levelName + ", positionName=" + positionName + ", jojicName="
-				+ jojicName + ", jaejicStatusName=" + jaejicStatusName + ", jojicSosocName=" + jojicSosocName + "]";
+	public String getJojicSosocName() {
+		return jojicSosocName;
 	}
+	public void setJojicSosocName(String jojicSosocName) {
+		this.jojicSosocName = jojicSosocName;
+	}
+	public String getAccessName() {
+		return accessName;
+	}
+	public void setAccessName(String accessName) {
+		this.accessName = accessName;
+	}
+	public String getPositionCode() {
+		return positionCode;
+	}
+	public void setPositionCode(String positionCode) {
+		this.positionCode = positionCode;
+	}
+
+	
+
 	
 	
 }

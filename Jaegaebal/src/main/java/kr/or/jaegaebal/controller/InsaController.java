@@ -111,7 +111,13 @@ public class InsaController {
 	 //직원 등록하기 화면
 	 @GetMapping("/insa/insertStaff")
 	 public String insertStaff(Model model) {
+		 Map<String, Object> codeAndName = insaService.getCodeAndName();
+		 String staffNum = insaService.makeStaffNum();
+		 
 		 model.addAttribute("title", "직원 등록");
+		 model.addAttribute("codeAndName", codeAndName);
+		 model.addAttribute("staffNum", staffNum);
+
 		 return "insa/insert_staff";
 	 }
 	 
@@ -165,4 +171,5 @@ public class InsaController {
 		
 		return "insa/jojicdo";
 	 }
+	 
 }
