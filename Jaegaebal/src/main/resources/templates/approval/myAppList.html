@@ -31,7 +31,7 @@
 			</div>
              <div class="main-card mb-10 card">
                   <div class="card-body">  
-                  	<h4><i class="pe-7s-note2"></i> 상신함 </h4>
+                  	<h4><i class="pe-7s-note2"></i> 상신함 </h4><br>
                   	<form >
 						<select name="sk" class="form-control select-form" >
 							<option value="" selected="selected" disabled="disabled">::검색조건::</option>
@@ -54,7 +54,7 @@
 	                             <th class="text-center">마감요청일</th>
 	                             <th class="text-center">기안날짜</th>
 	                             <th class="text-center">결재상태</th>
-	                             <th class="text-center">회수</th>
+	                             <th class="text-center">회수하기</th>
 	                         </tr>
 	                    </thead>
                         <tbody id="myAppList">                       
@@ -67,7 +67,7 @@
 	                            <td th:text="${l.deadline}" id="deadline" class='text-center'></td>
 	                            <td th:text="${l.writeDate}" id="writeDate" class='text-center'></td>
 	                            <td th:text="${l.appStateName}" th:value="${l.appStateName}" id="appStateName" class='text-center'></td>	                        	
-	                            <td class='text-center'><button type="button" class="mb-2 mr-2 btn btn-primary retrievalBtn" >회수하기</button></td>	                        	
+	                            <td class='text-center'><button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-primary retrievalBtn" >회수하기</button></td>	                        	
 	                        </tr>
 	                       
                         </tbody>
@@ -124,7 +124,7 @@
 		    						 				+ "<td  class='text-center'>"+ data[i].deadline + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].writeDate + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].appStateName + "</td>"
-		    						 				+ "<td class='text-center'><button type='button' class='mb-2 mr-2 btn btn-primary retrievalBtn' >회수하기</button></td></tr>");
+		    						 				+ "<td class='text-center'><button type='button' class='mb-2 mr-2 btn-transition btn btn-outline-primary retrievalBtn' >회수하기</button></td></tr>");
 			    			
 			    		}	
 				  	}				  				  	

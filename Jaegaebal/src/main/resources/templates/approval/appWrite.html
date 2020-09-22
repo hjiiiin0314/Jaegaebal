@@ -56,7 +56,7 @@
 		                   	<label for="docType" >문서양식</label>
 		                   	<select id="docType" class="form-control" name="docTypeName" >
 		                   		<option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
-		                        <option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
+		                        <option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}" ></option>	               	                   
 		                    </select>
 		                    </div>
 		                    <div class="position-relative form-group deadline-form"><label for="deadline" >마감요청일</label>
@@ -201,12 +201,45 @@
 				
 		</script>
 		
-		<!-- 결재올리기버튼 이벤트 -->	
+		<!-- 결재올리기버튼 관련 -->	
 		<script type="text/javascript">
-					
+			
+		//결재올리기 유효성 검사
 			$(function(){			
-				$('#appSubmitBtn').click(function(){		
-					alert('결재를 올리시겠습니까?');
+				$('#appSubmitBtn').click(function(){
+					
+					//결재라인 선택에 대한 유효성검사 넣어야함!!!!!!!!!!!!!!!!
+					var docType = $('#docType option:selected').text(); // 선택된 옵션 값 -문서유형
+					var deadline = $('input[name= "deadline"]').val(); // 마감요청일
+					var docTitle = $('input[name= "docTitle"]').val(); // 제목
+					var docContents = $('#summernote'); // 내용
+						console.log(docType + "<--docType");
+						console.log(deadline + "<--deadline");
+						console.log(docTitle + "<--docTitle");
+						console.log(docContents.val() + "<--docContents");
+						
+					if(docType == '::문서양식선택하기::'){
+						alert('문서양식을 선택하셔야 합니다.');								
+						return false;	
+					}
+					if(deadline == ''){
+						alert('마감요청일을 지정해주세요.');
+						return false;
+					}
+					if(docTitle == ''){
+						alert('제목을 입력해주세요.');
+						return false;
+					}
+					if(docContents.val() == ''){
+						alert('내용을 입력해주세요.');
+						return false;
+					}
+					
+					if(confirm("결재를 올리시겠습니까?")== true){
+						window.location.href="/myAppList";						
+					}else{
+						return ;
+					}
 								
 						
 				
