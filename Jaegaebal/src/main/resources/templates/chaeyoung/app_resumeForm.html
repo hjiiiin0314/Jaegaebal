@@ -36,7 +36,7 @@
 				<div class="card-body emp-table">
 					<h5 class="card-title">기본정보</h5>
 			
-						
+						<form>
 							<table class="mb-0 table table-bordered" th:with="cy = ${chaeYoungApplicant}">
 									<tr>
 										<td>지원자 접수번호 : </td>
@@ -44,10 +44,7 @@
 									</tr>
 									<tr>
 										<td>지원자 이메일 : </td>
-										<td><input type="email" th:value="${cy.appEmail}"></td>
-									</tr>
-									<tr>
-										<td colspan="2"><button type="button">이메일 중복확인</button></td>
+										<td th:text=${cy.appEmail}></td>
 									</tr>
 									<tr>
 										<td>지원자 비밀번호 : </td>
@@ -62,7 +59,10 @@
 										<td><input type="text" th:value="${cy.appPhone}"></td>
 									</tr>
 							</table>
-				
+					</form>
+						
+						<button  class="mb-2 mr-2 btn-transition btn btn-outline-danger" type="button" style="text-align: center;">지원 취소</button>
+					
 			
 				</div>
 			</div>
@@ -459,5 +459,17 @@
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 	</th:block>
-    
+		
+	<th:block layout:fragment="customJsScript">
+	<script>
+	
+		$(function() {
+			
+			
+
+		});
+  		</script>	
+	</th:block>
+
+
 </html>

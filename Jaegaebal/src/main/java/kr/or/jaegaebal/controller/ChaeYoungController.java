@@ -90,10 +90,10 @@ public class ChaeYoungController {
 	}
 	//지원자 이력서 작성form
 	@GetMapping("/appResumeForm")
-	public String appResumeForm(@RequestParam(value="appNumCode") String appNumCode,Model model) {
-		if(appNumCode != null) {
-			ChaeYoungApplicant chaeYoungApplicant = chaeYoungService.appManagement(appNumCode);
-			model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
+	public String appResumeForm(ChaeYoungApplicant chaeYoungApplicant,Model model) {
+		if(chaeYoungApplicant != null) {
+			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+			model.addAttribute("chaeYoungApplicant", applicant);
 		}
 		
 		model.addAttribute("title", "이력서 작성 form");
@@ -103,8 +103,11 @@ public class ChaeYoungController {
 	@PostMapping("/addApplicant")
 	public String addApplicant(ChaeYoungApplicant chaeYoungApplicant,Model model) {
 		
-		chaeYoungService.addApplicant(chaeYoungApplicant);
+		int result = chaeYoungService.addApplicant(chaeYoungApplicant);
 		
+		if(result == 0) {
+			return "redirect:/cyboardList";
+		}
 		model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
 		return "chaeyoung/app_resumeForm";
 	}

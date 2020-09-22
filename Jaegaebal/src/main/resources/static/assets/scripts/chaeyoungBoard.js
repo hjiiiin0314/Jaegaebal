@@ -95,7 +95,7 @@
         					//히든 inputBox 중복검사여부를 담는다.
         					var emailCheckResult = $('#emailCheckResult');
         					var appEmailCheck = $('#appEmailCheck');
-        					var jobNumber = $("#login input[name='jobNumber']").val();
+        					var appEmail = $("#login input[name='appEmail']").val();
         					if(data == 0){
         						alert('지원가능한 이메일 입니다.');
         						//히든 input 박스에 중복확인 통과한 이메일값을 담는다.
@@ -106,7 +106,7 @@
         						
         						if(result) {
         							
-        							location.href="/appResumeForm?jobNumber="+jobNumber;
+        							location.href="/appResumeForm?appEmail="+appEmail;
         						}
         					}
         	                //히든 input박스에 값 넣어주기.중복검사 했는지 안했는지 확인하기 위함.
