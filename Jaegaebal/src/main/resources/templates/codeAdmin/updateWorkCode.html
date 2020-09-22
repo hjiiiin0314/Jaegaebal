@@ -25,10 +25,10 @@
 					    		<br>
 					    			
 								 <label for="workUseOrNot">사용유무</label>
-								 <select name="workUseOrNot" class="form-control">
+								 <select name="workUseOrNot" id="workUseOrNot" class="form-control workUseOrNot">
 								 	  <option value="0">::사용유무::</option>
-									  <option value="Yes"  th:select ="${workUseOrNot eq Yes ? 'true' : 'false'}">Yes</option>
-									  <option value="No" th:select ="${workUseOrNot eq No ? 'true' : 'false'}">No</option>
+									  <option value="1"  th:selected ="${workUseOrNot eq 1 ? 'true' : 'false'}">Yes</option>
+									  <option value="2" th:selected ="${workUseOrNot eq 2 ? 'true' : 'false'}">No</option>
 								</select>
 								
 								<br>  
@@ -50,6 +50,14 @@
 	
 	
 	</th:block>
-   
-    
+   <th:block layout:fragment="customJsScript">
+	<script>
+	$(function(){
+		/* $('.workUseOrNot option[value=1]').attr('selected','selected'); */
+		/* $("#workUseOrNot").val("1").prop("selected", true); */
+		$(".workUseOrNot option:selected").val()
+			
+	});
+	</script>
+	</th:block>
 </html>
