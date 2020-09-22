@@ -80,24 +80,50 @@
 			<div class="main-card mb-3 card">
 				<div class="card-body">
 					<h5 class="mt-2 card-title mb-4">지급내역</h5>
-					<table class="mb-0 table table-bordered table-detail">
-						<thead>
-							<tr>
-								<th class="fixed_top">사원번호</th>
-								<th class="fixed_top">성명</th>
-								<th class="fixed_top">직급</th>
-								<th class="fixed_top">부서</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="scroll-div date_left">
+						<div class="scrollbar-container table-overflow">
+							<table class="table table-hover text-center">
+								<thead>
+									<tr>
+										<th class="fixed_top">순번</th>
+										<th class="fixed_top">항목명</th>
+										<th class="fixed_top">계</th>
+										<th class="fixed_top">1월</th>
+										<th class="fixed_top">2월</th>
+										<th class="fixed_top">3월</th>
+										<th class="fixed_top">4월</th>
+										<th class="fixed_top">5월</th>
+										<th class="fixed_top">6월</th>
+										<th class="fixed_top">7월</th>
+										<th class="fixed_top">8월</th>
+										<th class="fixed_top">9월</th>
+										<th class="fixed_top">10월</th>
+										<th class="fixed_top">11월</th>
+										<th class="fixed_top">12월</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="SL : ${monthSalList}">
+										<td th:text="${SLStat.count}"></td>
+										<td th:text="${SL.cate}"></td>
+										<td th:text="${SL.plus}"></td>
+										<td th:text="${SL.M1}"></td>
+										<td th:text="${SL.M2}"></td>
+										<td th:text="${SL.M3}"></td>
+										<td th:text="${SL.M4}"></td>
+										<td th:text="${SL.M5}"></td>
+										<td th:text="${SL.M6}"></td>
+										<td th:text="${SL.M7}"></td>
+										<td th:text="${SL.M8}"></td>
+										<td th:text="${SL.M9}"></td>
+										<td th:text="${SL.M10}"></td>
+										<td th:text="${SL.M11}"></td>
+										<td th:text="${SL.M12}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

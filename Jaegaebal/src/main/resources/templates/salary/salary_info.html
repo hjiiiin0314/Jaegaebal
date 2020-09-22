@@ -53,7 +53,7 @@
 					</div>
 					<div class="scroll-div date_left">
 						<div class="scrollbar-container">
-							<table class="mb-0 emp-table table table-hover tbline-del text-center">
+							<table class="mb-0 emp-table table table-hover text-center">
 								<thead>
 									<tr>
 										<th class="fixed_top">사원번호</th>
@@ -113,7 +113,7 @@
 								<td>거주지국</td>
 								<td><input type="text" name="staff_country" class="form-control" th:value="${salaryInfo.staffCountry}" readonly></td>
 								<td>생산직구분</td>
-								<td><input type="checkbox" name="dataPro" class="form-control checkbox-width" th:checked="${salaryInfo.dataPro eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="dataPro" class="form-control checkbox-width" th:checked="${salaryInfo.dataPro eq true ? 'true' : 'false'}"></td>
 							</tr>
 							<tr>
 								<td>은행</td>
@@ -135,26 +135,26 @@
 							</tr>
 							<tr>
 								<td>수습여부</td>
-								<td><input type="checkbox" name="dataBate" class="form-control checkbox-width" th:checked="${salaryInfo.dataBate eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="dataBate" class="form-control checkbox-width" th:checked="${salaryInfo.dataBate eq true ? 'true' : 'false'}"></td>
 								<td>수습급여 적용률</td>
 								<td>
-									<th:block th:if="${salaryInfo.dataBate eq 1}">
+									<th:block th:if="${salaryInfo.dataBate eq true}">
 										<input type="number" name="dataBatePer" class="form-control" th:value="${salaryInfo.dataBatePer}" step="0.01">
 									</th:block>
-									<th:block th:unless="${salaryInfo.dataBate eq 1}">
-										<input type="number" name="dataBatePer" class="form-control" step="0.01" readonly>
+									<th:block th:unless="${salaryInfo.dataBate eq true}">
+										<input type="number" name="dataBatePer" class="form-control" value="0" step="0.01" readonly>
 									</th:block>
 								</td>
 							</tr>
 							<tr>
 								<td>수습기간</td>
 								<td colspan="3" class="date-td">
-									<th:block th:if="${salaryInfo.dataBate eq 1}">
+									<th:block th:if="${salaryInfo.dataBate eq true}">
 										<input type="date" name="dataBateDate1" class="form-control form_date date_left" th:value="${salaryInfo.dataBateDate1}">
 										<span class="flow-font">~</span>
 										<input type="date" name="dataBateDate2" class="form-control form_date date_right" th:value="${salaryInfo.dataBateDate2}">
 									</th:block>
-									<th:block th:unless="${salaryInfo.dataBate eq 1}">
+									<th:block th:unless="${salaryInfo.dataBate eq true}">
 										<input type="date" name="dataBateDate1" class="form-control form_date date_left" readonly>
 										<span class="flow-font">~</span>
 										<input type="date" name="dataBateDate2" class="form-control form_date date_right" readonly>
@@ -171,12 +171,12 @@
 							<tr>
 								<td>학자금 공제기간</td>
 								<td colspan="3" class="date-td">
-									<th:block th:if="${salaryInfo.dataExpen eq 1}">
+									<th:block th:if="${salaryInfo.dataExpen eq true}">
 										<input type="date" name="dataExpenDate1" class="form-control form_date date_left" th:value="${salaryInfo.dataExpenDate1}">
 										<span class="flow-font">~</span>
 										<input type="date" name="dataExpenDate2" class="form-control form_date date_right" th:value="${salaryInfo.dataExpenDate2}">
 									</th:block>
-									<th:block th:unless="${salaryInfo.dataExpen eq 1}">
+									<th:block th:unless="${salaryInfo.dataExpen eq true}">
 										<input type="date" name="dataExpenDate1" class="form-control form_date date_left" readonly>
 										<span class="flow-font">~</span>
 										<input type="date" name="dataExpenDate2" class="form-control form_date date_right" readonly>
@@ -185,26 +185,26 @@
 							</tr>
 							<tr>
 								<td>소득세액 감면여부</td>
-								<td><input type="checkbox" name="dataTaxdepart" class="form-control checkbox-width" th:checked="${salaryInfo.dataTaxdepart eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="dataTaxdepart" class="form-control checkbox-width" th:checked="${salaryInfo.dataTaxdepart eq true ? 'true' : 'false'}"></td>
 								<td>소득세액 감면비율</td>
 								<td>
-									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
+									<th:block th:if="${salaryInfo.dataTaxdepart eq true}">
 										<input type="number" name="dataTax" class="form-control" th:value="${salaryInfo.dataTax}" step="0.01">
 									</th:block>
-									<th:block th:unless="${salaryInfo.dataTaxdepart eq 1}">
-										<input type="number" name="dataTax" class="form-control" step="0.01" readonly>
+									<th:block th:unless="${salaryInfo.dataTaxdepart eq true}">
+										<input type="number" name="dataTax" class="form-control" value="0" step="0.01" readonly>
 									</th:block>
 								</td>
 							</tr>
 							<tr>
 								<td>소득세액 감면기간</td>
 								<td colspan="3" class="date-td">
-									<th:block th:if="${salaryInfo.dataTaxdepart eq 1}">
+									<th:block th:if="${salaryInfo.dataTaxdepart eq true}">
 										<input type="date" name="dataTaxDate1" class="form-control form_date date_left" th:value="${salaryInfo.dataTaxDate1}">
 										<span class="flow-font">~</span>
 										<input type="date" name="dataTaxDate2" class="form-control form_date date_right" th:value="${salaryInfo.dataTaxDate2}">
 									</th:block>
-									<th:block th:unless="${salaryInfo.dataTaxdepart eq 1}">
+									<th:block th:unless="${salaryInfo.dataTaxdepart eq true}">
 										<input type="date" name="dataTaxDate1" class="form-control form_date date_left" readonly>
 										<span class="flow-font">~</span>
 										<input type="date" name="dataTaxDate2" class="form-control form_date date_right" readonly>

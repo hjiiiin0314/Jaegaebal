@@ -294,7 +294,7 @@ $(function(){
 			$('input[name=dataBatePer]').prop('readonly', true);
 			$('input[name=dataBateDate1]').prop('readonly', true);
 			$('input[name=dataBateDate2]').prop('readonly', true);
-			$('input[name=dataBatePer]').val('');
+			$('input[name=dataBatePer]').val('0');
 			$('input[name=dataBateDate1]').val('');
 			$('input[name=dataBateDate2]').val('');
 		}
@@ -321,9 +321,21 @@ $(function(){
 			$('input[name=dataTax]').prop('readonly', true);
 			$('input[name=dataTaxDate1]').prop('readonly', true);
 			$('input[name=dataTaxDate2]').prop('readonly', true);
-			$('input[name=dataTax]').val('');
+			$('input[name=dataTax]').val('0');
 			$('input[name=dataTaxDate1]').val('');
 			$('input[name=dataTaxDate2]').val('');
+		}
+	});
+	
+	$('input[name=dataTax').keyup(function(){
+		if($(this).val() == null || $(this).val() == ''){
+			$(this).val(0);
+		}
+	});
+	
+	$('input[name=dataBatePer').keyup(function(){
+		if($(this).val() == null || $(this).val() == ''){
+			$(this).val(0);
 		}
 	});
 	

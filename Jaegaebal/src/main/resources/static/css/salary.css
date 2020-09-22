@@ -13,10 +13,6 @@
 	float:right;
 }
 
-.text-center{
-	text-align:center;
-}
-
 .table .flow-font{
 	font-size:25px;
 }
@@ -70,6 +66,14 @@
 
 .search-none{
 	display:none;
+}
+
+.table-overflow{
+	overflow-x:scroll !important;
+}
+
+.table-overflow .table{
+	width:150%;
 }
 
 @media(min-width:992px){

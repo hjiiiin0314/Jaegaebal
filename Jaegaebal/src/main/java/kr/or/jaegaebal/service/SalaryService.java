@@ -53,4 +53,9 @@ public class SalaryService {
 		List<Map<StaffInfo,Object>> staffInfoList = salaryMapper.getSalaryStaffList();
 		return staffInfoList;
 	}
+	
+	public List<Map<String,Object>> getMonthSalList(String searchYear, String dataNum){
+		List<Map<String,Object>> monthSalList = salaryMapper.getMonthSalList(searchYear, dataNum);
+		return monthSalList;
+	}
 }

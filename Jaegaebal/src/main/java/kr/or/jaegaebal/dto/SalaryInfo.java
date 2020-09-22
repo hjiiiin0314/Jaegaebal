@@ -185,7 +185,7 @@ public class SalaryInfo {
 	public boolean getDataTaxdepart() {
 		return dataTaxdepart;
 	}
-	public void setDataTaxDepart(boolean dataTaxdepart) {
+	public void setDataTaxdepart(boolean dataTaxdepart) {
 		this.dataTaxdepart = dataTaxdepart;
 	}
 	public float getDataTax() {
@@ -216,7 +216,7 @@ public class SalaryInfo {
 				+ ", dataHost=" + dataHost + ", dataScrib=" + dataScrib + ", dataBate=" + dataBate + ", dataBatePer="
 				+ dataBatePer + ", dataBateDate1=" + dataBateDate1 + ", dataBateDate2=" + dataBateDate2 + ", dataExpen="
 				+ dataExpen + ", dataExpenDate1=" + dataExpenDate1 + ", dataExpenDate2=" + dataExpenDate2
-				+ ", dataTaxDepart=" + dataTaxdepart + ", dataTax=" + dataTax + ", dataTaxDate1=" + dataTaxDate1
+				+ ", dataTaxdepart=" + dataTaxdepart + ", dataTax=" + dataTax + ", dataTaxDate1=" + dataTaxDate1
 				+ ", dataTaxDate2=" + dataTaxDate2 + "]";
 	}
 	

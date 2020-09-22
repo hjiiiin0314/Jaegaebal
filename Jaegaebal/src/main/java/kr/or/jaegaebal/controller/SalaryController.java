@@ -27,13 +27,18 @@ public class SalaryController {
 	
 	//월별급여현황화면
 	@GetMapping("/salary/salary_month")
-	public String salaryMonth(Model model) {
+	public String salaryMonth(Model model, String searchYear, String dataNum) {
 		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
 		List<Map<String, Object>> levelList = salaryService.getLevelList();
 		List<Map<String, Object>> jojicList = salaryService.getJojicList();
+		searchYear = "2019";
+		dataNum = "sal_1";
+		List<Map<String,Object>> monthSalList = salaryService.getMonthSalList(searchYear, dataNum);
+		System.out.println(monthSalList);
 		model.addAttribute("levelList", levelList);
 		model.addAttribute("jojicList", jojicList);
 		model.addAttribute("staffInfoList", staffInfoList);
+		model.addAttribute("monthSalList", monthSalList);
 		return "salary/salary_month";
 	}
 	

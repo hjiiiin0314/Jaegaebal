@@ -34,4 +34,7 @@ public interface SalaryMapper {
 	
 	//사원기본정보 조회
 	public List<Map<StaffInfo,Object>> getSalaryStaffList();
+	
+	//월별급여현황 조회
+	public List<Map<String,Object>> getMonthSalList(String searchYear, String dataNum);
 }
