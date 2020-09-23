@@ -190,24 +190,52 @@
 .arrow-btn{
 	padding-left: 20px;
     padding-right: 20px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom : 15px !important;
 }
 
 .arrow-btn1{
 	padding-left: 20px;
     padding-right: 20px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-top : 50px !important;
-    
+    margin-bottom : 15px !important;
 }
+
+.arrow-btn2{
+	margin-top : 20px !important;
+	background-color: #858585;
+    color: white;
+    padding : 8px 14px !important;
+}
+
+.card-title {
+	border-bottom: solid 2px #eee;
+	padding-bottom : 10px;
+}
+
+.col-md-6 .cord-body{
+	padding : 10px !important;
+}
+
 .font-icon-wrapper{
 	font-size: 15px;
 }
 
+.a-tag{
+	display: inline-table;
+	margin : 2px;
+}
 .addDiv {
 	text-align: center;
+}
+.sign{
+	display: inline-table !important;
+}
+.lbl{
+	font-size: 13px !important;
 }
 
 .input-width21 {
@@ -247,13 +275,17 @@
 	margin-left: 10px;
 }
 
+.btn {
+	text-alian : center;
+}
+
 /*************************************************************************************************************/
 /* MENU-LEFT
 -------------------------- */
 /* layout */
 #left ul.nav {
     margin-bottom: 2px;
-    font-size: 12px; /* to change font-size, please change instead .lbl */
+    font-size: 15px; /* to change font-size, please change instead .lbl */
 }
 #left ul.nav ul,
 #left ul.nav ul li {
