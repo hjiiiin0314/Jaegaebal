@@ -3,6 +3,14 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
+<!-- 임시저장함 - 삭제 -->
+	<delete id="delStorage" parameterType="String">
+		DELETE 
+		FROM 
+			um_storage_box
+		WHERE
+			app_doc_code = #{docCode} 	
+	</delete>
 <!-- 임시저장함 - 조건검색 -->	
 	<select id="searchStorage" resultType="UpmuDocument">
 		SELECT 

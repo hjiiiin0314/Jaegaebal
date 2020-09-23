@@ -65,15 +65,26 @@ public class UpmuController {
 		return "approval/myAppList";
 	}
 	
+	//임시저장 - 삭제
+	@GetMapping("/delStorage")
+	public String delStorage( @RequestParam(value = "docCode",required = false)String docCode) {
+		System.out.println("삭제할 문서코드:" + docCode);
+		upmuService.delStorage(docCode);
+		return "redirect:/storageBox";
+	}
+	
 	//임시저장 - 검색조건 리스트
 	@PostMapping("/storageBox")
 	public String storageBox(Model model
 			,@RequestParam(value = "sk",required = false)String sk
 			,@RequestParam(value = "sv", required = false)String sv) {
+
+		
 		if(sk != null && !"".equals(sk) 
 				&& sv != null && !"".equals(sv)){
 			List<UpmuDocument> storageBox = upmuService.storageBox(sk,sv);
 			model.addAttribute("storageBox",storageBox);
+
 		}else {
 				List<UpmuDocument> storageBox = upmuService.storageBox();
 				model.addAttribute("storageBox",storageBox);

@@ -20,6 +20,15 @@ public class UpmuService {
 
 	@Autowired private UpmuMapper upmumapper;
 	
+	//임시저장함 - 삭제
+	public int delStorage(String docCode) {
+		int result = 0;
+		if(docCode != null && !"".equals(docCode)) {
+			result = upmumapper.delStorage(docCode);
+		}
+		return result;
+	}
+	
 	//임시저장함 - 조건검색
 	public List<UpmuDocument> storageBox (String sk, String sv){
 		List<UpmuDocument> storageBox = upmumapper.searchStorage(sk,sv);

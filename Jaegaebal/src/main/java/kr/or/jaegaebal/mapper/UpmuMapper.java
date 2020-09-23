@@ -9,12 +9,15 @@ import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.UpmuDocument;
 
 /**
- * 담당자 : 노종석,이은혜
+ * 담당자 : 노종석,장현지
  * @author ECS
  *
  */
 @Mapper
 public interface UpmuMapper {
+	
+	//임시저장함 - 삭제
+		public int delStorage(String doccode);
 	
 	//임시저장함 - 조건검색
 		public List<UpmuDocument> searchStorage(String sk, String sv);
