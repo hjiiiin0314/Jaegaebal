@@ -1,5 +1,7 @@
 package kr.or.jaegaebal.controller;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,9 +138,9 @@ public class InsaController {
 	// 팀별 직원 목록 리스트 가져오기
 	@PostMapping(value = "/getStaffInfoByTeamName", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> getStaffInfoListByTeamName(Model model,
-			@RequestParam(value = "teamName") String teamName,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+	public Map<String, Object> getStaffInfoListByTeamName(	Model model,
+															@RequestParam(value = "teamName") String teamName,
+															@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 
@@ -156,12 +158,39 @@ public class InsaController {
 	 @GetMapping("/insa/jojicdo") 
 	 public String jojicdo(Model model) {
 		 List<Jojic> jojicInfo = insaService.getJojicInfoAll();
+		 List<Jojic> jojicInfo2 = insaService.getJojicInfoAll();
 		 
 		 model.addAttribute("title", "조직도");
 		 model.addAttribute("jojicInfo", jojicInfo);
+		 model.addAttribute("jojicInfo2", jojicInfo2);
 		 log.info("jojicInfo>>>>>>>> {}",jojicInfo);
+		 log.info("jojicInfo2>>>>>>>> {}",jojicInfo2);
 	 
 	 	return "insa/jojicdo"; 
+	 }
+	 
+	 //조직 비활성 상태 바꾸기
+	 @PostMapping(value = "/changeJojicStatusTo0", produces = "application/json")
+	 @ResponseBody
+	 public int changeJojicStatus0(	 Model model
+			 								,@RequestParam(value = "jojicName[]") 	List<String> jojicName) {
+		 int result = insaService.changeJojicStatus0(jojicName);
+		 log.info("jojicName:::: {}", jojicName.toString());
+		 log.info("result::::::>> {}", result);
+		 return result;
+		 
+	 }
+	 
+	 //조직 활성 상태 바꾸기
+	 @PostMapping(value = "/changeJojicStatusTo1", produces = "application/json")
+	 @ResponseBody
+	 public int changeJojicStatus1(	 Model model
+			 								,@RequestParam(value = "jojicName[]") 	List<String> jojicName) {
+		 int result = insaService.changeJojicStatus1(jojicName);
+		 log.info("jojicName:::: {}", jojicName.toString());
+		 log.info("result::::::>> {}", result);
+		 return result;
+		 
 	 }
 
 }

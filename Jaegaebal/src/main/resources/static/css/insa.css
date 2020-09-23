@@ -149,16 +149,7 @@
 }
 
 @media(min-width:992px){
-	.emp-table{
-		height:836px;
-	}
-	/*스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
-	.scroll-div{
-		height:768px;
-		overflow-x:hidden;
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
+	
 	.scroll-div::-webkit-scrollbar {
 	    display: none; /* Chrome, Safari, Opera*/
 	}
@@ -200,7 +191,7 @@
     padding-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-top : 50px !important;
+    margin-top : 150px !important;
     margin-bottom : 15px !important;
 }
 
@@ -225,7 +216,7 @@
 }
 
 .a-tag{
-	display: inline-table;
+	display: inline-flex;
 	margin : 2px;
 }
 .addDiv {
@@ -264,6 +255,8 @@
 .inputmaineus{
 	text-align: center;
 }
+
+
 
 .span-font {
 	font-size : 25px;

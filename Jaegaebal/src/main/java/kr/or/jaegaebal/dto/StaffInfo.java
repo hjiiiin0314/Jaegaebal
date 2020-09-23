@@ -11,7 +11,7 @@ public class StaffInfo {
 	//basic_info_code, staff_eng_name, human_num, staff_gender, staff_nationality, staff_country,
 	//staff_phone, staff_email, staff_marriged, staff_addr
 	
-	//가족정보 is_staff_basic_info
+	//가족정보 is_staff_family_info
 	//family_info_code, relation, family_name, family_birthday, family_job, family_addr, family_phone
 	
 	//발령정보 is_balryoung_info

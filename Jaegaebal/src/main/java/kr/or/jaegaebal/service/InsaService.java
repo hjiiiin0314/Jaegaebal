@@ -189,4 +189,15 @@ public class InsaService {
 		
 		return staffNum;
 	};
+	
+	//활성상태로 수정하기
+	public int changeJojicStatus1(List<String> jojicName){
+		int result = insaMapper.changeJojicStatus1(jojicName);
+		return result;
+	};
+	//비활성 상태로 수정하기
+	public int changeJojicStatus0(List<String> jojicName){
+		int result = insaMapper.changeJojicStatus0(jojicName);
+		return result;
+	};
 }

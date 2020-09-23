@@ -397,5 +397,27 @@
 		SELECT fn_make_staff_num()
 	</select>
 	
+	<!-- 활성 상태로 수정하기  -->
+	<update id="changeJojicStatus1" parameterType="int">
+		UPDATE 
+				is_jojic
+		SET
+				jojic_status='활성'
+		WHERE 
+		<foreach collection="list" item="jojicName" separator="OR">
+			jojic_name = #{jojicName}
+		</foreach>
+	</update>
 	
+	<!-- 비활성 상태로 수정하기  -->
+	<update id="changeJojicStatus0" parameterType="int">
+		UPDATE 
+				is_jojic
+		SET
+				jojic_status='비활성'
+		WHERE		
+		<foreach collection="list" item="jojicName" separator="OR">
+			jojic_name = #{jojicName}
+		</foreach>
+	</update>
 </mapper>	
