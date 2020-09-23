@@ -4,6 +4,7 @@
  * detail : 채용공고 리스트 화면 js
  */
 
+
             var x = document.getElementById("login");
             var y = document.getElementById("register");
             var z = document.getElementById("btn");
@@ -43,7 +44,7 @@
             			  if(pw == password) {
             				  location.href="/appResumeForm?appEmail="+appEmail; 
             			  }else {
-            				  alert('비밀번호가 틀렸습니다.');
+            				  alert('비밀번호가 일치하지 않습니다.');
             				  return ;
             			  }          			
             			}           			
@@ -99,6 +100,13 @@
             		return regPhone.test(p);
 
             		}
+            	
+        		//핸드폰번호 하이픈생성
+        		$(document).on("keyup", ".phoneNumber", function() { 
+        			
+        			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
+        			
+        		});
             	//이메일 중복검사 클릭시
             	$('#emailCheck').click(function() {
         			var appEmail = $('.appInsertForm input[name="appEmail"]');
@@ -151,6 +159,55 @@
         				  alert( "Request failed: " + textStatus );
         				});
             	});;
+            	
+            	//자신의 이력서 조회시 
+            	$('.app_resumeBtn').click(function() {
+            		var appEmail = $('.app_resume input[name="appEmail"]'); //입력된 이메일
+            		var appPw = $('.app_resume input[name="appPassward"]');
+            		if(appEmail.val() == ''){
+            			alert('이메일을 입력해주세요.');
+            			appEmail.focus();
+            			return false;
+            		}else if(!email_check(appEmail.val())) {
+            			alert('올바른 이메일을 입력해 주세요.');
+            			appEmail.focus();
+            			return false;
+            		}else if(appPw.val() == '') {
+            			alert('비밀번호를 입력해 주세요.');
+            			appPw.focus();
+            			return false;
+            		}
+            		
+            		var request = $.ajax({
+            			url: "emailCheck", //컨트롤러 맵핑
+            			method: "POST",
+            			data: { appEmail : appEmail.val() },
+            			dataType: "json" // json방식으로 값 전달
+            		});
+            		
+            		request.done(function( data ) {
+            			//히든 inputBox 중복검사여부를 담는다.
+            			
+            			var pw = data.appPassward;
+            			var email = data.appEmail;
+            			if(email != null){
+            				if(appEmail.val() == email && appPw.val() == pw) {
+            					if(confirm('수정화면으로 이동합니다')) {
+            						location.href="/appResumeForm?appEmail="+appEmail.val(); 
+            					}
+            				}else {
+            					alert('비밀번호가 일치하지 않습니다.');
+            				}
+            			}else{
+            				alert('조회된 정보가 없습니다.');
+
+            			}
+            		});
+            		
+            		request.fail(function( jqXHR, textStatus ) {
+            			alert( "Request failed: " + textStatus );
+            		});
+            	});
             	//이력서 작성전 지원자정보 입력 유효성검사
             	$('#appBtn').click(function() {
             		var appEmail = $('.appInsertForm input[name="appEmail"]');

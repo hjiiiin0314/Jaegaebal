@@ -161,13 +161,21 @@
 			cy_applicant_number AS anum
 			on
 			areg.app_email = anum.app_email
+		<!-- 관리자가 지원번호로 조회시 -->
 		<if test="appNumCode != null and appNumCode neq ''.toString()">
 		where
 			anum.app_num_code = #{appNumCode}
 		</if>
+		<!-- 지원자가 자신의 이력서 조회시 -->
 		<if test="appEmail != null and appEmail neq ''.toString()">
 		where
 			areg.app_email = #{appEmail}
+		</if>
+		<!-- 채용공고 삭제 시 지원자 있는지 없는지 확인 -->
+		<if test="jobNumber != null and jobNumber neq ''.toString()">
+		where
+			areg.job_number = #{jobNumber}
+			GROUP BY job_number
 		</if>
 	</select>
 	
