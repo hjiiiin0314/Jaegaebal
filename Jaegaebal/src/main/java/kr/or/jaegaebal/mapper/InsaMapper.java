@@ -59,4 +59,9 @@ public interface InsaMapper {
 	
 	//사번 생성 후 가져오기
 	public String makeStaffNum();
+	
+	//활성상태로 수정하기
+	public int changeJojicStatus1(List<String> jojicName);
+	//비활성 상태로 수정하기
+	public int changeJojicStatus0(List<String> jojicName);
 }
