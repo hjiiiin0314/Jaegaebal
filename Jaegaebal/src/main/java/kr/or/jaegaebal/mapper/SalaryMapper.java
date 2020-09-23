@@ -23,6 +23,9 @@ public interface SalaryMapper {
 	//부서코드조회
 	public List<Map<String, Object>> getJojicList();
 	
+	//월별 데이터에 존재하는 연도 조회
+	public List<Map<String, Object>> getFilterYear();
+	
 	//급여정보 수정
 	public int updateSalaryInfo(SalaryInfo salaryInfo);
 	

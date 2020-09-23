@@ -27,14 +27,17 @@ public class SalaryController {
 	
 	//월별급여현황화면
 	@GetMapping("/salary/salary_month")
-	public String salaryMonth(Model model, String searchYear, String dataNum) {
+	public String salaryMonth(Model model) {
 		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
 		List<Map<String, Object>> levelList = salaryService.getLevelList();
 		List<Map<String, Object>> jojicList = salaryService.getJojicList();
-		searchYear = "2019";
-		dataNum = "sal_1";
+		List<Map<String, Object>> yearList = salaryService.getFilterYear();
+		System.out.println(yearList);
+		String searchYear = (String) yearList.get(0).get("getYear");
+		String dataNum = (String) staffInfoList.get(0).get("dataNum");
 		List<Map<String,Object>> monthSalList = salaryService.getMonthSalList(searchYear, dataNum);
-		System.out.println(monthSalList);
+		System.out.println(levelList);
+		model.addAttribute("yearList", yearList);
 		model.addAttribute("levelList", levelList);
 		model.addAttribute("jojicList", jojicList);
 		model.addAttribute("staffInfoList", staffInfoList);
@@ -72,6 +75,15 @@ public class SalaryController {
 	public Map<String, Object> salaryInfo(@RequestParam(value = "dataEmp", required = false) String dataEmp) {
 		Map<String, Object> salaryInfo = salaryService.salaryInfoMap(dataEmp);
 		return salaryInfo;
+	}
+	
+	//사원정보 클릭시 월별급여 ajax조회
+	@PostMapping(value = "/salary/salary_month", produces = "application/json")
+	@ResponseBody
+	public List<Map<String,Object>> salaryMonth(@RequestParam(value = "dataNum", required = false) String dataNum
+			,@RequestParam(value = "searchYear", required = false) String searchYear) {
+		List<Map<String,Object>> monthSalList = salaryService.getMonthSalList(searchYear, dataNum);
+		return monthSalList;
 	}
 	
 	//사원정보 검색 ajax조회

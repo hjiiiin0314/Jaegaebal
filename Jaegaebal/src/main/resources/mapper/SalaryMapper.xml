@@ -243,6 +243,15 @@
 			is_jojic
 	</select>
 	
+	<!-- 연도 필터 월별 데이터에 존재하는 연도 조회 -->
+	<select id="getFilterYear" resultType="Map">
+		SELECT
+			DISTINCT(LEFT(month_date, 4)) AS getYear
+		FROM
+			sal_month
+		ORDER BY getYear DESC
+	</select>
+	
 	<!-- 기본급여정보 사원리스트 조회 -->
 	<select id="getSalaryStaffList" resultType="Map">
 		SELECT
@@ -269,7 +278,7 @@
 	
 	<select id="getMonthSalList" parameterType="String" resultType="Map">
 		SELECT cate, plus, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11, M12 from
-			(SELECT '기본급' AS 'cate', 2 AS 'join' UNION SELECT '상여',3 UNION SELECT '연차수당',4 UNION SELECT '차량보조',5 UNION SELECT '식대',6 UNION SELECT '잔업수당',7 UNION SELECT '야근수당',8 UNION SELECT '휴일수당',9 UNION SELECT '국민연금',10 UNION SELECT '건강보험',11 UNION SELECT '고용보험',12 UNION SELECT '장기요양보험',13 UNION SELECT '산재보험',14 UNION SELECT '학자금공제',15 UNION SELECT '소득세',16 UNION SELECT '지방소득세',17 UNION SELECT '부가지급금액합',18 UNION SELECT '부가공제금액합',19) AS b
+			(SELECT '기본급' AS 'cate', 2 AS 'join' UNION SELECT '상여',3 UNION SELECT '연차 수당',4 UNION SELECT '차량 보조',5 UNION SELECT '식대',6 UNION SELECT '잔업 수당',7 UNION SELECT '야근 수당',8 UNION SELECT '휴일 수당',9 UNION SELECT '국민 연금',10 UNION SELECT '건강 보험',11 UNION SELECT '고용 보험',12 UNION SELECT '장기요양 보험',13 UNION SELECT '산재 보험',14 UNION SELECT '학자금 공제',15 UNION SELECT '소득세',16 UNION SELECT '지방 소득세',17 UNION SELECT '부가지급 금액 합',18 UNION SELECT '부가공제 금액 합',19) AS b
 		INNER JOIN
 			(SELECT SUM(month_normal) AS 'plus', 2 AS 'join' FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_bonus), 3 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_ann), 4 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_vehicle), 5 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_meal), 6 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_overtime), 7 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_night), 8 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_holi), 9 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_gukmin), 10 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_geongang), 11 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_khoyong), 12 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_janggi), 13 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_sanjae), 14 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_schexpan), 15 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_income), 16 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_loincome), 17 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_sumpay), 18 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1 UNION SELECT SUM(month_sumdeduct), 19 FROM sal_month WHERE LEFT(month_date, 4) = #{searchYear} AND month_data = #{dataNum} AND month_pay = 1) AS a
 		INNER JOIN

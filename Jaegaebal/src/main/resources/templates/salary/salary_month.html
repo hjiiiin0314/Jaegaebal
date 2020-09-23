@@ -31,9 +31,17 @@
          </div>
     </div> 
     <div class="row">
+		<div class="col-lg-12">
+			<div class="card-body filter-place">
+				<span>귀속연월</span>
+				<select class="search-select" name="searchYear">
+					<option th:each="l : ${yearList}" th:value="${l.getYear}" th:text="${l.getYear}"></option>
+				</select>
+			</div>
+		</div>
 		<div class="col-lg-4">
 			<div class="main-card mb-3 card">
-				<div class="card-body emp-table">
+				<div class="card-body">
 					<h5 class="mt-2 card-title search-left">기본정보</h5>
 					<div class="date_right">
 						<select class="search-select" name="searchCate">
@@ -51,9 +59,9 @@
 						</select>
 						<button class="btn btn-primary date_right" id="search_submit">검색</button>
 					</div>
-					<div class="scroll-div date_left">
+					<div class="scroll-div-month date_left">
 						<div class="scrollbar-container">
-							<table class="mb-0 emp-table table table-hover tbline-del text-center">
+							<table class="mb-0 emp-table emp-month-table table table-hover tbline-del text-center">
 								<thead>
 									<tr>
 										<th class="fixed_top">사원번호</th>
@@ -64,6 +72,9 @@
 								</thead>
 								<tbody>
 									<tr th:each="IL : ${staffInfoList}">
+										<th:block>
+											<input type="hidden" name="dataNum" th:value="${IL.dataNum}">
+										</th:block>
 										<td th:text="${IL.staffNum}"></td>
 										<td th:text="${IL.staffName}"></td>
 										<td th:text="${IL.levelName}"></td>
@@ -80,12 +91,28 @@
 			<div class="main-card mb-3 card">
 				<div class="card-body">
 					<h5 class="mt-2 card-title mb-4">지급내역</h5>
-					<div class="scroll-div date_left">
+					<div class="scroll-div-month date_left">
 						<div class="scrollbar-container table-overflow">
-							<table class="table table-hover text-center">
+							<table class="table month-table table-hover text-center">
+								<colgourp>
+									<col width="8%"/>
+									<col width="8%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+									<col width="7%"/>
+								</colgourp>
 								<thead>
 									<tr>
-										<th class="fixed_top">순번</th>
+										<!-- <th class="fixed_top">순번</th> -->
 										<th class="fixed_top">항목명</th>
 										<th class="fixed_top">계</th>
 										<th class="fixed_top">1월</th>
@@ -104,8 +131,8 @@
 								</thead>
 								<tbody>
 									<tr th:each="SL : ${monthSalList}">
-										<td th:text="${SLStat.count}"></td>
-										<td th:text="${SL.cate}"></td>
+										<!-- <td class="t_head fixed_left" th:text="${SLStat.count}"></td> -->
+										<td class="fixed_left" th:text="${SL.cate}"></td>
 										<td th:text="${SL.plus}"></td>
 										<td th:text="${SL.M1}"></td>
 										<td th:text="${SL.M2}"></td>

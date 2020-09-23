@@ -25,17 +25,41 @@
 	background:#f9f9f9;
 }
 
+.table .t_head{
+	background:#f9f9f9;
+}
+
+/*테이블 스크롤 시 tleft(head)고정*/
+.table .fixed_left{
+	position: sticky;
+	left: 0;
+	border-left:none;
+	background:#f9f9f9;
+	padding:20px;
+	z-index:9;
+	word-break:keep-all;
+}
+
 /*테이블 스크롤 시 thead고정*/
 .app-main .table .fixed_top{
 	position: sticky;
 	top: 0;
-	background:#ffffff;
 	border-top:none;
 	background:#e9ecef;
 	padding:20px;
+	z-index:10;
 }
+
 /*사원정보 테이블 스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
 .scroll-div{
+	width:100%;
+	overflow-x:hidden;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+
+.scroll-div-month{
 	width:100%;
 	overflow-x:hidden;
 	scrollbar-width: none;
@@ -70,19 +94,32 @@
 
 .table-overflow{
 	overflow-x:scroll !important;
+	overflow-y:hidden !important;
 }
 
 .table-overflow .table{
 	width:150%;
 }
 
+.filter-place{
+	background:#fff;
+	height:75px;
+	margin-bottom:30px;
+}
+
 @media(min-width:992px){
 	.scroll-div{
 		height:809px;
 	}
-	.scroll-div::-webkit-scrollbar {
+	
+	.scroll-div::-webkit-scrollbar, .scroll-div-month::-webkit-scrollbar {
 	    display: none; /* Chrome, Safari, Opera*/
 	}
+	
+	.scroll-div-month{
+		height:600px;
+	}
+	
 	.table tr{
 		height:59px;
 	}
@@ -92,4 +129,11 @@
 	.scroll-div{
 		height:468px;
 	}
+	.scroll-div-month{
+		height:368px;
+	}
+	.table-overflow .table{
+		width:250%;
+	}
 }
+
