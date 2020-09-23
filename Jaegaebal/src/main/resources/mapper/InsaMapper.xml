@@ -214,6 +214,7 @@
 				 jojic_code
 				,jojic_name
 				,jojic_sosoc_name
+				,jojic_status
 		FROM
 				is_jojic
 	</select>
@@ -341,7 +342,7 @@
 	</select>	
 	
 	<!-- 조직 테이블 가져오기 -->
-	<select id="getJojicInfoAll" resultMap="StaffInfoResultMap">
+	<select id="getJojicInfoAll" resultMap="JojicResultMap">
 		SELECT 
 				 jojic_code
 				,jojic_name
@@ -395,4 +396,6 @@
 	<select id="makeStaffNum" resultType="String">
 		SELECT fn_make_staff_num()
 	</select>
+	
+	
 </mapper>	
