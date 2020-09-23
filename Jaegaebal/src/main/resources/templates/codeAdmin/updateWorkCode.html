@@ -26,9 +26,9 @@
 					    			
 								 <label for="workUseOrNot">사용유무</label>
 								 <select name="workUseOrNot" id="workUseOrNot" class="form-control workUseOrNot">
-								 	  <option value="0">::사용유무::</option>
-									  <option value="1"  th:selected ="${workUseOrNot eq 1 ? 'true' : 'false'}">Yes</option>
-									  <option value="2" th:selected ="${workUseOrNot eq 2 ? 'true' : 'false'}">No</option>
+								 	  <option>::사용유무::</option>
+									  <option value="1"  th:select ="${workUseOrNot eq 1 ? 'true' : 'false'}">Yes</option>
+									  <option value="2"  th:select ="${workUseOrNot eq 2 ? 'true' : 'false'}">No</option>
 								</select>
 								
 								<br>  
@@ -52,12 +52,40 @@
 	</th:block>
    <th:block layout:fragment="customJsScript">
 	<script>
-	$(function(){
-		/* $('.workUseOrNot option[value=1]').attr('selected','selected'); */
-		/* $("#workUseOrNot").val("1").prop("selected", true); */
-		$(".workUseOrNot option:selected").val()
-			
+	$(document).ready(function(){
+		
+		var kkk = $("#workUseOrNot option:selected").val();
+
+		alert(kkk);
+
 	});
+
+
+	  
+	/* $(document).ready(function(){
+		   
+		  if($("#workUseOrNot").val('2').prop("selected",true)){
+			  $('#workUseOrNot').val('2').attr().add('selected');			  
+		  }
+	  })   */
+	
+			  			  
+	/* $(function(){
+		$(document).ready(function(){
+			var workUseOrNot = $('select[name="workUseOrNot"]');
+			
+			if(workUseOrNot.val() == 1){
+				
+				 //$('#workUseOrNot').val('1').attr().add('selected');
+			}		
+	
+		})
+	});  */
+	
+	   
+		
+
+	
 	</script>
 	</th:block>
 </html>

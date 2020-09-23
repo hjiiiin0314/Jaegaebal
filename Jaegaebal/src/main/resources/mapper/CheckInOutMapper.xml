@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+   <mapper namespace="kr.or.jaegaebal.mapper.CheckInOutMapper">
+   
+   	<resultMap type="CheckInOut" id="checkResultMap">
+   		<result column="wc_code" property="wcCode"/>
+   		<result column="staff_num" property="staffNum"/>
+   		<result column="wc_in" property="wcIn"/>
+   		<result column="wc_out" property="wcOut"/>
+   		<result column="wc_hour" property="wcHour"/>
+   		<result column="wc_in_ip" property="wcInIp"/>
+   		<result column="wc_out_ip" property="wcOutIp"/>
+   		<result column="wc_reg_date" property="wcRegDate"/>
+   	</resultMap>
+   	<select id="getCheckInOutList" resultMap="checkResultMap">
+	   	SELECT wc_code, staff_num, wc_in, wc_out, wc_hour, wc_in_ip, wc_out_ip, wc_reg_date
+		FROM um_work_check
+	  
+   	</select>
+   	
+   	</mapper>
