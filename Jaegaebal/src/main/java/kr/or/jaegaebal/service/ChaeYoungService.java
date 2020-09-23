@@ -38,6 +38,12 @@ public class ChaeYoungService {
 		return chaeYoungMapper.updateCYPost(ChaeYoungBoard);
 	};
 	
+	//채용공고 삭제
+	public int deleteCYPost(String jobNumber) {
+		
+		return chaeYoungMapper.deleteCYPost(jobNumber);
+	};
+	
 	//채용공고 리스트
 	public List<ChaeYoungBoard> cyBoardList() {
 		

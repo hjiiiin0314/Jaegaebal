@@ -25,6 +25,9 @@ public interface ChaeYoungMapper {
 	//게시글 수정
 	public int updateCYPost(ChaeYoungBoard ChaeYoungBoard);
 	
+	//게시글 삭제
+	public int deleteCYPost(String jobNumber);
+	
 	//게시글 리스트
 	public List<ChaeYoungBoard> cyBoardList();
 	

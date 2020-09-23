@@ -26,6 +26,7 @@ public class ChaeYoungController {
 
 	@Autowired ChaeYoungService chaeYoungService;
 	
+	//채용공고 리스트
 	@GetMapping("/cyboardList")
 	public String cyBoardList(Model model) {
 		//채용공고 게시판 리스트를 가져온다.
@@ -35,10 +36,10 @@ public class ChaeYoungController {
 		
 		return "chaeyoung/cyboard";
 	}
-	
+	//채용공고 글쓰기 화면
 	@GetMapping("/addCYPostForm")
 	public String addCYPostForm(Model model,@RequestParam(value="jobNumber",required = false) String jobNumber) {
-		//구인공고 글쓰기 화면
+	
 		
 		//지원부서코드를 가져온다.
 		List<Jojic> jojicCode = chaeYoungService.getJojicCode();
@@ -52,17 +53,26 @@ public class ChaeYoungController {
 		
 		return "chaeyoung/add_cy_post_form";
 	}
+	//채용공고 등록
 	@PostMapping("/addCYPost")
 	public String addCYPost(ChaeYoungBoard ChaeYoungBoard) {
-		//채용공고 등록
+	
 		chaeYoungService.addCYBoardPost(ChaeYoungBoard);
 		return "redirect:/cyboardList";
 	}
+	//채용공고 수정
 	@PostMapping("/updateCYPost")
 	public String updateCYPost(ChaeYoungBoard ChaeYoungBoard) {
-		//채용공고 수정
+		
 
 		chaeYoungService.updateCYPost(ChaeYoungBoard);
+		return "redirect:/cyboardList";
+	}
+	//채용공고 삭제
+	@GetMapping("/deleteCYPost")
+	public String deleteCYPost(@RequestParam(value="jobNumber") String jobNumber) {
+		
+		chaeYoungService.deleteCYPost(jobNumber);
 		return "redirect:/cyboardList";
 	}
 	//지원할 시 이메일 체크
@@ -71,13 +81,29 @@ public class ChaeYoungController {
 	public ChaeYoungApplicant emailCheck(@RequestParam(value="appEmail") String appEmail) {
 		ChaeYoungApplicant app = chaeYoungService.emailCheck(appEmail);
 		if(app == null) {
-			//값이 없을 경우 임의적으로 값을 셋팅한다
+			//값이 없을 경우 임의적으로 값을 셋팅한다 (파서에러 방지)
 			ChaeYoungApplicant app2 = new ChaeYoungApplicant(); 
 			app2.setAppEmail(null);
 			return app2;
 			
 		}
 		return app;
+	}
+	//공고 삭제할 시 지원자 유무 
+	@PostMapping(value = "/appSearch", produces = "application/json")
+	@ResponseBody
+	public ChaeYoungApplicant appSearch(ChaeYoungApplicant chaeYoungApplicant) {
+		ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+		
+		if(applicant == null) {
+			//값이 없을 경우 임의적으로 값을 셋팅한다 (파서에러 방지)
+			ChaeYoungApplicant app = new ChaeYoungApplicant(); 
+			app.setAppEmail(null);
+			return app;
+			
+		}
+
+		return applicant;
 	}
 	
 	//지원자 목록
@@ -95,6 +121,7 @@ public class ChaeYoungController {
 	@GetMapping("/appResumeForm")
 	public String appResumeForm(ChaeYoungApplicant chaeYoungApplicant,Model model) {
 		if(chaeYoungApplicant != null) {
+			//지원자 한명의 정보 가져오기
 			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
 			model.addAttribute("chaeYoungApplicant", applicant);
 		}

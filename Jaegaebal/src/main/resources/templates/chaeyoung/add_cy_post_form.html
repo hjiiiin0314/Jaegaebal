@@ -55,7 +55,7 @@
 		                      </select></div>
 		                      <div class="position-relative form-group index-front">
 		                	      <input type="hidden" name="jobJojicName" th:value="${cyboard.jobJojicName}">	   
-		                	      <input type="hidden" name="jobNumber" th:value="${cyboard.jobNumber}">	   
+		                	      <input type="hidden" name="jobNumber" th:value="${cyboard.jobNumber}" class="hiddenJobNumber">	   
 		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
 		                          <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
 		                          <option value="경력" th:selected="${cyboard.jobCareer eq '경력'}">경력</option>
@@ -162,6 +162,37 @@
 						return false;
 					}
 					  $('#addPost').submit(); 
+				});
+				
+				//채용공고 삭제시 지원자 유무 확인
+				$('#cyPostDelete').click(function() {
+           		
+					var jobNumber = $('.hiddenJobNumber').val();
+            		var request = $.ajax({
+            			url: "appSearch", //컨트롤러 맵핑
+            			method: "POST",
+            			data: { jobNumber : jobNumber },
+            			dataType: "json" // json방식으로 값 전달
+            		});
+            		
+            		request.done(function( data ) {
+            			//히든 inputBox 중복검사여부를 담는다.
+            			
+            			var email = data.appEmail;
+            			if(email != null){
+							alert('해당 공고에 지원한 지원자가 있습니다');
+            			}else{
+            				if(confirm('정말로 삭제하시겠습니까?')) {
+            					//로그인 기능 생기면 비밀번호 입력 추가
+            					location.href="/deleteCYPost?jobNumber="+jobNumber;
+            				}
+
+            			}
+            		});
+            		
+            		request.fail(function( jqXHR, textStatus ) {
+            			alert( "Request failed: " + textStatus );
+            		});
 				});
 			});
 		</script>
