@@ -32,11 +32,10 @@ public class SalaryController {
 		List<Map<String, Object>> levelList = salaryService.getLevelList();
 		List<Map<String, Object>> jojicList = salaryService.getJojicList();
 		List<Map<String, Object>> yearList = salaryService.getFilterYear();
-		System.out.println(yearList);
 		String searchYear = (String) yearList.get(0).get("getYear");
 		String dataNum = (String) staffInfoList.get(0).get("dataNum");
 		List<Map<String,Object>> monthSalList = salaryService.getMonthSalList(searchYear, dataNum);
-		System.out.println(levelList);
+		model.addAttribute("dataNum", dataNum);
 		model.addAttribute("yearList", yearList);
 		model.addAttribute("levelList", levelList);
 		model.addAttribute("jojicList", jojicList);

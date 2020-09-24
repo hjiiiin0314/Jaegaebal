@@ -287,6 +287,33 @@ $(function(){
 	//월별급여화면에서 사원 정보 클릭시 ajax통신을 통한 월별급여 조회
 	$('.emp-month-table').children('tbody').children('tr').click(function(){
 		var dataNum = $(this).children('input[name=dataNum]').val();
+		$('input[name=searchNum]').val(dataNum);
+		var searchYear = $('select[name=searchYear]').val();
+		var request = $.ajax({
+			url : "/salary/salary_month",
+			method : "POST",
+			data : { dataNum : dataNum ,
+				searchYear : searchYear},
+			dataType : "json"
+		});
+		
+		request.done(function(data){
+			console.log(data);
+			$('.month-table').children('tbody').children('tr').remove();
+			for(var i=0;i<data.length;i++){
+				$('.month-table').children('tbody').append('<tr><td class="fixed_left">'+data[i].cate+'</td><td>'+data[i].plus+'</td><td>'+data[i].M1+'</td><td>'+data[i].M2+'</td><td>'+data[i].M3+'</td><td>'+data[i].M4+'</td><td>'+data[i].M5+'</td><td>'+data[i].M6+'</td><td>'+data[i].M7+'</td><td>'+data[i].M8+'</td><td>'+data[i].M9+'</td><td>'+data[i].M10+'</td><td>'+data[i].M11+'</td><td>'+data[i].M12+'</td></tr>');
+			}
+			
+		});
+		
+		request.fail(function( jqXHR, textStatus ) {
+			alert( "Request failed: " + textStatus );
+		});
+	});
+	
+	//월별급여화면에서 연도 선택시 ajax통신을 통한 월별급여 조회
+	$('select[name=searchYear]').change(function(){
+		var dataNum = $('input[name=searchNum]').val();
 		var searchYear = $('select[name=searchYear]').val();
 		var request = $.ajax({
 			url : "/salary/salary_month",

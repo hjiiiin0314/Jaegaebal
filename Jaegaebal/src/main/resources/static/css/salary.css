@@ -107,6 +107,11 @@
 	margin-bottom:30px;
 }
 
+.search-span{
+	font-weight:bold;
+	margin-right:10px;
+}
+
 @media(min-width:992px){
 	.scroll-div{
 		height:809px;
