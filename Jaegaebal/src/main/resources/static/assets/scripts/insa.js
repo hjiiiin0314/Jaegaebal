@@ -28,34 +28,7 @@
     $(document).on("click","#left ul.nav li.parent > a > span.sign", function(){          
         $(this).find('i:first').toggleClass("icon-minus");      
     });	
-	
-	$(function(){
-		
-		//직원 등록하기 버튼 클릭시
-		$('#insertStaff').click(function(){
-			var staffPhone = $('.staff_phone_val').addHyphen();
-			$('#staff_phone_val').attr("name", staffPhone);
-			console.log($('#staff_phone_val').attr("name"));
-			
-			var familyPhone = $('.family_phone_val').addHyphen();
-			$('#family_phone_val').attr("name", familyPhone);
-			console.log($('#family_phone_val').attr("name"));
-			
-			var familyPhone = $('.human_num').addHyphen();
-			$('#human_num_val').attr("name", familyPhone);
-			console.log($('#human_num_val').attr("name"));
-			
-			var formsNum = $('.forms').length;
-			var formsVal = $('.forms').val();
-			var str = $('[name=project_start_date]').val();
-			var val = $('[name=project_start_date]').val();
-			console.log(formsNum, "<<<<<<<<formsNum");
-			console.log(str, "<<<<<<<str<<<<<<");
-			
-	        $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
-	        $("#left ul.nav li.current").parents('ul.children').addClass("in");			
-
-		});
+    
 		
 	//조직 비활성 상태 바꾸기	
 	$('.pe-7s-angle-right').click(function(){
@@ -162,7 +135,7 @@
 	$(document).on('click', '.addBalryoungInfoBtn', function(){
 		var addBalryoungInfoBtnTr 		= $('.addBalryoungInfoBtnTr').clone();
 		$('.addBalryoungInfoBtnTr').remove();
-		var is_balryoung_info 	= $(".is_balryoung_info").eq(0).clone();
+		var is_balryoung_info 			= $(".is_balryoung_info").eq(0).clone();
 		is_balryoung_info.find('input').val("");
 		is_balryoung_info.find('textarea').val("");
 		$('#isBalryoungInfo').append(is_balryoung_info);
@@ -173,22 +146,50 @@
 	$(document).on('click', '.addMilitaryInfoBtn', function(){
 		var addMilitaryInfoBtnTr 		= $('.addMilitaryInfoBtnTr').clone();
 		$('.addMilitaryInfoBtnTr').remove();
-		var is_military_info 	= $(".is_military_info").eq(0).clone();
+		var is_military_info 			= $(".is_military_info").eq(0).clone();
 		is_military_info.find('input').val("");
 		is_military_info.find('textarea').val("");
 		$('#isMilitaryInfo').append(is_military_info);
 		$('#isMilitaryInfo').append(addMilitaryInfoBtnTr);
 	});
 	
+    $(function(){
+    	
+    	$('#insertStaff').click(function(){
+    		console.log("클릭");
+    		var haveToWriteVals = document.getElementsByClassName('haveToWriteVals');
+/*    		haveToWriteVals.each(function(index, item){
+    			$(this).addClass('valid');
+    			console.log("1");
+    		});*/
+    		for(var i=0; i<haveToWriteVals.length; i++){
+    			var val = haveToWriteVals[i];
+    			console.log("haveToWriteVals[i]", haveToWriteVals[i]);
+    			if(haveToWriteVals[i].value != null && (haveToWriteVals[i].value) != ''){
+    				//haveToWriteVals[i].addClass('valid');
+    				console.log(">>>>>", i);
+    				 val.className += " valid";
+    				//$('input[name=staff_name]').addClass('valid');
+    				//$('input[name=staff_basic_salary]').addClass('invalid');
+    			}else{
+    				//$(this).addClass('invalid');
+    				val.className += " invalid";
+    				console.log("공백아님");
+    			}
+    		}
+    	});
+    });
+
 
 	//value값 유효성 검사
-    (function() {
+/*    (function() {
         'use strict';
         window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(forms, function(form) {
+            	for(var i=0; i<form.length; i++){
+            			console.log(form[i], "공백");
+            	}
                 form.addEventListener('submit', function(event) {
                     if (form.checkValidity() === false) {
                         event.preventDefault();
@@ -198,10 +199,33 @@
                 }, false);
             });
         }, false);
-    })();
+    })();*/
 		
+/*
+	$(function(){
+		
+		//직원 등록하기 버튼 클릭시
+		$('#insertStaff').click(function(){
+			alert("d11adfa");
+			var staffPhone = $('.staff_phone_val').addHyphen();
+			$('#staff_phone_val').attr("name", staffPhone);
+			console.log($('#staff_phone_val').attr("name"));
+			
+			var familyPhone = $('.family_phone_val').addHyphen();
+			$('#family_phone_val').attr("name", familyPhone);
+			
+			var familyPhone = $('.human_num').addHyphen();
+			$('#human_num_val').attr("name", familyPhone);
+			
+			var formsNum = $('.forms').length;
+			var formsVal = $('.forms').val();
+			var str = $('[name=project_start_date]').val();
+			var val = $('[name=project_start_date]').val();
+			
+	        $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
+	        $("#left ul.nav li.current").parents('ul.children').addClass("in");			
 
-
+		});
 		
 		
 		
@@ -209,4 +233,4 @@
 		
 		
 		
-	});
+	});*/
