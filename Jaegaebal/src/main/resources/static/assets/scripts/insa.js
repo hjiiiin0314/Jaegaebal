@@ -30,52 +30,6 @@
     });	
     
 		
-	//조직 비활성 상태 바꾸기	
-	$('.pe-7s-angle-right').click(function(){
-		var jojicName = [];
-		$('input[name="input-checked"]:checked').each(function(){
-			jojicName.push($(this).val());
-		});
-		var request = $.ajax({
-			url: "/changeJojicStatusTo0",
-			method: "POST",
-			data: {  "jojicName" : jojicName	},
-			dataType: "json"
-		});
-		request.done(function( data ) {
-			if(data != 0){
-				alert("적용되었습니다.");
-				window.location.href = "/insa/jojicdo";
-			}
-		});
-		request.fail(function( jqXHR, textStatus ) {
-			alert("이동시킬 부서를 체크해주세요.");
-		});
-	});
-	
-	//조직 활성 상태 바꾸기
-	$('.pe-7s-angle-left').click(function(){
-		var jojicName = [];
-		$('input[name="input-checked"]:checked').each(function(){
-			jojicName.push($(this).val());
-		});
-		var request = $.ajax({
-			url: "/changeJojicStatusTo1",
-			method: "POST",
-			data: {  "jojicName"  : jojicName	 },
-			dataType: "json"
-		});
-		request.done(function( data ) {
-			if(data != 0){
-				alert("적용되었습니다.");
-				window.location.href = "/insa/jojicdo";
-			}
-		});
-		request.fail(function( jqXHR, textStatus ) {
-			alert("이동시킬 부서를 체크해주세요.");
-		});
-	});
-	
 	//직원등록 화면에서 가족정보-'인원추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addFamilyInfoBtn', function(){
 		var addFamilyInfoBtnTr 		= $('.addFamilyInfoBtnTr').clone();
@@ -155,26 +109,120 @@
 	
     $(function(){
     	
-    	$('#insertStaff').click(function(){
-    		console.log("클릭");
-    		var haveToWriteVals = document.getElementsByClassName('haveToWriteVals');
-/*    		haveToWriteVals.each(function(index, item){
-    			$(this).addClass('valid');
-    			console.log("1");
-    		});*/
+    	//조직 활성 상태 바꾸기
+    	$('.pe-7s-angle-left').click(function(){
+    		var jojicName = [];
+    		$('input[name="input-checked"]:checked').each(function(){
+    			jojicName.push($(this).val());
+    		});
+    		var request = $.ajax({
+    			url: "/changeJojicStatusTo1",
+    			method: "POST",
+    			data: {  "jojicName"  : jojicName	 },
+    			dataType: "json"
+    		});
+    		request.done(function( data ) {
+    			if(data != 0){
+    				alert("적용되었습니다.");
+    				window.location.href = "/insa/jojicdo";
+    			}
+    		});
+    		request.fail(function( jqXHR, textStatus ) {
+    			alert("이동시킬 부서를 체크해주세요.");
+    		});
+    	});
+    	
+    	//조직 비활성 상태 바꾸기	
+    	$('.pe-7s-angle-right').click(function(){
+    		var jojicName = [];
+    		$('input[name="input-checked"]:checked').each(function(){
+    			jojicName.push($(this).val());
+    		});
+    		var request = $.ajax({
+    			url: "/changeJojicStatusTo0",
+    			method: "POST",
+    			data: {  "jojicName" : jojicName	},
+    			dataType: "json"
+    		});
+    		request.done(function( data ) {
+    			if(data != 0){
+    				alert("적용되었습니다.");
+    				window.location.href = "/insa/jojicdo";
+    			}
+    		});
+    		request.fail(function( jqXHR, textStatus ) {
+    			alert("이동시킬 부서를 체크해주세요.");
+    		});
+    	});
+    	
+/*        $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
+        $("#left ul.nav li.current").parents('ul.children').addClass("in");	*/
+    	
+    	$(document).on('click', '#insertStaff', function(){
+    		var haveToWriteVals = $('.haveToWriteVals');
+    		
     		for(var i=0; i<haveToWriteVals.length; i++){
     			var val = haveToWriteVals[i];
-    			console.log("haveToWriteVals[i]", haveToWriteVals[i]);
+    			
     			if(haveToWriteVals[i].value != null && (haveToWriteVals[i].value) != ''){
-    				//haveToWriteVals[i].addClass('valid');
-    				console.log(">>>>>", i);
-    				 val.className += " valid";
-    				//$('input[name=staff_name]').addClass('valid');
-    				//$('input[name=staff_basic_salary]').addClass('invalid');
+    				if($(val).hasClass('invalid')){    					
+    					$(val).removeClass('invalid');
+    				}
+    				val.className += " valid";
     			}else{
-    				//$(this).addClass('invalid');
+    				if($(val).hasClass('valid')){ 
+    					$(val).removeClass('valid');
+    				}
     				val.className += " invalid";
-    				console.log("공백아님");
+    			}
+    			
+    		}
+    		if($(haveToWriteVals).hasClass('invalid')){
+    			alert("필수 입력값을 입력해주세요.");
+    			false;
+    		}else{
+    			//폼 전체값 읽어와서 객체에 넣기
+    			var insertStaffVals = $('#insertform');
+    			//테이블
+    			var staffInfo				= $('#staffInfo');
+    			var isStaffBasicInfo		= $('.is_staff_basic_info');
+    			var isStaffFamilyInfo 		= $('.is_staff_family_info');
+    			var isCareerInfoFromIn		= $('.is_career_info_from_in');
+    			var isCareerInfoFromOut		= $('.is_career_info_from_out');
+    			var isCertificateInfo		= $('.is_certificate_info');
+    			var isEducationInfo			= $('.is_education_info');
+    			var isBalryoungInfo			= $('.is_balryoung_info'); 
+    			var isMilitaryInfo			= $('.is_military_info'); 
+    			
+    			$('#staffInfo').find('.form-control').each(function(){
+    				console.log("$(this).val()", $(this).val());
+    				
+    			});
+/*    			var staffInfoNotes			= staffInfo.children('input[name="notes"]').val();
+    			var isStaffBasicInfoNotes	= isStaffBasicInfo.children('input[name="notes"]').val();
+    			var isStaffFamilyInfoNotes	= isStaffFamilyInfo.children('input[name="notes"]').val();
+    			var isCareerInfoFromInNotes	= isCareerInfoFromIn.children('input[name="notes"]').val();
+    			var isCareerInfoFromOutNotes= isCareerInfoFromOut.children('input[name="notes"]').val();
+    			var isCertificateInfoNotes	= isCertificateInfo.children('input[name="notes"]').val();
+    			var isEducationInfoNotes	= isEducationInfo.children('input[name="notes"]').val();
+    			var isBalryoungInfoNotes	= isBalryoungInfo.children('input[name="notes"]').val();
+    			var isMilitaryInfoNotes		= isMilitaryInfo.children('input[name="notes"]').val();*/
+
+    			//console.log("tbIsStaffFamilyInfo>>", tbIsStaffFamilyInfo);
+    			
+    			//console.log("insertStaffVals>>>>", insertStaffVals, "<<<<<");
+    			//$('#insertform').submit();
+
+    		}
+    	});
+    	
+    	$(document).on('click', '.haveToWriteVals', function(){
+    		console.log("재 클릭시");
+    		var haveToWriteVals = $('.haveToWriteVals');
+    		for(var i=0; i<haveToWriteVals.length; i++){
+    			var val = haveToWriteVals[i];
+    			if($(val).hasClass('invalid')){
+    				$(val).removeClass('invalid');
     			}
     		}
     	});
@@ -199,9 +247,8 @@
                 }, false);
             });
         }, false);
-    })();*/
-		
-/*
+    })();
+    
 	$(function(){
 		
 		//직원 등록하기 버튼 클릭시
@@ -222,8 +269,7 @@
 			var str = $('[name=project_start_date]').val();
 			var val = $('[name=project_start_date]').val();
 			
-	        $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
-	        $("#left ul.nav li.current").parents('ul.children').addClass("in");			
+		
 
 		});
 		
