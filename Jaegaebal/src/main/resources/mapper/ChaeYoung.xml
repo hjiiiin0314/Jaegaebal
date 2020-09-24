@@ -221,4 +221,9 @@
 			,#{appEmail}
 			,'임시저장')
 	</insert>
+	
+	<!-- 지원자 정보 삭제 -->
+	<delete id="deleteApplicant" parameterType="String">
+		call proc_applicant_delete(#{appEmail})
+	</delete>
 </mapper>

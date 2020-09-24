@@ -87,4 +87,10 @@ public class ChaeYoungService {
 		}	
 		return result;
 	};
+	
+	//지원자 정보 삭제
+	public int deleteApplicant(String appEmail) {
+		
+		return chaeYoungMapper.deleteApplicant(appEmail);
+	};
 }

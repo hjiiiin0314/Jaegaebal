@@ -48,4 +48,7 @@ public interface ChaeYoungMapper {
 	
 	//지원자 이메일 등록과 동시에 지원자코드 생성
 	public int addAppNumCode(ChaeYoungApplicant chaeYoungApplicant);
+	
+	//지원자 정보 삭제
+	public int deleteApplicant(String appEmail);
 }

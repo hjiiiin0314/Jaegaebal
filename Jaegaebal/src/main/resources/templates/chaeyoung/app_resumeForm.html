@@ -9,6 +9,11 @@
 	
 <th:block layout:fragment="customCss">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+<style>
+	.emp-table{
+		height:600px;
+	}
+</style>
 
 </th:block>
 	<th:block layout:fragment="customJs">
@@ -31,10 +36,11 @@
             </div>   
          </div>
     </div> 
+    
     <div class="row">
 		<div class="col-lg-4">
 			<div class="main-card mb-3 card">
-				<div class="card-body emp-table">
+				<div class="card-body">
 					<h5 class="card-title">기본정보</h5>
 						<div th:with="cy = ${chaeYoungApplicant}">
 							<table class="mb-0 table table-bordered" >
@@ -45,7 +51,7 @@
 									</tr>
 									<tr>
 										<td>지원자 이메일 : </td>
-										<td th:text=${cy.appEmail}></td>
+										<td class="appEmail" th:text=${cy.appEmail}></td>
 									</tr>
 									<tr>
 										<td>지원자 이름 : </td>
@@ -60,14 +66,14 @@
 							<input type="hidden" th:value="${cy.appPassward}" class="hiddenPw">
 						</div>
 				<div class="d-block text-center card-footer">
-                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger appDelete"><i class="pe-7s-trash btn-icon-wrapper"> </i>지원취소하기</button>
+                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger appDelete"><i class="pe-7s-trash btn-icon-wrapper deleteApp"> </i>지원취소하기</button>
                 </div>
 					
 			
 				</div>
 			</div>
 		</div>
-<div class="col-md-8">
+				<div class="col-md-8">
 					<div class="main-card card">
 						<div class="card-body p-b-xs emp-table">
 							<h5 class="card-title">추가 기입 정보</h5>
@@ -86,9 +92,9 @@
                                 </div>
                           	</div>
                             <div class="card-body">
+										<form action="/test" method="post">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
-										<form>
 											<table class="mb-12 table table-bordered">
 												<colgroup>
 													<col width = "12%">
@@ -99,7 +105,7 @@
 												<tr>
 													<td class="t_head2">영문이름</td>
 													<td colspan="3">
-														<input type="text" name="staff_eng_name" class="form-control">
+														<input type="text" name="appEmail" class="form-control" value="test">
 													</td>
 												</tr> 
 												<tr>													
@@ -150,17 +156,15 @@
 														<input type="text" name="staff_addr" class="form-control" >
 													</td>
 												</tr> 
-												<tr>
-													<td class="t_head2">비고</td>
-													<td colspan="5">
-														<textarea type="text" name="is_staff_basic_info.notes" class="form-control"></textarea>
-													</td>
-												</tr> 
+
 											</table>
-				                   		</form>           
+				                   	    
+				                   		         <div class="d-block card-footer addDiv">
+                                  <a data-toggle="tab" href="#isStaffFamilyInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">다음</a>
+                              </div>      
                                     </div>
                                     <div class="tab-pane" id="isStaffFamilyInfo" role="tabpanel">
-										<form>
+									
 											<table class="mb-12 table table-bordered">
 												<colgroup>
 													<col width = "15%">
@@ -181,7 +185,7 @@
 												<tr>														
 													<td class="t_head2">이름</td>
 													<td>
-														<input type="text" name="staff_eng_name" class="form-control">									
+														<input type="text" name="appName" class="form-control" value="test12">									
 													</td>
 													<td class="t_head2">주소</td>
 													<td>
@@ -205,7 +209,7 @@
 												<tr>
 													<td class="t_head">비고</td>
 													<td colspan="5">
-														<textarea type="text" name="is_staff.notes" class="form-control" ></textarea>
+														<textarea name="is_staff.notes" class="form-control" ></textarea>
 													</td>
 												</tr>												
 												<tr>
@@ -215,11 +219,13 @@
 												</tr>
 
 											</table>
-				                   		</form>                                               
+				                                                  		         <div class="d-block card-footer addDiv">
+                                  <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">다음</a>
+                              </div>                                
                                     </div>
                                     
                                     <div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
-										<form>
+								
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">직장명</td>
@@ -254,11 +260,11 @@
 												<tr>
 													<td class="t_head2">퇴직사유</td>
 													<td>
-														<textarea type="text" name="staff_country" class="form-control" ></textarea>
+														<textarea name="staff_country" class="form-control" ></textarea>
 													</td>
 													<td class="t_head2">비고</td>
 													<td>
-														<textarea type="text" name="is_staff_basic_info.notes" class="form-control"></textarea>
+														<textarea name="is_staff_basic_info.notes" class="form-control"></textarea>
 													</td>
 												</tr> 												
 												<tr>
@@ -268,10 +274,10 @@
 												</tr>
 
 											</table>
-				                   		</form>                                               
+				                                                         
                                     </div>
                                     <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
-										<form>
+								
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">자격증명</td>
@@ -302,7 +308,7 @@
 												<tr>
 													<td class="t_head2">비고</td>
 													<td colspan="5">
-														<textarea type="text" name="is_staff_basic_info.notes" class="form-control"></textarea>
+														<textarea name="is_staff_basic_info.notes" class="form-control"></textarea>
 													</td>
 												</tr> 												
 												<tr>
@@ -312,10 +318,10 @@
 												</tr>
 
 											</table>
-				                   		</form>                                               
+				                                                               
                                     </div>
                                     <div class="tab-pane" id="isEducationInfo" role="tabpanel">
-										<form>
+								
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">학교명</td>
@@ -356,7 +362,7 @@
 												<tr>
 													<td class="t_head2">비고</td>
 													<td colspan="5">
-														<textarea type="text" name="is_staff_basic_info.notes" class="form-control"></textarea>
+														<textarea name="is_staff_basic_info.notes" class="form-control"></textarea>
 													</td>
 												</tr> 												
 												<tr>
@@ -366,10 +372,10 @@
 												</tr>
 
 											</table>
-				                   		</form>                                               
+				                                                           
                                     </div>                                                                                                            
                                     <div class="tab-pane" id="isBalryoungInfo" role="tabpanel">
-										<form>
+								
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">발령내용</td>
@@ -390,7 +396,7 @@
 												<tr>
 													<td class="t_head2">비고</td>
 													<td colspan="5">
-														<textarea type="text" name="is_staff_basic_info.notes" class="form-control"></textarea>
+														<textarea name="is_staff_basic_info.notes" class="form-control"></textarea>
 													</td>
 												</tr> 												
 												<tr>
@@ -400,10 +406,10 @@
 												</tr>
 
 											</table>
-				                   		</form>                                               
+				                                                           
                                     </div>                                                                                                            
                                     <div class="tab-pane" id="isMilitaryInfo" role="tabpanel">
-										<form>
+								
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">군종</td>
@@ -434,7 +440,7 @@
 												<tr>
 													<td class="t_head2">비고</td>
 													<td colspan="5">
-														<textarea type="text" name="is_staff_basic_info.notes" class="form-control"></textarea>
+														<textarea name="is_staff_basic_info.notes" class="form-control"></textarea>
 													</td>
 												</tr> 												
 												<tr>
@@ -444,18 +450,18 @@
 												</tr>
 
 											</table>
-				                   		</form>                                               
-                                    </div>                                                                                                            
                               <div class="d-block card-footer addDiv">
-                                  <a href="javascript:void(0);" class="btn-wide btn btn-alternate">등록하기</a>
+                                 <button type="submit">등록</button>
                               </div>
-                                </div>
-                                </div>
-                            </div>
+                                    </div>                                                                                                            
+	                                </div>
+				                   		</form>                                               
+	                             </div>
+	                         </div>
+						</div>
 					</div>
 				</div>
-					</div>
-				</div>
+			</div>
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 	</th:block>
@@ -476,29 +482,23 @@
 					})
 
 					swalWithBootstrapButtons.fire({
-					  title: '정말로 지원을 취소하시겠습니까?',
+					  title: '정말로 지원을 포기하시겠습니까?',
 					  text: "작성한 데이터는 전부 삭제됩니다.",
 					  icon: 'warning',
 					  showCancelButton: true,
-					  confirmButtonText: '네 취소해주세요.',
+					  confirmButtonText: '네 포기하겠습니다.',
 					  cancelButtonText: '아니오!',
 					  reverseButtons: true
 					}).then((result) => {
 					  if (result.isConfirmed) {
-						  if(pwCheck(hiddenPw)) {
-							  
-					    swalWithBootstrapButtons.fire(
-					      'Deleted!',
-					      'Your file has been deleted.',
-					      'success'
-					    )
-						  } 
+						  pwCheck(hiddenPw)
+	
 					  }
 					})
 			}
 			//비밀번호 체크
         	function pwCheck(pw){
-        		var appEmail = $("#login input[name='appEmail']").val();
+        		var appEmail = $(".appEmail").text();
         		
         		(async () => {
 
@@ -518,10 +518,11 @@
  
         				  await Swal.fire(
         					'Deleted!',
-        					'Your file has been deleted.',
+        					'지원이 취소되었습니다.',
         					'success'
         					)      				
  
+        					location.href="/deleteApplicant?appEmail="+ appEmail;
         			  }else {
         				  await Swal.fire(
         				    	      'fail',
