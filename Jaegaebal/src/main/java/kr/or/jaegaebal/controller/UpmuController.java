@@ -103,6 +103,19 @@ public class UpmuController {
 		return "approval/storageBox";
 	}
 	
+	//기안하기 - 결재라인선택 후  db에 넣기
+	@PostMapping("/choiceStaff")
+	public String choiceStaff(Model model
+							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
+							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
+							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
+		
+			upmuService.choiceStaff(jojicCode,staffLevelCode,staffNum);			
+	
+		
+		return "redirect:/appWrite";
+	}
+	
 
 	//기안하기-화면연결
 	@GetMapping("/appWrite")

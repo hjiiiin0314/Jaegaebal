@@ -1,6 +1,7 @@
 package kr.or.jaegaebal.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -31,6 +32,9 @@ public interface UpmuMapper {
 		
 	//상신함 - 전체목록
 		public List<UpmuDocument> myAppList();
+		
+	//기안하기 - 결재라인 db에 넣기 
+		public int choiceStaff(List<Map<String, Object>> choiceStaff);
 	
 	//기안하기 - 결재라인  - 사원
 		public List<StaffInfo> getStaff();
@@ -44,4 +48,5 @@ public interface UpmuMapper {
 
 	//기안하기 - 문서유형
 		public List<UpmuDocument> getDocType();
+
 }

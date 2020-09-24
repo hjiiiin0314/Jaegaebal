@@ -1,6 +1,6 @@
 package kr.or.jaegaebal.service;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +51,24 @@ public class UpmuService {
 		public List<UpmuDocument> myAppList(){
 			List<UpmuDocument> myAppList = upmumapper.myAppList();
 			return myAppList;
+		}
+		
+	//기안하기 - 결재라인으로 선택한 사람 db에 넣기	
+		public int choiceStaff(String[] jojicCode,String[] staffLevelCode,String[] staffNum) {
+			
+			List<Map<String, Object>> choiceStaff = new ArrayList<>();
+			for(int i=0; i<jojicCode.length; i++) {
+				Map<String, Object> beforInfo = new HashMap<String, Object>();
+				beforInfo.put("jojicCode", jojicCode[i]);
+				beforInfo.put("levelCode", staffLevelCode[i]);
+				beforInfo.put("staffNum", staffNum[i]);
+				
+				choiceStaff.add(beforInfo);
+			}
+			
+			int result	= upmumapper.choiceStaff(choiceStaff);
+			
+			return result;
 		}
 		
 	

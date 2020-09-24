@@ -130,12 +130,32 @@
 	
 	 
 	</select>
+<!-- 기안하기 - 결재라인 선택 완료 db에 넣기  -->
+	<insert id="choiceStaff" parameterType="list" >
+	INSERT INTO um_app_line
+						(
+							doc_code
+						, app_jojic_code 	
+						, staff_level_code  
+						, app_staff_num		
+						, chamjo)
+	VALUES 
+	<foreach collection="list" item="item" separator=",">	
+		('doc-01'
+		, #{item.jojicCode}
+		, #{item.levelCode}
+		, #{item.staffNum}
+		, '')
+	</foreach>
+	</insert>	
+	
 <!-- 기안하기 - 결재라인 - 조직도 - 사원  -->
    <select id="getStaff" resultType="StaffInfo">
 	SELECT 
 		staff_num  			as staffNum
 		,staff_name 		as staffName 
 		,s.staff_level_code	AS staffLevelCode
+		,s.jojic_code		as jojicCode
 		,j.jojic_name 		AS jojicName
 		,j.jojic_sosoc_name AS jojicSosocName
 		,l.level_name 		AS levelName
