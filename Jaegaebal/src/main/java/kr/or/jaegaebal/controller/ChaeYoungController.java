@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import groovy.util.logging.Log4j;
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.Jojic;
@@ -140,5 +141,23 @@ public class ChaeYoungController {
 		}
 		model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
 		return "chaeyoung/app_resumeForm";
+	}
+	
+	//지원자 삭제
+	@GetMapping("/deleteApplicant")
+	public String deleteApplicant(@RequestParam(value="appEmail") String appEmail) {
+		
+		chaeYoungService.deleteApplicant(appEmail);
+		
+		return "redirect:/cyboardList";
+	}
+	@PostMapping("/test")
+	public String test(ChaeYoungApplicant chaeYoungApplicant) {
+		
+		System.out.println(chaeYoungApplicant.getAppEmail());
+		System.out.println(chaeYoungApplicant.getAppName());
+		
+		
+		return null;
 	}
 }
