@@ -102,7 +102,7 @@ public class InsaController {
 
 	// 직원 등록하기 화면
 	@GetMapping("/insa/insertStaff")
-	public String insertStaff(Model model) {
+	public String insertStaff(	 Model model) {
 		Map<String, Object> codeAndName = insaService.getCodeAndName();
 		String staffNum = insaService.makeStaffNum();
 
@@ -112,6 +112,7 @@ public class InsaController {
 
 		return "insa/insert_staff";
 	}
+	
 
 	// 부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
 	@PostMapping(value = "/getStaffInfoByParentJojicName", produces = "application/json")
