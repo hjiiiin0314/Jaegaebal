@@ -20,6 +20,7 @@ public class UpmuService {
 
 	@Autowired private UpmuMapper upmumapper;
 	
+	
 	//임시저장함 - 삭제
 	public int delStorage(String docCode) {
 		int result = 0;
@@ -52,10 +53,8 @@ public class UpmuService {
 			List<UpmuDocument> myAppList = upmumapper.myAppList();
 			return myAppList;
 		}
-		
-	//기안하기 - 결재라인으로 선택한 사람 db에 넣기	
-		public int choiceStaff(String[] jojicCode,String[] staffLevelCode,String[] staffNum) {
-			
+	//기안하기 - 결재문서 db에 넣기
+		public int appWrite(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
 			List<Map<String, Object>> choiceStaff = new ArrayList<>();
 			for(int i=0; i<jojicCode.length; i++) {
 				Map<String, Object> beforInfo = new HashMap<String, Object>();
@@ -65,11 +64,13 @@ public class UpmuService {
 				
 				choiceStaff.add(beforInfo);
 			}
-			
-			int result	= upmumapper.choiceStaff(choiceStaff);
-			
+			upmumapper.appWrite(upmuDocument);
+			int result = upmumapper.choiceStaff(choiceStaff);
 			return result;
 		}
+		
+
+	
 		
 	
 	//기안하기 - 결재라인 - 조직도 - 사원
@@ -91,8 +92,8 @@ public class UpmuService {
 		}
 	
 	//기안하기-문서유형 option값	
-	public List<UpmuDocument> getDocType(){
-		  List<UpmuDocument> docType = upmumapper.getDocType();
+	public List<Map<String, Object>> getDocType(){
+		List<Map<String, Object>> docType  = upmumapper.getDocType();
 		return docType;
 		
 	}

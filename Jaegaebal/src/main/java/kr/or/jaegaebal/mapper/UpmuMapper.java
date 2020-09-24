@@ -33,7 +33,10 @@ public interface UpmuMapper {
 	//상신함 - 전체목록
 		public List<UpmuDocument> myAppList();
 		
-	//기안하기 - 결재라인 db에 넣기 
+	//기안하기 - 문서 db에 저장
+		public int appWrite(UpmuDocument upmuDocument);
+		
+	//기안하기 - 결재라인 db에 저장
 		public int choiceStaff(List<Map<String, Object>> choiceStaff);
 	
 	//기안하기 - 결재라인  - 사원
@@ -47,6 +50,6 @@ public interface UpmuMapper {
 
 
 	//기안하기 - 문서유형
-		public List<UpmuDocument> getDocType();
+		public List<Map<String, Object>> getDocType();
 
 }

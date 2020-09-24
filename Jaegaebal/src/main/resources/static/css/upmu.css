@@ -30,6 +30,7 @@
 	width:25%;
 	display:inline;
 }
+
 .form-scroll{
 	height: 300px;
 	overflow-y: scroll;
@@ -44,4 +45,36 @@
 	float: left;
 }
 
+.app-StaffLevel{	
+    height: 38px;
+    width: 18px;    
+    padding-left: 0px;
+    padding-right: 0px;
+    	
+}
+
+.appLine-form{
+	
+    height: 155px;
+    width: 77px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    border-right-width: 1px;
+    border-left-width: 1px;
+	
+}
+
+.app-jojicName{
+	
+    height: 38px;
+    width: 18px;
+	
+}
+
+.app-sign{
+	
+    height: 69px;
+    padding-right: 90px;
+	
 }

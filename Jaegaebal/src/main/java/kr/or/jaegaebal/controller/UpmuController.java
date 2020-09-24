@@ -1,6 +1,7 @@
 package kr.or.jaegaebal.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,16 +104,22 @@ public class UpmuController {
 		return "approval/storageBox";
 	}
 	
-	//기안하기 - 결재라인선택 후  db에 넣기
-	@PostMapping("/choiceStaff")
-	public String choiceStaff(Model model
+	//기안하기 - db에 값 저장
+	@PostMapping("/appWrite")
+	public String appWrite(UpmuDocument upmuDocument
 							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
 							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
-		
-			upmuService.choiceStaff(jojicCode,staffLevelCode,staffNum);			
+		System.out.println("upmuDocument:  " + upmuDocument);
+		upmuService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
+		return "redirect:/myAppList";
+	}
 	
+	//기안하기 - 결재라인선택 후  db에 넣기
+	@PostMapping("/choiceStaff")
+	public String choiceStaff() {
 		
+			
 		return "redirect:/appWrite";
 	}
 	
@@ -120,8 +127,10 @@ public class UpmuController {
 	//기안하기-화면연결
 	@GetMapping("/appWrite")
 	public String appWrite(Model model) {
-		List<UpmuDocument> docType = upmuService.getDocType();	
+		
+		List<Map<String, Object>> docType = upmuService.getDocType();	
 		model.addAttribute("docType", docType);
+		System.out.println(docType + "<--docType");
 		
 		List<Jojic> jojic = upmuService.getJojic();
 		model.addAttribute("jojic", jojic);
