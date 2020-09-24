@@ -141,4 +141,13 @@ public class ChaeYoungController {
 		model.addAttribute("chaeYoungApplicant", chaeYoungApplicant);
 		return "chaeyoung/app_resumeForm";
 	}
+	
+	//지원자 삭제
+	@GetMapping("/deleteApplicant")
+	public String deleteApplicant(@RequestParam(value="appEmail") String appEmail) {
+		
+		chaeYoungService.deleteApplicant(appEmail);
+		
+		return "redirect:/cyboardList";
+	}
 }
