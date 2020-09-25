@@ -1,7 +1,5 @@
 package kr.or.jaegaebal.controller;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.service.InsaService;
 
 /**
@@ -103,14 +102,24 @@ public class InsaController {
 	// 직원 등록하기 화면
 	@GetMapping("/insa/insertStaff")
 	public String insertStaff(	 Model model) {
-		Map<String, Object> codeAndName = insaService.getCodeAndName();
+		
 		String staffNum = insaService.makeStaffNum();
-
-		model.addAttribute("title", "직원 등록");
+		Map<String, Object> codeAndName = insaService.getCodeAndName();
 		model.addAttribute("codeAndName", codeAndName);
+		model.addAttribute("title", "직원 등록");
 		model.addAttribute("staffNum", staffNum);
 
 		return "insa/insert_staff";
+	}
+	
+	//직원 등록
+	@PostMapping("/insertStaffInfoAll")
+	@ResponseBody
+	public String insertStaffInfoAll(StaffInfo insertStaffInfo, Model model) {
+		String staffNum = insaService.makeStaffNum();
+		model.addAttribute("staffNum", staffNum);
+		log.info("insertStaffInfo >>>>>>>>>> {}", insertStaffInfo, "<<<<<<<<<<");
+		return "redirect:/insa/insert_staff";
 	}
 	
 

@@ -181,8 +181,13 @@
     			alert("필수 입력값을 입력해주세요.");
     			false;
     		}else{
+    			haveToWriteVals.find('.form-control').each(function(){
+					$(this).filter("[value='null']").val("");
+    			});
+    			$('#insertform').submit();
     			//폼 전체값 읽어와서 객체에 넣기
-    			var insertStaffVals = $('#insertform');
+    			
+/*    			var insertStaffVals = $('#insertform');
     			//테이블
     			var staffInfo				= $('#staffInfo');
     			var isStaffBasicInfo		= $('.is_staff_basic_info');
@@ -194,10 +199,36 @@
     			var isBalryoungInfo			= $('.is_balryoung_info'); 
     			var isMilitaryInfo			= $('.is_military_info'); 
     			
-    			$('#staffInfo').find('.form-control').each(function(){
+    			var staffInfoVal			= [];
+    			
+    			staffInfo.find('.haveToWriteVals').each(function(){
     				console.log("$(this).val()", $(this).val());
+   				if(staffInfo.find('.staffInfoNotes').val() == null || staffInfo.find('.staffInfoNotes').val() == ''){
+    					staffInfoVal.push($(this).text(""));
+    				}else{
+    					staffInfoVal.push($(this).val());
+    				}
+    				staffInfoVal.push($(this).val());
     				
     			});
+    			staffInfoVal.push(staffInfo.find('.staffInfoNotes').val());
+    			console.log("staffInfoVal", staffInfoVal);
+    			
+        		var request = $.ajax({
+        			url: "/insertStaffInfoAll",
+        			method: "POST",
+        			data: {  staffInfoVal : staffInfoVal	},
+        			dataType: "json"
+        		});
+        		request.done(function( data ) {
+        			if(data == null){
+        				
+        				alert("ajax호출 성공");
+        			}
+        		});
+        		request.fail(function( jqXHR, textStatus ) {
+        			alert("/insertStaffInfoAll 응답 실패");
+        		});*/
 /*    			var staffInfoNotes			= staffInfo.children('input[name="notes"]').val();
     			var isStaffBasicInfoNotes	= isStaffBasicInfo.children('input[name="notes"]').val();
     			var isStaffFamilyInfoNotes	= isStaffFamilyInfo.children('input[name="notes"]').val();
@@ -217,7 +248,6 @@
     	});
     	
     	$(document).on('click', '.haveToWriteVals', function(){
-    		console.log("재 클릭시");
     		var haveToWriteVals = $('.haveToWriteVals');
     		for(var i=0; i<haveToWriteVals.length; i++){
     			var val = haveToWriteVals[i];

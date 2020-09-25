@@ -69,7 +69,6 @@
 		<result column="balryoung_code" 			property="balryoungCode"/>
 		<result column="balryoung_date" 			property="balryoungDate"/>
 		<result column="balryoung_stage" 			property="balryoungStage"/>
-		<result column="notes" 						property="notes"/>
 		<result column="career_info_from_in_code" 	property="careerInfoFromInCode"/>
 		<result column="project_name" 				property="projectName"/>
 		<result column="project_start_date" 		property="projectStartDate"/>
@@ -112,8 +111,17 @@
 		<result column="jojic_name" 				property="jojicName"/>		
 		<result column="access_name" 				property="accessName"/>		
 		<result column="position_code" 				property="positionCode"/>		
-	
+		<result column="staff_notes" 				property="staffNotes"/>		
+		<result column="staff_basic_info_notes" 	property="staffBasicInfoNotes"/>		
+		<result column="staff_family_info_notes" 	property="staffFamilyInfoNotes"/>		
+		<result column="balryoung_info_notes" 		property="balryoungInfoNotes"/>		
+		<result column="career_info_from_in_notes" 	property="careerInfoFromInNotes"/>		
+		<result column="career_info_from_out_notes" property="careerInfoFromOutNotes"/>		
+		<result column="certificate_info_notes" 	property="certificateInfoNotes"/>		
+		<result column="education_info_notes" 		property="educationInfoNotes"/>		
+		<result column="military_info_notes" 		property="militaryInfoNotes"/>		
 	</resultMap>
+	
 	<resultMap type="Code" id="CodeResultMap">
 		<result column="access_num" 				property="accessNum"/>
 		<result column="access_name" 				property="accessName"/>
