@@ -20,92 +20,16 @@
 		<result column="company_out_date" 			property="companyOutDate"/>
 		<result column="reg_staff_name" 			property="regStaffName"/>
 		<result column="reg_date" 					property="regDate"/>
-		<result column="basic_info_code" 			property="basicInfoCode"/>
-		<result column="staff_eng_name" 			property="staffEngName"/>
-		<result column="human_num" 					property="humanNum"/>
-		<result column="staff_gender" 				property="staffGender"/>
-		<result column="staff_nationality" 			property="staffNationality"/>
-		<result column="staff_country" 				property="staffCountry"/>
-		<result column="staff_phone" 				property="staffPhone"/>
-		<result column="staff_email" 				property="staffEmail"/>
-		<result column="staff_marriged" 			property="staffMarriged"/>
-		<result column="staff_addr" 				property="staffAddr"/>
-		<result column="family_info_code" 			property="familyInfoCode"/>
-		<result column="relation" 					property="relation"/>
-		<result column="family_name" 				property="familyName"/>
-		<result column="family_birthday" 			property="familyBirthday"/>
-		<result column="family_job" 				property="familyJob"/>
-		<result column="family_addr" 				property="familyAddr"/>
-		<result column="family_phone" 				property="familyPhone"/>
-		<result column="balryoung_info_code" 		property="balryoungInfoCode"/>
-		<result column="balryoung_staff_num" 		property="balryoungStaffNum"/>
-		<result column="balryoung_code" 			property="balryoungCode"/>
-		<result column="balryoung_date" 			property="balryoungDate"/>
-		<result column="balryoung_stage" 			property="balryoungStage"/>
-		<result column="notes" 						property="notes"/>
-		<result column="career_info_from_in_code" 	property="careerInfoFromInCode"/>
-		<result column="project_name" 				property="projectName"/>
-		<result column="project_start_date" 		property="projectStartDate"/>
-		<result column="project_end_date" 			property="projectEndDate"/>
-		<result column="project_access" 			property="projectAccess"/>
-		<result column="project_level_name" 		property="projectLevelName"/>
-		<result column="project_work" 				property="projectWork"/>
-		<result column="project_position" 			property="projectPosition"/>
-		<result column="career_info_from_out_code" 	property="careerInfoFromOutCode"/>
-		<result column="company_name" 				property="companyName"/>
-		<result column="company_access" 			property="companyAccess"/>
-		<result column="company_position_from_out" 	property="companyPositionFromOut"/>
-		<result column="company_work_form_out" 		property="companyWorkFormOut"/>
-		<result column="company_in_date_from_out" 	property="companyInDateFromOut"/>
-		<result column="company_out_date_from_out" 	property="companyOutDateFromOut"/>
-		<result column="company_out_reason" 		property="companyOutReason"/>
-		<result column="certificate_info_code" 		property="certificateInfoCode"/>
-		<result column="certificate_name" 			property="certificateName"/>
-		<result column="issuing_agency" 			property="issuingAgency"/>
-		<result column="certificate_num" 			property="certificateNum"/>
-		<result column="get_date" 					property="getDate"/>
-		<result column="finished_date" 				property="finishedDate"/>
-		<result column="education_info_code" 		property="educationInfoCode"/>
-		<result column="school_name" 				property="schoolName"/>
-		<result column="gakryuck_status" 			property="gakryuckStatus"/>
-		<result column="major_name" 				property="majorName"/>
-		<result column="minor_name" 				property="minorName"/>
-		<result column="entrance_date" 				property="entranceDate"/>
-		<result column="graduat_date" 				property="graduatDate"/>
-		<result column="degree" 					property="degree"/>
-		<result column="military_info_code" 		property="militaryInfoCode"/>
-		<result column="military_service_type" 		property="militaryServiceType"/>
-		<result column="military_state" 			property="militaryState"/>
-		<result column="jaejic_status_name" 		property="jaejicStatusName"/>
-		<result column="military_in_day" 			property="militaryInDay"/>
-		<result column="military_out_day" 			property="militaryOutDay"/>
-		<result column="military_level" 			property="militaryLevel"/>
-		<result column="level_name" 				property="levelName"/>
-		<result column="position_name" 				property="positionName"/>
-		<result column="jojic_name" 				property="jojicName"/>		
-		<result column="access_name" 				property="accessName"/>		
-		<result column="position_code" 				property="positionCode"/>		
+		
 	
 	</resultMap>
 	
-<select id="getStaffByNum" parameterType="String" resultType="StaffInfo">
+<select id="staffLogin" parameterType="String" resultType="StaffInfo" resultMap="LoginResultMap">
 	SELECT 
-		  staff_num
+		  staff_num 
 		, staff_name
-		, jojic_code
-		, access_num
-		, staff_level_code
-		, staff_position_code
-		, hobong
-		, staff_basic_salary
 		, staff_pw
-		, staff_status_code
-		, employment_status
-		, company_in_date
-		, company_out_date
-		, reg_staff_name
-		, reg_date
-		, notes
+		
 	FROM
 		 is_staff
 	WHERE

@@ -15,7 +15,7 @@ public class LoginService {
 	@Autowired private LoginMapper loginMapper;
 	
 	//로그인
-	public StaffInfo login(String staffNum, String staffPw) {
-		return loginMapper.login(staffNum, staffPw);
+	public StaffInfo staffLogin(String staffNum, String staffPw) {
+		return loginMapper.staffLogin(staffNum, staffPw);
 	}
 }

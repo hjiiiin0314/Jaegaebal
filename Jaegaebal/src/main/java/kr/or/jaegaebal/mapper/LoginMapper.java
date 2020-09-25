@@ -8,6 +8,6 @@ public interface LoginMapper {
 
 	
 	
-	public StaffInfo login(String staffNum, String staffPw);
+	public StaffInfo staffLogin(String staffNum, String staffPw);
 	
 }
