@@ -152,7 +152,7 @@
 											</tr>
 										</table>
 			       					
-									<button id="delBtn" class="mb-2 mr-2 btn-transition btn btn-outline-focus btn-del"><i class="pe-7s-delete-user"> 제외</i></button>
+									<button id="delBtn" type="button" class="mb-2 mr-2 btn-transition btn btn-outline-focus btn-del"><i class="pe-7s-delete-user"> 제외</i></button>
 			       				</div>
 	      					</div>
 	      				</div>
@@ -203,6 +203,8 @@
 				    console.log(jojicName + "<-- 조직이름");
 				    console.log(jojicCode + "<-- 조직코드");
 				    
+				    
+				   //체크박스 전체체크 
 				    $(document).ready(function(){
 				        //최상단 체크박스 클릭
 				        $("#checkAll").click(function(){
@@ -291,12 +293,6 @@
 				    });
 			    });
 				
-				//두번째 모달창을 켰을 때 이전 값 초기화하기
-				$('#appModal').on('hidden.bs.modal',function(e){
-	
-					    	$('#appLine').remove("tr");
-					
-				});
 				
 				//임시저장버튼 클릭 시 
 				 $('#appKeepBtn').click(function(){							
@@ -348,9 +344,7 @@
 						}else{
 							return ;
 						}
-									
-							
-					
+		
 					});
 			});
 				
