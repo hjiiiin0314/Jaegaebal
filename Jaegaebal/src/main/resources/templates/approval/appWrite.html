@@ -200,58 +200,61 @@
 				    console.log(jojicName + "<-- 조직이름");
 				    console.log(jojicCode + "<-- 조직코드");
 				    
-				    $('#appModal').on('hidden.bs.modal', function (e) {				       
-				      $(this).find('form')[0].reset()
-				    });
-				    
-				    
-				   //체크박스 전체체크 
-				    $(document).ready(function(){
-				        //최상단 체크박스 클릭
-				        $("#checkAll").click(function(){
-				            //클릭되었으면
-				            if($("#checkAll").prop("checked")){
-				                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-				                $("input[name=check]").prop("checked",true);
-				                //클릭이 안되있으면
-				            }else{
-				                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-				                $("input[name=check]").prop("checked",false);
-				            }
-				        });
-				    });
-				   
+				   var appLineStaff = 1;
+				    				   
+				    //모달내부 - 결재자에 중복값 들어가지 않도록 하기			    	
+					    $('.addStaff').each(function(){		
+					    		var appStaffNum = $(this).find('.appStaffNum').val();
+						    	if(staffNum == appStaffNum){
+						    		appLineStaff= 0;
+						    		alert('이미 선택된 결재자입니다.')
+					    			return false;
+						    	}						 	 
+					    });
 					// 모달 내부 - 조직도에서 선택한 사원값을  결재자란에 넣기
-				    if(staffNum != null){				    	
-				    		$('#appStaff').append("<tr class='addStaff'><td><input name='check' type='checkbox'></td><td class='text-center'>"
-				    								+"<input type='hidden' name='jojicCode' value='"
-				    								+ jojicCode
-				    								+ "'><input type='hidden' name='jojicName' value='"
-				    								+ jojicName
-				    								+ "'><input type='hidden' name='staffLevelCode' value='"
-				    								+ staffLevelCode
-				    								+ "'><input type='hidden' name='levelName' value='"
-				    								+ levelName
-				    								+" '><input type='hidden' name='staffNum' value='"
-				    								+ staffNum
-				    								+"'><input type='hidden' name='staffName' value='"
-				    								+ staffName
-				    								+"'>"
-				    								+ jojicName 
-				    								+ "</td><td>"
-				    								+ levelName
-				    								+ "</td><td>"
-				    								+ staffName
-				    								+ "</td><td><input type='checkbox' name='chamjo'></td></tr>");				    		
-				    					    	
-				    }
-				   
+						if(appLineStaff == 1 && staffNum != null){				    	
+						    	$('#appStaff').append("<tr class='addStaff'><td><input name='check' type='checkbox'></td><td class='text-center'>"
+					    								+"<input type='hidden' name='jojicCode' value='"
+					    								+ jojicCode
+					    								+ "'><input type='hidden' name='jojicName' value='"
+					    								+ jojicName
+					    								+ "'><input type='hidden' name='staffLevelCode' value='"
+					    								+ staffLevelCode
+					    								+ "'><input type='hidden' name='levelName' value='"
+					    								+ levelName
+					    								+" '><input type='hidden' name='staffNum' class='appStaffNum' value='"
+					    								+ staffNum
+					    								+"'><input type='hidden' name='staffName' value='"
+					    								+ staffName
+					    								+"'>"
+					    								+ jojicName 
+					    								+ "</td><td>"
+					    								+ levelName
+					    								+ "</td><td>"
+					    								+ staffName
+					    								+ "</td><td><input type='checkbox' name='chamjo'></td></tr>");				    						    					    	
+						}			   			   
+					    
+				    
 				   
 				   
 			});
 			
 				
 			$(function(){
+				
+				//최상단 체크박스 클릭
+		        $("#checkAll").click(function(){
+		            //클릭되었으면
+		            if($("#checkAll").prop("checked")){
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+		                $("input[name=check]").prop("checked",true);
+		                //클릭이 안되있으면
+		            }else{
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+		                $("input[name=check]").prop("checked",false);
+		            }
+		        });
 				//summernote 
 				$('#summernote').summernote({
 					  height: 300,                 // 에디터 높이
@@ -275,7 +278,6 @@
 				    	
 				//선택완료버튼 클릭 시 기안하기 모달 밖 화면에 결재라인칸 생성
 				 $('#choiceBtn').click(function(){
-				    alert('선택완료버튼확인');
 	    			
 				    $('.addStaff').each(function(){
 				    	
@@ -293,7 +295,7 @@
 				    });
 			    });
 				
-				//결재라인선택하기 버튼 클릭 시 이전에 화면에 생성된 결재란 삭제됨
+				//결재라인선택하기 버튼 클릭 시 이전에 화면에 생성된 결재란은 삭제됨
 				$('#appLineBtn').click(function(){
 					$('#appLine').children().remove();
 				});
@@ -306,9 +308,7 @@
 					        
 					  }else{
 					        return ;
-					    }
-		
-				
+					    }			
 				});
 				
 				//결재올리기 버튼 클릭 시 유효성 검사진행
