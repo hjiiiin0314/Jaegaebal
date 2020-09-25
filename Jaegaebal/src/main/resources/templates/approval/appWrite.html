@@ -43,16 +43,13 @@
 			<div class="col-md-12">
 				<div class="main-card mb-3 card"> 
 					<div class="card-body">
-						<h4><i class="pe-7s-eyedropper"></i>       기안하기 </h4><br>
-						<div>
+						<h4><i class="pe-7s-eyedropper"></i>       기안하기 </h4><br>						
 							<table id="appLine" class="mb-2 table table-bordered">
 								<tr>
 								</tr>
 					    	</table> 						          
-						</div>
-			
 	                   <div class="position-relative form-group ">
-	                   	<button id="appLine"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
+	                   	<button id="appLineBtn"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
 	                   		<i class="pe-7s-users"></i>  결재라인선택하기
 	                   	</button>
 	                   </div>
@@ -203,6 +200,10 @@
 				    console.log(jojicName + "<-- 조직이름");
 				    console.log(jojicCode + "<-- 조직코드");
 				    
+				    $('#appModal').on('hidden.bs.modal', function (e) {				       
+				      $(this).find('form')[0].reset()
+				    });
+				    
 				    
 				   //체크박스 전체체크 
 				    $(document).ready(function(){
@@ -221,8 +222,7 @@
 				    });
 				   
 					// 모달 내부 - 조직도에서 선택한 사원값을  결재자란에 넣기
-				    if(staffNum != null){
-				    	
+				    if(staffNum != null){				    	
 				    		$('#appStaff').append("<tr class='addStaff'><td><input name='check' type='checkbox'></td><td class='text-center'>"
 				    								+"<input type='hidden' name='jojicCode' value='"
 				    								+ jojicCode
@@ -242,8 +242,8 @@
 				    								+ levelName
 				    								+ "</td><td>"
 				    								+ staffName
-				    								+ "</td><td><input type='checkbox' name='chamjo'></td></tr>");
-				    	
+				    								+ "</td><td><input type='checkbox' name='chamjo'></td></tr>");				    		
+				    					    	
 				    }
 				   
 				   
@@ -293,6 +293,10 @@
 				    });
 			    });
 				
+				//결재라인선택하기 버튼 클릭 시 이전에 화면에 생성된 결재란 삭제됨
+				$('#appLineBtn').click(function(){
+					$('#appLine').children().remove();
+				});
 				
 				//임시저장버튼 클릭 시 
 				 $('#appKeepBtn').click(function(){							
@@ -338,8 +342,7 @@
 						}
 						
 						if(confirm("결재를 올리시겠습니까?")== true){
-							$('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 넣기
-							//$('#choiceStaff').submit(); //결재라인- db에 있는 um_app_line에 넣기
+							$('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 넣기							
 							
 						}else{
 							return ;
