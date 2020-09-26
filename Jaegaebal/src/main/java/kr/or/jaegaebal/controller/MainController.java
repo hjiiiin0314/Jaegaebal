@@ -2,6 +2,8 @@ package kr.or.jaegaebal.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,10 @@ import kr.or.jaegaebal.service.LoginService;
  */
 @Controller
 public class MainController {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(MainController.class);
+
 	@Autowired LoginService loginService;
 	
 	//index.html
@@ -51,14 +57,18 @@ public class MainController {
 							@RequestParam(value="staffPw") String staffPw,
 							HttpSession httpsession
 							) {
-	
-		StaffInfo staffInfo = loginService.staffLogin(staffNum, staffPw);
-		System.out.println(staffInfo);
+		log.info("staffNum::::::{}", staffNum);
+		log.info("staffPw::::::{}", staffPw);
+		StaffInfo staffInfo = loginService.staffLogin(staffNum, staffPw);		
+		log.info("staffInfo::::::{}", staffInfo.toString());
 		int result = 0;
 		if(staffInfo != null) {
 			if(httpsession.getAttribute("SSTAFFNUM") == null) {		
 				httpsession.setAttribute("SSTAFFNUM", staffInfo.getStaffNum());
 				httpsession.setAttribute("SSTAFFNAME", staffInfo.getStaffName());
+				httpsession.setAttribute("SJOJICNAME", staffInfo.getJojicName());
+				log.info("SSTAFFNUM::::{}", staffInfo.getStaffNum());
+				
 				
 			}
 			
@@ -70,9 +80,10 @@ public class MainController {
 	
 	//로그아웃
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session,Model model) {
 		session.invalidate();
-		return "redirect:/main/login";
+		model.addAttribute("title", "로그인화면");
+		return "redirect:/login";
 	}
 	
 }

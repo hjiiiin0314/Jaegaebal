@@ -20,20 +20,26 @@
 		<result column="company_out_date" 			property="companyOutDate"/>
 		<result column="reg_staff_name" 			property="regStaffName"/>
 		<result column="reg_date" 					property="regDate"/>
+		<result column="jojic_name" 				property="jojicName"/>
 		
 	
 	</resultMap>
 	
 <select id="staffLogin" parameterType="String" resultType="StaffInfo" resultMap="LoginResultMap">
-	SELECT 
-		  staff_num 
-		, staff_name
-		, staff_pw
+		SELECT 
+		  sf.staff_num 
+		, sf.staff_name
+		, sf.staff_pw
+		, sf.jojic_code
+		, jj.jojic_name
 		
 	FROM
-		 is_staff
+		 is_staff AS sf
+		 
+	JOIN is_jojic AS jj
+	ON sf.jojic_code = jj.jojic_code
 	WHERE
-		staff_num = #{staffNum} and staff_pw = #{staffPw}
+		sf.staff_num = #{staffNum} and sf.staff_pw = #{staffPw}
 </select>
 
 </mapper>

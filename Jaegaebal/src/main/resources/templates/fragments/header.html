@@ -83,10 +83,10 @@
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                        <h6 th:if="${session.SSTAFFNUM ne null}" th:text="${session.SSTAFFNAME}+'('+ ${session.SJOJICNAME} +')' + '님 로그인'"></h6>
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                      
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
