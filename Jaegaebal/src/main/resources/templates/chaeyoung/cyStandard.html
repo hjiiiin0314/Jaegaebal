@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+		<div class="app-main__inner">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>지원자목록
+					       <div class="page-title-subheading">지원자 목록 조회</div>
+					    </div>
+					</div>
+				</div>
+			</div>          
+			<div class="row">
+				<div class="col-md-12">
+                                    <div id="accordion" class="accordion-wrapper mb-3">
+										<th:block th:each="j : ${jojicCode}">
+                                        <div class="card">
+                                            <div id="headingOne" class="card-header">
+                                                <button type="button" data-toggle="collapse" th:data-target="@{'#collapseOne'+${jStat.index}}" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                                                    <h5 class="m-0 p-0" th:text="${j.jojicName}"></h5>
+                                                </button>
+                                            </div>
+                                            <div data-parent="#accordion" th:id="@{'collapseOne'+${jStat.index}}" aria-labelledby="headingOne" class="collapse" style="">
+                                                <div class="card-body">
+                                                	<table>
+                                                		
+                                                	</table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+			</div>
+               
+ 
+       </div>
+         
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+		<script>
+		</script>
+	</th:block>
+</html>
