@@ -78,3 +78,35 @@
     padding-right: 90px;
 	
 }
+ #appLine td:nth-child(2n) {
+    padding:0;
+    vertical-align: unset;
+ }
+ 
+ #appLine table {
+    width:100%;
+ }
+ #appLine table tr td {
+    border:0 !important;
+    border-bottom:1px solid #e9ecef !important;
+ }
+ 
+ #appLine table tr:nth-child(3n) td {
+    border-bottom:0 !important;
+ }
+ .table-body{
+    text-align:right;
+    margin-left:auto;
+ }
+ .four-td{
+    width:80%;
+ }
+ .three-td{
+    width:60%;
+ }
+ .two-td{
+    width:40%;
+ }
+ .one-td{
+    width:20%;
+ }

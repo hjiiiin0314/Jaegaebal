@@ -1,83 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="layout/default">
-	  
-	<th:block layout:fragment="customTitle">
-		<title th:text="${title}"></title> 
-	</th:block>
-	
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="layout/default">
+     
+   <th:block layout:fragment="customTitle">
+      <title th:text="${title}"></title> 
+   </th:block>
+   
 
-	
-	<th:block layout:fragment="customCss">
-		<!-- include summernote css/js -->
-		<link rel="stylesheet" href="summernote/summernote-lite.css">
-		<!-- upmu.css  -->
-		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">	
-		<!--jstree  -->
-		<link rel="stylesheet" type="text/css" th:href="@{/tree/themes/default/style.min.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/tree/themes/default-dark/style.css}">
-	</th:block>
-	
-	
-	<th:block layout:fragment="customContent">
-
-<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
-		<form  id="addAppDoc" action="/appWrite" method="post">
-  		<div class="col-md-10">
-		<div class="app-page-title">
-				<div class="page-title-wrapper">
-					<div class="page-title-heading">
-					    <div class="page-title-icon">
-					        <i class="pe-7s-monitor icon-gradient bg-mean-fruit">
-					        </i>
-					    </div>
-					    <div>
-					    	<h2>전자결재</h2>
-					       <div class="page-title-subheading"></div>
-					    </div>
-					</div>
-				</div>
-		</div> 
-		<div class="row">
-			<div class="col-md-12">
-				<div class="main-card mb-3 card"> 
-					<div class="card-body">
-						<h4><i class="pe-7s-eyedropper"></i>       기안하기 </h4><br>						
-							<table id="appLine" class="mb-2 table table-bordered">
-								<tr>
-								</tr>
-					    	</table> 						          
-	                   <div class="position-relative form-group ">
-	                   	<button id="appLineBtn"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
-	                   		<i class="pe-7s-users"></i>  결재라인선택하기
-	                   	</button>
-	                   </div>
-	                   <div class="position-relative form-group index-front">
-		                   	<div class="position-relative form-group document-form">
-		                   	<label for="docType" >문서양식</label>
-		                   	<select id="docType" class="form-control" name="docType" >
-		                   		<option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
-		                        <option th:each="doc : ${docType}" th:text="${doc.docTypeName}" th:value="${doc.docCode}" ></option>	               	                   
-		                    </select>
-		                    </div>
-		                    <div class="position-relative form-group deadline-form"><label for="deadline" >마감요청일</label>
-		                    	<input type="date" class="form-control" name="deadline">   
-		                    </div>
-		                </div>       
-	                   <div class="position-relative form-group"><label for="docTitle">제목</label>
-	                   		<input id="docTitle" type="text" class="form-control" name="docTitle" >
-	                   </div>                  
-	  					<textarea id="summernote" name="docContents"></textarea>
-	                    <div class="position-relative form-group"><label for="exampleText" >코멘트</label>
-	                    <textarea name="docComent" id="docComent" class="form-control"></textarea></div>
-	                    <div class="position-relative form-group" ><label for="docFile" >첨부파일</label>
-	                     	<input name="docFile" id="docFile" type="file" class="form-control-file">
-	                    </div>
-	                    <div class="position-relative form-group"> <label for="security" >보안처리</label>
-	                      	<input type="checkbox" name="security" value="보안">
-	                    </div>
-			
+   
+   <th:block layout:fragment="customCss">
+      <!-- include summernote css/js -->
+      <link rel="stylesheet" href="summernote/summernote-lite.css">
+      <!-- upmu.css  -->
+      <link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">   
+      <!--jstree  -->
+      <link rel="stylesheet" type="text/css" th:href="@{/tree/themes/default/style.min.css}">
+      <link rel="stylesheet" type="text/css" th:href="@{/tree/themes/default-dark/style.css}">
+   </th:block>
+   
+   
+   <th:block layout:fragment="customContent">
+ 
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->      
+      <form  id="addAppDoc" action="/appWrite" method="post">
+        <div class="col-md-10">
+      <div class="app-page-title">
+            <div class="page-title-wrapper">
+               <div class="page-title-heading">
+                   <div class="page-title-icon">
+                       <i class="pe-7s-monitor icon-gradient bg-mean-fruit">
+                       </i>
+                   </div>
+                   <div>
+                      <h2>전자결재</h2>
+                      <div class="page-title-subheading"></div>
+                   </div>
+               </div>
+            </div>
+      </div> 
+      <div class="row">
+         <div class="col-md-12">
+            <div class="main-card mb-3 card"> 
+               <div class="card-body">
+                  <h4><i class="pe-7s-eyedropper"></i>       기안하기 </h4><br>                  
+                     <div class="table-body">
+                     <table id="appLine" class="mb-2 table table-bordered">
+                        
+                      </table>                       
+                      <div class="position-relative form-group ">
+                         <button id="appLineBtn"  type="button" class="mb-2 mr-2 btn btn-primary" name="appLine" data-toggle="modal" data-target="#appModal" >
+                            <i class="pe-7s-users"></i>  결재라인선택하기
+                         </button>
+                      </div>
+                      </div>
+                      <div class="position-relative form-group index-front">
+                            <div class="position-relative form-group document-form">
+                            <label for="docType" >문서양식</label>
+                            <select id="docType" class="form-control" name="docType" >
+                               <option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
+                              <option th:each="doc : ${docType}" th:text="${doc.docTypeName}" th:value="${doc.docCode}" ></option>                                        
+                          </select>
+                          </div>
+                          <div class="position-relative form-group deadline-form"><label for="deadline" >마감요청일</label>
+                             <input type="date" class="form-control" name="deadline">   
+                          </div>
+                      </div>       
+                      <div class="position-relative form-group"><label for="docTitle">제목</label>
+                            <input id="docTitle" type="text" class="form-control" name="docTitle" >
+                      </div>                  
+                    <textarea id="summernote" name="docContents"></textarea>
+                       <div class="position-relative form-group"><label for="exampleText" >코멘트</label>
+                       <textarea name="docComent" id="docComent" class="form-control"></textarea></div>
+                       <div class="position-relative form-group" ><label for="docFile" >첨부파일</label>
+                           <input name="docFile" id="docFile" type="file" class="form-control-file">
+                       </div>
+                       <div class="position-relative form-group"> <label for="security" >보안처리</label>
+                            <input type="checkbox" name="security" value="보안">
+                       </div>
+         
                      <button type="button" id="appSubmitBtn" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                
                      <button type="button" id="appKeepBtn" class="mb-2 mr-2 btn btn-success active btn-right"><i class= "pe-7s-drawer"></i>  저장하기</button>                
                   </div>
@@ -85,82 +86,82 @@
            </div>
         </div>
        </div> 
-    	
-    	
+       
+       
 
          <!------------------- appModal 시작   ------------------------>     
          <div  class="modal fade" id="appModal">
-	  	 	<div class="modal-dialog modal-lg" style="width: auto; ">
-	     		<div class="modal-content">
-	     			<div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal"></button>
-				        <h4 class="modal-title" id="myModalLabel">결재라인</h4>
-				     </div>
-	     			<div class="modal-body">
-	     				<div class="main-card col-lg-5 card modal-inform">
-		     				<div class="card-body">
-		       					<h4>조직도</h4>
-		       					<div class="form-group form-scroll" >
-		       										
-	       							<div id="jojic">		       								
-									  <ul>
-									  	<th:block th:each="j : ${jojic}" >	
-									  		<li>	   
-										    	<span th:text="${j.parentJojicName}"></span> 
-										    	
-								    			<ul th:each="s : ${staff}">
-								    				<li th:if="${s.jojicName eq j.parentJojicName and s.jojicSosocName ne '팀'}">
-								    					<span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
-								    				</li>
-								    			</ul>									    			
-									    		
-										    	<th:block th:each="t : ${team}" th:if="${t.parentJojicName eq j.parentJojicName}">
-										    		<ul th:if="${t.jojicName ne j.parentJojicName and t.jojicSosocName eq '팀'}">
-										    			<li>
-										    				<span th:text="${t.jojicName}"></span>
-											    			<ul th:each="s : ${staff}">
-											    				<li th:if="${s.jojicName eq t.jojicName}">
-											    					<span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
-											    				</li>
-											    			</ul>
-										    			</li>
-										    		</ul>										    				    		
-										    	</th:block>		
-									    	</li>   
-									  	</th:block>										  									  
-									  </ul>
-									</div>		       							       							
-	       						</div>
-	       					</div>	       							
-	       				</div>
-       					
-	       				<div class="main-card col-lg-7 modal-inform">
-	     					<div class="card-body">
-			       				<h4>결재자</h4>
-			       				<div class="form-group  form-scroll">
-			       				
-										<table id="appStaff" class="mb-0 table table-bordered">
-											<tr>
-												<td><input id="checkAll" type="checkbox" class="text-center"></td>
-												<td class="text-center">부서</td>
-												<td class="text-center">직급</td>
-												<td class="text-center">이름</td>
-												<td class="text-center">참조</td>
-											</tr>
-										</table>
-			       					
-									<button id="delBtn" type="button" class="mb-2 mr-2 btn-transition btn btn-outline-focus btn-del"><i class="pe-7s-delete-user"> 제외</i></button>
-			       				</div>
-	      					</div>
-	      				</div>
-	      				<div class="modal-footer">
-		        			<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-		        			<button type="button" id="choiceBtn" class="btn btn-primary" data-dismiss="modal">선택완료</button>
-	      				</div>
-					</div>
-				</div>				
-			</div>
-		</div>
+            <div class="modal-dialog modal-lg" style="width: auto; ">
+              <div class="modal-content">
+                 <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title" id="myModalLabel">결재라인</h4>
+                 </div>
+                 <div class="modal-body">
+                    <div class="main-card col-lg-5 card modal-inform">
+                       <div class="card-body">
+                            <h4>조직도</h4>
+                            <div class="form-group form-scroll" >
+                                           
+                               <div id="jojic">                                     
+                             <ul>
+                                <th:block th:each="j : ${jojic}" >   
+                                   <li>      
+                                     <span th:text="${j.parentJojicName}"></span> 
+                                     
+                                     <ul th:each="s : ${staff}">
+                                        <li th:if="${s.jojicName eq j.parentJojicName and s.jojicSosocName ne '팀'}">
+                                           <span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
+                                        </li>
+                                     </ul>                                        
+                                     
+                                     <th:block th:each="t : ${team}" th:if="${t.parentJojicName eq j.parentJojicName}">
+                                        <ul th:if="${t.jojicName ne j.parentJojicName and t.jojicSosocName eq '팀'}">
+                                           <li>
+                                              <span th:text="${t.jojicName}"></span>
+                                              <ul th:each="s : ${staff}">
+                                                 <li th:if="${s.jojicName eq t.jojicName}">
+                                                    <span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
+                                                 </li>
+                                              </ul>
+                                           </li>
+                                        </ul>                                                        
+                                     </th:block>      
+                                  </li>   
+                                </th:block>                                                             
+                             </ul>
+                           </div>                                                              
+                            </div>
+                         </div>                               
+                      </div>
+                      
+                      <div class="main-card col-lg-7 modal-inform">
+                       <div class="card-body">
+                            <h4>결재자</h4>
+                            <div class="form-group  form-scroll">
+                            
+                              <table id="appStaff" class="mb-0 table table-bordered">
+                                 <tr>
+                                    <td><input id="checkAll" type="checkbox" class="text-center"></td>
+                                    <td class="text-center">부서</td>
+                                    <td class="text-center">직급</td>
+                                    <td class="text-center">이름</td>
+                                    <td class="text-center">참조</td>
+                                 </tr>
+                              </table>
+                               
+                           <button id="delBtn" type="button" class="mb-2 mr-2 btn-transition btn btn-outline-focus btn-del"><i class="pe-7s-delete-user"> 제외</i></button>
+                            </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                       <button type="button" id="choiceBtn" class="btn btn-primary" data-dismiss="modal">선택완료</button>
+                     </div>
+               </div>
+            </div>            
+         </div>
+      </div>
 </form>
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
@@ -168,191 +169,206 @@
 
 
 
-	</th:block>
+   </th:block>
 
-	<!-- 사용자 지정 script -->
-	<th:block layout:fragment="customJsScript">		
-		<script src="/summernote/summernote-lite.js"></script>
-      	<script src="/summernote/lang/summernote-ko-KR.js"></script>
-	<!-- jstree  -->
-		<script type="text/javascript" th:src="@{/tree/jstree.js}"></script>
+   <!-- 사용자 지정 script -->
+   <th:block layout:fragment="customJsScript">      
+      <script src="/summernote/summernote-lite.js"></script>
+         <script src="/summernote/lang/summernote-ko-KR.js"></script>
+   <!-- jstree  -->
+      <script type="text/javascript" th:src="@{/tree/jstree.js}"></script>
 
-		
-		
-		
-		<!--  결재라인 모달  관련 -->
-		<script>
-		$('#jojic').jstree();
+      
+      
+      
+      <!--  결재라인 모달  관련 -->
+      <script>
+      $('#jojic').jstree();
 
-			
-				$(document).on('click','.choice-staff',function(){
-				    var staffNum = $(this).attr('data-staffNum');
-				    var staffLevelCode= $(this).attr('data-staffLevelCode');
-				    var levelName= $(this).attr('data-levelName');
-				    var staffName= $(this).attr('data-staffName');
-				    var jojicName= $(this).attr('data-jojicName');
-				    var jojicCode= $(this).attr('data-jojicCode');
-				    
-				    console.log(staffNum + "<-- 사원번호");
-				    console.log(staffLevelCode + "<-- 직책코드");
-				    console.log(levelName + "<-- 직책이름");
-				    console.log(staffName + "<-- 사원이름");
-				    console.log(jojicName + "<-- 조직이름");
-				    console.log(jojicCode + "<-- 조직코드");
-				    
-				   var appLineStaff = 1;
-				    				   
-				    //모달내부 - 결재자에 중복값 들어가지 않도록 하기			    	
-					    $('.addStaff').each(function(){		
-					    		var appStaffNum = $(this).find('.appStaffNum').val();
-						    	if(staffNum == appStaffNum){
-						    		appLineStaff= 0;
-						    		alert('이미 선택된 결재자입니다.')
-					    			return false;
-						    	}						 	 
-					    });
-					// 모달 내부 - 조직도에서 선택한 사원값을  결재자란에 넣기
-						if(appLineStaff == 1 && staffNum != null){				    	
-						    	$('#appStaff').append("<tr class='addStaff'><td><input name='check' type='checkbox'></td><td class='text-center'>"
-					    								+"<input type='hidden' name='jojicCode' value='"
-					    								+ jojicCode
-					    								+ "'><input type='hidden' name='jojicName' value='"
-					    								+ jojicName
-					    								+ "'><input type='hidden' name='staffLevelCode' value='"
-					    								+ staffLevelCode
-					    								+ "'><input type='hidden' name='levelName' value='"
-					    								+ levelName
-					    								+" '><input type='hidden' name='staffNum' class='appStaffNum' value='"
-					    								+ staffNum
-					    								+"'><input type='hidden' name='staffName' value='"
-					    								+ staffName
-					    								+"'>"
-					    								+ jojicName 
-					    								+ "</td><td>"
-					    								+ levelName
-					    								+ "</td><td>"
-					    								+ staffName
-					    								+ "</td><td><input type='checkbox' name='chamjo'></td></tr>");				    						    					    	
-						}			   			   
-					    
-				    
-				   
-				   
-			});
-			
-				
-			$(function(){
-				
-				//최상단 체크박스 클릭
-		        $("#checkAll").click(function(){
-		            //클릭되었으면
-		            if($("#checkAll").prop("checked")){
-		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-		                $("input[name=check]").prop("checked",true);
-		                //클릭이 안되있으면
-		            }else{
-		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-		                $("input[name=check]").prop("checked",false);
+         
+            $(document).on('click','.choice-staff',function(){
+                var staffNum = $(this).attr('data-staffNum');
+                var staffLevelCode= $(this).attr('data-staffLevelCode');
+                var levelName= $(this).attr('data-levelName');
+                var staffName= $(this).attr('data-staffName');
+                var jojicName= $(this).attr('data-jojicName');
+                var jojicCode= $(this).attr('data-jojicCode');
+                
+                console.log(staffNum + "<-- 사원번호");
+                console.log(staffLevelCode + "<-- 직책코드");
+                console.log(levelName + "<-- 직책이름");
+                console.log(staffName + "<-- 사원이름");
+                console.log(jojicName + "<-- 조직이름");
+                console.log(jojicCode + "<-- 조직코드");
+                
+               var appLineStaff = 1;
+                               
+                //모달내부 - 결재자에 중복값 들어가지 않도록 하기                
+                   $('.addStaff').each(function(){      
+                         var appStaffNum = $(this).find('.appStaffNum').val();
+                         if(staffNum == appStaffNum){
+                            appLineStaff= 0;
+                            alert('이미 선택된 결재자입니다.')
+                            return false;
+                         }                       
+                   });
+               // 모달 내부 - 조직도에서 선택한 사원값을  결재자란에 넣기
+                  if(appLineStaff == 1 && staffNum != null){                   
+                         $('#appStaff').append("<tr class='addStaff'><td><input name='check' type='checkbox'></td><td class='text-center'>"
+                                           +"<input type='hidden' name='jojicCode' value='"
+                                           + jojicCode
+                                           + "'><input type='hidden' name='jojicName' value='"
+                                           + jojicName
+                                           + "'><input type='hidden' name='staffLevelCode' value='"
+                                           + staffLevelCode
+                                           + "'><input type='hidden' name='levelName' value='"
+                                           + levelName
+                                           +" '><input type='hidden' name='staffNum' class='appStaffNum' value='"
+                                           + staffNum
+                                           +"'><input type='hidden' name='staffName' value='"
+                                           + staffName
+                                           +"'>"
+                                           + jojicName 
+                                           + "</td><td>"
+                                           + levelName
+                                           + "</td><td>"
+                                           + staffName
+                                           + "</td><td><input type='checkbox' name='chamjo'></td></tr>");                                                            
+                  }                        
+                   
+                
+               
+               
+         });
+         
+            
+         $(function(){
+            
+            //최상단 체크박스 클릭
+              $("#checkAll").click(function(){
+                  //클릭되었으면
+                  if($("#checkAll").prop("checked")){
+                      //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                      $("input[name=check]").prop("checked",true);
+                      //클릭이 안되있으면
+                  }else{
+                      //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                      $("input[name=check]").prop("checked",false);
+                  }
+              });
+            //summernote 
+            $('#summernote').summernote({
+                 height: 300,                 // 에디터 높이
+                 minHeight: null,             // 최소 높이
+                 maxHeight: null,             // 최대 높이
+                 focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+                 lang: "ko-KR",               // 한글 설정
+                 placeholder: '내용을 입력하세요'   //placeholder 설정
+                      
+               });
+            
+            //결재자란에 있는 사원을 체크하고 제외버튼 클릭 시 제외되는 이벤트
+             $('#delBtn').click(function(){                   
+                $('input[name=check]').each(function(){
+                   if($(this).prop('checked')){
+                      $(this).parent("td").parent("tr").remove();
+                   }
+                });
+             });
+               
+                   
+            //선택완료버튼 클릭 시 기안하기 모달 밖 화면에 결재라인칸 생성
+             $('#choiceBtn').click(function(){
+                
+                $('.addStaff').each(function(){
+                   
+                   var levelName = $(this).find('input[name=levelName]').val();
+                   var jojicName = $(this).find('input[name=jojicName]').val();
+                   var staffName = $(this).find('input[name=staffName]').val();
+                   
+                   $('#appLine').append("<td class='text-center app-StaffLevel'>"
+                                 + levelName
+                                 + "</td><td class='appLine-form'><table><tr><td class='text-center'>"
+                                 + jojicName
+                                 + "</td></tr><tr><td class='text-center'>"
+                                 + staffName
+                                 + "</td></tr><tr><td class='text-center app-sign'></td></tr></table></td>");
+                });
+		            //결재란 크기 조정 
+		            if($('#appLine').find('.app-StaffLevel').length == 4){
+            	 		$('.table-body').removeClass().addClass('table-body four-td');		
 		            }
-		        });
-				//summernote 
-				$('#summernote').summernote({
-					  height: 300,                 // 에디터 높이
-					  minHeight: null,             // 최소 높이
-					  maxHeight: null,             // 최대 높이
-					  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-					  lang: "ko-KR",					// 한글 설정
-					  placeholder: '내용을 입력하세요'	//placeholder 설정
-				          
-					});
-				
-				//결재자란에 있는 사원을 체크하고 제외버튼 클릭 시 제외되는 이벤트
-			    $('#delBtn').click(function(){				    	
-			    	$('input[name=check]').each(function(){
-			    		if($(this).prop('checked')){
-			    			$(this).parent("td").parent("tr").remove();
-			    		}
-			    	});
-			    });
-				   
-				    	
-				//선택완료버튼 클릭 시 기안하기 모달 밖 화면에 결재라인칸 생성
-				 $('#choiceBtn').click(function(){
-	    			
-				    $('.addStaff').each(function(){
-				    	
-				    	var levelName = $(this).find('input[name=levelName]').val();
-				    	var jojicName = $(this).find('input[name=jojicName]').val();
-				    	var staffName = $(this).find('input[name=staffName]').val();
-				    	
-				    	$('#appLine').append("<td class='text-center app-StaffLevel'>"
-											+ levelName
-											+ "</td><td class='appLine-form'><table><tr><td class='text-center app-jojicName'>"
-											+ jojicName
-											+ "</td></tr><tr><td class='text-center'>"
-											+ staffName
-											+ "</td></tr><tr><td class='text-center app-sign'></td></tr></table></td>");
-				    });
-			    });
-				
-				//결재라인선택하기 버튼 클릭 시 이전에 화면에 생성된 결재란은 삭제됨
-				$('#appLineBtn').click(function(){
-					$('#appLine').children().remove();
-				});
-				
-				//임시저장버튼 클릭 시 
-				 $('#appKeepBtn').click(function(){							
-					 if(confirm("저장하시겠습니까 ?") == true){
-					    alert("임시저장함으로 이동합니다.");
-						window.location.href="/storageBox";	
-					        
-					  }else{
-					        return ;
-					    }			
-				});
-				
-				//결재올리기 버튼 클릭 시 유효성 검사진행
-				 $('#appSubmitBtn').click(function(){
-						
-						//결재라인 선택에 대한 유효성검사 넣어야함!!!!!!!!!!!!!!!!
-						var docType = $('#docType option:selected').val(); // 선택된 옵션 값 -문서유형
-						var deadline = $('input[name= "deadline"]').val(); // 마감요청일
-						var docTitle = $('input[name= "docTitle"]').val(); // 제목
-						var docContents = $('#summernote'); // 내용
-							console.log(docType + "<--docType");
-							console.log(deadline + "<--deadline");
-							console.log(docTitle + "<--docTitle");
-							console.log(docContents.val() + "<--docContents");
-							
-						if(docType == '::문서양식선택하기::'){
-							alert('문서양식을 선택하셔야 합니다.');								
-							return false;	
-						}
-						if(deadline == ''){
-							alert('마감요청일을 지정해주세요.');
-							return false;
-						}
-						if(docTitle == ''){
-							alert('제목을 입력해주세요.');
-							return false;
-						}
-						if(docContents.val() == ''){
-							alert('내용을 입력해주세요.');
-							return false;
-						}
-						
-						if(confirm("결재를 올리시겠습니까?")== true){
-							$('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 넣기							
-							
-						}else{
-							return ;
-						}
-		
-					});
-			});
-				
-		</script>
-			
-	</th:block>
+		            else if($('#appLine').find('.app-StaffLevel').length == 3){	
+		            	$('.table-body').removeClass().addClass('table-body three-td');		            	
+		            }else if($('#appLine').find('.app-StaffLevel').length == 2){
+		            	$('.table-body').removeClass().addClass('table-body two-td');	
+		            }else if($('#appLine').find('.app-StaffLevel').length == 1){
+		            	$('.table-body').removeClass().addClass('table-body one-td');	
+		            }else{
+		            	$('.table-body').removeClass().addClass('table-body');
+		            }
+          
+             });
+         
+            
+            //결재라인선택하기 버튼 클릭 시 이전에 화면에 생성된 결재란은 삭제됨
+            $('#appLineBtn').click(function(){
+               $('#appLine').children().remove();
+            });
+            
+            //임시저장버튼 클릭 시 
+             $('#appKeepBtn').click(function(){                     
+                if(confirm("저장하시겠습니까 ?") == true){
+                   alert("임시저장함으로 이동합니다.");
+                  window.location.href="/storageBox";   
+                       
+                 }else{
+                       return ;
+                   }         
+            });
+            
+            //결재올리기 버튼 클릭 시 유효성 검사진행
+             $('#appSubmitBtn').click(function(){
+                  
+                  //결재라인 선택에 대한 유효성검사 넣어야함!!!!!!!!!!!!!!!!
+                  var docType = $('#docType option:selected').val(); // 선택된 옵션 값 -문서유형
+                  var deadline = $('input[name= "deadline"]').val(); // 마감요청일
+                  var docTitle = $('input[name= "docTitle"]').val(); // 제목
+                  var docContents = $('#summernote'); // 내용
+                     console.log(docType + "<--docType");
+                     console.log(deadline + "<--deadline");
+                     console.log(docTitle + "<--docTitle");
+                     console.log(docContents.val() + "<--docContents");
+                     
+                  if(docType == '::문서양식선택하기::'){
+                     alert('문서양식을 선택하셔야 합니다.');                        
+                     return false;   
+                  }
+                  if(deadline == ''){
+                     alert('마감요청일을 지정해주세요.');
+                     return false;
+                  }
+                  if(docTitle == ''){
+                     alert('제목을 입력해주세요.');
+                     return false;
+                  }
+                  if(docContents.val() == ''){
+                     alert('내용을 입력해주세요.');
+                     return false;
+                  }
+                  
+                  if(confirm("결재를 올리시겠습니까?")== true){
+                     $('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 넣기                     
+                     
+                  }else{
+                     return ;
+                  }
+      
+               });
+         });
+            
+      </script>
+         
+   </th:block>
 
 </html>
