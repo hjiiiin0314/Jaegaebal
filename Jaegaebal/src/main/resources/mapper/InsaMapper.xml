@@ -489,11 +489,11 @@
 	<!-- 직원 인적사항 등록하기 -->
 	<insert id="insertStaffBasicInfo" parameterType="StaffInfo">
 		<selectKey keyProperty="basicInfoCode" resultType="String" order="BEFORE" >
-			select CONCAT('BSIF',(SELECT max(SUBSTRING(basic_info_code,5)) + 1 FROM is_staff_basic_info AS bsif))
+			select CONCAT('BSIF',(SELECT MAX(cast(SUBSTRING(basic_info_code,5)AS DECIMAL)) + 1  FROM is_staff_basic_info AS bsif))
 		</selectKey>	
 		INSERT INTO 
 			is_staff_basic_info
-				(	basic_info_code
+				(  basic_info_code
 				 , staff_num
 				 , staff_eng_name
 				 , human_num
@@ -527,7 +527,7 @@
 	<!-- 직원 가족정보 등록하기 -->
 	<insert id="insertStaffFamilyInfo" parameterType="StaffInfo">
 		<selectKey keyProperty="familyInfoCode" resultType="String" order="BEFORE" >
-			select CONCAT('FMLIF',(SELECT max(SUBSTRING(family_info_code,6)) + 1 FROM is_staff_family_info AS FMLIF))
+			select CONCAT('FMLIF',(SELECT MAX(cast(SUBSTRING(family_info_code,6)AS DECIMAL)) + 1  FROM is_staff_family_info AS FMLIF))
 		</selectKey>
 		INSERT INTO 
 			is_staff_family_info
@@ -547,7 +547,12 @@
 				 , #{staffNum}
 				 , #{relation}
 				 , #{familyName}
-				 , #{familyBirthday}
+				 	<if test="familyBirthday != null and familyBirthday != ''.toString()">			
+						, #{familyBirthday}
+					</if> 
+			 		<if test="familyBirthday == null || familyBirthday == ''.toString()">			
+						, null
+					</if>
 				 , #{familyJob}
 				 , #{familyAddr}
 				 , #{familyPhone}
@@ -559,7 +564,7 @@
 	<!-- 직원 사내경력 정보 등록하기 -->
 	<insert id="insertStaffCareerInfoFromIn" parameterType="StaffInfo">
 		<selectKey keyProperty="careerInfoFromInCode" resultType="String" order="BEFORE" >
-			select CONCAT('CINIF',(SELECT max(SUBSTRING(career_info_from_in_code,6)) + 1 FROM is_career_info_from_in AS ci))
+			select CONCAT('CINIF',(SELECT MAX(cast(SUBSTRING(career_info_from_in_code,6)AS DECIMAL)) + 1  FROM is_career_info_from_in AS ci))
 		</selectKey>	
 		INSERT INTO 
 			is_career_info_from_in
@@ -585,8 +590,12 @@
 			 		<if test="projectStartDate == null || projectStartDate == ''.toString()">			
 						, null
 					</if> 
-				 , #{projectStartDate}
-				 , #{projectEndDate}
+					<if test="projectEndDate != null and projectEndDate != ''.toString()">			
+						, #{projectEndDate}
+					</if> 
+			 		<if test="projectEndDate == null || projectEndDate == ''.toString()">			
+						, null
+					</if>
 				 , #{projectAccess}
 				 , #{projectLevelName}
 				 , #{projectWork}
@@ -599,7 +608,7 @@
 	<!-- 직원 사외 경력 정보 등록하기 -->
 	<insert id="insertStaffCareerInfoFromOut" parameterType="StaffInfo">
 		<selectKey keyProperty="careerInfoFromOutCode" resultType="String" order="BEFORE" >
-			select CONCAT('COUTIF',(SELECT max(SUBSTRING(career_info_from_out_code,7)) + 1 FROM is_career_info_from_out AS cout))
+			select CONCAT('COUTIF',(SELECT MAX(cast(SUBSTRING(career_info_from_out_code,7)AS DECIMAL)) + 1  FROM is_career_info_from_out AS cout))
 		</selectKey>	
 		INSERT INTO 
 			is_career_info_from_out
@@ -622,8 +631,18 @@
 				 , #{companyAccess}
 				 , #{companyPositionFromOut}
 				 , #{companyWorkFormOut}
-				 , #{companyInDateFromOut}
-				 , #{companyOutDateFromOut}
+				 	<if test="companyInDateFromOut != null and companyInDateFromOut != ''.toString()">			
+						, #{companyInDateFromOut}
+					</if> 
+			 		<if test="companyInDateFromOut == null || companyInDateFromOut == ''.toString()">			
+						, null
+					</if>				 
+				 	<if test="companyOutDateFromOut != null and companyOutDateFromOut != ''.toString()">			
+						, #{companyOutDateFromOut}
+					</if> 
+			 		<if test="companyOutDateFromOut == null || companyOutDateFromOut == ''.toString()">			
+						, null
+					</if>				 
 				 , #{companyOutReason}
 				 , #{careerInfoFromOutNotes}
 				 , '이은혜'
@@ -633,7 +652,7 @@
 	<!-- 직원 자격증 정보 등록하기 -->
 	<insert id="insertStaffCertificateInfo" parameterType="StaffInfo">
 		<selectKey keyProperty="certificateInfoCode" resultType="String" order="BEFORE" >
-			select CONCAT('CTIF',(SELECT max(SUBSTRING(certificate_info_code,5)) + 1 FROM is_certificate_info AS c))
+			select CONCAT('CTIF',(SELECT MAX(cast(SUBSTRING(certificate_info_code,5)AS DECIMAL)) + 1  FROM is_certificate_info AS c))
 		</selectKey>	
 		INSERT INTO 
 			is_certificate_info
@@ -653,8 +672,18 @@
 				 , #{certificateName}
 				 , #{issuingAgency}
 				 , #{certificateNum}
-				 , #{getDate}
-				 , #{finishedDate}
+				 	<if test="getDate != null and getDate != ''.toString()">			
+						, #{getDate}
+					</if> 
+			 		<if test="getDate == null || getDate == ''.toString()">			
+						, null
+					</if>					 
+				 	<if test="finishedDate != null and finishedDate != ''.toString()">			
+						, #{finishedDate}
+					</if> 
+			 		<if test="finishedDate == null || finishedDate == ''.toString()">			
+						, null
+					</if>					 
 				 , #{certificateInfoNotes}
 				 , '이은혜'
 				 , NOW())	
@@ -663,7 +692,7 @@
 	<!-- 직원 학력정보 등록하기 -->
 	<insert id="insertStaffEducationInfo" parameterType="StaffInfo">
 		<selectKey keyProperty="educationInfoCode" resultType="String" order="BEFORE" >
-			select CONCAT('EDIF',(SELECT max(SUBSTRING(education_info_code,5)) + 1 FROM is_education_info AS ed))
+			select CONCAT('EDIF',(SELECT MAX(cast(SUBSTRING(education_info_code,6)AS DECIMAL)) + 1  FROM is_education_info AS ed))
 		</selectKey>	
 		INSERT INTO 
 			is_education_info
@@ -686,8 +715,18 @@
 				 , #{hakryuckStatus}
 				 , #{majorName}
 				 , #{minorName}
-				 , #{entranceDate}
-				 , #{graduatDate}
+				 	<if test="entranceDate != null and entranceDate != ''.toString()">			
+						, #{entranceDate}
+					</if> 
+			 		<if test="entranceDate == null || entranceDate == ''.toString()">			
+						, null
+					</if>				 
+				 	<if test="graduatDate != null and graduatDate != ''.toString()">			
+						, #{graduatDate}
+					</if> 
+			 		<if test="graduatDate == null || graduatDate == ''.toString()">			
+						, null
+					</if>				 
 				 , #{degree}
 				 , #{educationInfoNotes}
 				 , '이은혜'
@@ -697,7 +736,7 @@
 	<!-- 직원 병역정보 등록하기 -->
 	<insert id="insertStaffMilitaryInfo" parameterType="StaffInfo">
 		<selectKey keyProperty="militaryInfoCode" resultType="String" order="BEFORE" >
-			select CONCAT('MLIF',(SELECT max(SUBSTRING(military_info_code,5)) + 1 FROM is_military_info AS ml))
+			select CONCAT('MLIF',(SELECT MAX(cast(SUBSTRING(military_info_code,5)AS DECIMAL)) + 1  FROM is_military_info AS ml))
 		</selectKey>	
 		INSERT INTO 
 			is_military_info
@@ -716,8 +755,18 @@
 				 , #{staffNum}
 				 , #{militaryServiceType}
 				 , #{militaryState}
-				 , #{militaryInDay}
-				 , #{militaryOutDay}
+				 	<if test="militaryInDay != null and militaryInDay != ''.toString()">			
+						, #{militaryInDay}
+					</if> 
+			 		<if test="militaryInDay == null || militaryInDay == ''.toString()">			
+						, null
+					</if>
+				 	<if test="militaryOutDay != null and militaryOutDay != ''.toString()">			
+						, #{militaryOutDay}
+					</if> 
+			 		<if test="militaryOutDay == null || militaryOutDay == ''.toString()">			
+						, null
+					</if>
 				 , #{militaryLevel}
 				 , #{militaryInfoNotes}
 				 , '이은혜'

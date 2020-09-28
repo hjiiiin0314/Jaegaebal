@@ -265,6 +265,25 @@ public class InsaController {
 		 return result;
 	 }
 	 
+	 //조직도 리스트 화면
+	 @GetMapping("/insa/jojicdoList")
+	 public String getJojicdoList(	 Model model,
+			 						@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+			 						@RequestParam Map<String, Object> map) {
+		Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage, map);
+		List<Jojic> jojicInfo = insaService.getJojicInfoAll();
+		List<Jojic> jojicInfo2 = insaService.getJojicInfoAll();
+		model.addAttribute("lastPage", resultMap.get("lastPage"));
+		model.addAttribute("staffInfoList", resultMap.get("getStaffInfoList"));
+		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("jojicInfo", jojicInfo);
+		model.addAttribute("jojicInfo2", jojicInfo2);
+		model.addAttribute("title", "조직도 리스트");
+		return "insa/jojicdo_list";
+	 }
+	 
 	 //징계 리스트 화면
 	 @GetMapping("/insa/punishment")
 	 public String getPunishmentList(Model model) {
