@@ -16,17 +16,34 @@
 	</resultMap>
 	<resultMap type="ChaeYoungApplicant" id="ChaeYoungApplicantResultMap">
 	
-		<result column="app_email" 		property="appEmail"/>
-		<result column="job_number" 	property="jobNumber"/>
-		<result column="app_passward" 	property="appPassward"/>
-		<result column="app_name" 		property="appName"/>
-		<result column="app_phone" 		property="appPhone"/>
-		<result column="app_reg_date"	property="appRegDate"/>
-		<result column="app_num_code"	property="appNumCode"/>
+		<result column="app_email" 			property="appEmail"/>
+		<result column="job_number" 		property="jobNumber"/>
+		<result column="app_passward" 		property="appPassward"/>
+		<result column="app_name" 			property="appName"/>
+		<result column="app_phone" 			property="appPhone"/>
+		<result column="app_reg_date"		property="appRegDate"/>
+		<result column="app_num_code"		property="appNumCode"/>
 		<result column="app_final_state"	property="appFinalState"/>
 
 	</resultMap>
+	<resultMap type="ChaeYoungCode" id="LChaeYoungCodeResultMap">
+	
+		<result column="ev_large_cate_code" 	property="evLargeCateCode"/>
+		<result column="ev_large_name" 			property="evLargeName"/>
 
+
+	</resultMap>
+	<resultMap type="ChaeYoungCode" id="MChaeYoungCodeResultMap">
+	
+		<result column="ev_middle_cate_code" 	property="evMiddleCateCode"/>
+		<result column="ev_large_cate_code" 	property="fkLargeCateCode"/>
+		<result column="ev_middle_name" 		property="evMiddleName"/>
+
+	</resultMap>
+
+	<select id="" resultMap="LChaeYoungCodeResultMap">
+	
+	</select>
 
 	<!-- 채용공고 게시글 등록 -->
 	<insert id="addCYBoardPost" parameterType="ChaeYoungBoard">

@@ -2,41 +2,48 @@ package kr.or.jaegaebal.dto;
 
 public class ChaeYoungCode {
 
-	private String fieldCode; //지원분야코드
-	private String fieldName; //지원분야명
-	private String fieldJojicCode; //조직코드
-	private String fieldRegStaff; //등록자
-	private String fieldRegDate; //등록일
-	public String getFieldCode() {
-		return fieldCode;
+	private String evLargeCateCode; //평가대분류코드
+	private String evLargeName; //평가대분류명
+
+	private String evMiddleCateCode; //평가중분류코드
+	private String fkLargeCateCode; //평가대분류코fk
+	private String evMiddleName; //평가중분류명
+	public String getEvLargeCateCode() {
+		return evLargeCateCode;
 	}
-	public void setFieldCode(String fieldCode) {
-		this.fieldCode = fieldCode;
+	public void setEvLargeCateCode(String evLargeCateCode) {
+		this.evLargeCateCode = evLargeCateCode;
 	}
-	public String getFieldName() {
-		return fieldName;
+	public String getEvLargeName() {
+		return evLargeName;
 	}
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
+	public void setEvLargeName(String evLargeName) {
+		this.evLargeName = evLargeName;
 	}
-	public String getFieldJojicCode() {
-		return fieldJojicCode;
+	public String getEvMiddleCateCode() {
+		return evMiddleCateCode;
 	}
-	public void setFieldJojicCode(String fieldJojicCode) {
-		this.fieldJojicCode = fieldJojicCode;
+	public void setEvMiddleCateCode(String evMiddleCateCode) {
+		this.evMiddleCateCode = evMiddleCateCode;
 	}
-	public String getFieldRegStaff() {
-		return fieldRegStaff;
+	public String getFkLargeCateCode() {
+		return fkLargeCateCode;
 	}
-	public void setFieldRegStaff(String fieldRegStaff) {
-		this.fieldRegStaff = fieldRegStaff;
+	public void setFkLargeCateCode(String fkLargeCateCode) {
+		this.fkLargeCateCode = fkLargeCateCode;
 	}
-	public String getFieldRegDate() {
-		return fieldRegDate;
+	public String getEvMiddleName() {
+		return evMiddleName;
 	}
-	public void setFieldRegDate(String fieldRegDate) {
-		this.fieldRegDate = fieldRegDate;
-	} 
+	public void setEvMiddleName(String evMiddleName) {
+		this.evMiddleName = evMiddleName;
+	}
+	@Override
+	public String toString() {
+		return "ChaeYoungCode [evLargeCateCode=" + evLargeCateCode + ", evLargeName=" + evLargeName
+				+ ", evMiddleCateCode=" + evMiddleCateCode + ", fkLargeCateCode=" + fkLargeCateCode + ", evMiddleName="
+				+ evMiddleName + "]";
+	}
 	
 	
 }

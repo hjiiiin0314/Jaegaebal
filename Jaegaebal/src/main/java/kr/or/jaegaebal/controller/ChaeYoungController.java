@@ -160,4 +160,14 @@ public class ChaeYoungController {
 		
 		return null;
 	}
+	//채용평가기준화면
+	@GetMapping("/cyStandard")
+	public String cyStandard(Model model) {
+		
+		//지원부서코드를 가져온다.
+		List<Jojic> jojicCode = chaeYoungService.getJojicCode();
+		
+		model.addAttribute("jojicCode", jojicCode);
+		return "chaeyoung/cyStandard";
+	}
 }
