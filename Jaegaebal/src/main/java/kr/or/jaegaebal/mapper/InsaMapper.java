@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.or.jaegaebal.dto.Code;
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.StaffInfo;
 
 
 /**
@@ -45,6 +46,11 @@ public interface InsaMapper {
 	//조직테이블 인포 다 가져오기
 	public List<Jojic> getJojicInfoAll();
 	
+	//조직도 - 부서 추가 생성하기
+	public int insertBuseoName(String insertBuseoName);
+	//조직도 - 팀 추가 생성하기
+	public int insertTeamName(String modalSosocVal, String insertTeamName);
+	
 	//권한 레벨, 명 가져오기 
 	public List<Code> getAccessInfo();
 	
@@ -58,10 +64,13 @@ public interface InsaMapper {
 	public List<Code> getJojicInfo1();
 	
 	//사번 생성 후 가져오기
-	public String makeStaffNum();
+	//public String makeStaffNum();
 	
 	//활성상태로 수정하기
 	public int changeJojicStatus1(List<String> jojicName);
 	//비활성 상태로 수정하기
 	public int changeJojicStatus0(List<String> jojicName);
+	
+	//회원가입(필수 정보 입력)
+	public int insertToIsStaffInfo(StaffInfo staffInfo);
 }

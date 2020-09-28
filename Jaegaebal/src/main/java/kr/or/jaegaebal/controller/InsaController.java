@@ -103,23 +103,24 @@ public class InsaController {
 	@GetMapping("/insa/insertStaff")
 	public String insertStaff(	 Model model) {
 		
-		String staffNum = insaService.makeStaffNum();
+		//String staffNum = insaService.makeStaffNum();
 		Map<String, Object> codeAndName = insaService.getCodeAndName();
 		model.addAttribute("codeAndName", codeAndName);
 		model.addAttribute("title", "직원 등록");
-		model.addAttribute("staffNum", staffNum);
+		//model.addAttribute("staffNum", staffNum);
 
 		return "insa/insert_staff";
 	}
 	
 	//직원 등록
 	@PostMapping("/insertStaffInfoAll")
-	@ResponseBody
 	public String insertStaffInfoAll(StaffInfo insertStaffInfo, Model model) {
-		String staffNum = insaService.makeStaffNum();
-		model.addAttribute("staffNum", staffNum);
+		//String staffNum = insaService.makeStaffNum();
+		//model.addAttribute("staffNum", staffNum);
 		log.info("insertStaffInfo >>>>>>>>>> {}", insertStaffInfo, "<<<<<<<<<<");
-		return "redirect:/insa/insert_staff";
+		int result = insaService.insertToIsStaffInfo(insertStaffInfo);
+		log.info("result:::::{}", result);
+		return "/insa/insert_staff";
 	}
 	
 
@@ -201,6 +202,33 @@ public class InsaController {
 		 log.info("result::::::>> {}", result);
 		 return result;
 		 
+	 }
+	 
+	 //조직도 - 부서 추가 생성하기
+	 @PostMapping(value = "/insertBuseo", produces = "application/json")
+	 @ResponseBody
+	 public int insertBuseo(@RequestParam(value = "insertBuseoName", required = false) String insertBuseoName) {
+		 log.info("insertBuseoName>>>>>>>>>> {}", insertBuseoName);
+		 int result = insaService.insertBuseoName(insertBuseoName);
+		 return result;
+	 }
+	 //조직도 - 팀 추가 생성하기
+	 @PostMapping(value = "/insertTeam", produces = "application/json")
+	 @ResponseBody
+	 public int insertTeam(		 @RequestParam(value = "modalSosocVal", required = false) String modalSosocVal
+			 					,@RequestParam(value = "insertTeamName", required = false) String insertTeamName) {
+		 int result = insaService.insertTeamName(modalSosocVal, insertTeamName);
+		 log.info("modalSosocVal>>>>>>>>>> {}", modalSosocVal);
+		 log.info("insertTeamName>>>>>>>>>> {}", insertTeamName);
+
+		 return result;
+	 }
+	 
+	 //징계 리스트 화면
+	 @GetMapping("/insa/punishment")
+	 public String getPunishmentList(Model model) {
+		 model.addAttribute("title", "징계 정보");
+		 return "insa/punishment_list";
 	 }
 
 }

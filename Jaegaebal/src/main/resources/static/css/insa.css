@@ -191,12 +191,11 @@
     padding-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-top : 150px !important;
+    margin-top : 100px !important;
     margin-bottom : 15px !important;
 }
 
 .arrow-btn2{
-	margin-top : 20px !important;
 	background-color: #858585;
     color: white;
     padding : 8px 14px !important;

@@ -247,6 +247,54 @@
     		}
     	});
     	
+    	//조직도관리 - 부서, 팀 추가 생성하기
+    	$('#insertBuseo').click(function(){
+    		$('#insertBuseoModal').modal();
+    	});
+    	$('#insertTeam').click(function(){
+    		$('#insertTeamModal').modal();
+    	});
+    	$('#insertBuseoModalBtn').click(function(){
+    		var insertBuseoName = $('#insertBuseoName').val();
+    		console.log(insertBuseoName);
+    		var request = $.ajax({
+    			url: "/insertBuseo",
+    			method: "POST",
+    			data: { insertBuseoName : insertBuseoName },
+    			dataType: "json"
+    		});
+    		request.done(function( data ) {
+    			if(data == 1){
+    				alert("생성 되었습니다.");
+    				window.location.href = "/insa/jojicdo";
+    			}
+    		});
+    		request.fail(function( jqXHR, textStatus ) {
+    			alert("insertBuseoModalBtn 응답 실패");
+    		});
+    	});
+    	$('#insertTeamModalBtn').click(function(){
+    		var modalSosocVal 	= $('#modalSosoc').val();
+    		var insertTeamName 	= $('#insertTeamName').val();
+    		var request = $.ajax({
+    			url: "/insertTeam",
+    			method: "POST",
+    			data: {  modalSosocVal  : modalSosocVal
+    					,insertTeamName : insertTeamName},
+    			dataType: "json"
+    		});
+    		request.done(function( data ) {
+    			if(data == 1){
+    				alert("생성 되었습니다.");
+    				window.location.href = "/insa/jojicdo";
+    			}
+    		});
+    		request.fail(function( jqXHR, textStatus ) {
+    			alert("insertBuseoModalBtn 응답 실패");
+    		});
+    	});
+    	
+    	
     	$(document).on('click', '.haveToWriteVals', function(){
     		var haveToWriteVals = $('.haveToWriteVals');
     		for(var i=0; i<haveToWriteVals.length; i++){

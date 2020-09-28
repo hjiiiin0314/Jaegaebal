@@ -401,9 +401,9 @@
 	</select>
 	
 	<!-- 사번 생성해서 가져오기 -->
-	<select id="makeStaffNum" resultType="String">
+<!-- 	<select id="makeStaffNum" resultType="String">
 		SELECT fn_make_staff_num()
-	</select>
+	</select> -->
 	
 	<!-- 활성 상태로 수정하기  -->
 	<update id="changeJojicStatus1" parameterType="int">
@@ -428,4 +428,98 @@
 			jojic_name = #{jojicName}
 		</foreach>
 	</update>
+	
+	<!-- 직원 필수 입력사항 입력시 -->
+	<insert id="insertToIsStaffInfo" parameterType="StaffInfo">
+		<selectKey keyProperty="staffNum" resultType="String" order="BEFORE" >
+			SELECT
+		            CONCAT(
+		               RIGHT(REPLACE(#{companyInDate}, '-', ''),6)
+		               ,
+		               LPAD(
+		                  (
+		                     select
+		                        IFNULL(RIGHT(MAX(s.staff_num),2),0) + 1
+		                     FROM is_staff AS s
+		                     where
+		                        LEFT(s.staff_num, 6)
+		                        =
+		                        RIGHT(REPLACE(#{companyInDate}, '-', ''),6)
+		                  )
+		               ,2 ,0))
+		</selectKey>
+		INSERT INTO 
+			is_staff
+				( staff_num
+				, staff_name
+				, jojic_code
+				, access_num
+				, staff_level_code
+				, staff_position_code
+				, staff_basic_salary
+				, staff_pw
+				, staff_status_code
+				, employment_status
+				, company_in_date
+				, staff_notes
+				, reg_staff_name
+				, reg_date)
+		VALUES
+				( #{staffNum}
+				, #{staffName}
+			 	, 'JJ009'
+			 	, #{accessNum}
+				, #{staffLevelCode}
+				, #{staffPositionCode}
+			 	, #{staffBasicSalary}
+			 	, '0000'
+			 	, 'JAEJIC001'
+			 	, #{employmentStatus}
+			 	, #{companyInDate}
+			 	, #{staffNotes}
+			 	, '이은혜'
+			 	, NOW())	
+	</insert>
+	
+	<!-- 조직도 - 부서 추가 생성하기 -->
+	<insert id="insertBuseoName" parameterType="String">
+		INSERT INTO
+				is_jojic
+					(	jojic_code
+					 , jojic_name
+					 , jojic_sosoc_name
+					 , parent_jojic_name
+					 , reg_staff_name
+					 , reg_date
+					 , jojic_status)
+		VALUES (
+					   CONCAT('JJ',(SELECT max(SUBSTRING(jojic_code,3)) + 1 FROM is_jojic AS jj))
+					 , #{insertBuseoName}
+					 , '부서'
+					 , '이사'
+					 , '이은혜'
+					 , NOW()
+					 , '활성')
+	</insert>
+	
+	<!-- 조직도 - 팀 추가 생성하기 -->
+	<insert id="insertTeamName" parameterType="String">
+		INSERT INTO
+				is_jojic
+					(	jojic_code
+					 , jojic_name
+					 , jojic_sosoc_name
+					 , parent_jojic_name
+					 , reg_staff_name
+					 , reg_date
+					 , jojic_status)
+		VALUES (
+					   CONCAT('JJ',(SELECT max(SUBSTRING(jojic_code,3)) + 1 FROM is_jojic AS jj))
+					 , #{insertTeamName}
+					 , '팀'
+					 , #{modalSosocVal}
+					 , '이은혜'
+					 , NOW()
+					 , '활성')
+	</insert>
 </mapper>	
