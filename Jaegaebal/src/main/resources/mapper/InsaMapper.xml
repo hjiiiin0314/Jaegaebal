@@ -400,11 +400,6 @@
 				 is_position
 	</select>
 	
-	<!-- 사번 생성해서 가져오기 -->
-<!-- 	<select id="makeStaffNum" resultType="String">
-		SELECT fn_make_staff_num()
-	</select> -->
-	
 	<!-- 활성 상태로 수정하기  -->
 	<update id="changeJojicStatus1" parameterType="int">
 		UPDATE 
@@ -480,6 +475,293 @@
 			 	, '이은혜'
 			 	, NOW())	
 	</insert>
+	
+	<!-- 사번 생성해서 가져오기 -->
+	<select id="getStaffNum" resultType="String" parameterType="StaffInfo">
+		SELECT
+			staff_num
+		FROM 
+			is_staff
+		WHERE 
+			staff_name = #{staffName} AND company_in_date=#{companyInDate}
+	</select>
+	
+	<!-- 직원 인적사항 등록하기 -->
+	<insert id="insertStaffBasicInfo" parameterType="StaffInfo">
+		<selectKey keyProperty="basicInfoCode" resultType="String" order="BEFORE" >
+			select CONCAT('BSIF',(SELECT max(SUBSTRING(basic_info_code,5)) + 1 FROM is_staff_basic_info AS bsif))
+		</selectKey>	
+		INSERT INTO 
+			is_staff_basic_info
+				(	basic_info_code
+				 , staff_num
+				 , staff_eng_name
+				 , human_num
+				 , staff_gender
+				 , staff_nationality
+				 , staff_country
+				 , staff_phone
+				 , staff_email
+				 , staff_marriged
+				 , staff_addr
+				 , staff_basic_info_notes
+				 , reg_staff_name
+				 , reg_date)
+			VALUES 
+				(  #{basicInfoCode}
+				 , #{staffNum}
+				 , #{staffEngName}
+				 , #{humanNum}
+				 , #{staffGender}
+				 , #{staffNationality}
+				 , #{staffCountry}
+				 , #{staffPhone}
+				 , #{staffEmail}
+				 , #{staffMarriged}
+				 , #{staffAddr}
+				 , #{staffBasicInfoNotes}
+				 , '이은혜'
+				 , NOW())	
+	</insert>
+	
+	<!-- 직원 가족정보 등록하기 -->
+	<insert id="insertStaffFamilyInfo" parameterType="StaffInfo">
+		<selectKey keyProperty="familyInfoCode" resultType="String" order="BEFORE" >
+			select CONCAT('FMLIF',(SELECT max(SUBSTRING(family_info_code,6)) + 1 FROM is_staff_family_info AS FMLIF))
+		</selectKey>
+		INSERT INTO 
+			is_staff_family_info
+				(	family_info_code
+				 , staff_num
+				 , relation
+				 , family_name
+				 , family_birthday
+				 , family_job
+				 , family_addr
+				 , family_phone
+				 , staff_family_info_notes
+				 , reg_staff_name
+				 , reg_date)
+			VALUES 
+				(  #{familyInfoCode}
+				 , #{staffNum}
+				 , #{relation}
+				 , #{familyName}
+				 , #{familyBirthday}
+				 , #{familyJob}
+				 , #{familyAddr}
+				 , #{familyPhone}
+				 , #{staffFamilyInfoNotes}
+				 , '이은혜'
+				 , NOW())	
+	</insert>
+	
+	<!-- 직원 사내경력 정보 등록하기 -->
+	<insert id="insertStaffCareerInfoFromIn" parameterType="StaffInfo">
+		<selectKey keyProperty="careerInfoFromInCode" resultType="String" order="BEFORE" >
+			select CONCAT('CINIF',(SELECT max(SUBSTRING(career_info_from_in_code,6)) + 1 FROM is_career_info_from_in AS ci))
+		</selectKey>	
+		INSERT INTO 
+			is_career_info_from_in
+				(  career_info_from_in_code
+				 , staff_num
+				 , project_name
+				 , project_start_date
+				 , project_end_date
+				 , project_access
+				 , project_level_name
+				 , project_work
+				 , project_position
+				 , career_info_from_in_notes
+				 , reg_staff_name
+				 , reg_date)
+			VALUES 
+				(  #{careerInfoFromInCode}
+				 , #{staffNum}
+				 , #{projectName}
+			 		<if test="projectStartDate != null and projectStartDate != ''.toString()">			
+						, #{projectStartDate}
+					</if> 
+			 		<if test="projectStartDate == null || projectStartDate == ''.toString()">			
+						, null
+					</if> 
+				 , #{projectStartDate}
+				 , #{projectEndDate}
+				 , #{projectAccess}
+				 , #{projectLevelName}
+				 , #{projectWork}
+				 , #{projectPosition}
+				 , #{careerInfoFromInNotes}
+				 , '이은혜'
+				 , NOW())	
+	</insert>
+	
+	<!-- 직원 사외 경력 정보 등록하기 -->
+	<insert id="insertStaffCareerInfoFromOut" parameterType="StaffInfo">
+		<selectKey keyProperty="careerInfoFromOutCode" resultType="String" order="BEFORE" >
+			select CONCAT('COUTIF',(SELECT max(SUBSTRING(career_info_from_out_code,7)) + 1 FROM is_career_info_from_out AS cout))
+		</selectKey>	
+		INSERT INTO 
+			is_career_info_from_out
+				(  career_info_from_out_code
+				 , staff_num
+				 , company_name
+				 , company_access
+				 , company_position_from_out
+				 , company_work_form_out
+				 , company_in_date_from_out
+				 , company_out_date_from_out
+				 , company_out_reason
+				 , career_info_from_out_notes
+				 , reg_staff_name
+				 , reg_date)
+			VALUES 
+				(  #{careerInfoFromOutCode}
+				 , #{staffNum}
+				 , #{companyName}
+				 , #{companyAccess}
+				 , #{companyPositionFromOut}
+				 , #{companyWorkFormOut}
+				 , #{companyInDateFromOut}
+				 , #{companyOutDateFromOut}
+				 , #{companyOutReason}
+				 , #{careerInfoFromOutNotes}
+				 , '이은혜'
+				 , NOW())	
+	</insert>
+	
+	<!-- 직원 자격증 정보 등록하기 -->
+	<insert id="insertStaffCertificateInfo" parameterType="StaffInfo">
+		<selectKey keyProperty="certificateInfoCode" resultType="String" order="BEFORE" >
+			select CONCAT('CTIF',(SELECT max(SUBSTRING(certificate_info_code,5)) + 1 FROM is_certificate_info AS c))
+		</selectKey>	
+		INSERT INTO 
+			is_certificate_info
+				(  certificate_info_code
+				 , staff_num
+				 , certificate_name
+				 , issuing_agency
+				 , certificate_num
+				 , get_date
+				 , finished_date
+				 , certificate_info_notes
+				 , reg_staff_name
+				 , reg_date)
+			VALUES 
+				(  #{certificateInfoCode}
+				 , #{staffNum}
+				 , #{certificateName}
+				 , #{issuingAgency}
+				 , #{certificateNum}
+				 , #{getDate}
+				 , #{finishedDate}
+				 , #{certificateInfoNotes}
+				 , '이은혜'
+				 , NOW())	
+	</insert>
+	
+	<!-- 직원 학력정보 등록하기 -->
+	<insert id="insertStaffEducationInfo" parameterType="StaffInfo">
+		<selectKey keyProperty="educationInfoCode" resultType="String" order="BEFORE" >
+			select CONCAT('EDIF',(SELECT max(SUBSTRING(education_info_code,5)) + 1 FROM is_education_info AS ed))
+		</selectKey>	
+		INSERT INTO 
+			is_education_info
+				(  education_info_code
+				 , staff_num
+				 , school_name
+				 , hakryuck_status
+				 , major_name
+				 , minor_name
+				 , entrance_date
+				 , graduat_date
+				 , degree
+				 , education_info_notes
+				 , reg_staff_name
+				 , reg_date)
+			VALUES 
+				(  #{educationInfoCode}
+				 , #{staffNum}
+				 , #{schoolName}
+				 , #{hakryuckStatus}
+				 , #{majorName}
+				 , #{minorName}
+				 , #{entranceDate}
+				 , #{graduatDate}
+				 , #{degree}
+				 , #{educationInfoNotes}
+				 , '이은혜'
+				 , NOW())	
+	</insert>
+	
+	<!-- 직원 병역정보 등록하기 -->
+	<insert id="insertStaffMilitaryInfo" parameterType="StaffInfo">
+		<selectKey keyProperty="militaryInfoCode" resultType="String" order="BEFORE" >
+			select CONCAT('MLIF',(SELECT max(SUBSTRING(military_info_code,5)) + 1 FROM is_military_info AS ml))
+		</selectKey>	
+		INSERT INTO 
+			is_military_info
+				(  military_info_code
+				 , staff_num
+				 , military_service_type
+				 , military_state
+				 , military_in_day
+				 , military_out_day
+				 , military_level
+				 , military_info_notes
+				 , reg_staff_name
+				 , reg_date)
+			VALUES 
+				(  #{militaryInfoCode}
+				 , #{staffNum}
+				 , #{militaryServiceType}
+				 , #{militaryState}
+				 , #{militaryInDay}
+				 , #{militaryOutDay}
+				 , #{militaryLevel}
+				 , #{militaryInfoNotes}
+				 , '이은혜'
+				 , NOW())	
+	</insert>
+	
+	<!-- 사번으로 등록된 인포 가지고 오기 -->
+	<select id="getInsertStaffInfo" parameterType="String" resultType="StaffInfo">
+		SELECT
+						 sf.staff_num				as staffNum
+						,jojic_name					as jojicName
+						,level_name					as levelName
+						,position_name				as positionName
+						,staff_name					as staffName
+						,sf.employment_status		as employmentStatus
+						,ac.access_name				as accessName
+						,sf.staff_basic_salary		as staffBasicSalary
+						,sf.company_in_date			as companyInDate
+						,sf.staff_notes				as staffNotes
+		FROM 	is_staff 				 AS sf
+				INNER JOIN 	
+				is_level 				 AS lv
+				ON 
+				sf.staff_level_code = lv.level_code
+				LEFT JOIN 
+				is_position 			 AS ps
+				ON 
+				sf.staff_position_code = ps.position_code
+				LEFT JOIN 
+				is_jojic 				 AS jj
+				on
+				sf.jojic_code = jj.jojic_code
+				LEFT JOIN
+				is_staff_basic_info  AS sbif
+				on
+				sf.staff_num = sbif.staff_num
+				LEFT JOIN
+				is_access			 AS ac
+				on
+				sf.access_num = ac.access_num
+				
+		WHERE 
+				sf.staff_num = #{staffNum}
+	</select>
 	
 	<!-- 조직도 - 부서 추가 생성하기 -->
 	<insert id="insertBuseoName" parameterType="String">
