@@ -63,7 +63,7 @@
 	                            <td th:text="${l.docTypeName}" id="docTypeName" class='text-center'></td>
 	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${l.docCode})}"></a></td>
 	                            <td th:text="${l.docFile}"  id="docFile" class='text-center'></td>
-	                            <td th:text="${l.security}" id="security" class='text-center'></td>
+	                            <td th:text="${l.appSecurity}" id="security" class='text-center'></td>
 	                            <td th:text="${l.deadline}" id="deadline" class='text-center'></td>
 	                            <td th:text="${l.writeDate}" id="writeDate" class='text-center'></td>
 	                            <td th:text="${l.appStateName}" th:value="${l.appStateName}" id="appStateName" class='text-center'></td>	                        	
@@ -112,15 +112,15 @@
 			    			if(data[i].docFile == null || data[i].docFile == '' ){
 			    				data[i].docFile = "-";
 			    			}
-			    			if(data[i].security == null || data[i].security == '' ){
-			    				data[i].security = "-";
+			    			if(data[i].appSecurity == null || data[i].appSecurity == '' ){
+			    				data[i].appSecurity = "-";
 			    			}
 			    							    			
 		    				 $('#myAppList').append("<tr><td class='text-center'>"+ data[i].docCode + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].docTypeName + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].docTitle + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].docFile + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].security + "</td>"
+		    						 				+ "<td  class='text-center'>"+ data[i].appSecurity + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].deadline + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].writeDate + "</td>"
 		    						 				+ "<td  class='text-center'>"+ data[i].appStateName + "</td>"

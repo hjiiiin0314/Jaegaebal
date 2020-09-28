@@ -62,7 +62,7 @@
 	                            <td><a th:text="${s.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${s.docCode})}"></a></td>
 	                            <td th:text="${s.docFile}"  id="docFile" class='text-center'></td>
 	                            <td th:text="${s.deadline}" id="deadline" class='text-center'></td>
-	                            <td th:text="${s.security}" id="security" class='text-center' ></td>
+	                            <td th:text="${s.appSecurity}" id="appSecurity" class='text-center' ></td>
 	                            <td th:text="${s.writeDate}" id="writeDate" class='text-center'></td>                        	
 	                            <td class='text-center'>
 	                            	<a th:href="@{/delStorage(docCode=${s.docCode})}" >
