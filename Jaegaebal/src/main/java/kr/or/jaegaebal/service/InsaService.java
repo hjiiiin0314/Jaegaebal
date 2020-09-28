@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.or.jaegaebal.dto.Code;
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.InsaMapper;
 
 /**
@@ -166,6 +167,17 @@ public class InsaService {
 		return getJojicInfoAll;
 	};
 	
+	//조직도 - 부서 추가 생성하기
+	public int insertBuseoName(String insertBuseoName) {
+		int result = insaMapper.insertBuseoName(insertBuseoName);
+		return result;
+	};	
+	//조직도 - 팀 추가 생성하기
+	public int insertTeamName(String modalSosocVal, String insertTeamName) {
+		int result = insaMapper.insertTeamName(modalSosocVal, insertTeamName);
+		return result;
+	};	
+	
 	//직원 등록시 권한,직책,직급,소속 코드와 명 가져오기
 	public Map<String, Object> getCodeAndName(){
 		Map<String, Object> codeAndName	= new HashMap<String, Object>();
@@ -184,11 +196,11 @@ public class InsaService {
 	}
 	
 	//사번 생성 후 가져오기
-	public String makeStaffNum() {
-		String staffNum = insaMapper.makeStaffNum();
-		
-		return staffNum;
-	};
+	/*
+	 * public String makeStaffNum() { String staffNum = insaMapper.makeStaffNum();
+	 * 
+	 * return staffNum; };
+	 */
 	
 	//활성상태로 수정하기
 	public int changeJojicStatus1(List<String> jojicName){
@@ -198,6 +210,13 @@ public class InsaService {
 	//비활성 상태로 수정하기
 	public int changeJojicStatus0(List<String> jojicName){
 		int result = insaMapper.changeJojicStatus0(jojicName);
+		return result;
+	};
+	
+	//회원가입(필수 정보 입력)
+	public int insertToIsStaffInfo(StaffInfo staffInfo) {
+		int result = insaMapper.insertToIsStaffInfo(staffInfo);
+		
 		return result;
 	};
 }

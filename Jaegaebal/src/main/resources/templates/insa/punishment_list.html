@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="layout/default">
+     
+   <th:block layout:fragment="customTitle">
+      <title th:text="${title}"></title> 
+   </th:block>
+   
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+   </th:block>
+   
+   <th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/assets/scripts/insa.js}"></script>
+	</th:block>
+   
+   <th:block layout:fragment="customContent">
+		<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+		
+		<div class="app-main__inner">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>징계 관리
+					       <div class="page-title-subheading">인사관리/직원관리/징계관리</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+			<div class="continer">
+				<form style="width:100%;" action="/insa/staffInfoList">
+					<div class="row col-md-12" style="background-color : white;">
+						<div class="col-md-12">
+							<h5 class="card-title col-md-12 m-t-sm p-l-none">징계 리스트</h5>
+						</div>
+						<div class="input-group col-md-7 p-l-none p-r-sx p-b-xs">
+		                     <div class="input-group-prepend">
+		                     	<span class="input-group-text" id="inputGroupPrepend">소속</span>
+		                     </div>
+ 							<select id="SelectBuseo" class="custom-select" name="jojic_sosoc_name">
+								<option selected="selected" disabled="disabled">부서</option>
+								<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" ></option>
+							</select>
+		                     <div class="input-group-append">
+		                         <button type="submit" class="btn btn-secondary" id="staffSearchBtn">검색</button>
+		                     </div>
+						</div>   
+					</div>
+				</form>
+				<div class="row col-md-12" style="background-color : white;">
+		  			<table class="mb-0 table table-bordered m-b-sm">
+			            <thead>
+				            <tr class="tr-1">
+			                <th>#</th>
+				                <th>사원번호</th>
+				                <th>성명</th>
+				                <th>징계명</th>
+				                <th>징계일자</th>
+				                <th>내용</th>
+				                <th>적용일</th>
+				            </tr>
+			            </thead>
+			            <tbody id="t-body">
+				            <tr th:each="l, index : ${staffInfoList}" class="tr-2">
+				               	<td th:text="${index.count}"></td>
+				                <td id="td1"><a th:text="${l.staffNum}" ></a></td>
+				                <td><a th:text="${l.jojicName}" ></a></td>
+				                <td><a th:text="${l.levelName}" ></a></td>
+				                <td><a th:text="${l.positionName}" ></a></td>
+				                <td><a th:text="${l.staffName}" ></a></td>
+				                <th:block>
+					                <td th:if="${l.jaejicStatusName eq '재직중'}"><div class="mb-2 mr-2 badge badge-success">재직중</div></td>
+					                <td th:if="${l.jaejicStatusName eq '개발'}"><div class="mb-2 mr-2 badge badge-danger">개발</div></td>
+					                <td th:if="${l.jaejicStatusName eq '휴가중'}"><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>
+					                <td th:if="${l.jaejicStatusName eq '퇴사'}"><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>
+					                <td th:if="${l.jaejicStatusName eq '기타'}"><div class="mb-2 mr-2 badge badge-focus">기타</div></td>
+					                <td th:if="${l.jaejicStatusName eq '출장중'}"><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>
+				                </th:block>
+				                <td><a th:text="${l.staffEmail}" ></a></td>
+				                <td><a th:text="${l.staffPhone}" ></a></td>
+	
+				              <!--   th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}" -->
+				            </tr>
+			            </tbody>
+		     		</table>
+				</div>	
+				
+ 				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4 m-t-xs">
+						<nav class="" aria-label="Page navigation example">
+							<ul class="pagination">
+								<li class="page-item">							
+									<a th:href="@{/insa/staffInfoList}" class="page-link">
+										<span class="">&lt;&lt;</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a th:if="${currentPage > 1}" th:href="@{/insa/staffInfoList(currentPage=${currentPage-1})}" class="page-link">
+										 <span class="">&lt;</span>
+									</a>
+								</li>
+								<th:block th:each="num : ${#numbers.sequence(startPageNum, lastPageNum)}">
+									<span>
+										<a th:href="@{/insa/staffInfoList(currentPage=${num})}" class="page-link">[[${num}]]</a>
+									</span>
+								</th:block>
+								<li class="page-item">
+									<a th:if="${currentPage < lastPage}" th:href="@{/insa/staffInfoList(currentPage=${currentPage+1})}" class="page-link">
+										<span class="">&gt;</span>
+									</a>
+								</li>	
+								<li class="page-item">
+									<a th:href="@{/insa/staffInfoList(currentPage=${lastPage})}" class="page-link">
+										<span class="">&gt;&gt;</span>
+									</a>	
+								</li>		
+							</ul>
+						</nav>
+					</div>
+					<div class="col-md-4"></div>
+				</div>	
+			</div>
+		</div>
+		
+		
+		
+		
+		<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+   </th:block>
+    
+</html>
