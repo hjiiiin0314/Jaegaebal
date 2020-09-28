@@ -3,6 +3,64 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
+<!-- 상신함 - 결재문서 리스트 상세보기 -->
+	<select id="docDetail" parameterType="String" resultType="UpmuDocument">
+		SELECT 
+			d.app_doc_code		as	docCode	
+			, d.doc_type		as	docType
+			, doc_title			as	docTitle
+			, doc_contents		as	docContents
+			, doc_coment		as	docComent
+			, write_date		as	writeDate
+			, doc_file			as	docFile
+			, start_date		as	startDate
+			, end_date			as	endDate
+			, `security`		as	security
+			, deadline			as	deadline
+			, t.doc_type		as	docTypeName
+			,a.app_jojic_code 	as	appJojicCode
+			,a.staff_level_code	as	staffLevelCode
+			,a.app_staff_num	as	appStaffNum
+			,s.staff_name		as	appStaffName
+			,j.jojic_name		as	appJojicName
+			,l.level_name		as	appLevelName
+			,r.app_state		AS 	appStateCode
+			,st.app_state		AS 	appStateName
+		FROM 
+			um_document	AS d
+		join
+			um_doctype	AS t
+		on
+			d.doc_type = t.doc_code
+		join
+			um_app_line AS a
+		on
+			d.app_doc_code = a.doc_code
+		join
+			is_staff AS s
+		ON 
+			a.app_staff_num = s.staff_num
+		join
+			is_jojic AS	j
+		on
+			a.app_jojic_code = j.jojic_code
+		join
+			is_level AS l
+		on
+			a.staff_level_code = l.level_code
+		join
+			um_app_result AS r
+		on
+			r.line_num = a.line_num
+		join
+			um_appstate	AS st
+		ON
+		st.app_state_code = r.app_state
+	
+		WHERE 
+			d.app_doc_code = #{docCode}
+
+	</select>
 <!-- 임시저장함 - 삭제 -->
 	<delete id="delStorage" parameterType="String">
 		DELETE 
@@ -68,7 +126,7 @@
 <!-- 상신함 - 조건검색 -->	
 	<select id="searchAppList" resultType="UpmuDocument">
 		SELECT
-			app_code			as appCode
+			a.app_state_code		as appStateCode
 			,d.app_doc_code		as docCode
 			,t.doc_type			as docTypeName
 			,writer_buseo_code	as writerBuseoCode
@@ -88,7 +146,7 @@
 			INNER join
 			um_document AS d
 		ON
-			a.app_code=d.app_state
+			a.app_state_code=d.app_state
 		INNER join
 			um_doctype AS t
 		on
@@ -102,7 +160,7 @@
 <!-- 상신함 - 전체 조회  -->
 	<select id="myAppList" resultType="UpmuDocument">
 		SELECT
-			app_code
+			a.app_state_code
 			,d.app_doc_code		as docCode
 			,t.doc_type			as docTypeName
 			,writer_buseo_code	as writerBuseoCode
@@ -122,7 +180,7 @@
 			INNER join
 			um_document AS d
 		ON
-			a.app_code=d.app_state
+			a.app_state_code=d.app_state
 		INNER join
 			um_doctype AS t
 		on

@@ -17,6 +17,9 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface UpmuMapper {
 	
+	//상세보기
+		public List<UpmuDocument> docDetail(String docCode);
+	
 	//임시저장함 - 삭제
 		public int delStorage(String doccode);
 	
@@ -27,8 +30,7 @@ public interface UpmuMapper {
 		public List<UpmuDocument> storageBox();
 	
 	//상신함 - 검색목록
-		public List<UpmuDocument> searchAppList(String sk, String sv);
-		
+		public List<UpmuDocument> searchAppList(String sk, String sv);		
 		
 	//상신함 - 전체목록
 		public List<UpmuDocument> myAppList();

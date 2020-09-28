@@ -20,6 +20,12 @@ public class UpmuService {
 
 	@Autowired private UpmuMapper upmumapper;
 	
+	//문서상세보기
+	public List<UpmuDocument> docDetail(String docCode){
+		List<UpmuDocument> docDetail = upmumapper.docDetail(docCode);
+		return docDetail;
+	}
+	
 	
 	//임시저장함 - 삭제
 	public int delStorage(String docCode) {

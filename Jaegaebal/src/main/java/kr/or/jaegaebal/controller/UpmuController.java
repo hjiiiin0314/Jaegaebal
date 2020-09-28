@@ -31,7 +31,8 @@ public class UpmuController {
 	public String docDetail(Model model
 							, @RequestParam(value = "docCode",required = false)String docCode) {
 		System.out.println(docCode + "<----상세보기할 문서코드");
-		
+		List<UpmuDocument> docDetail = upmuService.docDetail(docCode);
+		model.addAttribute("docDetail", docDetail);
 		return "approval/docDetail";
 	}
 	
@@ -47,10 +48,7 @@ public class UpmuController {
 	@PostMapping(value="/myAppList", produces = "application/json")
 	public @ResponseBody List<UpmuDocument>searchAppList(@RequestParam(value = "sk")String sk
 														,@RequestParam(value = "sv")String sv
-														){
-		System.out.println(sk + "<---sk로 들어온 값 controller");
-		System.out.println(sv + "<---sv로 들어온 값 controller");
-			
+														){			
 		List<UpmuDocument> searchAppList = upmuService.searchAppList(sk,sv);
 			
 		return searchAppList;		
@@ -110,7 +108,7 @@ public class UpmuController {
 							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
 							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
-		System.out.println("upmuDocument:  " + upmuDocument);
+
 		upmuService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
 		return "redirect:/myAppList";
 	}
@@ -118,8 +116,7 @@ public class UpmuController {
 	//기안하기 - 결재라인선택 후  db에 넣기
 	@PostMapping("/choiceStaff")
 	public String choiceStaff() {
-		
-			
+					
 		return "redirect:/appWrite";
 	}
 	
@@ -130,7 +127,6 @@ public class UpmuController {
 		
 		List<Map<String, Object>> docType = upmuService.getDocType();	
 		model.addAttribute("docType", docType);
-		System.out.println(docType + "<--docType");
 		
 		List<Jojic> jojic = upmuService.getJojic();
 		model.addAttribute("jojic", jojic);

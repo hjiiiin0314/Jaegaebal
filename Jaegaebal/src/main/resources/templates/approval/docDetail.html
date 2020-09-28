@@ -39,52 +39,55 @@
 			</div>
 		</div>                
 		
-	
-		<form>
-			<table class="mb-12 table table-bordered">
-				<tr>
-					<td class="t_head" >담당자</td>
-					<td>
-						<input type="text"  class="text-center" value="개발부"><br>
-						<input type="text"  class="text-center" value="장현지">
-					</td>
-		        </tr>
-				<tr th:each="a : ${appLine}">
-					<td class="t_head text-center" th:text="${a.staffLevelName}"></td>
-					<td>
-						<input type="text" class="text-center" th:text="${a.appJojicName}">
-						<input type="text" class="text-center"  th:text="${a.appStaffName}">
-					</td>
-		        </tr>
-		    </table>
-		 </form> 		
-		<div class="position-relative form-group index-front">
-          	<div class="position-relative form-group document-form">
-             		<label for="docType" >문서양식</label>
-             			<select id="docType" class="form-control" name="docTypeName" >
-             				<option value="" selected="selected" disabled="disabled">::문서양식선택하기::</option>
-                  		<option th:each="doc : ${docType}" th:value="${doc.docType}" th:text="${doc.docTypeName}"></option>	               	                   
-              		</select>
-              </div>
-              <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
-              	<input type="date" class="form-control" name="deadline">   
-              </div>
-        </div>       
-             <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
-            		<input id="docTitle" type="text" class="form-control" name="docTitle" >
-             </div>                  
-			 <textarea id="summernote" name="docContents"></textarea>
-             <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
-             	<textarea name="docComent" id="docComent" class="form-control"></textarea>
-             </div>
-             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
-              	<input name="docFile" id="docFile" type="file" class="form-control-file">
-             </div>
-             <div class="position-relative form-group"> <label for="security" class="">보안처리</label>
-               	<input type="checkbox" name="security" value="1">
-             </div>
-                   
+	<div class="col-md-12">
+		<div class="main-card mb-3 card"> 
+			<div class="card-body">			
+				<th:block th:each="d : ${docDetail}">
+					<table class="mb-12 table table-bordered">
+						<tr>
+							<td class="t_head" >담당자</td>
+							<td>
+								<input type="text"  class="text-center" value="개발부"><br>
+								<input type="text"  class="text-center" value="장현지">
+							</td>
+				        </tr>		       
+						<tr>
+							<td class="t_head text-center" th:text="${d.appLevelName}"></td>
+							<td>
+								<input type="text" class="text-center" th:value="${d.appJojicName}">
+								<input type="text" class="text-center"  th:value="${d.appStaffName}">
+								<input type="text" class="text-center"  th:value="${d.appStateName}">
+							</td>
+				        </tr>
+				    </table>	
+				<div class="position-relative form-group index-front">
+		          	<div class="position-relative form-group document-form">
+		             		<label for="docType" >문서양식</label>
+		             		<input type="text" class="form-control" name="docType" th:value="${d.docTypeName}"  readonly="readonly">
+		              </div>
+		              <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
+		              	<input type="text" class="form-control" name="deadline" th:value="${d.deadline}" readonly="readonly">   
+		              </div>
+		        </div>       
+		             <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
+		            		<input id="docTitle" type="text" class="form-control" name="docTitle" th:value="${d.docTitle}" readonly="readonly" >
+		             </div>                  
+					 <textarea id="summernote" name="docContents" th:text="${d.docContents}" readonly="readonly"></textarea>
+		             <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
+		             	<textarea name="docComent" id="docComent" class="form-control" th:text="${d.docComent}" readonly="readonly"></textarea>
+		             </div>
+		             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
+		              	<input name="docFile" id="docFile" type="file" class="form-control-file" th:text="${d.docFile}">
+		             </div>
+		             <div class="position-relative form-group"> <label for="security" class="">보안처리</label>
+		               	<input type="checkbox" name="security" th:checked="${d.security eq '보안'}">
+		             </div>
+		           </th:block>     
+     			</div>
+     		</div>
+     	</div>
      </div>
+     	
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
@@ -110,7 +113,7 @@
 				  maxHeight: null,             // 최대 높이
 				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 				  lang: "ko-KR",					// 한글 설정
-				  placeholder: '내용을 입력하세요'	//placeholder 설정
+				
 			          
 				});
 			});				
