@@ -28,10 +28,10 @@
 								 <select name="empType" class="form-control">
 								 
 									  <option value="0">::고용형태::</option>
-									  <option value="임시직" th:select ="${empType eq Yes ? 'true' : 'false'}">임시직</option>
-									  <option value="계약직" th:select ="${empType eq No ? 'true' : 'false'}">계약직</option>
-									  <option value="일용직" th:select ="${empType eq No ? 'true' : 'false'}">일용직</option>
-									  <option value="상용직" th:select ="${empType eq No ? 'true' : 'false'}">상용직</option>
+									  <option value="임시직" >임시직</option>
+									  <option value="계약직">계약직</option>
+									  <option value="일용직">일용직</option>
+									  <option value="상용직">상용직</option>
 								</select>
 								
 								<br>
@@ -39,8 +39,8 @@
 								 <select name="empSalaryType" class="form-control">
 								 
 									  <option value="0">::급여형태::</option>
-									  <option value="연봉제" th:select ="${empSalaryType eq Yes ? 'true' : 'false'}">연봉제</option>
-									  <option value="월급제" th:select ="${empSalaryType eq No ? 'true' : 'false'}">월급제</option>
+									  <option value="연봉제">연봉제</option>
+									  <option value="월급제">월급제</option>
 									
 								</select>
 								
@@ -60,7 +60,7 @@
 						
 								<br>  
 								 <label for="empStaffName">등록자</label>
-							   	 <input type="text" class="form-control input-lg" name="empStaffName" placeholder="등록자명">
+							   	 <input class="form-control input-lg" name="empStaffName" th:value="${session.SSTAFFNAME}" readonly/>
 					  			 <br>
 		</form>
 								  <div class="widget-content-right ml-10" align="center">

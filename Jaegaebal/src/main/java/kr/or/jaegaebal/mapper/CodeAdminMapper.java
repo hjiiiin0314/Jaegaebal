@@ -31,6 +31,10 @@ public interface CodeAdminMapper {
 	//고용코드로 조회
 	public EmpCodeAdmin getEmpCode(String empCode);
 	
+	//고용코드 삭제
+	public int deleteEmpCode(String empCode);
+		
+	
 	
 	/* ==========문서코드관리========== */
 	//문서코드리스트

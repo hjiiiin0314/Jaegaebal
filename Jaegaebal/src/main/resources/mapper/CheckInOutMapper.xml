@@ -15,10 +15,70 @@
    		<result column="wc_out_ip" property="wcOutIp"/>
    		<result column="wc_reg_date" property="wcRegDate"/>
    	</resultMap>
-   	<select id="getCheckInOutList" resultMap="checkResultMap">
-	   	SELECT wc_code, staff_num, wc_in, wc_out, wc_hour, wc_in_ip, wc_out_ip, wc_reg_date
-		FROM um_work_check
+   	
+   	<!-- 출퇴근코드로 조회 -->
+   	<select id="getCheckInOut" parameterType = "String" resultType="CheckInOut" resultMap="checkResultMap">
+   		SELECT
+	   		   wc_code
+	   		 , staff_num
+	   		 , wc_in
+	   		 , wc_out
+	   		 , wc_hour
+	   		 , wc_in_ip
+	   		 , wc_out_ip
+	   		 , wc_reg_date
+		FROM 
+			um_work_check
+		WHERE
+			wc_code=#{wcCode}
+   	</select>
+   	
+   	<!-- 출퇴근리스트 -->
+   	<select id="getCheckInOutList" resultType="Map">
+	   	SELECT
+	   		   wc_code		as wcCode
+	   		 , staff_num 	as staffNum
+	   		 , wc_in		as wcIn
+	   		 , wc_out		as wcOut
+	   		 , wc_hour		as wcHour
+	   		 , wc_in_ip		as wcInIp
+	   		 , wc_out_ip	as wcOutIp
+	   		 , wc_reg_date	as wcRegDate
+		FROM 
+			um_work_check
 	  
    	</select>
+   	
+   	<!-- 출근등록 -->      	
+   	<insert id="checkIn" parameterType="CheckInOut">
+		<selectKey resultType="String" keyProperty="wcCode" order="BEFORE">
+			select 
+				CONCAT('wc_0',max(CAST(substring(wc_code,5) AS DECIMAL))+1) 
+			FROM 
+				um_work_check
+		</selectKey>
+		INSERT INTO
+   			 um_work_check(
+   			   wc_code
+   			 , staff_num
+   			 , wc_in
+   			 , wc_out
+   			 , wc_hour
+   			 , wc_in_ip
+   			 , wc_out_ip
+   			 , wc_reg_date
+   			 )
+	VALUES (
+			  #{wcCode}
+			, #{staffNum}
+			, NOW()
+			, NOW()
+			, 0
+			, #{wcInIp}
+			, #{wcOutIp}
+			, NOW()
+			)
+	
+	</insert>
    	
    	</mapper>

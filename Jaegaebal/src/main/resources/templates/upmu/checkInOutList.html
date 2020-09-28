@@ -46,6 +46,7 @@
 		         </div>
    		</div>
     
+    
     	<!-- 검색기능 -->
     	
     		<div class="input-group col-md-4 p-l-none p-r-none p-b-xs">
@@ -90,7 +91,7 @@
 				 		</tr>
 				 	</thead>
 				 	<tbody>
-				 		<tr th:each="l : ${checkInOut}">
+				 		<tr th:each="l : ${checkInOutList}">
 				 			<td th:text="${l.wcCode}"></td>
 				 			<td th:text="${l.staffNum}"></td>
 				 			<td th:text="${l.wcIn}"></td>
@@ -98,7 +99,7 @@
 				 			<td th:text="${l.wcHour}"></td>
 				 			<td th:text="${l.wcInIp}"></td>
 				 			<td th:text="${l.wcOutIp}"></td>
-				 			<td th:text="${l.workRegDate}"></td>
+				 			<td th:text="${l.wcRegDate}"></td>
 				 							
 				 		</tr>
 				 	</tbody>
@@ -107,14 +108,62 @@
 		</div>
 </div>
 
-
+    <!-- Modal -->
+              <!--     <div class="modal fade" id="#checkInModal">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title">알림</h4>
+					      </div>
+					      <div class="modal-body">
+                           		   <p>출근처리 하시겠습니까?</p>
+                          </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" id="checkInBtn">
+			       		 <a th:href="@{/deleteWorkCode(workCode=${l.workCode})}">예</a>
+			       		 예			       		
+			        </button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+ -->
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 	
 	</th:block>
+	<!--  <th:block layout:fragment="customJsScript">
+	<script>
 	
+			$(function(){
+				$('#checkInBtn').click(function(){
+					
+				var checkBtn = $('.checkInBtn');
+
+
+                // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+                // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+                var tr = checkBtn.parent().parent();
+                var td = tr.children();
+                var workCode = td.eq(0).text(); //근무형태코드
+               
+                //텍스트형식으로 workCode에 담아서 주소로 보내기
+                location.href="/deleteWorkCode?workCode="+workCode;
+				})
+                
+
+		     });
+			
 	
+			
+			
+			
+	</script>
+	</th:block> 
 	
+	 -->
     
 </html>

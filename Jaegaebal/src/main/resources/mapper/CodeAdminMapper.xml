@@ -113,6 +113,15 @@
 			emp_code = #{empCode}
    	</select>
    	
+   	<!-- 고용코드삭제 -->
+   	<delete id="deleteEmpCode" parameterType="String">
+   		DELETE
+   		FROM
+   			 gt_emp_code
+   		WHERE
+   			 emp_code = #{empCode}
+   	</delete>
+   	
    	<!-- ==========문서코드관리========== -->
    	
    	<!-- 문서코드목록 -->
@@ -253,7 +262,7 @@
 			code = #{insaCode}
    	</select>
    	
-   	<!-- 근무코드삭제 -->
+   	<!-- 인사코드삭제 -->
    	<delete id="deleteInsaCode" parameterType="String">
    		DELETE
    		FROM

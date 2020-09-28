@@ -98,6 +98,14 @@ public class CodeAdminController {
 			codeAdminService.updateEmpCode(empCodeAdmin);
 			return "redirect:/getEmpCodeList";
 		}
+		
+		@GetMapping("/deleteEmpCode")
+		public String deleteMember(EmpCodeAdmin empCodeAdmin) {
+			if(empCodeAdmin.getEmpCode() != null && !"".equals(empCodeAdmin.getEmpCode())) {
+				codeAdminService.deleteEmpCode(empCodeAdmin.getEmpCode());	
+			}
+			return "redirect:/getEmpCodeList";
+		}
 	
 /* ==========문서코드관리========== */
 	
@@ -253,7 +261,7 @@ public class CodeAdminController {
 		return "codeAdmin/getWorkCodeList";
 	}
 	
-	//코드 삭제
+	//근무코드 삭제
 	@GetMapping("/deleteWorkCode")
 	public String deleteMember(CodeAdmin codeAdmin) {
 		if(codeAdmin.getWorkCode() != null && !"".equals(codeAdmin.getWorkCode())) {

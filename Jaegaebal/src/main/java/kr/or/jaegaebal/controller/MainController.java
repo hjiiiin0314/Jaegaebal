@@ -57,18 +57,16 @@ public class MainController {
 							@RequestParam(value="staffPw") String staffPw,
 							HttpSession httpsession
 							) {
-		log.info("staffNum::::::{}", staffNum);
-		log.info("staffPw::::::{}", staffPw);
+		
 		StaffInfo staffInfo = loginService.staffLogin(staffNum, staffPw);		
-		log.info("staffInfo::::::{}", staffInfo.toString());
+		
 		int result = 0;
 		if(staffInfo != null) {
 			if(httpsession.getAttribute("SSTAFFNUM") == null) {		
 				httpsession.setAttribute("SSTAFFNUM", staffInfo.getStaffNum());
 				httpsession.setAttribute("SSTAFFNAME", staffInfo.getStaffName());
 				httpsession.setAttribute("SJOJICNAME", staffInfo.getJojicName());
-				log.info("SSTAFFNUM::::{}", staffInfo.getStaffNum());
-				
+								
 				
 			}
 			

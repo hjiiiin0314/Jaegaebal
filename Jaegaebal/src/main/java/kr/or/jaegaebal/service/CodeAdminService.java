@@ -49,6 +49,11 @@ public class CodeAdminService {
 		public EmpCodeAdmin getEmpCode(String empCode) {
 			return codeAdminMapper.getEmpCode(empCode);
 		}
+		
+	//문서코드 삭제
+	public int deleteEmpCode(String empCode) {
+		return codeAdminMapper.deleteEmpCode(empCode);
+	}
 	
 	
 	/* ==========문서코드관리========== */
