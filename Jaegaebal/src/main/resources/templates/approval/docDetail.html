@@ -43,23 +43,9 @@
 		<div class="main-card mb-3 card"> 
 			<div class="card-body">			
 				<th:block th:each="d : ${docDetail}">
-					<table class="mb-12 table table-bordered">
-						<tr>
-							<td class="t_head" >담당자</td>
-							<td>
-								<input type="text"  class="text-center" value="개발부"><br>
-								<input type="text"  class="text-center" value="장현지">
-							</td>
-				        </tr>		       
-						<tr>
-							<td class="t_head text-center" th:text="${d.appLevelName}"></td>
-							<td>
-								<input type="text" class="text-center" th:value="${d.appJojicName}">
-								<input type="text" class="text-center"  th:value="${d.appStaffName}">
-								<input type="text" class="text-center"  th:value="${d.appStateName}">
-							</td>
-				        </tr>
-				    </table>	
+					<table id="appLine" class="mb-2 table table-bordered">
+                        
+                 	</table>	
 				<div class="position-relative form-group index-front">
 		          	<div class="position-relative form-group document-form">
 		             		<label for="docType" >문서양식</label>
@@ -79,8 +65,8 @@
 		             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
 		              	<input name="docFile" id="docFile" type="file" class="form-control-file" th:text="${d.docFile}">
 		             </div>
-		             <div class="position-relative form-group"> <label for="security" class="">보안처리</label>
-		               	<input type="checkbox" name="security" th:checked="${d.security eq '보안'}">
+		             <div class="position-relative form-group"> <label for="appSecurity" class="">보안처리</label>
+		               	<input type="checkbox" name="appSecurity" th:checked="${d.appSecurity eq '보안'}">
 		             </div>
 		           </th:block>     
      			</div>

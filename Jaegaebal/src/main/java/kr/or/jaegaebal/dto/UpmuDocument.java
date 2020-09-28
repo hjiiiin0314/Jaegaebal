@@ -15,7 +15,7 @@ public class UpmuDocument {
 	private String startDate;
 	private String endDate;
 	private String appState;
-	private String security;
+	private String appSecurity;
 	private String deadline;
 	private String regStaffName;
 	private String docTypeName;
@@ -101,17 +101,18 @@ public class UpmuDocument {
 	public void setAppState(String appState) {
 		this.appState = appState;
 	}
-	public String getSecurity() {
-		return security;
-	}
-	public void setSecurity(String security) {
-		this.security = security;
-	}
+
 	public String getDeadline() {
 		return deadline;
 	}
 	public void setDeadline(String deadline) {
 		this.deadline = deadline;
+	}
+	public String getAppSecurity() {
+		return appSecurity;
+	}
+	public void setAppSecurity(String appSecurity) {
+		this.appSecurity = appSecurity;
 	}
 	public String getRegStaffName() {
 		return regStaffName;
@@ -222,8 +223,8 @@ public class UpmuDocument {
 		builder.append(endDate);
 		builder.append(", appState=");
 		builder.append(appState);
-		builder.append(", security=");
-		builder.append(security);
+		builder.append(", appSecurity=");
+		builder.append(appSecurity);
 		builder.append(", deadline=");
 		builder.append(deadline);
 		builder.append(", regStaffName=");

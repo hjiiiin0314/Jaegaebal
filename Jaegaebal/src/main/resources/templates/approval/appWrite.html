@@ -62,10 +62,10 @@
                               <option th:each="doc : ${docType}" th:text="${doc.docTypeName}" th:value="${doc.docCode}" ></option>                                        
                           </select>
                           </div>
-                          <div class="position-relative form-group deadline-form"><label for="deadline" >마감요청일</label>
+                          <div class="position-relative form-group deadline-form"><label for="deadline" >결재마감요청일</label>
                              <input type="date" class="form-control" name="deadline">   
                           </div>
-                      </div>       
+                      </div>        
                       <div class="position-relative form-group"><label for="docTitle">제목</label>
                             <input id="docTitle" type="text" class="form-control" name="docTitle" >
                       </div>                  
@@ -75,8 +75,8 @@
                        <div class="position-relative form-group" ><label for="docFile" >첨부파일</label>
                            <input name="docFile" id="docFile" type="file" class="form-control-file">
                        </div>
-                       <div class="position-relative form-group"> <label for="security" >보안처리</label>
-                            <input type="checkbox" name="security" value="보안">
+                       <div class="position-relative form-group"> <label for="appSecurity" >보안처리</label>
+                            <input type="checkbox" name="appSecurity" value="보안">
                        </div>
          
                      <button type="button" id="appSubmitBtn" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                

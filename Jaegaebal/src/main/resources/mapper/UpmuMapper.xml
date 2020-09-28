@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
-<!-- 상신함 - 결재문서 리스트 상세보기 -->
+<!-- 상신함 - 상세보기 -->
 	<select id="docDetail" parameterType="String" resultType="UpmuDocument">
 		SELECT 
 			d.app_doc_code		as	docCode	
@@ -15,7 +15,7 @@
 			, doc_file			as	docFile
 			, start_date		as	startDate
 			, end_date			as	endDate
-			, `security`		as	security
+			, app_security		as	appSecurity
 			, deadline			as	deadline
 			, t.doc_type		as	docTypeName
 			,a.app_jojic_code 	as	appJojicCode
@@ -83,7 +83,7 @@
 			, doc_file				AS docFile
 			, start_date			AS startDate
 			, end_date				AS endDate
-			, `security`			AS security
+			, app_security			AS appSecurity
 			, deadline				AS deadline
 		FROM 
 				um_storage_box AS s
@@ -112,7 +112,7 @@
 			, doc_file				AS docFile
 			, start_date			AS startDate
 			, end_date				AS endDate
-			,`security`				as security
+			,appSecurity			as appSecurity
 			, deadline				AS deadline
 		FROM
 				um_storage_box AS s
@@ -138,7 +138,7 @@
 			,start_date			as startDate
 			,end_date			as endDate
 			,a.app_state		as appStateName
-			,SECURITY			as security
+			,app_security		as appSecurity
 			,deadline			as deadline
 			,d.doc_type			as docType
 		FROM
@@ -172,7 +172,7 @@
 			,start_date			as startDate
 			,end_date			as endDate
 			,a.app_state		as appStateName
-			,SECURITY			as security
+			,app_security		as appSecurity
 			,deadline			as deadline
 			,d.doc_type			as docType
 		FROM
@@ -208,7 +208,7 @@
 					, doc_file
 					, start_date
 					, end_date
-					, `security`
+					, app_security
 					, deadline
 					, app_state)
 	VALUES 
@@ -223,7 +223,7 @@
 		, #{docFile}
 		, #{startDate}
 		, #{endDate}
-		, #{security}
+		, #{appSecurity}
 		, #{deadline}
 		, 'ac-04')		 	<!-- 초기값은 미열람  -->
 	
