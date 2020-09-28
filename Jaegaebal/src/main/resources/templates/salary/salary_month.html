@@ -33,7 +33,7 @@
     <div class="row">
 		<div class="col-lg-12">
 			<div class="card-body filter-place">
-				<span class="search-span">귀속연월</span>
+				<span class="search-span">기준연도</span>
 				<input type="hidden" name="searchNum" th:value="${dataNum}">
 				<select class="search-select" name="searchYear">
 					<option th:each="l : ${yearList}" th:value="${l.getYear}" th:text="${l.getYear}"></option>

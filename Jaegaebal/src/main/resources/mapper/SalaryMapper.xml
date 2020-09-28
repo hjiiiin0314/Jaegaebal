@@ -243,6 +243,45 @@
 			is_jojic
 	</select>
 	
+	<!-- 급상여입력 해당 연월 데이터 존재 여부 조회 -->
+	<select id="getSelMonthData" parameterType="String" resultType="SalaryRecord">
+		SELECT
+			month_num		AS		dataNum,
+			month_data		AS		dataData,
+			month_date		AS		dataDate,
+			month_pay		AS		dataPay,
+			month_normal	AS		dataNormal,
+			month_bonus		AS		dataBonus,
+			month_ann		AS		dataAnn,
+			month_vehicle	AS		dataVehicle,
+			month_meal		AS		dataMeal,
+			month_overtime	AS		dataOvertime,
+			month_night		AS		dataNight,
+			month_holi		AS		dataHoli,
+			month_gukmin	AS		dataGukmin,
+			month_geongang	AS		dataGeongang,
+			month_khoyong	AS		dataKhoyong,
+			month_janggi	AS		dataJanggi,
+			month_sanjae	AS		dataSangae,
+			month_schexpan	AS		dataSchexpan,
+			month_income	AS		dataIncome,
+			month_loincome	AS		dataLoincome,
+			month_addpay	AS		dataAddpay,
+			month_pricepay	AS		dataPricepay,
+			month_sumpay	AS		dataSumpay,
+			month_adddeduct	AS		dataAdddeduct,
+			month_pricededuct	AS	dataPricededuct,
+			month_sumdeduct	AS		dataSumdeduct
+		FROM
+			sal_month
+		WHERE
+			month_data = #{dataNum}
+		AND
+			right(month_date, 2) = right(#{searchDate}, 2) 
+		AND 
+			LEFT(month_date, 4) = LEFT(#{searchDate}, 4)
+	</select>
+	
 	<!-- 연도 필터 월별 데이터에 존재하는 연도 조회 -->
 	<select id="getFilterYear" resultType="Map">
 		SELECT

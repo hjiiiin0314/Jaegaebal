@@ -5,6 +5,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.SalaryInfo;
+import kr.or.jaegaebal.dto.SalaryRecord;
 import kr.or.jaegaebal.dto.StaffInfo;
 
 /**
@@ -14,6 +15,9 @@ import kr.or.jaegaebal.dto.StaffInfo;
  */
 @Mapper
 public interface SalaryMapper {
+	//급상여입력 사원 연월데이터 존재여부 조회
+	public SalaryRecord getSelMonthData(String dataNum, String searchDate);
+	
 	//검색어가 적용된 사원기본정보 조회
 	public List<Map<String, Object>> getStaffListMap(String searchCate, String searchText, String searchLevel, String searchJojic);
 	

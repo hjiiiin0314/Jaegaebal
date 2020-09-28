@@ -1,5 +1,6 @@
 package kr.or.jaegaebal.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.SalaryInfo;
+import kr.or.jaegaebal.dto.SalaryRecord;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.service.SalaryService;
 
@@ -42,6 +44,36 @@ public class SalaryController {
 		model.addAttribute("staffInfoList", staffInfoList);
 		model.addAttribute("monthSalList", monthSalList);
 		return "salary/salary_month";
+	}
+	
+	//급상여입력화면
+	@GetMapping("/salary/salary_record")
+	public String salaryRecord(Model model) {
+		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
+		String dataNum = (String) staffInfoList.get(0).get("dataNum");
+		String sqlKey = null;
+		//현재 년월 가져오기
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM");	
+		Date time = new Date();
+		String searchDate = format1.format(time);
+		SalaryRecord salaryRecord = salaryService.getSelMonthData(dataNum, searchDate);
+		//조회된 값이 없었다면 화면에서 저장할 때 insert 처리 값이 있었다면 update 처리
+		if(salaryRecord == null) {
+			salaryRecord = new SalaryRecord();
+			sqlKey = "ins";
+		} else {
+			sqlKey = "upd";
+		}
+		SalaryInfo salaryInfo = salaryService.salaryInfo();
+		List<Map<String, Object>> levelList = salaryService.getLevelList();
+		List<Map<String, Object>> jojicList = salaryService.getJojicList();
+		model.addAttribute("sqlKey", sqlKey);
+		model.addAttribute("salaryRecord", salaryRecord);
+		model.addAttribute("levelList", levelList);
+		model.addAttribute("jojicList", jojicList);
+		model.addAttribute("staffInfoList", staffInfoList);
+		model.addAttribute("salaryInfo", salaryInfo);
+		return "salary/salary_record";
 	}
 	
 	//급여기본정보화면

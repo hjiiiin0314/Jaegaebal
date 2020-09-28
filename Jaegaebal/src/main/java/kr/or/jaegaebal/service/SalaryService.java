@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.jaegaebal.dto.SalaryInfo;
+import kr.or.jaegaebal.dto.SalaryRecord;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.SalaryMapper;
 
@@ -19,6 +20,11 @@ import kr.or.jaegaebal.mapper.SalaryMapper;
 public class SalaryService {
 	@Autowired
 	private SalaryMapper salaryMapper;
+	
+	public SalaryRecord getSelMonthData(String dataNum, String searchDate) {
+		SalaryRecord salaryRecord = salaryMapper.getSelMonthData(dataNum, searchDate);
+		return salaryRecord;
+	}
 	
 	public List<Map<String, Object>> getStaffListMap(String searchCate, String searchText, String searchLevel, String searchJojic){
 		List<Map<String, Object>> staffList = salaryMapper.getStaffListMap(searchCate, searchText, searchLevel, searchJojic);

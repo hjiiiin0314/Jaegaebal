@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+<th:block layout:fragment="customContent">
+<th:block layout:fragment="customCss">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/salary.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}">
+</th:block>
+<th:block layout:fragment="customJs">
+	
+	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
+	<script>
+		$(function(){
+			$( "#datepicker" ).datepicker({
+		        changeMonth: true,
+		        changeYear: true,
+		        showButtonPanel: true,
+		        showMonthAfterYear: true,
+		        yearRange: 'c-99:c+99',
+		        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+		        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+		        dateFormat: 'yy-mm',
+		        onClose: function(dateText, inst) { 
+		            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+		            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+		            $(this).datepicker('setDate', new Date(year, month, 1));
+		           	console.log("ajax통신");
+		        },
+		        beforeShow : function(input, inst) {
+		            if ((datestr = $(this).val()).length > 0) {
+		                actDate = datestr.split('-');
+		                year = actDate[0];
+		                month = actDate[1]-1;
+		                $(this).datepicker('option', 'defaultDate', new Date(year, month));
+		                $(this).datepicker('setDate', new Date(year, month));
+		            }
+		        }
+		    });
+		});
+	</script>
+</th:block>
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+<div class="app-main__inner">
+	<div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-map icon-gradient bg-premium-dark">
+                    </i>
+                </div>
+                <div>급상여입력
+                    <div class="page-title-subheading">급상여정보를 관리합니다.
+                    </div>
+                </div>
+            </div>   
+         </div>
+    </div> 
+    <div class="row">
+    	<div class="col-lg-12">
+			<div class="card-body filter-place">
+				<span class="search-span">귀속연월</span>
+				<input type="text" id="datepicker">
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="main-card mb-3 card">
+				<div class="card-body">
+					<h5 class="mt-2 card-title search-left">기본정보</h5>
+					<div class="date_right">
+						<select class="search-select" name="searchCate">
+							<option value="1">사원번호</option>
+							<option value="2">성명</option>
+							<option value="3">직급</option>
+							<option value="4">부서</option>
+						</select>
+						<input class="search-input" type="text" id="search_text" name="searchText">
+						<select class="search-select search-none" name="searchLevel">
+							<option th:each="l : ${levelList}" th:value="${l.level_code}" th:text="${l.level_name}"></option>
+						</select>
+						<select class="search-select search-none" name="searchJojic">
+							<option th:each="l : ${jojicList}" th:value="${l.jojic_code}" th:text="${l.jojic_name}"></option>
+						</select>
+						<button class="btn btn-primary date_right" id="search_submit">검색</button>
+					</div>
+					<div class="scroll-div date_left">
+						<div class="scrollbar-container">
+							<table class="mb-0 emp-table emp-info-table table table-hover text-center">
+								<thead>
+									<tr>
+										<th class="fixed_top">사원번호</th>
+										<th class="fixed_top">성명</th>
+										<th class="fixed_top">직급</th>
+										<th class="fixed_top">부서</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="IL : ${staffInfoList}">
+										<td th:text="${IL.staffNum}"></td>
+										<td th:text="${IL.staffName}"></td>
+										<td th:text="${IL.levelName}"></td>
+										<td th:text="${IL.jojicName}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<div class="main-card mb-3 card">
+				<div class="card-body">
+					<h5 class="mt-2 card-title mb-4">급상여입력</h5>
+					<form action="/salary/salary_record" onsubmit="return updateCheck(this);" method="POST">
+						<table class="mb-0 table table-bordered table-detail">
+							<tr>
+								<td colspan="4">지급</td>
+							</tr>
+							<tr>
+								<td>기본급</td>
+								<td><input type="hidden" name="dataData" th:value="${salaryRecord.dataData}">
+								<input type="text" name="dataNormal" class="form-control" th:value="${salaryRecord.dataNormal}"></td>
+								<td>상여</td>
+								<td><input type="text" name="dataBonus" class="form-control" th:value="${salaryRecord.dataBonus}"></td>
+							</tr>
+							<tr>
+								<td>연차수당</td>
+								<td><input type="text" name="dataAnn" class="form-control" th:value="${salaryRecord.dataAnn}"></td>
+								<td>차량보조</td>
+								<td><input type="text" name="dataVehicle" class="form-control" th:value="${salaryRecord.dataVehicle}"></td>
+							</tr>
+							<tr>
+								<td>식대</td>
+								<td><input type="text" name="dataMeal" class="form-control" th:value="${salaryRecord.dataMeal}"></td>
+								<td>잔업수당</td>
+								<td><input type="text" name="dataOvertime" class="form-control" th:value="${salaryRecord.dataOvertime}"></td>
+							</tr>
+							<tr>
+								<td>야근수당</td>
+								<td><input type="text" name="dataNight" class="form-control" th:value="${salaryRecord.dataNight}"></td>
+								<td>휴일수당</td>
+								<td><input type="text" name="dataHoli" class="form-control" th:value="${salaryRecord.dataHoli}"></td>
+							</tr>
+							<tr>
+								<td>부가지급항목</td>
+								<td colspan="3">
+									<table>
+										<tr>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">공제</td>
+							</tr>
+							<tr>
+								<td>국민연금</td>
+								<td><input type="text" name="dataGukmin" class="form-control" th:value="${salaryRecord.dataGukmin}"></td>
+								<td>건강보험</td>
+								<td><input type="text" name="dataGeongang" class="form-control" th:value="${salaryRecord.dataGeongang}"></td>
+							</tr>
+							<tr>
+								<td>고용보험</td>
+								<td><input type="text" name="dataKhoyong" class="form-control" th:value="${salaryRecord.dataKhoyong}"></td>
+								<td>장기요양보험</td>
+								<td><input type="text" name="dataJanggi" class="form-control" th:value="${salaryRecord.dataJanggi}"></td>
+							</tr>
+							<tr>
+								<td>산재보험</td>
+								<td><input type="text" name="dataSanjae" class="form-control" th:value="${salaryRecord.dataSanjae}"></td>
+								<td>학자금공제</td>
+								<td><input type="text" name="dataSchexpan" class="form-control" th:value="${salaryRecord.dataSchexpan}"></td>
+							</tr>
+							<tr>
+								<td>소득세</td>
+								<td><input type="text" name="dataIncome" class="form-control" th:value="${salaryRecord.dataIncome}"></td>
+								<td>지방소득세</td>
+								<td><input type="text" name="dataLoincome" class="form-control" th:value="${salaryRecord.dataLoincome}"></td>
+							</tr>
+							<tr>
+								<td>부가공제항목</td>
+								<td colspan="3">
+									<table>
+										<tr>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<input type="hidden" name="sqlKey" th:value="${sqlKey}">
+						<input type="submit" class="mt-2 btn btn-primary date_right" value="저장">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	</th:block>
+    
+</html>

@@ -112,6 +112,10 @@
 	margin-right:10px;
 }
 
+table.ui-datepicker-calendar { 
+	display:none; 
+}
+
 @media(min-width:992px){
 	.scroll-div{
 		height:809px;
