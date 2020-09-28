@@ -251,6 +251,10 @@
 	float : right;
 }
 
+.offset {
+	margin: 0 auto;
+}
+
 .inputmaineus{
 	text-align: center;
 }

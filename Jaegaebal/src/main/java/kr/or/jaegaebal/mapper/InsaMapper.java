@@ -73,4 +73,23 @@ public interface InsaMapper {
 	
 	//회원가입(필수 정보 입력)
 	public int insertToIsStaffInfo(StaffInfo staffInfo);
+	//회원가입 이후 생성된 사번 가지고 오기
+	public String getStaffNum(StaffInfo staffInfo);
+	//추가 정보 입력시 정보가져오기
+	public StaffInfo getInsertStaffInfo(String staffNum);
+	//직원 등록 - 인적사항 insert
+	public int insertStaffBasicInfo(StaffInfo staffInfo);
+	//직원 등록 - 가족정보 insert
+	public int insertStaffFamilyInfo(StaffInfo staffInfo);
+	//직원 등록 - 사내 경력 정보 insert
+	public int insertStaffCareerInfoFromIn(StaffInfo staffInfo);
+	//직원 등록 - 사외 경력 정보 insert
+	public int insertStaffCareerInfoFromOut(StaffInfo staffInfo);
+	//직원 등록 - 자격증 경력 정보 insert
+	public int insertStaffCertificateInfo(StaffInfo staffInfo);
+	//직원 등록 - 학력 정보 insert
+	public int insertStaffEducationInfo(StaffInfo staffInfo);
+	//직원 등록 - 병역 정보 insert
+	public int insertStaffMilitaryInfo(StaffInfo staffInfo);
+	
 }

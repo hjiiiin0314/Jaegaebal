@@ -158,6 +158,24 @@
 /*        $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
         $("#left ul.nav li.current").parents('ul.children').addClass("in");	*/
     	
+    	
+    	//직원 등록 - 추가 입력 정보
+    	$(document).on('click', '#insertAddMoreStaffInfoBtn', function(){
+			var staffPhone = $('.staff_phone_val').addHyphen();
+			$('#staff_phone_val').attr("value", staffPhone);
+			console.log($('#staff_phone_val').attr("name"));
+			
+			var familyPhone = $('.family_phone_val').addHyphen();
+			$('#family_phone_val').attr("value", familyPhone);
+			console.log($('#family_phone_val').attr("name"));
+			
+			var humanNum = $('.human_num').addHyphen();
+			$('#humanNum').attr("value", humanNum);
+			console.log($('#humanNum').attr("name"));
+			
+			$('#insertform').submit();
+    	});
+    	
     	$(document).on('click', '#insertStaff', function(){
     		var haveToWriteVals = $('.haveToWriteVals');
     		

@@ -214,9 +214,64 @@ public class InsaService {
 	};
 	
 	//회원가입(필수 정보 입력)
-	public int insertToIsStaffInfo(StaffInfo staffInfo) {
-		int result = insaMapper.insertToIsStaffInfo(staffInfo);
+	public String insertToIsStaffInfo(StaffInfo staffInfo) {
+		//새로운 직원코드 생성 후 직원등록
+		insaMapper.insertToIsStaffInfo(staffInfo);
 		
+		// 등록된 사원번호 리턴
+		String staffNum = staffInfo.getStaffNum();
+		
+		log.info("staffInfo staffNum :::: {}", staffNum);
+		
+		return staffNum;
+	};
+	//회원가입 이후 생성된 사번 가지고 오기
+	public String getStaffNum(StaffInfo staffInfo) {
+		String staffNum = insaMapper.getStaffNum(staffInfo);
+		return staffNum;
+	};	
+	
+	//추가 정보 입력시 정보가져오기
+	public StaffInfo getInsertStaffInfo(String staffNum){
+		StaffInfo list = insaMapper.getInsertStaffInfo(staffNum);
+		log.info("list.service:::::::::::::::::::::::::::::::::::::::", list);
+		return list;
+	};
+	
+	//직원 등록 - 인적사항 insert
+	public int insertStaffDetaillInfo(StaffInfo staffInfo) {
+		int result = insaMapper.insertStaffBasicInfo(staffInfo);
 		return result;
 	};
+	//직원 등록 - 가족정보 insert
+	public int insertStaffFamilyInfo(StaffInfo staffInfo) {
+		int result = insaMapper.insertStaffFamilyInfo(staffInfo);
+		return result;
+	};
+	//직원 등록 - 사내 경력 정보 insert
+	public int insertStaffCareerInfoFromIn(StaffInfo staffInfo) {
+		int result = insaMapper.insertStaffCareerInfoFromIn(staffInfo);
+		return result;
+	};
+	//직원 등록 - 사외 경력 정보 insert
+	public int insertStaffCareerInfoFromOut(StaffInfo staffInfo) {
+		int result = insaMapper.insertStaffCareerInfoFromOut(staffInfo);
+		return result;
+	};
+	//직원 등록 - 자격증 경력 정보 insert
+	public int insertStaffCertificateInfo(StaffInfo staffInfo) {
+		int result = insaMapper.insertStaffCertificateInfo(staffInfo);
+		return result;
+	};
+	//직원 등록 - 학력 정보 insert
+	public int insertStaffEducationInfo(StaffInfo staffInfo) {
+		int result = insaMapper.insertStaffEducationInfo(staffInfo);
+		return result;
+	};
+	//직원 등록 - 병역 정보 insert
+	public int insertStaffMilitaryInfo(StaffInfo staffInfo) {
+		int result = insaMapper.insertStaffMilitaryInfo(staffInfo);
+		return result;
+	};
+	
 }

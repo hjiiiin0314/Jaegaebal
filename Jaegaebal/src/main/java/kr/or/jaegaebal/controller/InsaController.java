@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
@@ -112,18 +114,57 @@ public class InsaController {
 		return "insa/insert_staff";
 	}
 	
-	//직원 등록
+	//직원 등록 - 필수 입력 사항
 	@PostMapping("/insertStaffInfoAll")
-	public String insertStaffInfoAll(StaffInfo insertStaffInfo, Model model) {
+	public String insertStaffInfoAll(StaffInfo insertStaffInfo, Model model, RedirectAttributes redirectAttr) {
 		//String staffNum = insaService.makeStaffNum();
 		//model.addAttribute("staffNum", staffNum);
+		Map<String, Object> codeAndName = insaService.getCodeAndName();
+		model.addAttribute("codeAndName", codeAndName);
 		log.info("insertStaffInfo >>>>>>>>>> {}", insertStaffInfo, "<<<<<<<<<<");
-		int result = insaService.insertToIsStaffInfo(insertStaffInfo);
-		log.info("result:::::{}", result);
-		return "/insa/insert_staff";
+		String staffNum = insaService.insertToIsStaffInfo(insertStaffInfo);
+		if(staffNum != null && !"".equals(staffNum)) {
+			redirectAttr.addAttribute("staffNum", staffNum);
+		}
+		return "redirect:/insertStaffDetaillInfo";
 	}
 	
-
+	//직원 등록 - 추가 입력 사항
+	@GetMapping("/insertStaffDetaillInfo")
+	public String insertStaffDetaillInfo(Model model, @RequestParam (value="staffNum", required = false) String staffNum) {
+		StaffInfo list = insaService.getInsertStaffInfo(staffNum);
+		Map<String, Object> codeAndName = insaService.getCodeAndName();
+		model.addAttribute("codeAndName", codeAndName);
+		model.addAttribute("title", "추가 입력 사항");
+		model.addAttribute("list", list);
+		model.addAttribute("staffNum", staffNum);
+		log.info("list:::::::::{}", list.toString());
+		return "insa/insert_staff_detaill_info";
+	}
+	
+	//직원 등록 - 추가 입력 사항
+	@PostMapping("/insertStaffDetaillInfo")
+	public String insertStaffDetaillInfo(StaffInfo insertStaffInfo, Model model, RedirectAttributes redirectAttr) {
+		log.info("insertStaffInfo>>>>>>>>>{}", insertStaffInfo);
+		int resultBSIF 		= insaService.insertStaffDetaillInfo(insertStaffInfo);
+		int resultFMLIF 	= insaService.insertStaffFamilyInfo(insertStaffInfo);
+		int resultCINIF 	= insaService.insertStaffCareerInfoFromIn(insertStaffInfo);
+		int resultCOUTIF 	= insaService.insertStaffCareerInfoFromOut(insertStaffInfo);
+		int resultCTIF 		= insaService.insertStaffCertificateInfo(insertStaffInfo);
+		int resultEDIF 		= insaService.insertStaffEducationInfo(insertStaffInfo);
+		int resultMLIF 		= insaService.insertStaffMilitaryInfo(insertStaffInfo);
+		
+		log.info("resultBSIF:::::{}", resultBSIF, "<<<<<<<<<<<<");
+		log.info("resultFMLIF:::::{}", resultFMLIF, "<<<<<<<<<<<<");
+		log.info("resultCINIF:::::{}", resultCINIF, "<<<<<<<<<<<<");
+		log.info("resultCOUTIF:::::{}", resultCOUTIF, "<<<<<<<<<<<<");
+		log.info("resultCTIF:::::{}", resultCTIF, "<<<<<<<<<<<<");
+		log.info("resultEDIF:::::{}", resultEDIF, "<<<<<<<<<<<<");
+		log.info("resultMLIF:::::{}", resultMLIF, "<<<<<<<<<<<<");
+		return "redirect:/";
+		
+	}
+	
 	// 부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
 	@PostMapping(value = "/getStaffInfoByParentJojicName", produces = "application/json")
 	@ResponseBody
