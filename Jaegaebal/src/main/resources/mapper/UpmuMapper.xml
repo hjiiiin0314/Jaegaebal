@@ -32,6 +32,43 @@
 			d.app_doc_code= #{docCode};
 	
 	</select>
+<!-- 상신함 - 상세보기 결재라인만  -->
+	<select id="getAppLine" parameterType="String" resultType="UpmuDocument">
+		SELECT
+			 a.line_num
+			,a.doc_code				as	docCode
+			,a.app_jojic_code		as	appJojicCode
+			,a.staff_level_code		as	staffLevelCode
+			,a.app_staff_num		as	appStaffNum				
+			,a.app_result			as	appStateCode
+			,a.app_staff_coment		as	docComent
+			,a.app_date				as	appDate
+			,s.staff_name			as	appStaffName
+			,j.jojic_name			as	appJojicName
+			,l.level_name			as	appLevelName
+			,state.app_state		as	appStateName
+		FROM
+				um_app_line	AS a
+			INNER join
+				is_staff	AS	s
+			on
+				a.app_staff_num = s.staff_num
+			INNER join
+				is_jojic AS j
+			ON 
+				a.app_jojic_code = j.jojic_code
+			INNER join
+				is_level	AS l
+			on
+				a.staff_level_code =l.level_code
+			left join
+				um_appstate	AS state
+			on
+				a.app_result = state.app_state_code
+		WHERE
+			doc_code = #{docCode}
+	</select>
+	
 <!-- 상신함 - 상세보기 문서만 -->
 	<select id="docDetail" parameterType="String" resultType="UpmuDocument">
 		SELECT 

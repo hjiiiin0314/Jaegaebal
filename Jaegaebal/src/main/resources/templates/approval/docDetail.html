@@ -41,11 +41,30 @@
 		
 	<div class="col-md-12">
 		<div class="main-card mb-3 card"> 
-			<div class="card-body">			
-				<th:block th:each="d : ${docDetail}">
+			<div class="card-body">
+				<div class="table-body">
 					<table id="appLine" class="mb-2 table table-bordered">
-                        
+						<tr>
+						<th:block th:each="l : ${getAppLine}">
+                        	<td class='text-center app-StaffLevel' th:text="${l.appLevelName}"></td>
+                        	<td class='appLine-form'>
+                       			<table>
+                        			<tr>
+                        				<td class='text-center' th:text="${l.appJojicName}"></td>
+                        			</tr>
+                        			<tr>
+                        				<td class='text-center' th:text="${l.appStaffName}"></td>
+                        			</tr>
+                        			<tr>
+                        				<td class='text-center app-sign' th:text="${l.appStateName}"></td>
+                        			</tr>
+                        		</table>
+                        	</td>
+						</th:block>		
+                        </tr>
                  	</table>	
+				</div>	
+				<th:block th:each="d : ${docDetail}">
 				<div class="position-relative form-group index-front">
 		          	<div class="position-relative form-group document-form">
 		             		<label for="docType" >문서양식</label>
@@ -102,6 +121,20 @@
 				
 			          
 				});
+				
+				//결재란 크기 조정 
+	            if($('#appLine').find('.app-StaffLevel').length == 4){
+	    	 		$('.table-body').removeClass().addClass('table-body four-td');		
+	            }
+	            else if($('#appLine').find('.app-StaffLevel').length == 3){	
+	            	$('.table-body').removeClass().addClass('table-body three-td');		            	
+	            }else if($('#appLine').find('.app-StaffLevel').length == 2){
+	            	$('.table-body').removeClass().addClass('table-body two-td');	
+	            }else if($('#appLine').find('.app-StaffLevel').length == 1){
+	            	$('.table-body').removeClass().addClass('table-body one-td');	
+	            }else{
+	            	$('.table-body').removeClass().addClass('table-body');
+	            }
 			});				
 		</script>
 		

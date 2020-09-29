@@ -26,9 +26,17 @@ public class UpmuService {
 	
 	@Autowired private UpmuMapper upmumapper;
 	
-	//문서상세보기
+	//상세보기 - 결재라인 관련
+	public List<UpmuDocument> getAppLine(String docCode){
+		List<UpmuDocument> getAppLine = upmumapper.getAppLine(docCode);
+		System.out.println(getAppLine + "<--getAppLine");
+		return getAppLine;
+	}
+	
+	//상세보기 - 문서내용만
 	public List<UpmuDocument> docDetail(String docCode){
 		List<UpmuDocument> docDetail = upmumapper.docDetail(docCode);
+		System.out.println(docDetail + "<--docDetail");
 		return docDetail;
 	}
 	

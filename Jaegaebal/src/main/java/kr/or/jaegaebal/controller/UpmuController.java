@@ -3,6 +3,8 @@ package kr.or.jaegaebal.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,14 +27,21 @@ import kr.or.jaegaebal.service.UpmuService;
 @Controller
 public class UpmuController {
 	@Autowired private UpmuService upmuService;
+	private static final Logger  log = LoggerFactory.getLogger(UpmuController.class);
 	
 	//문서상세보기
 	@GetMapping("/docDetail")
 	public String docDetail(Model model
-							, @RequestParam(value = "docCode",required = false)String docCode) {
-		System.out.println(docCode + "<----상세보기할 문서코드");
+							, @RequestParam(value = "docCode",required = false)String docCode) {		
+		List<UpmuDocument> getAppLine = upmuService.getAppLine(docCode);		
+		model.addAttribute("getAppLine", getAppLine);
+		
+		System.out.println("getAppLine: "+ getAppLine);
+		
 		List<UpmuDocument> docDetail = upmuService.docDetail(docCode);
 		model.addAttribute("docDetail", docDetail);
+		
+		System.out.println("docDetail: "+ docDetail);
 		return "approval/docDetail";
 	}
 	
@@ -66,8 +75,7 @@ public class UpmuController {
 	
 	//임시저장 - 삭제
 	@GetMapping("/delStorage")
-	public String delStorage( @RequestParam(value = "docCode",required = false)String docCode) {
-		System.out.println("삭제할 문서코드:" + docCode);
+	public String delStorage( @RequestParam(value = "docCode",required = false)String docCode) {		
 		upmuService.delStorage(docCode);
 		return "redirect:/storageBox";
 	}
@@ -108,11 +116,11 @@ public class UpmuController {
 							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
 							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
-
+		
 		upmuService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
+		log.info("UpmuController appWrite upmuDocument ::::: {}",upmuDocument);
 		return "redirect:/myAppList";
 	}
-	
 	//기안하기 - 결재라인선택 후  db에 넣기
 	@PostMapping("/choiceStaff")
 	public String choiceStaff() {

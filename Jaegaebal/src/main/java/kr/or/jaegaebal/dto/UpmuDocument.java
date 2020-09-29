@@ -33,8 +33,22 @@ public class UpmuDocument {
 	private String appStaffName;		//결재사원의 이름
 	private String appStateCode;		//결재사원의 결재결과 코드
 	private String appStateName;		//결재사원의 결재결과이름
+	private String appStaffComent;		//결재사원의 결재코멘트
+	private String appDate;				//결재사원의 결재처리날짜
 	
 	
+	public String getAppStaffComent() {
+		return appStaffComent;
+	}
+	public void setAppStaffComent(String appStaffComent) {
+		this.appStaffComent = appStaffComent;
+	}
+	public String getAppDate() {
+		return appDate;
+	}
+	public void setAppDate(String appDate) {
+		this.appDate = appDate;
+	}
 	public String getDocCode() {
 		return docCode;
 	}
@@ -255,6 +269,10 @@ public class UpmuDocument {
 		builder.append(appStateCode);
 		builder.append(", appStateName=");
 		builder.append(appStateName);
+		builder.append(", appStaffComent=");
+		builder.append(appStaffComent);
+		builder.append(", appDate=");
+		builder.append(appDate);
 		builder.append("]");
 		return builder.toString();
 	}
