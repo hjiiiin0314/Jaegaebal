@@ -79,8 +79,6 @@
 			, doc_coment		as	docComent
 			, write_date		as	writeDate
 			, doc_file			as	docFile
-			, start_date		as	startDate
-			, end_date			as	endDate
 			, app_security		as	appSecurity
 			, deadline			as	deadline
 			, t.doc_type		as	docTypeName
@@ -115,8 +113,6 @@
 			, doc_contents			AS docContents
 			, write_date			AS writeDate
 			, doc_file				AS docFile
-			, start_date			AS startDate
-			, end_date				AS endDate
 			, app_security			AS appSecurity
 			, deadline				AS deadline
 		FROM 
@@ -144,8 +140,6 @@
 			, doc_contents			AS docContents
 			, write_date			AS writeDate
 			, doc_file				AS docFile
-			, start_date			AS startDate
-			, end_date				AS endDate
 			,app_security			as appSecurity
 			, deadline				AS deadline
 		FROM
@@ -169,8 +163,6 @@
 			,doc_contents		as docContents
 			,write_date			as writeDate
 			,doc_file			as docFile
-			,start_date			as startDate
-			,end_date			as endDate
 			,a.app_state		as appStateName
 			,app_security		as appSecurity
 			,deadline			as deadline
@@ -203,8 +195,6 @@
 			,doc_contents		as docContents
 			,write_date			as writeDate
 			,doc_file			as docFile
-			,start_date			as startDate
-			,end_date			as endDate
 			,a.app_state		as appStateName
 			,app_security		as appSecurity
 			,deadline			as deadline
@@ -240,8 +230,6 @@
 					, doc_coment
 					, write_date
 					, doc_file
-					, start_date
-					, end_date
 					, app_security
 					, deadline
 					, app_state)
