@@ -243,8 +243,6 @@
 		, #{docComent}
 		, NOW()
 		, #{docFile}
-		, #{startDate}
-		, #{endDate}
 		, #{appSecurity}
 		, #{deadline}
 		, 'ac-04')		 	<!-- 초기값은 미열람  -->
