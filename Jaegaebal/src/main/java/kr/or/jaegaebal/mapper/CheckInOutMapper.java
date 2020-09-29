@@ -18,4 +18,7 @@ public interface CheckInOutMapper {
 	//출근 등록
 		public int checkIn(CheckInOut checkInOut);
 		
+	//퇴근 등록
+		public int checkOut(String staffNum);
+		
 }

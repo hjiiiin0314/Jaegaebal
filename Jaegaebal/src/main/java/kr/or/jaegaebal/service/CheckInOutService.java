@@ -33,5 +33,9 @@ public class CheckInOutService {
 			public int checkIn(CheckInOut checkInOut) {
 				return checkInOutMapper.checkIn(checkInOut);
 			}
-		 
+		//퇴근등록
+			public int checkOut(String staffNum) {
+				return checkInOutMapper.checkOut(staffNum);
+			}
+			
 }

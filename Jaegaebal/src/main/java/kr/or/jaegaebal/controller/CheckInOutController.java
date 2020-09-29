@@ -3,6 +3,7 @@ package kr.or.jaegaebal.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,35 +40,40 @@ public class CheckInOutController {
 		@GetMapping("/checkIn")
 		public String checkIn(CheckInOut checkInOut
 					,@RequestParam(value="wcCode",required = false) String wcCode
-					
-					
+					,@RequestParam(value="staffNum",required = false) String staffNum
+					,@RequestParam(value="wcInIp",required = false) String wcInIp
+					,HttpServletRequest request
 				) {
-			checkInOutService.checkIn(checkInOut);
-			return "redirect:/getCheckInOutList";
+			String ipIn = request.getRemoteAddr();
 			
+			System.out.println("ipIn::::"+ipIn);
+			checkInOut.setStaffNum(staffNum);
+			checkInOut.setWcInIp(ipIn);
+			checkInOutService.checkIn(checkInOut);
+			
+			return "redirect:/getCheckInOutList";
 			
 		         
 		    }
-		public static String getRemoteIP(HttpServletRequest request){
-			String ip = request.getHeader("X-FORWARDED-FOR"); 
+		
+	//퇴근기록
+		@GetMapping("/checkOut")
+		public String checkOut(CheckInOut checkInOut
+				,@RequestParam(value="staffNum",required = false) String staffNum
+				,HttpServletRequest request
+				) {
+			String ipOut = request.getRemoteAddr();
 			
-			//proxy 환경일 경우
-			if (ip == null || ip.length() == 0) {
-				ip = request.getHeader("Proxy-Client-IP");
-			}
-			
-			//웹로직 서버일 경우
-			if (ip == null || ip.length() == 0) {
-				ip = request.getHeader("WL-Proxy-Client-IP");
-			}
-			
-			if (ip == null || ip.length() == 0) {
-				ip = request.getRemoteAddr() ;
-			}
-			
-			return ip;
+			System.out.println("ipOut::::"+ipOut);
+			System.out.println(checkInOut);
+			checkInOut.setWcOutIp(ipOut);
+			checkInOutService.checkOut(staffNum);
+			return "redirect:/getCheckInOutList";
 			
 		}
+		
+		
+	
 		
 	
 }

@@ -36,12 +36,13 @@
     
    			<!-- 코드등록버튼 -->
 		<div class="code-btn">		
-				<div class="btn-group nav-item ">
-		                  <a href="/checkIn" class="nav-link">
-		                       <button type="button" class="btn btn-danger">출근</button>
+				<div class="btn-group nav-item " th:with="staffNum1=${session.SSTAFFNUM}">
+		                  <a th:href="@{/checkIn(staffNum=${staffNum1})}" class="nav-link">
+		                       <button type="button" class="btn btn-danger checkInBtn">출근</button>
 		                  </a>
-		                  <a href="/checkOut" class="nav-link">
-		                       <button type="button" class="btn btn-success" disabled>퇴근</button>
+		                  <a th:href="@{/checkOut(staffNum=${staffNum1})}" class="nav-link">
+		                       
+		                       <button type="button" class="btn btn-success checkOutBtn">퇴근</button>
 		                  </a>
 		         </div>
    		</div>
@@ -93,7 +94,7 @@
 				 	<tbody>
 				 		<tr th:each="l : ${checkInOutList}">
 				 			<td th:text="${l.wcCode}"></td>				 			
-				 			<td th:text="${session.SSTAFFNUM}"></td>
+				 			<td th:text="${l.staffNum}"></td>
 				 			<td th:text="${l.wcIn}"></td>
 				 			<td th:text="${l.wcOut}"></td>
 				 			<td th:text="${l.wcHour}"></td>
@@ -135,10 +136,11 @@
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 	
 	</th:block>
-	<!--  <th:block layout:fragment="customJsScript">
+  <th:block layout:fragment="customJsScript">
 	<script>
 	
-			$(function(){
+		
+			/* $(function(){
 				$('#checkInBtn').click(function(){
 					
 				var checkBtn = $('.checkInBtn');
@@ -155,7 +157,7 @@
 				})
                 
 
-		     });
+		     }); */
 			
 	
 			
@@ -164,6 +166,6 @@
 	</script>
 	</th:block> 
 	
-	 -->
+	 
     
 </html>
