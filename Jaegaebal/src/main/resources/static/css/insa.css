@@ -127,7 +127,7 @@
 	background-color : #f1f1f1;
 }
 .tr-2 {
-	background-color : #f8f8f8;
+	/* background-color : #f8f8f8; */
 }
 
 
@@ -181,8 +181,8 @@
     padding-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-top : 100px !important;
-    margin-botton : 15px !important;
+    margin-top : 120px !important;
+    margin-bottom : 15px !important;
 
 }
 .arrow-btn{
@@ -190,7 +190,9 @@
     padding-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-botton : 100px !important;
+    margin-top : 25px !important;
+    margin-bottom : 80px !important;
+   
 
 }
 
@@ -199,6 +201,7 @@
 	background-color: #858585;
     color: white;
     padding : 8px 14px !important;
+     margin : 12px auto !important;
 }
 
 .card-title {
@@ -277,7 +280,7 @@
 }
 
 .btn {
-	text-alian : center;
+	text-align : center;
 }
 
 /*************************************************************************************************************/

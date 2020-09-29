@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,25 +48,24 @@ public class InsaController {
 		return "insa/company_info";
 	}
 
-	// 일반 직원일때 직원 목록
+	// 직원 리스트
 	@GetMapping("/insa/staffInfoList")
 	public String getStaffList(Model model,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 			@RequestParam Map<String, Object> map) {
-		log.info("map>>>>>>>>>>>> - {}", map);
+		
+		 log.info("map>>>>>>>>>>>> - {}", map);
+		 
+		 Map<String, Object> resultMap = insaService.getStaffInfoAll(currentPage, map);
+		 
+		 model.addAttribute("lastPage", resultMap.get("lastPage")); 
+		 model.addAttribute("getStaffInfoAllList", resultMap.get("getStaffInfoAllList")); 
+		 model.addAttribute("startPageNum", resultMap.get("startPageNum")); 
+		 model.addAttribute("lastPageNum", resultMap.get("lastPageNum")); 
+		 model.addAttribute("currentPage", currentPage);
+		 model.addAttribute("title", "직원 목록");
 
-		List<Map<Jojic, Object>> jojicInfo = insaService.getJojicInfo(); // 가지고 오기
-		Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage, map);
-
-		model.addAttribute("title", "직원 목록");
-		model.addAttribute("jojicInfo", jojicInfo);
-		model.addAttribute("lastPage", resultMap.get("lastPage"));
-		model.addAttribute("staffInfoList", resultMap.get("getStaffInfoList"));
-		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
-		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
-		model.addAttribute("currentPage", currentPage);
-
-		log.info("staffInfoList---> {}", resultMap.get("getStaffInfoList"));
+		log.info("staffInfoList---> {}", resultMap.get("getStaffInfoAllList"));
 
 		return "insa/staff_list";
 	}
@@ -103,35 +101,36 @@ public class InsaController {
 
 	// 직원 등록하기 화면
 	@GetMapping("/insa/insertStaff")
-	public String insertStaff(	 Model model) {
-		
-		//String staffNum = insaService.makeStaffNum();
+	public String insertStaff(Model model) {
+
+		// String staffNum = insaService.makeStaffNum();
 		Map<String, Object> codeAndName = insaService.getCodeAndName();
 		model.addAttribute("codeAndName", codeAndName);
 		model.addAttribute("title", "직원 등록");
-		//model.addAttribute("staffNum", staffNum);
+		// model.addAttribute("staffNum", staffNum);
 
 		return "insa/insert_staff";
 	}
-	
-	//직원 등록 - 필수 입력 사항
+
+	// 직원 등록 - 필수 입력 사항
 	@PostMapping("/insertStaffInfoAll")
 	public String insertStaffInfoAll(StaffInfo insertStaffInfo, Model model, RedirectAttributes redirectAttr) {
-		//String staffNum = insaService.makeStaffNum();
-		//model.addAttribute("staffNum", staffNum);
+		// String staffNum = insaService.makeStaffNum();
+		// model.addAttribute("staffNum", staffNum);
 		Map<String, Object> codeAndName = insaService.getCodeAndName();
 		model.addAttribute("codeAndName", codeAndName);
 		log.info("insertStaffInfo >>>>>>>>>> {}", insertStaffInfo, "<<<<<<<<<<");
 		String staffNum = insaService.insertToIsStaffInfo(insertStaffInfo);
-		if(staffNum != null && !"".equals(staffNum)) {
+		if (staffNum != null && !"".equals(staffNum)) {
 			redirectAttr.addAttribute("staffNum", staffNum);
 		}
 		return "redirect:/insertStaffDetaillInfo";
 	}
-	
-	//직원 등록 - 추가 입력 사항
+
+	// 직원 등록 - 추가 입력 사항
 	@GetMapping("/insertStaffDetaillInfo")
-	public String insertStaffDetaillInfo(Model model, @RequestParam (value="staffNum", required = false) String staffNum) {
+	public String insertStaffDetaillInfo(Model model,
+			@RequestParam(value = "staffNum", required = false) String staffNum) {
 		StaffInfo list = insaService.getInsertStaffInfo(staffNum);
 		Map<String, Object> codeAndName = insaService.getCodeAndName();
 		model.addAttribute("codeAndName", codeAndName);
@@ -141,19 +140,19 @@ public class InsaController {
 		log.info("list:::::::::{}", list.toString());
 		return "insa/insert_staff_detaill_info";
 	}
-	
-	//직원 등록 - 추가 입력 사항
+
+	// 직원 등록 - 추가 입력 사항
 	@PostMapping("/insertStaffDetaillInfo")
 	public String insertStaffDetaillInfo(StaffInfo insertStaffInfo, Model model, RedirectAttributes redirectAttr) {
 		log.info("insertStaffInfo>>>>>>>>>{}", insertStaffInfo);
-		int resultBSIF 		= insaService.insertStaffDetaillInfo(insertStaffInfo);
-		int resultFMLIF 	= insaService.insertStaffFamilyInfo(insertStaffInfo);
-		int resultCINIF 	= insaService.insertStaffCareerInfoFromIn(insertStaffInfo);
-		int resultCOUTIF 	= insaService.insertStaffCareerInfoFromOut(insertStaffInfo);
-		int resultCTIF 		= insaService.insertStaffCertificateInfo(insertStaffInfo);
-		int resultEDIF 		= insaService.insertStaffEducationInfo(insertStaffInfo);
-		int resultMLIF 		= insaService.insertStaffMilitaryInfo(insertStaffInfo);
-		
+		int resultBSIF = insaService.insertStaffDetaillInfo(insertStaffInfo);
+		int resultFMLIF = insaService.insertStaffFamilyInfo(insertStaffInfo);
+		int resultCINIF = insaService.insertStaffCareerInfoFromIn(insertStaffInfo);
+		int resultCOUTIF = insaService.insertStaffCareerInfoFromOut(insertStaffInfo);
+		int resultCTIF = insaService.insertStaffCertificateInfo(insertStaffInfo);
+		int resultEDIF = insaService.insertStaffEducationInfo(insertStaffInfo);
+		int resultMLIF = insaService.insertStaffMilitaryInfo(insertStaffInfo);
+
 		log.info("resultBSIF:::::{}", resultBSIF, "<<<<<<<<<<<<");
 		log.info("resultFMLIF:::::{}", resultFMLIF, "<<<<<<<<<<<<");
 		log.info("resultCINIF:::::{}", resultCINIF, "<<<<<<<<<<<<");
@@ -162,9 +161,9 @@ public class InsaController {
 		log.info("resultEDIF:::::{}", resultEDIF, "<<<<<<<<<<<<");
 		log.info("resultMLIF:::::{}", resultMLIF, "<<<<<<<<<<<<");
 		return "redirect:/";
-		
+
 	}
-	
+
 	// 부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
 	@PostMapping(value = "/getStaffInfoByParentJojicName", produces = "application/json")
 	@ResponseBody
@@ -190,9 +189,9 @@ public class InsaController {
 	// 팀별 직원 목록 리스트 가져오기
 	@PostMapping(value = "/getStaffInfoByTeamName", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> getStaffInfoListByTeamName(	Model model,
-															@RequestParam(value = "teamName") String teamName,
-															@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+	public Map<String, Object> getStaffInfoListByTeamName(Model model,
+			@RequestParam(value = "teamName") String teamName,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 
@@ -205,71 +204,70 @@ public class InsaController {
 		return data;
 
 	}
-	
-	 //조직도 화면
-	 @GetMapping("/insa/jojicdo") 
-	 public String jojicdo(Model model) {
-		 List<Jojic> jojicInfo = insaService.getJojicInfoAll();
-		 List<Jojic> jojicInfo2 = insaService.getJojicInfoAll();
-		 
-		 model.addAttribute("title", "조직도");
-		 model.addAttribute("jojicInfo", jojicInfo);
-		 model.addAttribute("jojicInfo2", jojicInfo2);
-		 log.info("jojicInfo>>>>>>>> {}",jojicInfo);
-		 log.info("jojicInfo2>>>>>>>> {}",jojicInfo2);
-	 
-	 	return "insa/jojicdo"; 
-	 }
-	 
-	 //조직 비활성 상태 바꾸기
-	 @PostMapping(value = "/changeJojicStatusTo0", produces = "application/json")
-	 @ResponseBody
-	 public int changeJojicStatus0(	 Model model
-			 								,@RequestParam(value = "jojicName[]") 	List<String> jojicName) {
-		 int result = insaService.changeJojicStatus0(jojicName);
-		 log.info("jojicName:::: {}", jojicName.toString());
-		 log.info("result::::::>> {}", result);
-		 return result;
-		 
-	 }
-	 
-	 //조직 활성 상태 바꾸기
-	 @PostMapping(value = "/changeJojicStatusTo1", produces = "application/json")
-	 @ResponseBody
-	 public int changeJojicStatus1(	 Model model
-			 								,@RequestParam(value = "jojicName[]") 	List<String> jojicName) {
-		 int result = insaService.changeJojicStatus1(jojicName);
-		 log.info("jojicName:::: {}", jojicName.toString());
-		 log.info("result::::::>> {}", result);
-		 return result;
-		 
-	 }
-	 
-	 //조직도 - 부서 추가 생성하기
-	 @PostMapping(value = "/insertBuseo", produces = "application/json")
-	 @ResponseBody
-	 public int insertBuseo(@RequestParam(value = "insertBuseoName", required = false) String insertBuseoName) {
-		 log.info("insertBuseoName>>>>>>>>>> {}", insertBuseoName);
-		 int result = insaService.insertBuseoName(insertBuseoName);
-		 return result;
-	 }
-	 //조직도 - 팀 추가 생성하기
-	 @PostMapping(value = "/insertTeam", produces = "application/json")
-	 @ResponseBody
-	 public int insertTeam(		 @RequestParam(value = "modalSosocVal", required = false) String modalSosocVal
-			 					,@RequestParam(value = "insertTeamName", required = false) String insertTeamName) {
-		 int result = insaService.insertTeamName(modalSosocVal, insertTeamName);
-		 log.info("modalSosocVal>>>>>>>>>> {}", modalSosocVal);
-		 log.info("insertTeamName>>>>>>>>>> {}", insertTeamName);
 
-		 return result;
-	 }
-	 
-	 //조직도 리스트 화면
-	 @GetMapping("/insa/jojicdoList")
-	 public String getJojicdoList(	 Model model,
-			 						@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			 						@RequestParam Map<String, Object> map) {
+	// 조직도 화면
+	@GetMapping("/insa/jojicdo")
+	public String jojicdo(Model model) {
+		List<Jojic> jojicInfo = insaService.getJojicInfoAll();
+		List<Jojic> jojicInfo2 = insaService.getJojicInfoAll();
+
+		model.addAttribute("title", "조직도");
+		model.addAttribute("jojicInfo", jojicInfo);
+		model.addAttribute("jojicInfo2", jojicInfo2);
+		log.info("jojicInfo>>>>>>>> {}", jojicInfo);
+		log.info("jojicInfo2>>>>>>>> {}", jojicInfo2);
+
+		return "insa/jojicdo";
+	}
+
+	// 조직 비활성 상태 바꾸기
+	@PostMapping(value = "/changeJojicStatusTo0", produces = "application/json")
+	@ResponseBody
+	public int changeJojicStatus0(Model model, @RequestParam(value = "jojicName[]") List<String> jojicName) {
+		int result = insaService.changeJojicStatus0(jojicName);
+		log.info("jojicName:::: {}", jojicName.toString());
+		log.info("result::::::>> {}", result);
+		return result;
+
+	}
+
+	// 조직 활성 상태 바꾸기
+	@PostMapping(value = "/changeJojicStatusTo1", produces = "application/json")
+	@ResponseBody
+	public int changeJojicStatus1(Model model, @RequestParam(value = "jojicName[]") List<String> jojicName) {
+		int result = insaService.changeJojicStatus1(jojicName);
+		log.info("jojicName:::: {}", jojicName.toString());
+		log.info("result::::::>> {}", result);
+		return result;
+
+	}
+
+	// 조직도 - 부서 추가 생성하기
+	@PostMapping(value = "/insertBuseo", produces = "application/json")
+	@ResponseBody
+	public int insertBuseo(@RequestParam(value = "insertBuseoName", required = false) String insertBuseoName) {
+		log.info("insertBuseoName>>>>>>>>>> {}", insertBuseoName);
+		int result = insaService.insertBuseoName(insertBuseoName);
+		return result;
+	}
+
+	// 조직도 - 팀 추가 생성하기
+	@PostMapping(value = "/insertTeam", produces = "application/json")
+	@ResponseBody
+	public int insertTeam(@RequestParam(value = "modalSosocVal", required = false) String modalSosocVal,
+			@RequestParam(value = "insertTeamName", required = false) String insertTeamName) {
+		int result = insaService.insertTeamName(modalSosocVal, insertTeamName);
+		log.info("modalSosocVal>>>>>>>>>> {}", modalSosocVal);
+		log.info("insertTeamName>>>>>>>>>> {}", insertTeamName);
+
+		return result;
+	}
+
+	// 조직도 리스트 화면
+	@GetMapping("/insa/jojicdoList")
+	public String getJojicdoList(Model model,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+			@RequestParam Map<String, Object> map) {
 		Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage, map);
 		List<Jojic> jojicInfo = insaService.getJojicInfoAll();
 		List<Jojic> jojicInfo2 = insaService.getJojicInfoAll();
@@ -282,13 +280,13 @@ public class InsaController {
 		model.addAttribute("jojicInfo2", jojicInfo2);
 		model.addAttribute("title", "조직도 리스트");
 		return "insa/jojicdo_list";
-	 }
-	 
-	 //징계 리스트 화면
-	 @GetMapping("/insa/punishment")
-	 public String getPunishmentList(Model model) {
-		 model.addAttribute("title", "징계 정보");
-		 return "insa/punishment_list";
-	 }
+	}
+
+	// 징계 리스트 화면
+	@GetMapping("/insa/punishment")
+	public String getPunishmentList(Model model) {
+		model.addAttribute("title", "징계 정보");
+		return "insa/punishment_list";
+	}
 
 }
