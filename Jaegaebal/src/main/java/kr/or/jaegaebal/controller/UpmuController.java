@@ -29,19 +29,23 @@ public class UpmuController {
 	@Autowired private UpmuService upmuService;
 	private static final Logger  log = LoggerFactory.getLogger(UpmuController.class);
 	
+
+	//결재처리함 화면이동
+	@GetMapping("/decideBox")
+	public String decideBox() {
+		return "approval/decideBox";
+	}
+	
 	//문서상세보기
 	@GetMapping("/docDetail")
 	public String docDetail(Model model
 							, @RequestParam(value = "docCode",required = false)String docCode) {		
 		List<UpmuDocument> getAppLine = upmuService.getAppLine(docCode);		
 		model.addAttribute("getAppLine", getAppLine);
-		
-		System.out.println("getAppLine: "+ getAppLine);
-		
+				
 		List<UpmuDocument> docDetail = upmuService.docDetail(docCode);
 		model.addAttribute("docDetail", docDetail);
-		
-		System.out.println("docDetail: "+ docDetail);
+				
 		return "approval/docDetail";
 	}
 	
@@ -118,7 +122,7 @@ public class UpmuController {
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
 		
 		upmuService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
-		log.info("UpmuController appWrite upmuDocument ::::: {}",upmuDocument);
+		
 		return "redirect:/myAppList";
 	}
 	//기안하기 - 결재라인선택 후  db에 넣기

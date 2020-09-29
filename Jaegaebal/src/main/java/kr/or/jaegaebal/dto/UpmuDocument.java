@@ -7,13 +7,14 @@ public class UpmuDocument {
 	private String docCode;
 	private String docType;
 	private String writerBuseoCode;
+	private String writerBuseoName;
 	private String writerNum;
+	private String writerName;
+	private String writerLevelName;
 	private String docTitle;
 	private String docContents;
 	private String writeDate;
-	private String docFile;
-	private String startDate;
-	private String endDate;
+	private String docFile;	
 	private String appState;
 	private String appSecurity;
 	private String deadline;
@@ -37,18 +38,6 @@ public class UpmuDocument {
 	private String appDate;				//결재사원의 결재처리날짜
 	
 	
-	public String getAppStaffComent() {
-		return appStaffComent;
-	}
-	public void setAppStaffComent(String appStaffComent) {
-		this.appStaffComent = appStaffComent;
-	}
-	public String getAppDate() {
-		return appDate;
-	}
-	public void setAppDate(String appDate) {
-		this.appDate = appDate;
-	}
 	public String getDocCode() {
 		return docCode;
 	}
@@ -67,11 +56,29 @@ public class UpmuDocument {
 	public void setWriterBuseoCode(String writerBuseoCode) {
 		this.writerBuseoCode = writerBuseoCode;
 	}
+	public String getWriterBuseoName() {
+		return writerBuseoName;
+	}
+	public void setWriterBuseoName(String writerBuseoName) {
+		this.writerBuseoName = writerBuseoName;
+	}
 	public String getWriterNum() {
 		return writerNum;
 	}
 	public void setWriterNum(String writerNum) {
 		this.writerNum = writerNum;
+	}
+	public String getWriterName() {
+		return writerName;
+	}
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+	public String getWriterLevelName() {
+		return writerLevelName;
+	}
+	public void setWriterLevelName(String writerLevelName) {
+		this.writerLevelName = writerLevelName;
 	}
 	public String getDocTitle() {
 		return docTitle;
@@ -97,36 +104,23 @@ public class UpmuDocument {
 	public void setDocFile(String docFile) {
 		this.docFile = docFile;
 	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
 	public String getAppState() {
 		return appState;
 	}
 	public void setAppState(String appState) {
 		this.appState = appState;
 	}
-
-	public String getDeadline() {
-		return deadline;
-	}
-	public void setDeadline(String deadline) {
-		this.deadline = deadline;
-	}
 	public String getAppSecurity() {
 		return appSecurity;
 	}
 	public void setAppSecurity(String appSecurity) {
 		this.appSecurity = appSecurity;
+	}
+	public String getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
 	}
 	public String getRegStaffName() {
 		return regStaffName;
@@ -212,6 +206,18 @@ public class UpmuDocument {
 	public void setAppStateName(String appStateName) {
 		this.appStateName = appStateName;
 	}
+	public String getAppStaffComent() {
+		return appStaffComent;
+	}
+	public void setAppStaffComent(String appStaffComent) {
+		this.appStaffComent = appStaffComent;
+	}
+	public String getAppDate() {
+		return appDate;
+	}
+	public void setAppDate(String appDate) {
+		this.appDate = appDate;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -221,8 +227,14 @@ public class UpmuDocument {
 		builder.append(docType);
 		builder.append(", writerBuseoCode=");
 		builder.append(writerBuseoCode);
+		builder.append(", writerBuseoName=");
+		builder.append(writerBuseoName);
 		builder.append(", writerNum=");
 		builder.append(writerNum);
+		builder.append(", writerName=");
+		builder.append(writerName);
+		builder.append(", writerLevelName=");
+		builder.append(writerLevelName);
 		builder.append(", docTitle=");
 		builder.append(docTitle);
 		builder.append(", docContents=");
@@ -231,10 +243,6 @@ public class UpmuDocument {
 		builder.append(writeDate);
 		builder.append(", docFile=");
 		builder.append(docFile);
-		builder.append(", startDate=");
-		builder.append(startDate);
-		builder.append(", endDate=");
-		builder.append(endDate);
 		builder.append(", appState=");
 		builder.append(appState);
 		builder.append(", appSecurity=");
@@ -277,6 +285,8 @@ public class UpmuDocument {
 		return builder.toString();
 	}
 	
+	
+
 	
 	
 	
