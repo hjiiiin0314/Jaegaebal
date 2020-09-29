@@ -17,36 +17,158 @@
 					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
 					        </i>
 					    </div>
-					    <div>지원자목록
-					       <div class="page-title-subheading">지원자 목록 조회</div>
+					    <div>채용평가기준
+					       <div class="page-title-subheading">채용평가기준</div>
 					    </div>
 					</div>
 				</div>
 			</div>          
 			<div class="row">
-				<div class="col-md-12">
-                                    <div id="accordion" class="accordion-wrapper mb-3">
-										<th:block th:each="j : ${jojicCode}">
-                                        <div class="card">
-                                            <div id="headingOne" class="card-header">
-                                                <button type="button" data-toggle="collapse" th:data-target="@{'#collapseOne'+${jStat.index}}" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
-                                                    <h5 class="m-0 p-0" th:text="${j.jojicName}"></h5>
-                                                </button>
-                                            </div>
-                                            <div data-parent="#accordion" th:id="@{'collapseOne'+${jStat.index}}" aria-labelledby="headingOne" class="collapse" style="">
-                                                <div class="card-body">
-                                                	<table>
-                                                		
-                                                	</table>
+				<div class="col-md-12 col-lg-6">
+                                <div class="mb-3 card">
+                                    <div class="card-header-tab card-header-tab-animation card-header">
+                                        <div class="card-header-title">
+                                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                                            Sales Report
+                                        </div>
+                                        <ul class="nav">
+                                            <li class="nav-item"><a href="javascript:void(0);" class="active nav-link">Last</a></li>
+                                            <li class="nav-item"><a href="javascript:void(0);" class="nav-link second-tab-toggle">Current</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="tabs-eg-77">
+                                                <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                                    <div class="widget-chat-wrapper-outer">
+                                                        <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                                            <canvas id="canvas" width="368" height="184" class="chartjs-render-monitor" style="display: block; width: 368px; height: 184px;"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Top Authors</h6>
+                                                <div class="scroll-area-sm">
+                                                    <div class="scrollbar-container ps ps--active-y">
+                                                        <ul class="rm-list-borders rm-list-borders-scroll list-group list-group-flush">
+                                                            <li class="list-group-item">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/9.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ella-Rose Henry</div>
+                                                                            <div class="widget-subheading">Web Developer</div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>129</span>
+                                                                                <small class="text-danger pl-2">
+                                                                                    <i class="fa fa-angle-down"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/5.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ruben Tillman</div>
+                                                                            <div class="widget-subheading">UI Designer</div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>54</span>
+                                                                                <small class="text-success pl-2">
+                                                                                    <i class="fa fa-angle-up"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Vinnie Wagstaff</div>
+                                                                            <div class="widget-subheading">Java Programmer</div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>429</span>
+                                                                                <small class="text-warning pl-2">
+                                                                                    <i class="fa fa-dot-circle"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ella-Rose Henry</div>
+                                                                            <div class="widget-subheading">Web Developer</div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>129</span>
+                                                                                <small class="text-danger pl-2">
+                                                                                    <i class="fa fa-angle-down"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading">Ruben Tillman</div>
+                                                                            <div class="widget-subheading">UI Designer</div>
+                                                                        </div>
+                                                                        <div class="widget-content-right">
+                                                                            <div class="font-size-xlg text-muted">
+                                                                                <small class="opacity-5 pr-1">$</small>
+                                                                                <span>54</span>
+                                                                                <small class="text-success pl-2">
+                                                                                    <i class="fa fa-angle-up"></i>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 139px;"></div></div></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        </th:block>
                                     </div>
                                 </div>
+                            </div>
 			</div>
-               
- 
        </div>
          
 
