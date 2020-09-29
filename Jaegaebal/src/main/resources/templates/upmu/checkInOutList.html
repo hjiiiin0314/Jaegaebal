@@ -92,8 +92,8 @@
 				 	</thead>
 				 	<tbody>
 				 		<tr th:each="l : ${checkInOutList}">
-				 			<td th:text="${l.wcCode}"></td>
-				 			<td th:text="${l.staffNum}"></td>
+				 			<td th:text="${l.wcCode}"></td>				 			
+				 			<td th:text="${session.SSTAFFNUM}"></td>
 				 			<td th:text="${l.wcIn}"></td>
 				 			<td th:text="${l.wcOut}"></td>
 				 			<td th:text="${l.wcHour}"></td>

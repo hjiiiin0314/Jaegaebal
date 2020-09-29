@@ -120,6 +120,25 @@
 		<result column="certificate_info_notes" 	property="certificateInfoNotes"/>		
 		<result column="education_info_notes" 		property="educationInfoNotes"/>		
 		<result column="military_info_notes" 		property="militaryInfoNotes"/>		
+		<result column="data_num" 					property="dataNum"/>	
+			
+		<result column="punishment_code" 			property="punishmentCode"/>		
+		<result column="punishment_name" 			property="punishmentName"/>		
+		<result column="parent_code" 				property="parentCode"/>		
+		<result column="punishment_val" 			property="punishmentVal"/>		
+		<result column="punishment_point" 			property="punishmentPoint"/>		
+		<result column="punishment_num" 			property="punishmentNum"/>		
+		<result column="given_date" 				property="givenDate"/>		
+		<result column="punishment_reason" 			property="punishmentReason"/>		
+		<result column="punishment_price" 			property="punishmentPrice"/>		
+		<result column="salary_applied_date" 		property="salaryAppliedDate"/>		
+		<result column="punishment_notes" 			property="punishmentNotes"/>		
+		<result column="prize_code" 				property="prizeCode"/>		
+		<result column="prize_name" 				property="prizeName"/>		
+		<result column="prize_num" 					property="prizeNum"/>		
+		<result column="prize_reason" 				property="prizeReason"/>		
+		<result column="prize_price" 				property="prizePrice"/>		
+		<result column="prize_notes" 				property="prizeNotes"/>		
 	</resultMap>
 	
 	<resultMap type="Code" id="CodeResultMap">
@@ -190,6 +209,105 @@
 		ORDER BY 			sf.staff_num
 		LIMIT 				#{startRow}, #{rowPerPage};
 	</select>
+	
+	<!-- 직원 리스트 & 검색조건 & 페이징 -->
+	<select id="getStaffInfoAll" parameterType="Map" resultMap="StaffInfoResultMap">
+		SELECT
+				*
+				,SUM(pn.punishment_point) AS totalPnsmtPoint
+				,CONCAT(DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%y'),'년',DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%c')-1,'개월') as totalWorkMonths
+		FROM 	is_staff 				 	AS sf
+				INNER JOIN 	
+				is_level 				 	AS lv
+				ON 
+				sf.staff_level_code = lv.level_code
+				LEFT JOIN 
+				is_position 			 	AS ps
+				ON 
+				sf.staff_position_code = ps.position_code
+				LEFT JOIN 
+				is_jojic 				 	AS jj
+				ON
+				sf.jojic_code = jj.jojic_code
+				LEFT JOIN
+				is_staff_basic_info  		AS sbif
+				ON
+				sf.staff_num = sbif.staff_num
+				LEFT JOIN
+				is_access			 		AS ac
+				ON
+				sf.access_num = ac.access_num
+				LEFT JOIN
+				is_jaejic					AS jc
+				ON
+				sf.staff_status_code = jc.jaejic_status_code
+				LEFT JOIN
+				is_punishment_list			AS pl
+				on
+				sf.staff_num = pl.staff_num
+				LEFT JOIN
+				is_punishment				AS pn
+				on
+				pl.punishment_code = pn.punishment_code	
+<!-- 				<where>
+					<if test="map.searchObj neq null and map.searchObj neq ''.toString() and map.searchVal neq null and map.searchVal neq ''.toString()">
+						AND ${map.searchObj} LIKE CONCAT('%',#{map.searchVal},'%')
+			 		</if>
+				</where> -->	
+				GROUP BY sf.staff_num
+				LIMIT 	#{startRow}, #{rowPerPage};
+	</select>
+	<!-- 직원 리스트 & 검색조건 & 페이징 의 전체 행 갯수-->
+	<select id="getStaffInfoAllCount" parameterType="Map" resultType="int">
+		SELECT	COUNT(*)
+		FROM 	is_staff 				 	AS sf
+				INNER JOIN 	
+				is_level 				 	AS lv
+				ON 
+				sf.staff_level_code = lv.level_code
+				LEFT JOIN 
+				is_position 			 	AS ps
+				ON 
+				sf.staff_position_code = ps.position_code
+				LEFT JOIN 
+				is_jojic 				 	AS jj
+				ON
+				sf.jojic_code = jj.jojic_code
+				LEFT JOIN
+				is_staff_basic_info  		AS sbif
+				ON
+				sf.staff_num = sbif.staff_num
+				LEFT JOIN
+				is_access			 		AS ac
+				ON
+				sf.access_num = ac.access_num
+				LEFT JOIN
+				is_jaejic					AS jc
+				ON
+				sf.staff_status_code = jc.jaejic_status_code
+				LEFT JOIN
+				is_punishment_list			AS pl
+				on
+				sf.staff_num = pl.staff_num
+				LEFT JOIN
+				is_punishment				AS pn
+				on
+				pl.punishment_code = pn.punishment_code	
+				LEFT JOIN
+				is_prize_list				AS pzl
+				on
+				sf.staff_num = pzl.staff_num
+				LEFT JOIN
+				is_prize						AS pz
+				on
+				pz.prize_code = pzl.prize_code				
+<!-- 				<where>
+					<if test="map.searchObj neq null and map.searchObj neq ''.toString() and map.searchVal neq null and map.searchVal neq ''.toString()">
+						AND ${map.searchObj} LIKE CONCAT('%',#{map.searchVal},'%')
+			 		</if>
+				</where> -->	
+	</select>
+	
 	
 	<!-- 일반 직원일때 직원 목록의 전체 행 갯수 -->
 	<select id="getStaffInfoListCount" parameterType="Map" resultType="int">
@@ -771,6 +889,18 @@
 				 , #{militaryInfoNotes}
 				 , '이은혜'
 				 , NOW())	
+	</insert>
+	
+	<!-- 직원 급여기본정보 등록하기 -->
+	<insert id="insertStaffSalaryInfo" parameterType="StaffInfo">
+		<selectKey keyProperty="dataNum" resultType="String" order="BEFORE" >
+			select CONCAT('sal_',(SELECT MAX(cast(SUBSTRING(data_num,5)AS DECIMAL)) + 1  FROM sal_data AS s))
+		</selectKey>	
+		INSERT INTO 
+			sal_data
+				 (data_num, data_emp, data_insu, data_resi, data_pro, data_bank, data_account, data_host, data_scrib, data_bate, data_bate_per, data_bate_date1, data_bate_date2, data_expen, data_expen_date1, data_expen_date2, data_taxdepart, data_tax, data_tax_date1, data_tax_date2)
+			VALUES 
+				 ( #{dataNum}, #{staffNum}, 1, 1, 1, '', '', '', 0, 0, 0, null, null, 0, null, null, 0, 0, null, NULL)
 	</insert>
 	
 	<!-- 사번으로 등록된 인포 가지고 오기 -->
