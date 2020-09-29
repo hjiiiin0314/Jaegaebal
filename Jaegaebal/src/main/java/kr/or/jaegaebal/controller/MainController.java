@@ -66,7 +66,7 @@ public class MainController {
 				httpsession.setAttribute("SSTAFFNUM", staffInfo.getStaffNum());
 				httpsession.setAttribute("SSTAFFNAME", staffInfo.getStaffName());
 				httpsession.setAttribute("SJOJICNAME", staffInfo.getJojicName());
-								
+				httpsession.setAttribute("SJOJICCODE", staffInfo.getJojicCode());				
 				
 			}
 			
