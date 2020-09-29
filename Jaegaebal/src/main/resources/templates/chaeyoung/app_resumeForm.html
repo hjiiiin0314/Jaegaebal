@@ -139,7 +139,7 @@
 														<label><input type="radio" name="staff_nationality" value="외국인" class="staff-nationality-input"> 외국인</label>
 													<td class="t_head2">국적</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control">
+														<input type="text" name="staff_country" class="form-control" disabled="disabled">
 													</td>
 												</tr> 
 												<tr>													
@@ -174,42 +174,42 @@
 												<tr>
 													<td class="t_head2">직장명</td>
 													<td >
-														<input type="text" name="staff_eng_name" class="form-control" >
+														<input type="text" name="companyName" class="form-control" >
 													</td>
 													<td class="t_head2">직위</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="companyAccess" class="form-control" >
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">직책</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="companyPositionFromOut" class="form-control" >
 													</td>
-													<td class="t_head2">직무</td>
+													<td class="t_head2">담당업무</td>
 													<td>
-														<input type="text" name="staff_eng_name" class="form-control">
+														<input type="text" name="companyWorkFormOut" class="form-control">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">입사일자</td>
 													<td>
-														<input type="date" name="staff_country" class="form-control" >
+														<input type="date" name="companyInDateFromOut" class="form-control" >
 													</td>
 													<td class="t_head2">퇴사일자</td>
 													<td>
-														<input type="date" name="staff_country" class="form-control" >
+														<input type="date" name="companyOutDateFromOut" class="form-control" >
 													</td>
 												</tr>	
 												<tr>
 													<td class="t_head2">퇴직사유</td>
 													<td>
-														<textarea name="staff_country" class="form-control" ></textarea>
+														<textarea name="companyOutReason" class="form-control" ></textarea>
 													</td>
 												</tr> 												
 												<tr>
 													<td colspan="8">
-														<div class="addDiv"><button class="font-icon-wrapper btn btn-light "><i class="pe-7s-add-user"></i>경력추가</button></div>
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addTest"><i class="pe-7s-add-user"></i>입력</button></div>
 													</td>
 												</tr>
 											</table>
@@ -427,12 +427,14 @@
 			$('input[name=staff_nationality]').click(function() {
 				 if($("input[name=staff_nationality]:checked").val() == "내국인"){
 			            $("input:text[name=staff_country]").attr("disabled",true);
+			            $("input:text[name=staff_country]").val('');
 			 
 			     }else if($("input[name=staff_nationality]:checked").val() == "외국인"){
 			              $("input:text[name=staff_country]").attr("disabled",false);
 
 			     }
 			});
+
 	
 		});
 
