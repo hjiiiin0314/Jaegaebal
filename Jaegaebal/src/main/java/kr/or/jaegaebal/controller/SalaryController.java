@@ -64,10 +64,11 @@ public class SalaryController {
 		} else {
 			sqlKey = "upd";
 		}
+		salaryRecord.setSqlKey(sqlKey);
 		SalaryInfo salaryInfo = salaryService.salaryInfo();
 		List<Map<String, Object>> levelList = salaryService.getLevelList();
 		List<Map<String, Object>> jojicList = salaryService.getJojicList();
-		model.addAttribute("sqlKey", sqlKey);
+		model.addAttribute("dataNum", dataNum);
 		model.addAttribute("salaryRecord", salaryRecord);
 		model.addAttribute("levelList", levelList);
 		model.addAttribute("jojicList", jojicList);
@@ -100,7 +101,25 @@ public class SalaryController {
 		return "redirect:/salary/salary_info";
 	}
 	
-	//사원정보 클릭시 급여 ajax조회
+	//기준년월 선택 시 해당 년월에 데이터가 있는지 조회
+	@PostMapping(value = "/salary/search_data", produces = "application/json")
+	@ResponseBody
+	public SalaryRecord searchData(@RequestParam(value = "dataNum", required = false) String dataNum
+								,@RequestParam(value = "searchDate", required = false) String searchDate) {
+		String sqlKey = null;
+		SalaryRecord salaryRecord = salaryService.getSelMonthData(dataNum, searchDate);
+		//조회된 값이 없었다면 화면에서 저장할 때 insert 처리 값이 있었다면 update 처리
+		if(salaryRecord == null) {
+			salaryRecord = new SalaryRecord();
+			sqlKey = "ins";
+		} else {
+			sqlKey = "upd";
+		}
+		salaryRecord.setSqlKey(sqlKey);
+		return salaryRecord;
+	}
+	
+	//사원정보 클릭 시 급여 ajax조회
 	@PostMapping(value = "/salary/salary_info", produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> salaryInfo(@RequestParam(value = "dataEmp", required = false) String dataEmp) {
@@ -108,11 +127,11 @@ public class SalaryController {
 		return salaryInfo;
 	}
 	
-	//사원정보 클릭시 월별급여 ajax조회
+	//사원정보 클릭 시, 귀속연도 선택 시 월별급여 ajax조회
 	@PostMapping(value = "/salary/salary_month", produces = "application/json")
 	@ResponseBody
 	public List<Map<String,Object>> salaryMonth(@RequestParam(value = "dataNum", required = false) String dataNum
-			,@RequestParam(value = "searchYear", required = false) String searchYear) {
+								,@RequestParam(value = "searchYear", required = false) String searchYear) {
 		List<Map<String,Object>> monthSalList = salaryService.getMonthSalList(searchYear, dataNum);
 		return monthSalList;
 	}
@@ -126,6 +145,7 @@ public class SalaryController {
 		String searchLevel = ajaxArray[2];
 		String searchJojic = ajaxArray[3];
 		List<Map<String, Object>> staffList = salaryService.getStaffListMap(searchCate, searchText, searchLevel, searchJojic);
+		System.out.println(staffList);
 		return staffList;
 	}
 }

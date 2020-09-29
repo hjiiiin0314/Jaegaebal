@@ -18,6 +18,14 @@
 	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
 	<script>
 		$(function(){
+			//현재 년월 기준년월에 넣기
+			var today = new Date();   
+
+			var toYear = today.getFullYear();
+			var toMonth = numFormat(today.getMonth() + 1);
+			var toDate = toYear+"-"+toMonth;
+			$('#datepicker').val(toDate);
+			
 			$( "#datepicker" ).datepicker({
 		        changeMonth: true,
 		        changeYear: true,
@@ -31,7 +39,7 @@
 		            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
 		            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
 		            $(this).datepicker('setDate', new Date(year, month, 1));
-		           	console.log("ajax통신");
+		           	schData(month, year);
 		        },
 		        beforeShow : function(input, inst) {
 		            if ((datestr = $(this).val()).length > 0) {
@@ -43,6 +51,91 @@
 		            }
 		        }
 		    });
+			
+			//필터에서 년월이 선택되었을 시 ajax 통신
+			function schData(month, year){
+				month = numFormat(Number(month)+1);
+				var dataNum = $('input[name=searchNum]').val();
+				var searchDate = year+month;
+				var request = $.ajax({
+					url : "/salary/search_data",
+					method : "POST",
+					data : { dataNum : dataNum ,
+						searchDate : searchDate },
+					dataType : "Json"
+				});
+				
+				request.done(function(data){
+					$('input[name=dataData]').val(data.dataData);
+					$('input[name=dataNormal]').val(data.dataNormal);
+					$('input[name=dataBonus]').val(data.dataBonus);
+					$('input[name=dataAnn]').val(data.dataAnn);
+					$('input[name=dataVehicle]').val(data.dataVehicle);
+					$('input[name=dataMeal]').val(data.dataMeal);
+					$('input[name=dataOvertime]').val(data.dataOvertime);
+					$('input[name=dataNight]').val(data.dataNight);
+					$('input[name=dataHoli]').val(data.dataHoli);
+					$('input[name=dataGukmin]').val(data.dataGukmin);
+					$('input[name=dataGeongang]').val(data.dataGeongang);
+					$('input[name=dataKhoyong]').val(data.dataKhoyong);
+					$('input[name=dataJanggi]').val(data.dataJanggi);
+					$('input[name=dataSanjae]').val(data.dataSanjae);
+					$('input[name=dataSchexpan]').val(data.dataSchexpan);
+					$('input[name=dataIncome]').val(data.dataIncome);
+					$('input[name=dataLoincome]').val(data.dataLoincome);
+					$('input[name=sqlKey]').val(data.sqlKey);
+				});
+				
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+			}
+			
+			//급상여입력화면에서 사원 정보 클릭시 ajax통신을 통한 사원급여 존재여부 조회
+			$('.emp-record-table').children('tbody').children('tr').click(function(){
+				var dataNum = $(this).children('input[name=dataNum]').val();
+				$('input[name=searchNum]').val(dataNum);
+				var searchDate = $('#datepicker').val();
+				var request = $.ajax({
+					url : "/salary/search_data",
+					method : "POST",
+					data : { dataNum : dataNum ,
+						searchDate : searchDate },
+					dataType : "Json"
+				});
+				
+				request.done(function(data){
+					$('input[name=dataData]').val(data.dataData);
+					$('input[name=dataNormal]').val(data.dataNormal);
+					$('input[name=dataBonus]').val(data.dataBonus);
+					$('input[name=dataAnn]').val(data.dataAnn);
+					$('input[name=dataVehicle]').val(data.dataVehicle);
+					$('input[name=dataMeal]').val(data.dataMeal);
+					$('input[name=dataOvertime]').val(data.dataOvertime);
+					$('input[name=dataNight]').val(data.dataNight);
+					$('input[name=dataHoli]').val(data.dataHoli);
+					$('input[name=dataGukmin]').val(data.dataGukmin);
+					$('input[name=dataGeongang]').val(data.dataGeongang);
+					$('input[name=dataKhoyong]').val(data.dataKhoyong);
+					$('input[name=dataJanggi]').val(data.dataJanggi);
+					$('input[name=dataSanjae]').val(data.dataSanjae);
+					$('input[name=dataSchexpan]').val(data.dataSchexpan);
+					$('input[name=dataIncome]').val(data.dataIncome);
+					$('input[name=dataLoincome]').val(data.dataLoincome);
+					$('input[name=sqlKey]').val(data.sqlKey);
+				});
+				
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+			});
+			
+			//월 1자리 일 시 앞에 0 붙임
+			function numFormat(variable) { 
+				variable = Number(variable).toString(); 
+				if(Number(variable) < 10 && variable.length == 1) 
+					variable = "0" + variable; return variable; 
+			}
 		});
 	</script>
 </th:block>
@@ -66,7 +159,8 @@
     	<div class="col-lg-12">
 			<div class="card-body filter-place">
 				<span class="search-span">귀속연월</span>
-				<input type="text" id="datepicker">
+				<input type="hidden" name="searchNum" th:value="${dataNum}">
+				<input type="text" id="datepicker" autocomplete="off">
 			</div>
 		</div>
 		<div class="col-lg-4">
@@ -91,7 +185,7 @@
 					</div>
 					<div class="scroll-div date_left">
 						<div class="scrollbar-container">
-							<table class="mb-0 emp-table emp-info-table table table-hover text-center">
+							<table class="mb-0 emp-table emp-record-table table table-hover text-center">
 								<thead>
 									<tr>
 										<th class="fixed_top">사원번호</th>
@@ -102,6 +196,9 @@
 								</thead>
 								<tbody>
 									<tr th:each="IL : ${staffInfoList}">
+										<th:block>
+											<input type="hidden" name="dataNum" th:value="${IL.dataNum}">
+										</th:block>
 										<td th:text="${IL.staffNum}"></td>
 										<td th:text="${IL.staffName}"></td>
 										<td th:text="${IL.levelName}"></td>
@@ -126,34 +223,43 @@
 							<tr>
 								<td>기본급</td>
 								<td><input type="hidden" name="dataData" th:value="${salaryRecord.dataData}">
-								<input type="text" name="dataNormal" class="form-control" th:value="${salaryRecord.dataNormal}"></td>
+								<input type="number" name="dataNormal" class="form-control" th:value="${salaryRecord.dataNormal}"></td>
 								<td>상여</td>
-								<td><input type="text" name="dataBonus" class="form-control" th:value="${salaryRecord.dataBonus}"></td>
+								<td><input type="number" name="dataBonus" class="form-control" th:value="${salaryRecord.dataBonus}"></td>
 							</tr>
 							<tr>
 								<td>연차수당</td>
-								<td><input type="text" name="dataAnn" class="form-control" th:value="${salaryRecord.dataAnn}"></td>
+								<td><input type="number" name="dataAnn" class="form-control" th:value="${salaryRecord.dataAnn}"></td>
 								<td>차량보조</td>
-								<td><input type="text" name="dataVehicle" class="form-control" th:value="${salaryRecord.dataVehicle}"></td>
+								<td><input type="number" name="dataVehicle" class="form-control" th:value="${salaryRecord.dataVehicle}"></td>
 							</tr>
 							<tr>
 								<td>식대</td>
-								<td><input type="text" name="dataMeal" class="form-control" th:value="${salaryRecord.dataMeal}"></td>
+								<td><input type="number" name="dataMeal" class="form-control" th:value="${salaryRecord.dataMeal}"></td>
 								<td>잔업수당</td>
-								<td><input type="text" name="dataOvertime" class="form-control" th:value="${salaryRecord.dataOvertime}"></td>
+								<td><input type="number" name="dataOvertime" class="form-control" th:value="${salaryRecord.dataOvertime}"></td>
 							</tr>
 							<tr>
 								<td>야근수당</td>
-								<td><input type="text" name="dataNight" class="form-control" th:value="${salaryRecord.dataNight}"></td>
+								<td><input type="number" name="dataNight" class="form-control" th:value="${salaryRecord.dataNight}"></td>
 								<td>휴일수당</td>
-								<td><input type="text" name="dataHoli" class="form-control" th:value="${salaryRecord.dataHoli}"></td>
+								<td><input type="number" name="dataHoli" class="form-control" th:value="${salaryRecord.dataHoli}"></td>
 							</tr>
 							<tr>
 								<td>부가지급항목</td>
 								<td colspan="3">
-									<table>
-										<tr>
-										</tr>
+									<table class="table add-table">
+										<thead>
+											<tr>
+												<th>지급명</th>
+												<th>금액</th>
+											</tr>
+										<tbody>
+											<tr>
+												<td></td>
+												<td></td>
+											</tr>
+										</tbody>
 									</table>
 								</td>
 							</tr>
@@ -162,39 +268,48 @@
 							</tr>
 							<tr>
 								<td>국민연금</td>
-								<td><input type="text" name="dataGukmin" class="form-control" th:value="${salaryRecord.dataGukmin}"></td>
+								<td><input type="number" name="dataGukmin" class="form-control" th:value="${salaryRecord.dataGukmin}"></td>
 								<td>건강보험</td>
-								<td><input type="text" name="dataGeongang" class="form-control" th:value="${salaryRecord.dataGeongang}"></td>
+								<td><input type="number" name="dataGeongang" class="form-control" th:value="${salaryRecord.dataGeongang}"></td>
 							</tr>
 							<tr>
 								<td>고용보험</td>
-								<td><input type="text" name="dataKhoyong" class="form-control" th:value="${salaryRecord.dataKhoyong}"></td>
+								<td><input type="number" name="dataKhoyong" class="form-control" th:value="${salaryRecord.dataKhoyong}"></td>
 								<td>장기요양보험</td>
-								<td><input type="text" name="dataJanggi" class="form-control" th:value="${salaryRecord.dataJanggi}"></td>
+								<td><input type="number" name="dataJanggi" class="form-control" th:value="${salaryRecord.dataJanggi}"></td>
 							</tr>
 							<tr>
 								<td>산재보험</td>
-								<td><input type="text" name="dataSanjae" class="form-control" th:value="${salaryRecord.dataSanjae}"></td>
+								<td><input type="number" name="dataSanjae" class="form-control" th:value="${salaryRecord.dataSanjae}"></td>
 								<td>학자금공제</td>
-								<td><input type="text" name="dataSchexpan" class="form-control" th:value="${salaryRecord.dataSchexpan}"></td>
+								<td><input type="number" name="dataSchexpan" class="form-control" th:value="${salaryRecord.dataSchexpan}"></td>
 							</tr>
 							<tr>
 								<td>소득세</td>
-								<td><input type="text" name="dataIncome" class="form-control" th:value="${salaryRecord.dataIncome}"></td>
+								<td><input type="number" name="dataIncome" class="form-control" th:value="${salaryRecord.dataIncome}"></td>
 								<td>지방소득세</td>
-								<td><input type="text" name="dataLoincome" class="form-control" th:value="${salaryRecord.dataLoincome}"></td>
+								<td><input type="number" name="dataLoincome" class="form-control" th:value="${salaryRecord.dataLoincome}"></td>
 							</tr>
 							<tr>
 								<td>부가공제항목</td>
 								<td colspan="3">
-									<table>
-										<tr>
-										</tr>
+									<table class="table add-table">
+										<thead>
+											<tr>
+												<th>공제명</th>
+												<th>금액</th>
+											</tr>
+										<tbody>
+											<tr>
+												<td></td>
+												<td></td>
+											</tr>
+										</tbody>
 									</table>
 								</td>
 							</tr>
 						</table>
-						<input type="hidden" name="sqlKey" th:value="${sqlKey}">
+						<input type="hidden" name="sqlKey" th:value="${salaryRecord.sqlKey}">
 						<input type="submit" class="mt-2 btn btn-primary date_right" value="저장">
 					</form>
 				</div>

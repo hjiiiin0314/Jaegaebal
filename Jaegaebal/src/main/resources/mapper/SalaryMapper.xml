@@ -190,17 +190,22 @@
 			staff_num	AS	staffNum,
 			staff_name	AS	staffName,
 			level_name	AS	levelName,
-			jojic_name	AS	jojicName
+			jojic_name	AS	jojicName,
+			data_num	AS	dataNum
 		FROM
 			is_staff a
 		INNER join
 			is_level b
 		INNER join
 			is_jojic c
+		INNER join
+			sal_data d
 		ON
 			a.staff_level_code=b.level_code
 		AND
 			a.jojic_code=c.jojic_code
+		AND
+			a.staff_num=d.data_emp
 		<if test="searchCate eq 1 or searchCate eq 2">
 			<if test="searchText != null or searchText neq ''.toString">
 				<trim prefix="WHERE">

@@ -27,6 +27,7 @@ public class SalaryRecord {
 	private String dataAdddeduct;
 	private String dataPricededuct;
 	private int dataSumdeduct;
+	private String sqlKey;
 	
 	public String getDataNum() {
 		return dataNum;
@@ -184,6 +185,12 @@ public class SalaryRecord {
 	public void setDataSumdeduct(int dataSumdeduct) {
 		this.dataSumdeduct = dataSumdeduct;
 	}
+	public String getSqlKey() {
+		return sqlKey;
+	}
+	public void setSqlKey(String sqlKey) {
+		this.sqlKey = sqlKey;
+	}
 	
 	@Override
 	public String toString() {
@@ -195,19 +202,6 @@ public class SalaryRecord {
 				+ ", dataSanjae=" + dataSanjae + ", dataSchexpan=" + dataSchexpan + ", dataIncome=" + dataIncome
 				+ ", dataLoincome=" + dataLoincome + ", dataAddpay=" + dataAddpay + ", dataPricepay=" + dataPricepay
 				+ ", dataSumpay=" + dataSumpay + ", dataAdddeduct=" + dataAdddeduct + ", dataPricededuct="
-				+ dataPricededuct + ", dataSumdeduct=" + dataSumdeduct + ", getDataNum()=" + getDataNum()
-				+ ", getDataData()=" + getDataData() + ", getDataDate()=" + getDataDate() + ", getDataPay()="
-				+ getDataPay() + ", getDataNormal()=" + getDataNormal() + ", getDataBonus()=" + getDataBonus()
-				+ ", getDataAnn()=" + getDataAnn() + ", getDataVehicle()=" + getDataVehicle() + ", getDataMeal()="
-				+ getDataMeal() + ", getDataOvertime()=" + getDataOvertime() + ", getDataNight()=" + getDataNight()
-				+ ", getDataHoli()=" + getDataHoli() + ", getDataGukmin()=" + getDataGukmin() + ", getDataGeongang()="
-				+ getDataGeongang() + ", getDataKhoyong()=" + getDataKhoyong() + ", getDataJanggi()=" + getDataJanggi()
-				+ ", getDataSanjae()=" + getDataSanjae() + ", getDataSchexpan()=" + getDataSchexpan()
-				+ ", getDataIncome()=" + getDataIncome() + ", getDataLoincome()=" + getDataLoincome()
-				+ ", getDataAddpay()=" + getDataAddpay() + ", getDataPricepay()=" + getDataPricepay()
-				+ ", getDataSumpay()=" + getDataSumpay() + ", getDataAdddeduct()=" + getDataAdddeduct()
-				+ ", getDataPricededuct()=" + getDataPricededuct() + ", getDataSumdeduct()=" + getDataSumdeduct()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+				+ dataPricededuct + ", dataSumdeduct=" + dataSumdeduct + ", sqlKey=" + sqlKey + "]";
 	}
 }

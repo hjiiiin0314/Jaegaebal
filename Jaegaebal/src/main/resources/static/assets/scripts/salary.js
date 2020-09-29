@@ -25,7 +25,9 @@ $(function(){
 		
 		request.done(function(data){
 			$('.emp-table').children('tbody').children('tr').remove();
+			$('.emp-table').children('tbody').children('input').remove();
 			for(var i=0;i<data.length;i++){
+				$('.emp-table').children('tbody').append('<input type="hidden" name="dataNum" value="'+data[i].dataNum+'">');
 				$('.emp-table').children('tbody').append('<tr><td>'+data[i].staffNum+'</td><td>'+data[i].staffName+'</td><td>'+data[i].levelName+'</td><td>'+data[i].jojicName+'</td></tr>');
 			}
 		});
@@ -298,7 +300,6 @@ $(function(){
 		});
 		
 		request.done(function(data){
-			console.log(data);
 			$('.month-table').children('tbody').children('tr').remove();
 			for(var i=0;i<data.length;i++){
 				$('.month-table').children('tbody').append('<tr><td class="fixed_left">'+data[i].cate+'</td><td>'+data[i].plus+'</td><td>'+data[i].M1+'</td><td>'+data[i].M2+'</td><td>'+data[i].M3+'</td><td>'+data[i].M4+'</td><td>'+data[i].M5+'</td><td>'+data[i].M6+'</td><td>'+data[i].M7+'</td><td>'+data[i].M8+'</td><td>'+data[i].M9+'</td><td>'+data[i].M10+'</td><td>'+data[i].M11+'</td><td>'+data[i].M12+'</td></tr>');
@@ -319,12 +320,11 @@ $(function(){
 			url : "/salary/salary_month",
 			method : "POST",
 			data : { dataNum : dataNum ,
-				searchYear : searchYear},
+				searchYear : searchYear },
 			dataType : "json"
 		});
 		
 		request.done(function(data){
-			console.log(data);
 			$('.month-table').children('tbody').children('tr').remove();
 			for(var i=0;i<data.length;i++){
 				$('.month-table').children('tbody').append('<tr><td class="fixed_left">'+data[i].cate+'</td><td>'+data[i].plus+'</td><td>'+data[i].M1+'</td><td>'+data[i].M2+'</td><td>'+data[i].M3+'</td><td>'+data[i].M4+'</td><td>'+data[i].M5+'</td><td>'+data[i].M6+'</td><td>'+data[i].M7+'</td><td>'+data[i].M8+'</td><td>'+data[i].M9+'</td><td>'+data[i].M10+'</td><td>'+data[i].M11+'</td><td>'+data[i].M12+'</td></tr>');

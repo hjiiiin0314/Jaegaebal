@@ -112,6 +112,14 @@
 	margin-right:10px;
 }
 
+.add-table thead {
+	background:#eeeeee !important;
+}
+
+.add-table td {
+	background:#ffffff !important;
+}
+
 table.ui-datepicker-calendar { 
 	display:none; 
 }
