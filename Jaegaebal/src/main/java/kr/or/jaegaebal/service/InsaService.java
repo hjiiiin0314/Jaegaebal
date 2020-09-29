@@ -72,6 +72,40 @@ public class InsaService {
 
 		return resultMap;
 	}
+	//직원 리스트 & 검색조건 & 페이징
+	public Map<String, Object> getStaffInfoAll(int currentPage, Map<String, Object> map) {
+		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
+		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
+		int startPageNum 				= 1; 				// 시작페이지번호
+		int lastPageNum 				= ROW_PER_PAGE; 	// 끝페이지번호
+		// 6번째 가운데 위치
+		if (currentPage > (ROW_PER_PAGE / 2)) {
+			startPageNum 				= currentPage - ((lastPageNum / 2) - 1);
+			lastPageNum 			   += (startPageNum - 1);
+		}
+		startRow = (currentPage - 1) * ROW_PER_PAGE;		// 페이징 알고리즘
+		double totalRowCount = insaMapper.getStaffInfoAllCount(map);
+		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
+		
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startRow", startRow);
+		parameterMap.put("rowPerPage", ROW_PER_PAGE);
+		parameterMap.put("map", map);
+		
+		List<Map<String, Object>> getStaffInfoAllList = insaMapper.getStaffInfoAll(parameterMap);
+		
+		if (currentPage >= (lastPage - 4)) {
+			lastPageNum = lastPage;
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("getStaffInfoAllList", getStaffInfoAllList);
+		resultMap.put("lastPage", lastPage);
+		resultMap.put("startPageNum", startPageNum);
+		resultMap.put("lastPageNum", lastPageNum);
+		
+		return resultMap;
+	}
 
 	// 부서명 가지고 오기
 	public List<Map<Jojic, Object>> getJojicInfo() {
@@ -220,7 +254,7 @@ public class InsaService {
 		
 		// 등록된 사원번호 리턴
 		String staffNum = staffInfo.getStaffNum();
-		
+		insaMapper.insertStaffSalaryInfo(staffInfo);
 		log.info("staffInfo staffNum :::: {}", staffNum);
 		
 		return staffNum;
@@ -234,7 +268,7 @@ public class InsaService {
 	//추가 정보 입력시 정보가져오기
 	public StaffInfo getInsertStaffInfo(String staffNum){
 		StaffInfo list = insaMapper.getInsertStaffInfo(staffNum);
-		log.info("list.service:::::::::::::::::::::::::::::::::::::::", list);
+		log.info("list.service:::::::::::::::::::::::::::::::::::::::{}", list);
 		return list;
 	};
 	

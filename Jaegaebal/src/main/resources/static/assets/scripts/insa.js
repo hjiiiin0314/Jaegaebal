@@ -178,6 +178,7 @@
 			
 		});  
 		
+		//클릭한 팀명으로 리스트 가지고 오기
 		$('.input-jojicStatus').click(function(){
 			var teamName = $(this).val();
 			console.log(teamName, "<---클릭한 팀명");
@@ -531,6 +532,29 @@
     			}
     		}
     	});
+    	
+    	//$('.test').click(function() {
+    	$(document).ready('load', '.test', function(){
+    		var test = $(this).text();
+    		console.log(test);
+    		
+    		var input1=test.replace("-",''); 
+    		var date1 = new Date(input1.substr(0,4),input1.substr(4,2)-1,input1.substr(6,2)); 
+    		var date2 = new Date(); 
+    		var interval = date2 - date1; 
+    		var day = 1000*60*60*24; 
+    		var month = day*30; 
+    		
+    		var gae = parseInt(interval/month);
+    		
+    		$('.test').parent('td').nextAll('.gae').text(gae);
+    		
+    	})	
+
+
+    		
+    		
+    	//})		
     });
 
 
