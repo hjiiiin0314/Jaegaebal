@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="layout/default">
+     
+	<th:block layout:fragment="customTitle">
+      <title th:text="${title}"></title> 
+	</th:block>
+   
+  	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/assets/scripts/insa.js}"></script>
+	</th:block>
+   
+	<th:block layout:fragment="customCss">
+   		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+	</th:block>
+    
+   <th:block layout:fragment="customContent">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+		<div class="app-main__inner">-
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>조직도 리스트
+					       <div class="page-title-subheading">인사관리/부서관리/조직도 리스트</div>
+					    </div>
+					</div>
+				</div>
+		    </div> 
+		    <form>
+			    <div class="row" style="background-color: white;">
+					<div class="col-md-3 p-r-none">
+						<div class="card-body emp-table">
+							<h5 class="card-title">조직도</h5>
+							<div class="scroll-div">
+								<div class="scrollbar-container">
+									<div class="tree-div" style="border-color: #red;">
+										<div id="left" class="span3">
+								            <ul id="menu-group-1" class="nav menu">  
+								                <li class="item-8 deeper parent">
+								                    <a class="a-tag" href="#">
+								                        <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-1" class="sign" aria-expanded="true"><i class="pe-7s-less"></i></span>
+								                        <span class="lbl">대표</span>                      
+								                    </a>
+								                    <ul class="children nav-child unstyled small collapse show" id="sub-item-1">
+								                        <li class="item-2 deeper parent active">
+								                            <a class="a-tag" href="#">
+								                                <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2" class="sign" aria-expanded="true"><i class="pe-7s-less"></i></span>
+								                                <span class="lbl">이사</span> 
+								                            </a>
+								                            <ul class="children nav-child unstyled small collapse show" id="sub-item-2">
+								                            <th:block th:each="l : ${jojicInfo}">
+								                                <li class="item-3 current active" th:if="${l.jojicSosocName eq '부서'}">
+								                                    <a class="a-tag" href="#">
+								                                        <span class="sign"><i class="pe-7s-less"></i></span>
+								                                        <span class="lbl">[[${l.jojicName}]]</span>
+								                                    </a>
+										                             <ul class="children nav-child unstyled small collapse show" id="sub-item-2">
+										                             <th:block  th:each="l2 : ${jojicInfo2}">
+										                                <li class="item-4" th:if="${l2.parentJojicName eq l.jojicName && l2.jojicStatus eq '활성'}">
+											                                	<label>
+											                                    	<input type="radio" class="input-jojicStatus" th:value="${l2.jojicName}" name="input-checked">
+											                                        <span class="lbl">[[${l2.jojicName}]]</span>
+											                                	</label>
+										                                </li>
+										                             </th:block>
+										                            </ul>
+								                                </li>
+								                            </th:block>
+								                            </ul>
+								                        </li>
+								                    </ul>
+								                </li>
+								            </ul>          
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9 p-l-none">
+						<div class="card-body emp-table p-b-none">
+							<h5 class="card-title">직원리스트</h5>
+							<div class="scroll-div">
+								<div class="scrollbar-container">
+									<div class="row col-md-12">
+										<div class="input-group col-md-5 p-l-none p-r-sx p-b-xs">
+						                     <div class="input-group-prepend">
+						                     	<span class="input-group-text" id="inputGroupPrepend">소속</span>
+						                     </div>
+				 							<select id="SelectBuseo" class="custom-select" name="jojic_sosoc_name">
+												<option selected="selected" disabled="disabled">부서</option>
+												<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" ></option>
+											</select>
+				 							<select id="SelectTeam" class="custom-select" name="jojic_name">
+												<option selected="selected" disabled="disabled">팀</option>
+											</select>
+										</div>  								
+										<div class="input-group col-md-6 p-l-none p-r-none p-b-xs">
+						                     <div class="input-group-prepend">
+						                         <button type="button" class="btn btn-outline-secondary" id="mocroc">목록</button>
+						                         <input type="hidden" id="mocrocVal" name="sk"/>
+						                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
+						                       	 	<span class="sr-only"></span>
+						                       	 </button>
+						                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+						                             <button type="button" tabindex="0" class="dropdown-item" id="BtnStaffnum" name="staff_num">사원번호</button>
+						                             <div tabindex="-1" class="dropdown-divider"></div>
+						                             <button type="button" tabindex="0" class="dropdown-item" id="BtnName" name="staff_name">이름</button>
+						                             <div tabindex="-1" class="dropdown-divider"></div>
+						                             <button type="button" tabindex="0" class="dropdown-item" id="BtnEmail" name="staff_email">이메일</button>
+						                             <div tabindex="-1" class="dropdown-divider"></div>
+						                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPhone" name="staff_phone">휴대폰</button>
+						                         </div>
+						                     </div>
+						                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
+						                     <div class="input-group-append">
+						                         <button type="submit" class="btn btn-secondary" id="staffSearchBtn">검색</button>
+						                     </div>
+										</div> 	
+										<div class="row col-md-12" style="background-color : white;">
+								  			<table class="mb-0 table table-bordered m-b-sm">
+									            <thead>
+										            <tr class="tr-1">
+										                <th>#</th>
+										                <th>사원번호</th>
+										                <th>소속</th>
+										                <th>직급</th>
+										                <th>직책</th>
+										                <th>이름</th>
+										                <th>재직상태</th>
+										                <th>이메일</th>
+										                <th>연락처</th>
+										            </tr>
+									            </thead>
+									            <tbody id="t-body">
+										            <tr th:each="l, index : ${staffInfoList}" class="tr-2">
+										               	<td th:text="${index.count}"></td>
+										                <td id="td1"><a th:text="${l.staffNum}" ></a></td>
+										                <td><a th:text="${l.jojicName}" ></a></td>
+										                <td><a th:text="${l.levelName}" ></a></td>
+										                <td><a th:text="${l.positionName}" ></a></td>
+										                <td><a th:text="${l.staffName}" ></a></td>
+										                <th:block>
+											                <td th:if="${l.jaejicStatusName eq '재직중'}"><div class="mb-2 mr-2 badge badge-success">재직중</div></td>
+											                <td th:if="${l.jaejicStatusName eq '개발'}"><div class="mb-2 mr-2 badge badge-danger">개발</div></td>
+											                <td th:if="${l.jaejicStatusName eq '휴가중'}"><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>
+											                <td th:if="${l.jaejicStatusName eq '퇴사'}"><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>
+											                <td th:if="${l.jaejicStatusName eq '기타'}"><div class="mb-2 mr-2 badge badge-focus">기타</div></td>
+											                <td th:if="${l.jaejicStatusName eq '출장중'}"><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>
+										                </th:block>
+										                <td><a th:text="${l.staffEmail}" ></a></td>
+										                <td><a th:text="${l.staffPhone}" ></a></td>
+							
+										              <!--   th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}" -->
+										            </tr>
+									            </tbody>
+								     		</table>
+										</div>																	
+									</div>
+								</div>								
+							</div>								
+						</div>								
+	 				<div class="row">
+						<div class="col-md-4"></div>
+						<div class="col-md-4 m-t-none">
+							<nav class="" aria-label="Page navigation example">
+								<ul class="pagination">
+									<li class="page-item">							
+										<a th:href="@{/insa/jojicdoList}" class="page-link">
+											<span class="">&lt;&lt;</span>
+										</a>
+									</li>
+									<li class="page-item">
+										<a th:if="${currentPage > 1}" th:href="@{/insa/jojicdoList(currentPage=${currentPage-1})}" class="page-link">
+											 <span class="">&lt;</span>
+										</a>
+									</li>
+									<th:block th:each="num : ${#numbers.sequence(startPageNum, lastPageNum)}">
+										<span>
+											<a th:href="@{/insa/jojicdoList(currentPage=${num})}" class="page-link">[[${num}]]</a>
+										</span>
+									</th:block>
+									<li class="page-item">
+										<a th:if="${currentPage < lastPage}" th:href="@{/insa/jojicdoList(currentPage=${currentPage+1})}" class="page-link">
+											<span class="">&gt;</span>
+										</a>
+									</li>	
+									<li class="page-item">
+										<a th:href="@{/insa/jojicdoList(currentPage=${lastPage})}" class="page-link">
+											<span class="">&gt;&gt;</span>
+										</a>	
+									</li>		
+								</ul>
+							</nav>
+						</div>
+						<div class="col-md-4"></div>
+					</div>						
+					</div>
+				</div>
+			</form>	
+		</div>
+
+
+
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+   </th:block>
+    
+</html>

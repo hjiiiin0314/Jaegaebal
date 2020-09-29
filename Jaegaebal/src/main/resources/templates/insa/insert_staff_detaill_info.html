@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="layout/default">
+     
+   <th:block layout:fragment="customTitle">
+      <title th:text="${title}"></title> 
+   </th:block>
+   
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+   </th:block>
+   
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/assets/scripts/insa.js}"></script>
+	</th:block>
+   
+   <th:block layout:fragment="customContent">
+		<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+		
+		<div class="app-main__inner">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo"></i>
+					    </div>
+					    <div>추가 정보 기입
+					       <div class="page-title-subheading">인사관리/직원관리/직원등록/추가 정보 기입</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+			<form id="insertform" class="needs-validation" method="post" action="/insertStaffDetaillInfo">
+			    <div class="row">
+					<div class="col-md-4">
+						<div class="main-card card">
+							<div class="card-body emp-table">
+								<h5 class="card-title">직원 정보</h5>
+								<div class="scroll-div" >
+									<div class="scrollbar-container">
+										<table class="mb-0 table table-bordered" id="staffInfo">
+											<tr>
+												<td class="t_head">사번</td>
+												<td>
+													<input type="text" th:value="${staffNum}" class="form-control" name="staffNum" readonly/>
+												</td>
+											</tr>
+											<tr>	
+												<td class="t_head">이름</td>
+												<td>
+													<input type="text" th:value="${list.staffName}" class="form-control" name="staffName" readonly/>
+												</td>
+											</tr>
+											<tr>
+												<td class="t_head">소속</td>
+												<td>
+													<input type="text" th:value="${list.jojicName}" class="form-control" name="jojicName" readonly/>
+												</td>
+											</tr>
+											<tr>
+												<td class="t_head">권한</td>
+												<td>
+													<input type="text" th:value="${list.accessName}" class="form-control" name="accessName" readonly/>
+												</td>
+											</tr>	
+											<tr>
+												<td class="t_head">직급</td>
+												<td>
+													<input type="text" th:value="${list.levelName}" class="form-control" name="levelName" readonly/>
+												</td>
+											</tr>		
+											<tr>
+												<td class="t_head">직책</td>
+												<td>
+													<input type="text" th:value="${list.positionName}" class="form-control" name="positionName" readonly/>
+												</td>
+											</tr>		
+											<tr>
+												<td class="t_head">기본급</td>
+												<td>
+													<input type="text" th:value="${list.staffBasicSalary}" class="form-control" name="staffBasicSalary" readonly/>
+												</td>
+											</tr>
+											<tr>
+												<td class="t_head">고용형태</td>
+												<td>
+													<input type="text" th:value="${list.employmentStatus}" class="form-control" name="employmentStatus" readonly/>
+												</td>
+											</tr>		
+											<tr>
+												<td class="t_head">입사일</td>
+												<td>
+													<input type="text" th:value="${list.companyInDate}" class="form-control" name="companyInDate" readonly/>
+												</td>
+											</tr>
+		<!-- 									<tr>
+												<td class="t_head">사진</td>
+												<td>
+													<input name="file" id="exampleFile" type="file" class="form-control-file">
+												</td>
+											</tr> -->
+											<tr>
+												<td class="t_head">비고</td>
+												<td>
+													<input type="text" th:value="${list.staffNotes}" class="form-control" name="staffNotes" readonly/>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="main-card card">
+							<div class="card-body p-b-xs">
+								<h5 class="card-title">추가 기입 정보</h5>
+							</div>
+	                            <div class="card-header">
+	                                <div class="btn-actions-pane-right">
+	                                    <div class="nav">
+	                                        <a data-toggle="tab" href="#isStaffBasicInfo" class="btn-pill btn-wide mr-1 m-b-xs active btn btn-outline-alternate btn-sm">인적사항</a>
+	                                        <a data-toggle="tab" href="#isStaffFamilyInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">가족정보</a>
+	                                        <a data-toggle="tab" href="#isCareerInfoFromIn" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">사내경력</a>
+	                                        <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">사외경력</a>
+	                                        <a data-toggle="tab" href="#isCertificateInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">자격정보</a>
+	                                        <a data-toggle="tab" href="#isEducationInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">학력정보</a>
+	                                        <a data-toggle="tab" href="#isBalryoungInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">발령정보</a>
+	                                        <a data-toggle="tab" href="#isMilitaryInfo" class="btn-pill btn-wide btn m-b-xs btn-outline-alternate btn-sm">병역정보</a>
+	                                    </div>
+	                                </div>
+	                          	</div>
+	                            <div class="card-body">
+	                                <div class="tab-content">
+	                                    <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_staff_basic_info">
+												<colgroup>
+													<col width = "12%">
+													<col width = "30%">
+													<col width = "15%">
+													<col width = "43%">
+												</colgroup>
+												<tr>
+													<td class="t_head2">영문이름</td>
+													<td colspan="3">
+														<input type="text" name="staffEngName" class="form-control staffDetailInfo ">
+													</td>
+												</tr> 
+												<tr>													
+													<td class="t_head2">성별</td>
+													<td>
+														<label><input type="radio" name="staffGender" value="여" checked="checked"> 여</label>
+														<label><input type="radio" name="staffGender" value="남"> 남</label>													
+													</td>
+													<td class="t_head2">주민등록번호</td>
+													<td class="inputmaineus" >
+														<input type="hidden" name="humanNum" id="humanNum"/>
+														<input type="text" class=" input-width21 human_num form-control staffDetailInfo" maxlength="6">
+														<span class="span-font">-</span>
+														<input type="text" class=" input-width22 human_num form-control staffDetailInfo" maxlength="7">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">내외국인</td>
+													<td>
+														<label><input type="radio" name="staffNationality" value="내국인" checked="checked" class="staff-nationality-input staffDetailInfo"> 내국인</label>
+														<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input staffDetailInfo"> 외국인</label>
+													<td class="t_head2">국적</td>
+													<td>
+														<input type="text" name="staffCountry" class="form-control staffDetailInfo" >
+													</td>
+												</tr> 
+												<tr>													
+													<td class="t_head2">결혼여부</td>
+													<td>
+														<label><input type="radio" name="staffMarriged" value="미혼" checked="checked" class="staffDetailInfo"> 미혼 </label>
+														<label><input type="radio" name="staffMarriged" value="기혼" class="staffDetailInfo"> 기혼</label>
+													</td>
+													<td class="t_head2">연락처</td>
+													<td class="inputmaineus">
+														<input type="hidden" name="staffPhone"  id="staff_phone_val"/>
+														<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo"  maxlength="3">
+														<span class="span-font span-1">-</span>
+														<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo"  maxlength="4">
+														<span class="span-font span-2">-</span>
+														<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo"  maxlength="4">
+													</td>
+												</tr> 
+												<tr>													
+													<td class="t_head2">이메일</td>
+													<td>
+														<input type="text" name="staffEmail" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">주소</td>
+													<td>
+														<input type="text" name="staffAddr"  class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="staffBasicInfoNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 
+											</table>
+	                                    </div>
+	                                    <div class="tab-pane" id="isStaffFamilyInfo" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_staff_family_info staffDetailInfo">
+												<colgroup>
+													<col width = "15%">
+													<col width = "30%">
+													<col width = "15%">
+													<col width = "40%">
+												</colgroup>
+												<tr>
+													<td class="t_head2">가족관계</td>
+													<td>
+														<input type="text" name="relation" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">생년월일</td>
+													<td>
+														<input type="date" name="familyBirthday"  class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>														
+													<td class="t_head2">이름</td>
+													<td>
+														<input type="text" name="familyName" class="form-control staffDetailInfo">									
+													</td>
+													<td class="t_head2">주소</td>
+													<td>
+														<input type="text" name="familyAddr"  class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">직업</td>
+													<td>
+														<input type="text" name="familyJob"  class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">연락처</td>
+													<td class="inputmaineus" >
+														<input type="hidden" name="familyPhone" id="family_phone_val"  />
+														<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" maxlength="3">
+														<span class="span-font span-1">-</span>
+														<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" maxlength="4">
+														<span class="span-font span-2">-</span>
+														<input type="text" class=" input-width33 family_phone_val form-control staffDetailInfo" maxlength="4">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head">비고</td>
+													<td colspan="5">
+														<textarea name="staffFamilyInfoNotes"  class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr>												
+												<tr class="addFamilyInfoBtnTr">
+													<td colspan="8" >
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addFamilyInfoBtn"><i class="pe-7s-add-user addBtn" ></i>인원추가</button></div>
+													</td>
+												</tr>
+											</table>
+	                                    </div>
+	                                    <div class="tab-pane" id="isCareerInfoFromIn" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_career_info_from_in">
+												<tr>
+													<td class="t_head2">프로젝트명</td>
+													<td colspan="5">
+														<input type="text" name="projectName" class="form-control staffDetailInfo" >
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">시작일</td>
+													<td >
+														<input type="date" name="projectStartDate"  class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">종료일</td>
+													<td>
+														<input type="date" name="projectEndDate"  class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">도중권한</td>
+													<td>
+														<select  name="projectAccess" class="form-control staffDetailInfo">
+															<option th:each="l : ${codeAndName.accessInfo}" th:text="${l.accessName}" th:value="${l.accessName}" ></option>
+														</select>
+													</td>
+													<td class="t_head2">직책</td>
+													<td>
+														<select  name="projectPosition" class="form-control staffDetailInfo">
+															<option th:each="l : ${codeAndName.positionInfo}" th:text="${l.positionName}" th:value="${l.positionName}" ></option>
+														</select>
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">직무</td>
+													<td>
+														<input type="text" name="projectWork" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">직급</td>
+													<td>
+														<select  name="projectLevelName" class="form-control staffDetailInfo">
+															<option th:each="l : ${codeAndName.levelInfo}" th:text="${l.levelName}" th:value="${l.levelName}" ></option>
+														</select>
+													</td>												
+												</tr>
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="careerInfoFromInNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 												
+												<tr class="addCareerInfoBtnTr">
+													<td colspan="8">
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoBtn"><i class="pe-7s-add-user"></i>경력추가</button></div>
+													</td>
+												</tr>
+	
+											</table>
+	                                    </div>
+	                                    <div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_career_info_from_out">
+												<tr>
+													<td class="t_head2">직장명</td>
+													<td >
+														<input type="text" name="companyName" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">직위</td>
+													<td >
+														<input type="text" name="companyAccess"  class="form-control staffDetailInfo">
+													</td>
+												</tr>
+												<tr>
+													<td class="t_head2">직책</td>
+													<td>
+														<input type="text" name="companyPositionFromOut" class="form-control staffDetailInfo" >
+													</td>
+													<td class="t_head2">직무</td>
+													<td>
+														<input type="text" name="companyWorkFormOut" class="form-control staffDetailInfo">
+													</td>
+												</tr>
+												<tr>
+													<td class="t_head2">입사일자</td>
+													<td>
+														<input type="date" name="companyInDateFromOut"  class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">퇴사일자</td>
+													<td>
+														<input type="date" name="companyOutDateFromOut" class="form-control staffDetailInfo" >
+													</td>
+												</tr>	
+												<tr>
+													<td class="t_head2">퇴직사유</td>
+													<td>
+														<textarea name="companyOutReason" class="form-control staffDetailInfo" ></textarea>
+													</td>
+													<td class="t_head2">비고</td>
+													<td>
+														<textarea name="careerInfoFromOutNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 												
+												<tr class="addCareerInfoFromOutBtnTr">
+													<td colspan="8">
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoFromOutBtn"><i class="pe-7s-add-user"></i>경력추가</button></div>
+													</td>
+												</tr>
+											</table>
+	                                    </div>
+	                                    <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_certificate_info">
+												<tr>
+													<td class="t_head2">자격증명</td>
+													<td colspan="5">
+														<input type="text" name="certificateName" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">발급기관</td>
+													<td >
+														<input type="text" name="issuingAgency" class="form-control staffDetailInfo" >
+													</td>
+													<td class="t_head2">자격번호</td>
+													<td>
+														<input type="text" name="certificateNum"  class="form-control staffDetailInfo">
+													</td>
+												</tr>
+												<tr>
+													<td class="t_head2">취득일</td>
+													<td>
+														<input type="date" name="getDate" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">만료일</td>
+													<td>
+														<input type="date" name="finishedDate" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="certificateInfoNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 												
+												<tr class="addCertificateInfoBtnTr">
+													<td colspan="8">
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCertificateInfoBtn"><i class="pe-7s-add-user"></i>자격추가</button></div>
+													</td>
+												</tr>
+											</table>
+	                                    </div>
+	                                    <div class="tab-pane" id="isEducationInfo" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_education_info" >
+												<tr>
+													<td class="t_head2">학교명</td>
+													<td colspan="5">
+														<input type="text" name="schoolName" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">전공</td>
+													<td >
+														<input type="text" name="majorName" class="form-control staffDetailInfo" >
+													</td>
+													<td class="t_head2">부전공</td>
+													<td>
+														<input type="text" name="minorName"  class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>												
+													<td class="t_head2">학위</td>
+													<td>
+														<input type="text" name="degree" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">상태</td>
+													<td>
+														<input type="text" name="hakryuckStatus" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">입학일</td>
+													<td>
+														<input type="date" name="entranceDate" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">졸업일</td>
+													<td>
+														<input type="date" name="graduatDate" class="form-control staffDetailInfo">
+													</td>												
+												</tr>
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="educationInfoNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 												
+												<tr class="addEducationInfoBtnTr">
+													<td colspan="8">
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addEducationInfoBtn"><i class="pe-7s-add-user"></i>학력추가</button></div>
+													</td>
+												</tr>
+	
+											</table>
+	                                    </div>                                                                                                            
+	                                    <div class="tab-pane" id="isBalryoungInfo" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_balryoung_info" >
+												<tr>
+													<td class="t_head2">발령내용</td>
+													<td colspan="5">
+														<select name="balryoungInfoCode" class="form-control staffDetailInfo">
+															<option value="BR001">승진</option>
+															<option value="BR002">전근</option>
+															<option value="BR003">파견</option>
+															<option value="BR004">부서이동</option>
+														</select>
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">발령일</td>
+													<td > 
+														<input type="date" name="balryoungDate" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">발령지</td>
+													<td>
+														<input type="text" name="balryoungStage" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="balryoungInfoNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 												
+												<tr class="addBalryoungInfoBtnTr">
+													<td colspan="8">
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addBalryoungInfoBtn"><i class="pe-7s-add-user"></i>내용추가</button></div>
+													</td>
+												</tr>
+	
+											</table>
+	                                    </div>                                                                                                            
+	                                    <div class="tab-pane" id="isMilitaryInfo" role="tabpanel">
+											<table class="mb-12 table table-bordered forms is_military_info">
+												<tr>
+													<td class="t_head2" >군종</td>
+													<td colspan="5">
+														<input type="text" name="militaryServiceType" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">상태</td>
+													<td >
+														<input type="text" name="militaryState" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">계급</td>
+													<td>
+														<input type="text" name="militaryLevel" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">입대일자</td>
+													<td >
+														<input type="date" name="militaryInDay" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">전역일자</td>
+													<td>
+														<input type="date" name="militaryOutDay" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="militaryInfoNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 												
+												<tr class="addMilitaryInfoBtnTr">
+													<td colspan="8">
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addMilitaryInfoBtn"><i class="pe-7s-add-user"></i>내용추가</button></div>
+													</td>
+												</tr>
+	
+											</table>
+	                                    </div>                                                                                                            
+	                                </div>
+	                            </div>
+	                              <div class="d-block card-footer addDiv">
+	                                  <button type="button" class="btn-wide btn btn-alternate" id="insertAddMoreStaffInfoBtn">등록하기</button>
+	                              </div>
+						</div>
+					</div>
+				</div>	
+			</form>		
+		</div>
+		
+		
+		
+		
+		<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+   </th:block>
+    
+</html>

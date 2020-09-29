@@ -32,23 +32,24 @@
 					</div>
 				</div>
 			</div>
-			<div class="continer">
+<!-- 			<div class="continer">
 				<form style="width:100%;" action="/insa/staffInfoList">
 					<div class="row col-md-12" style="background-color : white;">
 						<div class="col-md-12">
 							<h5 class="card-title col-md-12 m-t-sm p-l-none">징계 리스트</h5>
 						</div>
-						<div class="input-group col-md-7 p-l-none p-r-sx p-b-xs">
-		                     <div class="input-group-prepend">
-		                     	<span class="input-group-text" id="inputGroupPrepend">소속</span>
-		                     </div>
- 							<select id="SelectBuseo" class="custom-select" name="jojic_sosoc_name">
-								<option selected="selected" disabled="disabled">부서</option>
-								<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" ></option>
+						<div class="input-group col-md-12 p-l-none p-r-sx p-b-xs">
+		                    <div class="input-group-prepend">
+		                     	<span class="input-group-text" id="inputGroupPrepend">검색어</span>
+		                    </div>
+ 							<select id="searchObject" class="custom-select">
+								<option value="StaffName">이름</option>
+								<option value="StaffNum">사번</option>
 							</select>
-		                     <div class="input-group-append">
-		                         <button type="submit" class="btn btn-secondary" id="staffSearchBtn">검색</button>
-		                     </div>
+							<input type="text" class="form-control">
+		                    <div class="input-group-append">
+		                         <button type="button" class="btn btn-secondary" id="searchObjectBtn">검색</button>
+		                    </div>
 						</div>   
 					</div>
 				</form>
@@ -84,7 +85,7 @@
 				                <td><a th:text="${l.staffEmail}" ></a></td>
 				                <td><a th:text="${l.staffPhone}" ></a></td>
 	
-				              <!--   th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}" -->
+				                th:href="@{/insa/staffDetailInfo(staffNum=${l.staffNum})}"
 				            </tr>
 			            </tbody>
 		     		</table>
@@ -125,7 +126,7 @@
 					</div>
 					<div class="col-md-4"></div>
 				</div>	
-			</div>
+			</div> -->
 		</div>
 		
 		
