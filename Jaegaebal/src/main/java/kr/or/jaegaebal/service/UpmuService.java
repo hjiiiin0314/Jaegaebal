@@ -2,6 +2,8 @@ package kr.or.jaegaebal.service;
 
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ import kr.or.jaegaebal.mapper.UpmuMapper;
 @Service
 public class UpmuService {
 
+	
+	private static final Logger  log = LoggerFactory.getLogger(UpmuService.class);
+
+	
 	@Autowired private UpmuMapper upmumapper;
 	
 	//문서상세보기
@@ -61,23 +67,28 @@ public class UpmuService {
 		}
 	//기안하기 - 결재문서 db에 넣기
 		public int appWrite(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
+			upmumapper.appWrite(upmuDocument);
+			
+			String getDocCode = upmuDocument.getDocCode();
+			
 			List<Map<String, Object>> choiceStaff = new ArrayList<>();
 			for(int i=0; i<jojicCode.length; i++) {
 				Map<String, Object> beforInfo = new HashMap<String, Object>();
 				beforInfo.put("jojicCode", jojicCode[i]);
 				beforInfo.put("levelCode", staffLevelCode[i]);
 				beforInfo.put("staffNum", staffNum[i]);
+				beforInfo.put("getDocCode", getDocCode);
 				
 				choiceStaff.add(beforInfo);
 			}
-			upmumapper.appWrite(upmuDocument);
+			
+			log.info("UpmuService appWrite upmuDocument ::::: {}",choiceStaff);
 			int result = upmumapper.choiceStaff(choiceStaff);
+			
 			return result;
 		}
 		
-
 	
-		
 	
 	//기안하기 - 결재라인 - 조직도 - 사원
 		public List<StaffInfo> getStaff(){

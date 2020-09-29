@@ -3,7 +3,36 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
-<!-- 상신함 - 상세보기 -->
+<!-- 상신함 - 결재상태보기  -->
+	<select id="appResult" parameterType="String" resultType="UpmuDocument">
+	SELECT 
+		l.*
+		,j.jojic_name
+		,s.staff_name
+		,v.level_name
+	FROM 
+				um_app_line	AS l
+		inner join
+				um_document AS d
+		on
+				l.doc_code = d.app_doc_code
+		INNER join
+				is_jojic	AS j
+		on
+			l.app_jojic_code = j.jojic_code
+		INNER join
+				is_staff	AS s
+		on
+			s.staff_num = l.app_staff_num
+		INNER join
+			is_level	AS v
+		on
+			v.level_code = l.staff_level_code
+	WHERE 
+			d.app_doc_code= #{docCode};
+	
+	</select>
+<!-- 상신함 - 상세보기 문서만 -->
 	<select id="docDetail" parameterType="String" resultType="UpmuDocument">
 		SELECT 
 			d.app_doc_code		as	docCode	
@@ -18,48 +47,16 @@
 			, app_security		as	appSecurity
 			, deadline			as	deadline
 			, t.doc_type		as	docTypeName
-			,a.app_jojic_code 	as	appJojicCode
-			,a.staff_level_code	as	staffLevelCode
-			,a.app_staff_num	as	appStaffNum
-			,s.staff_name		as	appStaffName
-			,j.jojic_name		as	appJojicName
-			,l.level_name		as	appLevelName
-			,r.app_state		AS 	appStateCode
-			,st.app_state		AS 	appStateName
+
 		FROM 
 			um_document	AS d
-		join
+		inner join
 			um_doctype	AS t
 		on
 			d.doc_type = t.doc_code
-		join
-			um_app_line AS a
-		on
-			d.app_doc_code = a.doc_code
-		join
-			is_staff AS s
-		ON 
-			a.app_staff_num = s.staff_num
-		join
-			is_jojic AS	j
-		on
-			a.app_jojic_code = j.jojic_code
-		join
-			is_level AS l
-		on
-			a.staff_level_code = l.level_code
-		join
-			um_app_result AS r
-		on
-			r.line_num = a.line_num
-		join
-			um_appstate	AS st
-		ON
-		st.app_state_code = r.app_state
 	
 		WHERE 
 			d.app_doc_code = #{docCode}
-
 	</select>
 <!-- 임시저장함 - 삭제 -->
 	<delete id="delStorage" parameterType="String">
@@ -112,7 +109,7 @@
 			, doc_file				AS docFile
 			, start_date			AS startDate
 			, end_date				AS endDate
-			, app_security			as appSecurity
+			,app_security			as appSecurity
 			, deadline				AS deadline
 		FROM
 				um_storage_box AS s
@@ -189,7 +186,7 @@
 	 
 	</select>
 <!-- 기안하기 - 기안문서 db에 넣기 -->
-	<insert id="appWrite" parameterType="UpmuDocument">
+	<insert id="appWrite" parameterType="UpmuDocument" >
 		<selectKey resultType="String" keyProperty="docCode" order="BEFORE">
 			select 
 				CONCAT('doc-0',max(CAST(substring(app_doc_code,5) AS DECIMAL))+1) 
@@ -240,7 +237,7 @@
 						, chamjo)
 	VALUES 
 	<foreach collection="list" item="item" separator=",">	
-		('doc-01'
+		(#{item.getDocCode}
 		, #{item.jojicCode}
 		, #{item.levelCode}
 		, #{item.staffNum}
