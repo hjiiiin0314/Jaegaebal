@@ -224,6 +224,11 @@
 .addDiv {
 	text-align: center;
 }
+
+.centerDiv{
+	text-align: center;
+	margin : 0px auto;
+}
 .sign{
 	display: inline-table !important;
 }

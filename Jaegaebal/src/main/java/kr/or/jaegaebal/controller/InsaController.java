@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.StaffInfo;
@@ -254,8 +256,8 @@ public class InsaController {
 	// 조직도 - 팀 추가 생성하기
 	@PostMapping(value = "/insertTeam", produces = "application/json")
 	@ResponseBody
-	public int insertTeam(@RequestParam(value = "modalSosocVal", required = false) String modalSosocVal,
-			@RequestParam(value = "insertTeamName", required = false) String insertTeamName) {
+	public int insertTeam(	@RequestParam(value = "modalSosocVal", required = false) String modalSosocVal,
+							@RequestParam(value = "insertTeamName", required = false) String insertTeamName) {
 		int result = insaService.insertTeamName(modalSosocVal, insertTeamName);
 		log.info("modalSosocVal>>>>>>>>>> {}", modalSosocVal);
 		log.info("insertTeamName>>>>>>>>>> {}", insertTeamName);
@@ -265,9 +267,9 @@ public class InsaController {
 
 	// 조직도 리스트 화면
 	@GetMapping("/insa/jojicdoList")
-	public String getJojicdoList(Model model,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			@RequestParam Map<String, Object> map) {
+	public String getJojicdoList(	Model model,
+									@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+									@RequestParam Map<String, Object> map) {
 		Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage, map);
 		List<Jojic> jojicInfo = insaService.getJojicInfoAll();
 		List<Jojic> jojicInfo2 = insaService.getJojicInfoAll();
@@ -284,9 +286,35 @@ public class InsaController {
 
 	// 징계 리스트 화면
 	@GetMapping("/insa/punishment")
-	public String getPunishmentList(Model model) {
+	public String getPunishmentList(	 Model model
+										,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage
+										,@RequestParam Map<String, Object> map) {
+		Map<String, Object> resultMap = insaService.getPunishmentList(currentPage, map);
+		
+		log.info(">>>>>>resultMap>>>>>>>{}", resultMap);
+		
+		model.addAttribute("lastPage", resultMap.get("lastPage"));
+		model.addAttribute("pnshList", resultMap.get("pnshList"));
+		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
+		model.addAttribute("currentPage", currentPage);		
+		
 		model.addAttribute("title", "징계 정보");
+		
 		return "insa/punishment_list";
 	}
-
+	
+	//징계리스트 - tr 리스트 한 행 클릭시 상세정보 가져오기
+	@PostMapping(value = "/getPnshListInfo", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getPnshListInfo(		@RequestParam(value = "punishmentNum", required = false) String punishmentNum
+									,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		
+		Map<String, Object> map 		= new HashMap<String, Object>();
+		map.put("punishmentNum", punishmentNum);
+		log.info("map::::::{}", map.get("punishmentNum"));
+		Map<String, Object> resultMap 	= insaService.getPunishmentList(currentPage, map);
+		log.info("resultMap::::/getPnshListInfo:::::{}", resultMap.toString());
+		return resultMap;
+	}
 }

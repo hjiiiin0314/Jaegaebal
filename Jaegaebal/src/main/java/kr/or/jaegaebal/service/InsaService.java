@@ -38,7 +38,7 @@ public class InsaService {
 		return companyList;
 	}
 
-	// 일반 직원일때 직원 목록
+	// 일반 직원일때 직원 목록 - 조직도
 	public Map<String, Object> getStaffInfoList(int currentPage, Map<String, Object> map) {
 		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
 		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
@@ -308,4 +308,38 @@ public class InsaService {
 		return result;
 	};
 	
+	//징계 리스트 & 검색조건 & 페이징
+	public Map<String, Object> getPunishmentList(int currentPage, Map<String, Object> map) {
+		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
+		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
+		int startPageNum 				= 1; 				// 시작페이지번호
+		int lastPageNum 				= ROW_PER_PAGE; 	// 끝페이지번호
+		// 6번째 가운데 위치
+		if (currentPage > (ROW_PER_PAGE / 2)) {
+			startPageNum 				= currentPage - ((lastPageNum / 2) - 1);
+			lastPageNum 			   += (startPageNum - 1);
+		}
+		startRow = (currentPage - 1) * ROW_PER_PAGE;		// 페이징 알고리즘
+		double totalRowCount = insaMapper.getPnshListCount(map);
+		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
+		
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startRow", startRow);
+		parameterMap.put("rowPerPage", ROW_PER_PAGE);
+		parameterMap.put("map", map);
+		
+		List<Map<String, Object>> pnshList = insaMapper.getPnshList(parameterMap);
+		
+		if (currentPage >= (lastPage - 4)) {
+			lastPageNum = lastPage;
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("pnshList", pnshList);
+		resultMap.put("lastPage", lastPage);
+		resultMap.put("startPageNum", startPageNum);
+		resultMap.put("lastPageNum", lastPageNum);
+		
+		return resultMap;
+	}	
 }

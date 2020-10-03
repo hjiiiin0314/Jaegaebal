@@ -100,7 +100,6 @@
 	$(document).on('click', '.addMilitaryInfoBtn', function(){
 		var addMilitaryInfoBtnTr 		= $('.addMilitaryInfoBtnTr').clone();
 		$('.addMilitaryInfoBtnTr').remove();
-		var is_military_info 			= $(".is_military_info").eq(0).clone();
 		is_military_info.find('input').val("");
 		is_military_info.find('textarea').val("");
 		$('#isMilitaryInfo').append(is_military_info);
@@ -117,6 +116,88 @@
 			}else{
 				$('#staffSearchBtn').submit();
 			}
+		});
+		//징계리스트 - 목록 꼭 선택하게 하기
+		$('#staffSearchBtn1').click(function(){
+			var mocroc = $('#mocrocVal').attr("value");
+			if(mocroc == null){
+				alert("목록을 선택해주세요");
+				false;
+			}else if($('#pnshSearchInput').val() == "" || $('#pnshSearchInput').val() == null){
+				alert("검색어를 입력해주세요");
+				false;
+			}else{
+				$('#pnshSearchForm').submit();
+			}
+		});
+		
+		$('.pnshListTr').click(function(){
+			var punishmentNum = $(this).children('td').eq(0).text();
+			console.log(punishmentNum);
+			var request = $.ajax({
+				url : "/getPnshListInfo",
+				method : "POST",
+				data : { punishmentNum : punishmentNum },
+				dataType : "json"
+			});
+			request.done(function(data){
+				if(data.pnshList[0].staffNum != null){
+					$('input[name=staff_num]').val(data.pnshList[0].staffNum);
+					console.log($('input[name=staff_num]').val(data.pnshList[0].staffNum));
+				} else {
+					$('input[name=staff_num]').val('');
+				}
+				if(data.pnshList[0].staffName != null){
+					$('input[name=staff_name]').val(data.pnshList[0].staffName);
+				} else {
+					$('input[name=staff_name]').val('');
+				}
+				if(data.pnshList[0].punishmentName != null){
+					$('input[name=punishment_name]').val(data.pnshList[0].punishmentName);
+				} else {
+					$('input[name=punishment_name]').val('');
+				}
+				if(data.pnshList[0].punishmentReason != null){
+					$('input[name=punishment_reason]').val(data.pnshList[0].punishmentReason);
+				} else {
+					$('input[name=punishment_reason]').val('');
+				}
+				if(data.pnshList[0].punishmentPoint != null){
+					$('input[name=punishment_point]').val(data.pnshList[0].punishmentPoint);
+				} else {
+					$('input[name=punishment_point]').val('');
+				}
+				if(data.pnshList[0].totalPnsmtPoint != null){
+					$('input[name=totalPnsmtPoint]').val(data.pnshList[0].totalPnsmtPoint);
+				} else {
+					$('input[name=totalPnsmtPoint]').val('');
+				}
+				if(data.pnshList[0].givenDate != null){
+					$('input[name=given_date]').val(data.pnshList[0].givenDate);
+				} else {
+					$('input[name=given_date]').val('');
+				}
+				if(data.pnshList[0].punishmentPrice != null){
+					$('input[name=punishment_price]').val(data.pnshList[0].punishmentPrice);
+				} else {
+					$('input[name=punishment_price]').val('');
+				}
+				if(data.pnshList[0].salaryAppliedDate != null){
+					$('input[name=salary_applied_date]').val(data.pnshList[0].salaryAppliedDate);
+				} else {
+					$('input[name=salary_applied_date]').val('');
+				}
+				if(data.pnshList[0].punishmentNotes != null){
+					$('input[name=punishment_notes]').val(data.pnshList[0].punishmentNotes);
+				} else {
+					$('input[name=punishment_notes]').val('');
+				}
+
+				
+			});		
+			request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+			});			
 		});
 		
 		/* 부서 옵션 클릭시 ajax 호출 */
@@ -302,6 +383,18 @@
 			$('#mocrocVal').attr("value", "staff_phone");
 			BtnPhoneParentTag.attr('class','dropdown-menu');        
 	 	});
+		$('#BtnPunishmentName').click(function(){
+			var BtnPhoneParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "staff_phone");
+			BtnPhoneParentTag.attr('class','dropdown-menu');        
+		});
+		$('#BtnSosoc').click(function(){
+			var BtnPhoneParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "staff_phone");
+			BtnPhoneParentTag.attr('class','dropdown-menu');        
+		});
 		
     	//조직 활성 상태 바꾸기
     	$('.pe-7s-angle-left').click(function(){

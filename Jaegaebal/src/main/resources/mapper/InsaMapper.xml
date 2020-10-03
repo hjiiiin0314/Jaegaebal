@@ -152,6 +152,22 @@
 		<result column="position_name" 				property="positionName"/>
 	</resultMap>
 	
+	<resultMap type="Punishment" id="PunishmentResultMap">
+		<result column="punishment_num" 			property="punishmentNum"/>
+		<result column="staff_num" 					property="staffNum"/>
+		<result column="punishment_code" 			property="punishmentCode"/>
+		<result column="punishment_name" 			property="punishmentName"/>
+		<result column="given_date" 				property="givenDate"/>
+		<result column="punishment_reason" 			property="punishmentReason"/>
+		<result column="punishment_price" 			property="punishmentPrice"/>
+		<result column="staff_name" 				property="staffName"/>
+		<result column="salary_applied_date" 		property="salaryAppliedDate"/>
+		<result column="punishment_notes"			property="punishmentNotes"/>
+		<result column="reg_staff_name" 			property="regStaffName"/>
+		<result column="punishment_point" 			property="punishmentPoint"/>
+		<result column="punishment_val" 			property="punishmentVal"/>
+	</resultMap>
+	
 	<!-- 회사 정보 목록 -->
 	<select id="getCompanyInfo" resultMap="CompanyResultMap">
 		SELECT 
@@ -983,4 +999,59 @@
 					 , NOW()
 					 , '활성')
 	</insert>
+	
+	<!-- 징계리스트 & 페이징 & 검색어 -->
+	<select id="getPnshList" parameterType="Map" resultMap="PunishmentResultMap">
+		SELECT 
+				  pl.punishment_num
+				, pl.staff_num
+				, s.staff_name
+				, pl.punishment_code
+				, p.punishment_name
+				, pl.given_date
+				, pl.punishment_reason
+				, pl.punishment_price
+				, pl.salary_applied_date
+				, pl.punishment_notes
+				, pl.reg_staff_name
+				, p.punishment_val
+				<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString() and map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
+					, SUM(p.punishment_point) AS totalPnsmtPoint
+	 			</if>
+<!-- 		 		, SUM(p.punishment_point) AS totalPnsmtPoint  -->
+		FROM 	is_punishment_list 	AS pl
+				INNER JOIN
+				is_punishment			AS p
+				on
+				pl.punishment_code = p.punishment_code
+				INNER JOIN
+				is_staff					AS s
+				on
+				s.staff_num = pl.staff_num	
+<!-- 		<where>
+			<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString() and map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
+				pl.punishment_num LIKE CONCAT('%',#{map.punishmentNum},'%')
+	 		</if>
+		</where> -->
+		<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString() and map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
+			GROUP BY pl.staff_num
+		</if>				
+		LIMIT 	#{startRow}, #{rowPerPage};
+	</select>
+	
+	<!-- 징계리스트 & 페이징 & 검색어의 전체 행 갯수 -->
+	<select id="getPnshListCount" parameterType="Map" resultType="int">
+		SELECT	
+				COUNT(*)
+		FROM 	is_punishment_list 	AS pl
+				INNER JOIN
+				is_punishment			AS p
+				on
+				pl.punishment_code = p.punishment_code
+				INNER JOIN
+				is_staff					AS s
+				on
+				s.staff_num = pl.staff_num	
+
+	</select>
 </mapper>	

@@ -98,5 +98,9 @@ public interface InsaMapper {
 	public int insertStaffMilitaryInfo(StaffInfo staffInfo);
 	//직원 등록 - 급여기본 정보 insert
 	public int insertStaffSalaryInfo(StaffInfo staffInfo);
-	
+
+	//징계 리스트
+	public List<Map<String, Object>> getPnshList(Map<String, Object> parameterMap);
+	//징계 리스트의 전체 행 갯수
+	public int getPnshListCount(Map<String, Object> map);
 }
