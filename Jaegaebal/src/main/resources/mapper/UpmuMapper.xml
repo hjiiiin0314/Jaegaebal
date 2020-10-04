@@ -3,33 +3,75 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
+<!-- 결재처리함 -자신에게 올라온 전체 결재리스트 -->
+	<select id="decideList" parameterType="string" resultType="UpmuDocument">
+		SELECT
+			l.app_staff_num			as	appStaffNum
+			,d.app_doc_code			as	docCode
+			,d.doc_type				as	docType
+			,d.writer_buseo_code	as	writerBuseoCode
+			,d.writer_num			as	writerNum
+			,d.doc_title			as	docTitle
+			,d.write_date			as	writeDate
+			,d.doc_file				as	docFile
+			,d.app_security			as	appSecurity
+			,d.deadline				as	deadline
+			,t.doc_type				as	docTypeName
+			,s.staff_name			as	writerName
+			,j.jojic_name			as	writerBuseoName
+			,lv.level_name			as	writerLevelName
+			
+		FROM
+				um_app_line AS l
+			INNER JOIN 
+				um_document	AS d
+			ON
+				l.doc_code = d.app_doc_code
+			INNER join
+				um_doctype	AS t
+			on
+			 	d.doc_type = t.doc_code
+			INNER join
+				is_staff	AS s
+			on
+				d.writer_num = s.staff_num
+			INNER join
+				is_jojic	AS j
+			ON 
+				d.writer_buseo_code = j.jojic_code
+			INNER join
+				is_level	AS lv
+			on
+				s.staff_level_code = lv.level_code
+
+	</select>
 <!-- 상신함 - 결재상태보기  -->
 	<select id="appResult" parameterType="String" resultType="UpmuDocument">
-	SELECT 
-		l.*
-		,j.jojic_name
-		,s.staff_name
-		,v.level_name
-	FROM 
-				um_app_line	AS l
-		inner join
-				um_document AS d
-		on
-				l.doc_code = d.app_doc_code
-		INNER join
-				is_jojic	AS j
-		on
-			l.app_jojic_code = j.jojic_code
-		INNER join
-				is_staff	AS s
-		on
-			s.staff_num = l.app_staff_num
-		INNER join
-			is_level	AS v
-		on
-			v.level_code = l.staff_level_code
-	WHERE 
-			d.app_doc_code= #{docCode};
+		SELECT 
+			l.*
+			,j.jojic_name
+			,s.staff_name
+			,v.level_name
+		FROM 
+					um_app_line	AS l
+			inner join
+					um_document AS d
+			on
+					l.doc_code = d.app_doc_code
+			INNER join
+					is_jojic	AS j
+			on
+				l.app_jojic_code = j.jojic_code
+			INNER join
+					is_staff	AS s
+			on
+				s.staff_num = l.app_staff_num
+			INNER join
+				is_level	AS v
+			on
+				v.level_code = l.staff_level_code
+		WHERE 
+				d.app_doc_code= #{docCode};
 	
 	</select>
 <!-- 상신함 - 상세보기 결재라인만  -->

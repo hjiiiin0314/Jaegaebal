@@ -59,10 +59,10 @@
 	                         </tr>
 	                    </thead>
                         <tbody id="decideList">                       
-	                        <tr th:each="de : ${decideList}">
-	                            <td th:text="${de.docCode}" th:value="${l.docCode}" id="docCode" class='text-center'></td>
+	                        <tr th:each="de : ${decideList}" th:if="${de.appStaffNum eq session.SSTAFFNUM}">
+	                            <td th:text="${de.docCode}" th:value="${de.docCode}" id="docCode" class='text-center'></td>
 	                            <td th:text="${de.docTypeName}" id="docTypeName" class='text-center'></td>
-	                            <td><a th:text="${de.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${l.docCode})}"></a></td>
+	                            <td><a th:text="${de.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${de.docCode})}"></a></td>
 	                            <td th:text="${de.writerBuseoName}"  id="writerBuseoName" class='text-center'></td>
 	                            <td th:text="${de.writerLevelName}"  id="writerLevelName" class='text-center'></td>
 	                            <td th:text="${de.writerName}"  id="writerName" class='text-center'></td>
@@ -88,50 +88,10 @@
 
 	</th:block>
     <th:block layout:fragment="customJsScript">   
-    <!-- 조건검색 후 뿌려주기 ajax  -->  
+    
      <script type="text/javascript">
     	$(function(){	
-    		$('#seachBtn').click(function(){
-    			var sk = $('select[name="sk"]');
-    			var sv = $('input[name="sv"]');
-    			var request = $.ajax({
-				    				url: "/myAppList",
-									method: "POST",
-									data: { sk : sk.val(),
-											sv : sv.val()},
-									dataType: "json"
-    			});
-    			
-    			 request.done(function(data){
-    				console.log(data);					
-				  	$('#myAppList').children("tr").remove();
-				  	if(data == undefined || data == ''){
-				  		alert('검색결과가 없습니다.');				  		
-				  	}
-				  	else{
-				  		for(var i=0; i<data.length; i++){	
-			    			console.log(data[i].appStateName);			    			
-			    			if(data[i].docFile == null || data[i].docFile == '' ){
-			    				data[i].docFile = "-";
-			    			}
-			    			if(data[i].appSecurity == null || data[i].appSecurity == '' ){
-			    				data[i].appSecurity = "-";
-			    			}
-			    							    			
-		    				 $('#myAppList').append("<tr><td class='text-center'>"+ data[i].docCode + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].docTypeName + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].docTitle + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].docFile + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].appSecurity + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].deadline + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].writeDate + "</td>"
-		    						 				+ "<td  class='text-center'>"+ data[i].appStateName + "</td>"
-		    						 				+ "<td class='text-center'><button type='button' class='mb-2 mr-2 btn-transition btn btn-outline-primary retrievalBtn' >회수하기</button></td></tr>");
-			    			
-			    		}	
-				  	}				  				  	
-    			}); 
-    		});    		
+    		
     	});
 	</script>
 	

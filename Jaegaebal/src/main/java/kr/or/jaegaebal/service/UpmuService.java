@@ -26,10 +26,16 @@ public class UpmuService {
 	
 	@Autowired private UpmuMapper upmumapper;
 	
+	//결재처리함 - 전체리스트
+	public List<UpmuDocument> decideList(){
+		List<UpmuDocument> decideList = upmumapper.decideList();
+		return decideList;
+	}
+	
 	//상세보기 - 결재라인 관련
 	public List<UpmuDocument> getAppLine(String docCode){
 		List<UpmuDocument> getAppLine = upmumapper.getAppLine(docCode);
-		System.out.println(getAppLine + "<--getAppLine");
+		
 		return getAppLine;
 	}
 	

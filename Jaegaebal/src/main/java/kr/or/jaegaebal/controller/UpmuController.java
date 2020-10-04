@@ -30,9 +30,13 @@ public class UpmuController {
 	private static final Logger  log = LoggerFactory.getLogger(UpmuController.class);
 	
 
-	//결재처리함 화면이동
+	//결재처리함 화면이동 - 결재처리문서리스트 
 	@GetMapping("/decideBox")
-	public String decideBox() {
+	public String decideBox(Model model
+							) {
+		List<UpmuDocument> decideList = upmuService.decideList();
+		model.addAttribute("decideList", decideList);
+
 		return "approval/decideBox";
 	}
 	

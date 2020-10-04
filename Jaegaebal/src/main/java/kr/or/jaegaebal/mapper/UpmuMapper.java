@@ -17,6 +17,9 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface UpmuMapper {
 	
+	//결재처리함 - 저체리스트
+		public List<UpmuDocument> decideList();
+	
 	//상세보기 - 결재라인관련
 		public List<UpmuDocument> getAppLine(String docCode);
 	
