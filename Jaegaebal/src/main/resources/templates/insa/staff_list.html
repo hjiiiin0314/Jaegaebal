@@ -40,6 +40,73 @@
 								<h5 class="card-title">직원리스트</h5>
 								<div class="scroll-div">
 									<div class="scrollbar-container">
+										<div class="row col-md-12">
+											<div class="input-group col-md-3 p-l-none p-r-sx p-b-xs">
+							                     <div class="input-group-prepend">
+							                     	<span class="input-group-text" id="inputGroupPrepend">소속</span>
+							                     </div>
+					 							<select id="SelectBuseo" class="custom-select" name="jojic_sosoc_name">
+					 								<option>::부서::</option>
+													<option th:each="l : ${jojicInfo}" th:if="${l.jojicSosocName eq '부서'}" th:text="${l.jojicName}" id="buseoName" th:value="${l.jojicName}" ></option>
+												</select>
+					 							<select id="SelectTeam" class="custom-select" name="jojic_name">
+													<option selected="selected" disabled="disabled">팀</option>
+												</select>
+											</div>  								
+											<div class="input-group col-md-3 p-l-none p-r-none p-b-xs">
+							                     <div class="input-group-prepend">
+							                     	<span class="input-group-text" id="inputGroupPrepend">인적사항</span>
+							                     </div>
+							                     	<select id="SelectBuseo" class="custom-select" name="jojic_sosoc_name">
+							                     		<option name="staff_num">사원번호</option>
+							                     		<option name="staff_name" >이름</option>
+							                     		<option name="staff_email">이메일</option>
+							                     		<option name="staff_phone">휴대폰</option>
+							                     	</select>
+							                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
+							                     <div class="input-group-append">
+							                         <button type="submit" class="btn btn-secondary" id="staffSearchBtn">검색</button>
+							                     </div>
+											</div> 	
+											<div class="input-group col-md-3  p-r-none p-b-xs">
+							                     <div class="input-group-prepend">
+							                     	<span class="input-group-text" id="inputGroupPrepend">재직상태</span>
+							                     </div>
+							                     	<select id="SelectBuseo" class="custom-select" name="jojic_sosoc_name">
+							                     		<option name="staff_num" value="재직중">재직중</option>
+							                     		<option name="staff_name" value="휴가중">휴가중</option>
+							                     		<option name="staff_name" value="출장중">출장중</option>
+							                     		<option name="staff_email" value="퇴사">퇴사</option>
+							                     		<option name="staff_email" value="기타">기타</option>
+							                     	</select>
+							                     <div class="input-group-append">
+							                         <button type="submit" class="btn btn-secondary" id="staffSearchBtn">검색</button>
+							                     </div>
+											</div> 	
+											<div class="input-group col-md-3  p-r-none p-b-xs">
+							                     <div class="input-group-prepend">
+							                     	<span class="input-group-text" id="levelName">직급</span>
+							                     </div>
+							                     	<select id="SelectBuseo" class="custom-select" name="level_name">
+							                     		<option name="level_name" value="개발자">개발자</option>
+							                     		<option name="level_name" value="CEO">CEO</option>
+							                     		<option name="level_name" value="사장">사장</option>
+							                     		<option name="level_name" value="부사장">부사장</option>
+							                     		<option name="level_name" value="전무">전무</option>
+							                     		<option name="level_name" value="상무">상무</option>
+							                     		<option name="level_name" value="이사">이사</option>
+							                     		<option name="level_name" value="부장">부장</option>
+							                     		<option name="level_name" value="차장">차장</option>
+							                     		<option name="level_name" value="과장">과장기타</option>
+							                     		<option name="level_name" value="대리">대리</option>
+							                     		<option name="level_name" value="주임">주임</option>
+							                     		<option name="level_name" value="사원">사원</option>
+							                     	</select>
+							                     <div class="input-group-append">
+							                         <button type="submit" class="btn btn-secondary" id="staffSearchBtn">검색</button>
+							                     </div>
+											</div> 	
+										</div>
 										<table class="mb-0 table table-bordered table-hover">
 											<thead>
 												<tr class="tr-1" >

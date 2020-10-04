@@ -1015,7 +1015,7 @@
 				, pl.punishment_notes
 				, pl.reg_staff_name
 				, p.punishment_val
-				<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString() and map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
+				<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
 					, SUM(p.punishment_point) AS totalPnsmtPoint
 	 			</if>
 <!-- 		 		, SUM(p.punishment_point) AS totalPnsmtPoint  -->
@@ -1028,14 +1028,14 @@
 				is_staff					AS s
 				on
 				s.staff_num = pl.staff_num	
-<!-- 		<where>
-			<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString() and map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
-				pl.punishment_num LIKE CONCAT('%',#{map.punishmentNum},'%')
+		<where>
+			<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
+				<!-- pl.punishment_num LIKE CONCAT('%',#{map.punishmentNum},'%') -->
+				pl.punishment_num = #{map.punishmentNum}
+				GROUP BY pl.staff_num
 	 		</if>
-		</where> -->
-		<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString() and map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
-			GROUP BY pl.staff_num
-		</if>				
+		
+		</where>
 		LIMIT 	#{startRow}, #{rowPerPage};
 	</select>
 	

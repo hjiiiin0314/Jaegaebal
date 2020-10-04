@@ -133,7 +133,7 @@
 		
 		$('.pnshListTr').click(function(){
 			var punishmentNum = $(this).children('td').eq(0).text();
-			console.log(punishmentNum);
+			console.log(punishmentNum, "ㅊㅊ");
 			var request = $.ajax({
 				url : "/getPnshListInfo",
 				method : "POST",
@@ -143,7 +143,6 @@
 			request.done(function(data){
 				if(data.pnshList[0].staffNum != null){
 					$('input[name=staff_num]').val(data.pnshList[0].staffNum);
-					console.log($('input[name=staff_num]').val(data.pnshList[0].staffNum));
 				} else {
 					$('input[name=staff_num]').val('');
 				}
@@ -192,8 +191,6 @@
 				} else {
 					$('input[name=punishment_notes]').val('');
 				}
-
-				
 			});		
 			request.fail(function( jqXHR, textStatus ) {
 				  alert( "Request failed: " + textStatus );
