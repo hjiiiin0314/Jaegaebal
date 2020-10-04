@@ -58,13 +58,20 @@ public class UpmuController {
 	}
 	
 	//상신함 검색리스트
-	@PostMapping(value="/myAppList", produces = "application/json")
-	public @ResponseBody List<UpmuDocument>searchAppList(@RequestParam(value = "sk")String sk
-														,@RequestParam(value = "sv")String sv
-														){			
-		List<UpmuDocument> searchAppList = upmuService.searchAppList(sk,sv);
-			
-		return searchAppList;		
+	@PostMapping("/myAppList")
+	public String searchAppList(Model model
+								,@RequestParam(value = "sk", required = false)String sk
+								,@RequestParam(value = "sv", required = false)String sv){	
+	
+		if(sk != null && !"".equals(sk) 
+				&& sv != null && !"".equals(sv)){
+			List<UpmuDocument> myAppList = upmuService.searchAppList(sk,sv);
+			model.addAttribute("myAppList", myAppList);
+		}else {
+			List<UpmuDocument> myAppList = upmuService.myAppList();
+			model.addAttribute("myAppList", myAppList);
+		}	
+		return "approval/myAppList";		
 	
 	}
 		
