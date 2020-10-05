@@ -132,12 +132,14 @@
 		});
 		
 		$('.pnshListTr').click(function(){
-			var punishmentNum = $(this).children('td').eq(0).text();
-			console.log(punishmentNum, "ㅊㅊ");
+			var punishmentNum 	= $(this).children('td').eq(0).text();
+			var staffNum	 	= $(this).children('td').eq(1).text();
+			console.log(punishmentNum, "punishmentNum");
 			var request = $.ajax({
 				url : "/getPnshListInfo",
 				method : "POST",
-				data : { punishmentNum : punishmentNum },
+				data : { punishmentNum  : punishmentNum,
+						 staffNum		: staffNum		 },
 				dataType : "json"
 			});
 			request.done(function(data){
@@ -383,13 +385,20 @@
 		$('#BtnPunishmentName').click(function(){
 			var BtnPhoneParentTag = $(this).parent();
 			$('#mocroc').html($(this).html());
-			$('#mocrocVal').attr("value", "staff_phone");
+			$('#mocrocVal').attr("value", "punishment_name");
 			BtnPhoneParentTag.attr('class','dropdown-menu');        
 		});
 		$('#BtnSosoc').click(function(){
 			var BtnPhoneParentTag = $(this).parent();
 			$('#mocroc').html($(this).html());
-			$('#mocrocVal').attr("value", "staff_phone");
+			$('#mocrocVal').attr("value", "jojic_name");
+			BtnPhoneParentTag.attr('class','dropdown-menu');        
+		});
+		$('#BtngivenDate').click(function(){
+			var BtnPhoneParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "given_date");
+			$('#pnshSearchInput').attr("type", "date");
 			BtnPhoneParentTag.attr('class','dropdown-menu');        
 		});
 		

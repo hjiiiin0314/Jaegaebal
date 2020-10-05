@@ -50,6 +50,7 @@ public class StaffInfo {
 	/*다른 테이블에서 외래키로 가져온 컬럼명*/
 	//level_name, position_name, jojic_name, jaejic_status_name, access_name, position_code, data_num
 	
+	private int rowNum; 					//
 	private String staffNum;				//사원번호
 	private String jojicCode;				//소속
 	private String accessNum;				//권한레벨	
@@ -176,6 +177,12 @@ public class StaffInfo {
 
 	
 	
+	public int getRowNum() {
+		return rowNum;
+	}
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
 	public String getTotalWorkMonths() {
 		return totalWorkMonths;
 	}
@@ -833,49 +840,229 @@ public class StaffInfo {
 	
 	@Override
 	public String toString() {
-		return "StaffInfo [staffNum=" + staffNum + ", jojicCode=" + jojicCode + ", accessNum=" + accessNum
-				+ ", staffLevelCode=" + staffLevelCode + ", staffPositionCode=" + staffPositionCode + ", hobong="
-				+ hobong + ", staffBasicSalary=" + staffBasicSalary + ", staffPw=" + staffPw + ", staffName="
-				+ staffName + ", staffStatusCode=" + staffStatusCode + ", employmentStatus=" + employmentStatus
-				+ ", companyInDate=" + companyInDate + ", companyOutDate=" + companyOutDate + ", regStaffName="
-				+ regStaffName + ", regDate=" + regDate + ", staffNotes=" + staffNotes + ", basicInfoCode="
-				+ basicInfoCode + ", staffEngName=" + staffEngName + ", humanNum=" + humanNum + ", staffGender="
-				+ staffGender + ", staffNationality=" + staffNationality + ", staffCountry=" + staffCountry
-				+ ", staffPhone=" + staffPhone + ", staffEmail=" + staffEmail + ", staffMarriged=" + staffMarriged
-				+ ", staffAddr=" + staffAddr + ", staffBasicInfoNotes=" + staffBasicInfoNotes + ", familyInfoCode="
-				+ familyInfoCode + ", relation=" + relation + ", familyName=" + familyName + ", familyBirthday="
-				+ familyBirthday + ", familyJob=" + familyJob + ", familyAddr=" + familyAddr + ", familyPhone="
-				+ familyPhone + ", staffFamilyInfoNotes=" + staffFamilyInfoNotes + ", balryoungInfoCode="
-				+ balryoungInfoCode + ", balryoungStaffNum=" + balryoungStaffNum + ", balryoungCode=" + balryoungCode
-				+ ", balryoungDate=" + balryoungDate + ", balryoungStage=" + balryoungStage + ", balryoungInfoNotes="
-				+ balryoungInfoNotes + ", careerInfoFromInCode=" + careerInfoFromInCode + ", projectName=" + projectName
-				+ ", projectStartDate=" + projectStartDate + ", projectEndDate=" + projectEndDate + ", projectAccess="
-				+ projectAccess + ", projectLevelName=" + projectLevelName + ", projectWork=" + projectWork
-				+ ", projectPosition=" + projectPosition + ", careerInfoFromInNotes=" + careerInfoFromInNotes
-				+ ", careerInfoFromOutCode=" + careerInfoFromOutCode + ", companyName=" + companyName
-				+ ", companyAccess=" + companyAccess + ", companyPositionFromOut=" + companyPositionFromOut
-				+ ", companyWorkFormOut=" + companyWorkFormOut + ", companyInDateFromOut=" + companyInDateFromOut
-				+ ", companyOutDateFromOut=" + companyOutDateFromOut + ", companyOutReason=" + companyOutReason
-				+ ", careerInfoFromOutNotes=" + careerInfoFromOutNotes + ", certificateInfoCode=" + certificateInfoCode
-				+ ", certificateName=" + certificateName + ", issuingAgency=" + issuingAgency + ", certificateNum="
-				+ certificateNum + ", getDate=" + getDate + ", finishedDate=" + finishedDate + ", certificateInfoNotes="
-				+ certificateInfoNotes + ", educationInfoCode=" + educationInfoCode + ", schoolName=" + schoolName
-				+ ", hakryuckStatus=" + hakryuckStatus + ", majorName=" + majorName + ", minorName=" + minorName
-				+ ", entranceDate=" + entranceDate + ", graduatDate=" + graduatDate + ", degree=" + degree
-				+ ", educationInfoNotes=" + educationInfoNotes + ", militaryInfoCode=" + militaryInfoCode
-				+ ", militaryServiceType=" + militaryServiceType + ", militaryState=" + militaryState
-				+ ", militaryInDay=" + militaryInDay + ", militaryOutDay=" + militaryOutDay + ", militaryLevel="
-				+ militaryLevel + ", militaryInfoNotes=" + militaryInfoNotes + ", levelName=" + levelName
-				+ ", positionName=" + positionName + ", jojicName=" + jojicName + ", jaejicStatusName="
-				+ jaejicStatusName + ", jojicSosocName=" + jojicSosocName + ", accessName=" + accessName
-				+ ", positionCode=" + positionCode + ", dataNum=" + dataNum + ", punishmentCode=" + punishmentCode
-				+ ", punishmentName=" + punishmentName + ", parentCode=" + parentCode + ", punishmentVal="
-				+ punishmentVal + ", punishmentPoint=" + punishmentPoint + ", punishmentNum=" + punishmentNum
-				+ ", givenDate=" + givenDate + ", punishmentReason=" + punishmentReason + ", punishmentPrice="
-				+ punishmentPrice + ", salaryAppliedDate=" + salaryAppliedDate + ", punishmentNotes=" + punishmentNotes
-				+ ", prizeCode=" + prizeCode + ", prizeName=" + prizeName + ", prizeNum=" + prizeNum + ", prizeReason="
-				+ prizeReason + ", prizePrice=" + prizePrice + ", prizeNotes=" + prizeNotes + ", totalPnsmtPoint="
-				+ totalPnsmtPoint + ", totalWorkMonths=" + totalWorkMonths + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("StaffInfo [rowNum=");
+		builder.append(rowNum);
+		builder.append(", staffNum=");
+		builder.append(staffNum);
+		builder.append(", jojicCode=");
+		builder.append(jojicCode);
+		builder.append(", accessNum=");
+		builder.append(accessNum);
+		builder.append(", staffLevelCode=");
+		builder.append(staffLevelCode);
+		builder.append(", staffPositionCode=");
+		builder.append(staffPositionCode);
+		builder.append(", hobong=");
+		builder.append(hobong);
+		builder.append(", staffBasicSalary=");
+		builder.append(staffBasicSalary);
+		builder.append(", staffPw=");
+		builder.append(staffPw);
+		builder.append(", staffName=");
+		builder.append(staffName);
+		builder.append(", staffStatusCode=");
+		builder.append(staffStatusCode);
+		builder.append(", employmentStatus=");
+		builder.append(employmentStatus);
+		builder.append(", companyInDate=");
+		builder.append(companyInDate);
+		builder.append(", companyOutDate=");
+		builder.append(companyOutDate);
+		builder.append(", regStaffName=");
+		builder.append(regStaffName);
+		builder.append(", regDate=");
+		builder.append(regDate);
+		builder.append(", staffNotes=");
+		builder.append(staffNotes);
+		builder.append(", basicInfoCode=");
+		builder.append(basicInfoCode);
+		builder.append(", staffEngName=");
+		builder.append(staffEngName);
+		builder.append(", humanNum=");
+		builder.append(humanNum);
+		builder.append(", staffGender=");
+		builder.append(staffGender);
+		builder.append(", staffNationality=");
+		builder.append(staffNationality);
+		builder.append(", staffCountry=");
+		builder.append(staffCountry);
+		builder.append(", staffPhone=");
+		builder.append(staffPhone);
+		builder.append(", staffEmail=");
+		builder.append(staffEmail);
+		builder.append(", staffMarriged=");
+		builder.append(staffMarriged);
+		builder.append(", staffAddr=");
+		builder.append(staffAddr);
+		builder.append(", staffBasicInfoNotes=");
+		builder.append(staffBasicInfoNotes);
+		builder.append(", familyInfoCode=");
+		builder.append(familyInfoCode);
+		builder.append(", relation=");
+		builder.append(relation);
+		builder.append(", familyName=");
+		builder.append(familyName);
+		builder.append(", familyBirthday=");
+		builder.append(familyBirthday);
+		builder.append(", familyJob=");
+		builder.append(familyJob);
+		builder.append(", familyAddr=");
+		builder.append(familyAddr);
+		builder.append(", familyPhone=");
+		builder.append(familyPhone);
+		builder.append(", staffFamilyInfoNotes=");
+		builder.append(staffFamilyInfoNotes);
+		builder.append(", balryoungInfoCode=");
+		builder.append(balryoungInfoCode);
+		builder.append(", balryoungStaffNum=");
+		builder.append(balryoungStaffNum);
+		builder.append(", balryoungCode=");
+		builder.append(balryoungCode);
+		builder.append(", balryoungDate=");
+		builder.append(balryoungDate);
+		builder.append(", balryoungStage=");
+		builder.append(balryoungStage);
+		builder.append(", balryoungInfoNotes=");
+		builder.append(balryoungInfoNotes);
+		builder.append(", careerInfoFromInCode=");
+		builder.append(careerInfoFromInCode);
+		builder.append(", projectName=");
+		builder.append(projectName);
+		builder.append(", projectStartDate=");
+		builder.append(projectStartDate);
+		builder.append(", projectEndDate=");
+		builder.append(projectEndDate);
+		builder.append(", projectAccess=");
+		builder.append(projectAccess);
+		builder.append(", projectLevelName=");
+		builder.append(projectLevelName);
+		builder.append(", projectWork=");
+		builder.append(projectWork);
+		builder.append(", projectPosition=");
+		builder.append(projectPosition);
+		builder.append(", careerInfoFromInNotes=");
+		builder.append(careerInfoFromInNotes);
+		builder.append(", careerInfoFromOutCode=");
+		builder.append(careerInfoFromOutCode);
+		builder.append(", companyName=");
+		builder.append(companyName);
+		builder.append(", companyAccess=");
+		builder.append(companyAccess);
+		builder.append(", companyPositionFromOut=");
+		builder.append(companyPositionFromOut);
+		builder.append(", companyWorkFormOut=");
+		builder.append(companyWorkFormOut);
+		builder.append(", companyInDateFromOut=");
+		builder.append(companyInDateFromOut);
+		builder.append(", companyOutDateFromOut=");
+		builder.append(companyOutDateFromOut);
+		builder.append(", companyOutReason=");
+		builder.append(companyOutReason);
+		builder.append(", careerInfoFromOutNotes=");
+		builder.append(careerInfoFromOutNotes);
+		builder.append(", certificateInfoCode=");
+		builder.append(certificateInfoCode);
+		builder.append(", certificateName=");
+		builder.append(certificateName);
+		builder.append(", issuingAgency=");
+		builder.append(issuingAgency);
+		builder.append(", certificateNum=");
+		builder.append(certificateNum);
+		builder.append(", getDate=");
+		builder.append(getDate);
+		builder.append(", finishedDate=");
+		builder.append(finishedDate);
+		builder.append(", certificateInfoNotes=");
+		builder.append(certificateInfoNotes);
+		builder.append(", educationInfoCode=");
+		builder.append(educationInfoCode);
+		builder.append(", schoolName=");
+		builder.append(schoolName);
+		builder.append(", hakryuckStatus=");
+		builder.append(hakryuckStatus);
+		builder.append(", majorName=");
+		builder.append(majorName);
+		builder.append(", minorName=");
+		builder.append(minorName);
+		builder.append(", entranceDate=");
+		builder.append(entranceDate);
+		builder.append(", graduatDate=");
+		builder.append(graduatDate);
+		builder.append(", degree=");
+		builder.append(degree);
+		builder.append(", educationInfoNotes=");
+		builder.append(educationInfoNotes);
+		builder.append(", militaryInfoCode=");
+		builder.append(militaryInfoCode);
+		builder.append(", militaryServiceType=");
+		builder.append(militaryServiceType);
+		builder.append(", militaryState=");
+		builder.append(militaryState);
+		builder.append(", militaryInDay=");
+		builder.append(militaryInDay);
+		builder.append(", militaryOutDay=");
+		builder.append(militaryOutDay);
+		builder.append(", militaryLevel=");
+		builder.append(militaryLevel);
+		builder.append(", militaryInfoNotes=");
+		builder.append(militaryInfoNotes);
+		builder.append(", levelName=");
+		builder.append(levelName);
+		builder.append(", positionName=");
+		builder.append(positionName);
+		builder.append(", jojicName=");
+		builder.append(jojicName);
+		builder.append(", jaejicStatusName=");
+		builder.append(jaejicStatusName);
+		builder.append(", jojicSosocName=");
+		builder.append(jojicSosocName);
+		builder.append(", accessName=");
+		builder.append(accessName);
+		builder.append(", positionCode=");
+		builder.append(positionCode);
+		builder.append(", dataNum=");
+		builder.append(dataNum);
+		builder.append(", punishmentCode=");
+		builder.append(punishmentCode);
+		builder.append(", punishmentName=");
+		builder.append(punishmentName);
+		builder.append(", parentCode=");
+		builder.append(parentCode);
+		builder.append(", punishmentVal=");
+		builder.append(punishmentVal);
+		builder.append(", punishmentPoint=");
+		builder.append(punishmentPoint);
+		builder.append(", punishmentNum=");
+		builder.append(punishmentNum);
+		builder.append(", givenDate=");
+		builder.append(givenDate);
+		builder.append(", punishmentReason=");
+		builder.append(punishmentReason);
+		builder.append(", punishmentPrice=");
+		builder.append(punishmentPrice);
+		builder.append(", salaryAppliedDate=");
+		builder.append(salaryAppliedDate);
+		builder.append(", punishmentNotes=");
+		builder.append(punishmentNotes);
+		builder.append(", prizeCode=");
+		builder.append(prizeCode);
+		builder.append(", prizeName=");
+		builder.append(prizeName);
+		builder.append(", prizeNum=");
+		builder.append(prizeNum);
+		builder.append(", prizeReason=");
+		builder.append(prizeReason);
+		builder.append(", prizePrice=");
+		builder.append(prizePrice);
+		builder.append(", prizeNotes=");
+		builder.append(prizeNotes);
+		builder.append(", totalPnsmtPoint=");
+		builder.append(totalPnsmtPoint);
+		builder.append(", totalWorkMonths=");
+		builder.append(totalWorkMonths);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	

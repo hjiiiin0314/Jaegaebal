@@ -5,7 +5,7 @@ public class Punishment {
 	//징계
 	//punishment_num, staff_num, punishment_code, punishment_name, given_date, punishment_reason
 	//punishment_price, staff_name, salary_applied_date, punishment_notes, reg_staff_name, 
-	//punishment_point, punishment_val
+	//punishment_point, punishment_val, jojic_name
 	
 	private String punishmentNum;			//징계번호
 	private String staffNum;				//사원번호
@@ -21,6 +21,7 @@ public class Punishment {
 	private String punishmentPoint;			//징계점수
 	private String punishmentVal;			//징계내용	
 	private String totalPnsmtPoint;			//누적점수
+	private String jojicName;				//소속명
 	
 	@Override
 	public String toString() {
@@ -53,10 +54,20 @@ public class Punishment {
 		builder.append(punishmentVal);
 		builder.append(", totalPnsmtPoint=");
 		builder.append(totalPnsmtPoint);
+		builder.append(", jojicName=");
+		builder.append(jojicName);
 		builder.append("]");
 		return builder.toString();
 	}
 	
+	public String getJojicName() {
+		return jojicName;
+	}
+
+	public void setJojicName(String jojicName) {
+		this.jojicName = jojicName;
+	}
+
 	public String getTotalPnsmtPoint() {
 		return totalPnsmtPoint;
 	}
