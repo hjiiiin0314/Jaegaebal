@@ -96,7 +96,7 @@
 			,a.staff_level_code		as	staffLevelCode
 			,a.app_staff_num		as	appStaffNum				
 			,a.app_result			as	appStateCode
-			,a.app_staff_coment		as	docComent
+			,a.app_staff_coment		as	appStaffcoment
 			,a.app_date				as	appDate
 			,s.staff_name			as	appStaffName
 			,j.jojic_name			as	appJojicName
