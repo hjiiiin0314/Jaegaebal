@@ -20,7 +20,7 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 import kr.or.jaegaebal.service.ApprovalService;
 
 /**
- * 담당자 : 노종석 , 장현지
+ * 담당자 : 장현지
  * @author ECS
  *
  */
@@ -186,22 +186,5 @@ public class ApprovalController {
 	}
 
 
-	//출퇴근화면이동
-	@GetMapping("/checkInOut")
-	public String checkInOut() {
-		return "upmu/checkInOut";
-	}
-	
-	@GetMapping("/upmuShare")
-	public String upmuShare() {
-		
-		return "upmu/upmuShare";
-	}
-	
-	@GetMapping("/noticeBoard")
-	public String noticeBoard() {
-		
-		return "upmu/noticeBoard";
-	}
 
 }
