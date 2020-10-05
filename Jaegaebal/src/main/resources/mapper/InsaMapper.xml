@@ -219,11 +219,13 @@
 		AND sf.staff_status_code 	= jaejic.jaejic_status_code		
 		<where>
 			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString()">
-				AND sf.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+				And ${map.sk} LIKE CONCAT('%',#{map.sv},'%')
 	 		</if>
 		</where>
 		ORDER BY 			sf.staff_num
-		LIMIT 				#{startRow}, #{rowPerPage};
+		<if test="startRow neq null and startRow neq ''.toString() and rowPerPage neq null and rowPerPage neq ''.toString()">
+			LIMIT 	#{startRow}, #{rowPerPage};
+		</if>
 	</select>
 	
 	<!-- 직원 리스트 & 검색조건 & 페이징 -->
@@ -1059,9 +1061,12 @@
 				pl.punishment_num = #{map.punishmentNum}
 				GROUP BY pl.staff_num 
 			</if>
-			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString()">
+			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString() and map.sk neq 'staff_num'.toString()">
 				AND ${map.sk} LIKE CONCAT('%',#{map.sv},'%')
 	 		</if>	
+			<if test="map.sk neq null and map.sk eq 'staff_num'.toString() and map.sv neq ''.toString()">
+				AND pl.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+	 		</if>
 		</where>
 		LIMIT 	0, 15;	
 <!-- 		SELECT 

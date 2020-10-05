@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.StaffInfo;
+import kr.or.jaegaebal.mapper.InsaMapper;
 import kr.or.jaegaebal.service.InsaService;
 
 /**
@@ -35,6 +34,8 @@ public class InsaController {
 
 	@Autowired
 	private InsaService insaService;
+	@Autowired
+	private InsaMapper insaMapper;
 	/*
 	 * @Autowired private InsaMapper insaMapper;
 	 */
@@ -345,5 +346,22 @@ public class InsaController {
 		model.addAttribute("title", "징계 정보");
 		
 		return "insa/punishment_list";
+	}
+	
+	//징계 리스트 - 추가시 / 검색어에 해당되는 직원 info 가지고 오기
+	@PostMapping(value = "/getStaffInfo", produces = "application/json")
+	@ResponseBody	
+	public List<StaffInfo> getStaffInfo(	 @RequestParam(value = "sk", required = false) String sk
+											,@RequestParam(value = "sv", required = false) String sv){
+		log.info("sk>>>{}", sk);
+		log.info("sv>>>{}", sv);
+		Map<String, Object> map 		= new HashMap<String, Object>();
+		Map<String, Object> map2 		= new HashMap<String, Object>();
+		map2.put("sk", sk);
+		map2.put("sv", sv);
+		map.put("map", map2);
+		List<StaffInfo> staffInfo = insaMapper.getStaffInfo(map);
+		log.info("staffInfo.toString()::::::::::{}",staffInfo.toString());
+		return staffInfo;
 	}
 }
