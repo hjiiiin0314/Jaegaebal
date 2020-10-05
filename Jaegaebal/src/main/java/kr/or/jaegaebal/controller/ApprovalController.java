@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.UpmuDocument;
-import kr.or.jaegaebal.service.UpmuService;
+import kr.or.jaegaebal.service.ApprovalService;
 
 /**
  * 담당자 : 노종석 , 장현지
@@ -25,14 +25,14 @@ import kr.or.jaegaebal.service.UpmuService;
  *
  */
 @Controller
-public class UpmuController {
-	@Autowired private UpmuService upmuService;
-	private static final Logger  log = LoggerFactory.getLogger(UpmuController.class);
+public class ApprovalController {
+	@Autowired private ApprovalService approvalService;
+	private static final Logger  log = LoggerFactory.getLogger(ApprovalController.class);
 	
 	//결재처리함 - 결재하기 
 	@PostMapping("/appDecide")
 	public String appDecide(UpmuDocument appDecide) {
-		upmuService.appDecide(appDecide);
+		approvalService.appDecide(appDecide);
 	
 		return "redirect:/decideBox";
 	}
@@ -42,7 +42,7 @@ public class UpmuController {
 	@GetMapping("/decideBox")
 	public String decideBox(Model model
 							) {
-		List<UpmuDocument> decideList = upmuService.decideList();
+		List<UpmuDocument> decideList = approvalService.decideList();
 		model.addAttribute("decideList", decideList);
 
 		return "approval/decideBox";
@@ -52,10 +52,10 @@ public class UpmuController {
 	@GetMapping("/docDetail")
 	public String docDetail(Model model
 							, @RequestParam(value = "docCode",required = false)String docCode) {		
-		List<UpmuDocument> getAppLine = upmuService.getAppLine(docCode);		
+		List<UpmuDocument> getAppLine = approvalService.getAppLine(docCode);		
 		model.addAttribute("getAppLine", getAppLine);
 				
-		List<UpmuDocument> docDetail = upmuService.docDetail(docCode);
+		List<UpmuDocument> docDetail = approvalService.docDetail(docCode);
 		model.addAttribute("docDetail", docDetail);
 				
 		return "approval/docDetail";
@@ -77,10 +77,10 @@ public class UpmuController {
 	
 		if(sk != null && !"".equals(sk) 
 				&& sv != null && !"".equals(sv)){
-			List<UpmuDocument> myAppList = upmuService.searchAppList(sk,sv);
+			List<UpmuDocument> myAppList = approvalService.searchAppList(sk,sv);
 			model.addAttribute("myAppList", myAppList);
 		}else {
-			List<UpmuDocument> myAppList = upmuService.myAppList();
+			List<UpmuDocument> myAppList = approvalService.myAppList();
 			model.addAttribute("myAppList", myAppList);
 		}	
 		return "approval/myAppList";		
@@ -90,7 +90,7 @@ public class UpmuController {
 	//상신함-화면연결- 전체리스트조회
 	@GetMapping("/myAppList")
 	public String myAppList(Model model) {
-		List<UpmuDocument> myAppList = upmuService.myAppList();
+		List<UpmuDocument> myAppList = approvalService.myAppList();
 		model.addAttribute("myAppList", myAppList);
 		
 		return "approval/myAppList";
@@ -99,7 +99,7 @@ public class UpmuController {
 	//임시저장 - 삭제
 	@GetMapping("/delStorage")
 	public String delStorage( @RequestParam(value = "docCode",required = false)String docCode) {		
-		upmuService.delStorage(docCode);
+		approvalService.delStorage(docCode);
 		return "redirect:/storageBox";
 	}
 	
@@ -112,11 +112,11 @@ public class UpmuController {
 		
 		if(sk != null && !"".equals(sk) 
 				&& sv != null && !"".equals(sv)){
-			List<UpmuDocument> storageBox = upmuService.storageBox(sk,sv);
+			List<UpmuDocument> storageBox = approvalService.storageBox(sk,sv);
 			model.addAttribute("storageBox",storageBox);
 
 		}else {
-				List<UpmuDocument> storageBox = upmuService.storageBox();
+				List<UpmuDocument> storageBox = approvalService.storageBox();
 				model.addAttribute("storageBox",storageBox);
 		
 		}
@@ -127,7 +127,7 @@ public class UpmuController {
 	//임시저장화면연결 - 전체리스트 조회
 	@GetMapping("/storageBox")
 	public String storageBox(Model model) {		
-		List<UpmuDocument> storageBox = upmuService.storageBox();
+		List<UpmuDocument> storageBox = approvalService.storageBox();
 		model.addAttribute("storageBox", storageBox);
 		
 		return "approval/storageBox";
@@ -141,7 +141,7 @@ public class UpmuController {
 						,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 						,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
 			
-		int	result = upmuService.addStorage(storageDoc, jojicCode, staffLevelCode, staffNum);
+		int	result = approvalService.addStorage(storageDoc, jojicCode, staffLevelCode, staffNum);
 		
 		return result;
 	}
@@ -153,7 +153,7 @@ public class UpmuController {
 							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
 		
-		upmuService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
+		approvalService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
 		
 		return "redirect:/myAppList";
 	}
@@ -170,16 +170,16 @@ public class UpmuController {
 	@GetMapping("/appWrite")
 	public String appWrite(Model model) {
 		
-		List<Map<String, Object>> docType = upmuService.getDocType();	
+		List<Map<String, Object>> docType = approvalService.getDocType();	
 		model.addAttribute("docType", docType);
 		
-		List<Jojic> jojic = upmuService.getJojic();
+		List<Jojic> jojic = approvalService.getJojic();
 		model.addAttribute("jojic", jojic);
 		
-		List<Jojic> team = upmuService.getTeam();
+		List<Jojic> team = approvalService.getTeam();
 		model.addAttribute("team", team);
 				
-		List<StaffInfo> staff = upmuService.getStaff();
+		List<StaffInfo> staff = approvalService.getStaff();
 		model.addAttribute("staff", staff);
 		
 		return "approval/appWrite";

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.UpmuDocument;
-import kr.or.jaegaebal.mapper.UpmuMapper;
+import kr.or.jaegaebal.mapper.ApprovalMapper;
 
 /**
  * 담당자 : 노종석,장현지
@@ -18,36 +18,36 @@ import kr.or.jaegaebal.mapper.UpmuMapper;
  *
  */
 @Service
-public class UpmuService {
+public class ApprovalService {
 
 	
-	private static final Logger  log = LoggerFactory.getLogger(UpmuService.class);
+	private static final Logger  log = LoggerFactory.getLogger(ApprovalService.class);
 
 	
-	@Autowired private UpmuMapper upmumapper;
+	@Autowired private ApprovalMapper approvalmapper;
 	
 	//결재처리함 - 결재하기
 	public int appDecide(UpmuDocument appDecide) {
-		int result = upmumapper.appDecide(appDecide);
+		int result = approvalmapper.appDecide(appDecide);
 		return result;
 	}
 	
 	//결재처리함 - 전체리스트
 	public List<UpmuDocument> decideList(){
-		List<UpmuDocument> decideList = upmumapper.decideList();
+		List<UpmuDocument> decideList = approvalmapper.decideList();
 		return decideList;
 	}
 	
 	//상세보기 - 결재라인 관련
 	public List<UpmuDocument> getAppLine(String docCode){
-		List<UpmuDocument> getAppLine = upmumapper.getAppLine(docCode);
+		List<UpmuDocument> getAppLine = approvalmapper.getAppLine(docCode);
 		
 		return getAppLine;
 	}
 	
 	//상세보기 - 문서내용만
 	public List<UpmuDocument> docDetail(String docCode){
-		List<UpmuDocument> docDetail = upmumapper.docDetail(docCode);
+		List<UpmuDocument> docDetail = approvalmapper.docDetail(docCode);
 		
 		return docDetail;
 	}
@@ -57,38 +57,38 @@ public class UpmuService {
 	public int delStorage(String docCode) {
 		int result = 0;
 		if(docCode != null && !"".equals(docCode)) {
-			result = upmumapper.delStorage(docCode);
+			result = approvalmapper.delStorage(docCode);
 		}
 		return result;
 	}
 	
 	//임시저장함 - 조건검색
 	public List<UpmuDocument> storageBox (String sk, String sv){
-		List<UpmuDocument> storageBox = upmumapper.searchStorage(sk,sv);
+		List<UpmuDocument> storageBox = approvalmapper.searchStorage(sk,sv);
 		return storageBox;
 	}
 	
 	//임시저장함 -전체
 	public List<UpmuDocument> storageBox(){
-		List<UpmuDocument> storageBox = upmumapper.storageBox();
+		List<UpmuDocument> storageBox = approvalmapper.storageBox();
 		return storageBox;
 	}
 	
 	//상신함 - 검색
 	public List<UpmuDocument> searchAppList(String sk, String sv){
-		List<UpmuDocument> searchAppList = upmumapper.searchAppList(sk,sv);		
+		List<UpmuDocument> searchAppList = approvalmapper.searchAppList(sk,sv);		
 		return searchAppList;
 	}
 	
 	//상신함 - 내가 올린 전체 결재리스트
 	public List<UpmuDocument> myAppList(){
-		List<UpmuDocument> myAppList = upmumapper.myAppList();
+		List<UpmuDocument> myAppList = approvalmapper.myAppList();
 		return myAppList;
 	}
 		
 	//기안하기 - 임시저장하기
 	public int addStorage(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
-		upmumapper.addStorage(upmuDocument);
+		approvalmapper.addStorage(upmuDocument);
 		
 		String getDocCode = upmuDocument.getDocCode();
 		
@@ -104,14 +104,14 @@ public class UpmuService {
 		}
 		
 		log.info("UpmuService addStorage upmuDocument ::::: {}",storageAppLine);
-		int result = upmumapper.choiceStaff(storageAppLine);
+		int result = approvalmapper.choiceStaff(storageAppLine);
 		
 		return result;
 	}
 		
 	//기안하기 - 결재올리기 
 		public int appWrite(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
-			upmumapper.appWrite(upmuDocument);
+			approvalmapper.appWrite(upmuDocument);
 			
 			String getDocCode = upmuDocument.getDocCode();
 			
@@ -127,7 +127,7 @@ public class UpmuService {
 			}
 			
 			log.info("UpmuService appWrite upmuDocument ::::: {}",choiceStaff);
-			int result = upmumapper.choiceStaff(choiceStaff);
+			int result = approvalmapper.choiceStaff(choiceStaff);
 			
 			return result;
 		}
@@ -136,25 +136,25 @@ public class UpmuService {
 	
 	//기안하기 - 결재라인 - 조직도 - 사원
 		public List<StaffInfo> getStaff(){
-			List<StaffInfo> staff = upmumapper.getStaff();
+			List<StaffInfo> staff = approvalmapper.getStaff();
 			return staff;
 		}
 		
 	//기안하기 - 결재라인 - 조직도
 		public List<Jojic> getTeam(){
-			List<Jojic> team = upmumapper.getTeam();
+			List<Jojic> team = approvalmapper.getTeam();
 			return team;
 		}
 		
 	//기안하기 - 결재라인 - 조직도
 		public List<Jojic> getJojic(){
-			List<Jojic> jojic = upmumapper.getJojic();
+			List<Jojic> jojic = approvalmapper.getJojic();
 			return jojic;
 		}
 	
 	//기안하기-문서유형 option값	
 	public List<Map<String, Object>> getDocType(){
-		List<Map<String, Object>> docType  = upmumapper.getDocType();
+		List<Map<String, Object>> docType  = approvalmapper.getDocType();
 		return docType;
 		
 	}

@@ -15,7 +15,7 @@ import kr.or.jaegaebal.dto.UpmuDocument;
  *
  */
 @Mapper
-public interface UpmuMapper {
+public interface ApprovalMapper {
 	
 	//결재처리함 - 결재하기
 		public int appDecide(UpmuDocument appDecide);
