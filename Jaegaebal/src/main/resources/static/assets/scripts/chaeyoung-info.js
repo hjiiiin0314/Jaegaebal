@@ -176,7 +176,23 @@
 				alert('올바른 핸드폰번호를 입력해 주세요');
 				return false;
 			}else {
-				$(classStr).submit(); 
+					
+		
+				
+				var request = $.ajax({
+  				  url: "/addInfo", //컨트롤러 맵핑
+  				  method: "POST",
+  				  data: $(classStr).serialize(),
+  				  dataType: "json" // json방식으로 값 전달
+  				});
+  				 
+  				request.done(function( data ) {
+ 
+  				});
+  				 
+  				request.fail(function( jqXHR, textStatus ) {
+  				  alert( "Request failed: " + textStatus );
+  				});
 			}
 
 			

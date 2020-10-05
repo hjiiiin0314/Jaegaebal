@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import groovy.util.logging.Log4j;
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBasicInfo;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
+import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.service.ChaeYoungService;
 
@@ -164,9 +164,12 @@ public class ChaeYoungController {
 	}
 	
 	//지원서작성
-	@PostMapping("/addInfo")
-	public String addInfo(ChaeYoungBasicInfo chaeYoungBasicInfo) {
+	@PostMapping(value = "/addInfo", produces = "application/json")
+	public String addInfo(ChaeYoungBasicInfo chaeYoungBasicInfo,ChaeYoungCareerInfo chaeYoungCareerInfo
+						) {
 		System.out.println(chaeYoungBasicInfo);
+		System.out.println(chaeYoungCareerInfo);
+
 		return "redirect:/cyboardList";
 	}
 }
