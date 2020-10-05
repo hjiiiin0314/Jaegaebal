@@ -58,6 +58,11 @@
                         			<tr>
                         				<td class='text-center app-sign' th:text="${l.appStateName}"></td>
                         			</tr>
+                        			<tr th:if="${l.appStaffNum eq session.SSTAFFNUM}">
+                        				<td>
+                        					<button class='mb-2 mr-2 btn-transition btn btn-outline-primary appbtn-center' type="button">결재하기</button>
+                        				</td>
+                        			</tr>
                         		</table>
                         	</td>
 						</th:block>		
