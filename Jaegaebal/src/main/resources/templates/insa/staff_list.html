@@ -129,7 +129,7 @@
 											</thead>
 											<tbody>
 												<tr th:each="l, index : ${getStaffInfoAllList}">		
-													<th scope="row" th:text="${index.count}"></th>
+													<th scope="row" th:text="${l.rowNum}"></th>
 													<td><a th:text="${l.staffNum}" ></a></td>
 													<td><a th:text="${l.staffName}" ></a></td>
 													<td><a th:text="${l.jojicName}" ></a></td>

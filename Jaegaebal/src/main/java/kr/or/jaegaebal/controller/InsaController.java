@@ -191,9 +191,9 @@ public class InsaController {
 	// 팀별 직원 목록 리스트 가져오기
 	@PostMapping(value = "/getStaffInfoByTeamName", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> getStaffInfoListByTeamName(Model model,
-			@RequestParam(value = "teamName") String teamName,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+	public Map<String, Object> getStaffInfoListByTeamName(	Model model,
+															@RequestParam(value = "teamName") String teamName,
+															@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 
@@ -307,14 +307,43 @@ public class InsaController {
 	//징계리스트 - tr 리스트 한 행 클릭시 상세정보 가져오기
 	@PostMapping(value = "/getPnshListInfo", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> getPnshListInfo(		@RequestParam(value = "punishmentNum", required = false) String punishmentNum
-									,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+	public Map<String, Object> getPnshListInfo(		 @RequestParam(value = "punishmentNum", required = false) String punishmentNum
+													,@RequestParam(value = "staffNum", 		required = false) String staffNum
+													,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		
 		Map<String, Object> map 		= new HashMap<String, Object>();
-		map.put("punishmentNum", punishmentNum);
-		log.info("map::::::{}", map.get("punishmentNum"));
+		map.put("punishmentNum", 	punishmentNum);
+		map.put("staffNum", 		staffNum);
+		log.info("map 1::::::{}", map.get("punishmentNum"));
+		log.info("map 2::::::{}", map.get("staffNum"));
+		
 		Map<String, Object> resultMap 	= insaService.getPunishmentList(currentPage, map);
 		log.info("resultMap::::/getPnshListInfo:::::{}", resultMap.toString());
 		return resultMap;
+	}
+	
+	//징계리스트 - 검색어 서칭시 리스트 새로 출력하기
+	@PostMapping("/insa/punishment")
+	public String searchPnshList(	 Model model
+									,@RequestParam(value = "sk", required = false) String sk
+									,@RequestParam(value = "sv", required = false) String sv
+									,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		if(sk == null || sk.equals("")) {
+			System.out.println("공백ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ");
+			return "/insa/punishment";
+		}
+		Map<String, Object> map 		= new HashMap<String, Object>();
+		map.put("sk", sk);
+		map.put("sv", sv);
+		Map<String, Object> resultMap 	= insaService.getPunishmentList(currentPage, map);
+		model.addAttribute("lastPage", resultMap.get("lastPage"));
+		model.addAttribute("pnshList", resultMap.get("pnshList"));
+		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
+		model.addAttribute("currentPage", currentPage);	
+		
+		model.addAttribute("title", "징계 정보");
+		
+		return "insa/punishment_list";
 	}
 }

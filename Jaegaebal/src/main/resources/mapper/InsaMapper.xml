@@ -228,11 +228,17 @@
 	
 	<!-- 직원 리스트 & 검색조건 & 페이징 -->
 	<select id="getStaffInfoAll" parameterType="Map" resultMap="StaffInfoResultMap">
+		<![CDATA[
+	  	
 		SELECT
-				*
+				@rownum:=@rownum+1 AS rowNum
+				,sf.*,lv.*,ps.*,jj.*,sbif.*,ac.*,jc.*,pl.*,pn.*
 				,SUM(pn.punishment_point) AS totalPnsmtPoint
 				,CONCAT(DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%y'),'년',DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%c')-1,'개월') as totalWorkMonths
-		FROM 	is_staff 				 	AS sf
+				
+		FROM 
+
+				is_staff 				 	AS sf
 				INNER JOIN 	
 				is_level 				 	AS lv
 				ON 
@@ -265,12 +271,17 @@
 				is_punishment				AS pn
 				on
 				pl.punishment_code = pn.punishment_code	
+				JOIN 
+				(SELECT @rownum := 0) AS r
+				GROUP BY sf.staff_num
+				ORDER BY @rownum
+		]]>	
 <!-- 				<where>
 					<if test="map.searchObj neq null and map.searchObj neq ''.toString() and map.searchVal neq null and map.searchVal neq ''.toString()">
 						AND ${map.searchObj} LIKE CONCAT('%',#{map.searchVal},'%')
 			 		</if>
 				</where> -->	
-				GROUP BY sf.staff_num
+				
 				LIMIT 	#{startRow}, #{rowPerPage};
 	</select>
 	<!-- 직원 리스트 & 검색조건 & 페이징 의 전체 행 갯수-->
@@ -1013,12 +1024,63 @@
 				, pl.punishment_price
 				, pl.salary_applied_date
 				, pl.punishment_notes
+				, p.punishment_point
+				, pl.reg_staff_name
+				, p.punishment_val
+				, jj.jojic_name
+			<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">	
+				, (SELECT 
+						SUM(ip.punishment_point)
+					FROM
+						is_punishment_list 					AS ipl
+						INNER JOIN
+						is_punishment						AS ip
+						on
+						ipl.punishment_code = ip.punishment_code
+					WHERE 
+						ipl.staff_num = #{map.staffNum})	AS totalPnsmtPoint
+			</if>			
+
+		FROM 	is_punishment_list 							AS pl
+				INNER JOIN
+				is_punishment								AS p
+				on
+				pl.punishment_code = p.punishment_code
+				INNER JOIN
+				is_staff									AS s
+				on
+				s.staff_num = pl.staff_num	
+				LEFT JOIN 
+				is_jojic 									AS jj
+				on
+				s.jojic_code = jj.jojic_code
+		<where>
+			<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">		
+				pl.punishment_num = #{map.punishmentNum}
+				GROUP BY pl.staff_num 
+			</if>
+			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString()">
+				AND ${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+	 		</if>	
+		</where>
+		LIMIT 	0, 15;	
+<!-- 		SELECT 
+				  pl.punishment_num
+				, pl.staff_num
+				, s.staff_name
+				, pl.punishment_code
+				, p.punishment_name
+				, pl.given_date
+				, pl.punishment_reason
+				, pl.punishment_price
+				, pl.salary_applied_date
+				, pl.punishment_notes
 				, pl.reg_staff_name
 				, p.punishment_val
 				<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
 					, SUM(p.punishment_point) AS totalPnsmtPoint
 	 			</if>
-<!-- 		 		, SUM(p.punishment_point) AS totalPnsmtPoint  -->
+		 		, SUM(p.punishment_point) AS totalPnsmtPoint 
 		FROM 	is_punishment_list 	AS pl
 				INNER JOIN
 				is_punishment			AS p
@@ -1030,13 +1092,13 @@
 				s.staff_num = pl.staff_num	
 		<where>
 			<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
-				<!-- pl.punishment_num LIKE CONCAT('%',#{map.punishmentNum},'%') -->
+				pl.punishment_num LIKE CONCAT('%',#{map.punishmentNum},'%')
 				pl.punishment_num = #{map.punishmentNum}
 				GROUP BY pl.staff_num
 	 		</if>
 		
 		</where>
-		LIMIT 	#{startRow}, #{rowPerPage};
+		LIMIT 	#{startRow}, #{rowPerPage}; -->
 	</select>
 	
 	<!-- 징계리스트 & 페이징 & 검색어의 전체 행 갯수 -->
