@@ -17,7 +17,10 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface UpmuMapper {
 	
-	//결재처리함 - 저체리스트
+	//결재처리함 - 결재하기
+		public int appDecide(UpmuDocument appDecide);
+	
+	//결재처리함 - 전체리스트
 		public List<UpmuDocument> decideList();
 	
 	//상세보기 - 결재라인관련
@@ -40,11 +43,17 @@ public interface UpmuMapper {
 		
 	//상신함 - 전체목록
 		public List<UpmuDocument> myAppList();
+			
+	//기안하기 - 임시저장 - 문서
+		public int addStorage(UpmuDocument upmuDocument);
 		
-	//기안하기 - 문서 db에 저장
+	//기안하기 - 임시저장 - 결재라인
+		public int storageAppLine(List<Map<String, Object>> storageAppLine);
+		
+	//기안하기 - 결재올리기 - 문서
 		public int appWrite(UpmuDocument upmuDocument);
 		
-	//기안하기 - 결재라인 db에 저장
+	//기안하기 - 결재올리기 - 결재라인
 		public int choiceStaff(List<Map<String, Object>> choiceStaff);
 	
 	//기안하기 - 결재라인  - 사원

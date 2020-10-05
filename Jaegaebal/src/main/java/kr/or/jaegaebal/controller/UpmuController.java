@@ -29,6 +29,14 @@ public class UpmuController {
 	@Autowired private UpmuService upmuService;
 	private static final Logger  log = LoggerFactory.getLogger(UpmuController.class);
 	
+	//결재처리함 - 결재하기 
+	@PostMapping("/appDecide")
+	public String appDecide(UpmuDocument appDecide) {
+		upmuService.appDecide(appDecide);
+	
+		return "redirect:/decideBox";
+	}
+	
 
 	//결재처리함 화면이동 - 결재처리문서리스트 
 	@GetMapping("/decideBox")
@@ -125,7 +133,20 @@ public class UpmuController {
 		return "approval/storageBox";
 	}
 	
-	//기안하기 - db에 값 저장
+	//기안하기 - 임시저장
+	@PostMapping(value = "/addSotorage", produces = "application/json")
+	@ResponseBody
+	public int addStorage(UpmuDocument storageDoc
+						,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
+						,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
+						,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
+			
+		int	result = upmuService.addStorage(storageDoc, jojicCode, staffLevelCode, staffNum);
+		
+		return result;
+	}
+	
+	//기안하기 - 결재올리기
 	@PostMapping("/appWrite")
 	public String appWrite(UpmuDocument upmuDocument
 							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
@@ -136,6 +157,7 @@ public class UpmuController {
 		
 		return "redirect:/myAppList";
 	}
+	
 	//기안하기 - 결재라인선택 후  db에 넣기
 	@PostMapping("/choiceStaff")
 	public String choiceStaff() {

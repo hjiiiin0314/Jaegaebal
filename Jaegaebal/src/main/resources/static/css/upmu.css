@@ -73,9 +73,10 @@
 }
 
 .app-sign{
-	
-    height: 69px;
-    padding-right: 90px;
+	   
+ font-size: large;
+    font-weight: bold;
+    color: #0b5885;
 	
 }
  #appLine td:nth-child(2n) {

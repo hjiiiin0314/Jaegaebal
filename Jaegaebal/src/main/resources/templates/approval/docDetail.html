@@ -23,6 +23,7 @@
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
 
+ <form id="appDecide" action="/appDecide" method="post">
   	<div class="col-md-10">
 		<div class="app-page-title">
 			<div class="page-title-wrapper">
@@ -45,7 +46,7 @@
 				<div class="table-body">
 					<table id="appLine" class="mb-2 table table-bordered">
 						<tr>
-						<th:block th:each="l : ${getAppLine}">
+						<th:block th:each="l : ${getAppLine}">							
                         	<td class='text-center app-StaffLevel' th:text="${l.appLevelName}"></td>
                         	<td class='appLine-form'>
                        			<table>
@@ -60,7 +61,7 @@
                         			</tr>
                         			<tr th:if="${l.appStaffNum eq session.SSTAFFNUM}">
                         				<td>
-                        					<button class='mb-2 mr-2 btn-transition btn btn-outline-primary appbtn-center' type="button" data-toggle="modal" data-target="#decideModdal">결재하기</button>
+                        					<button class='btn-transition btn btn-outline-primary appbtn-center' type="button" data-toggle="modal" data-target="#decideModdal">결재하기</button>
                         				</td>
                         			</tr>
                         		</table>
@@ -70,29 +71,31 @@
                  	</table>	
 				</div>	
 				<th:block th:each="d : ${docDetail}">
+				<input type="hidden" th:value="${d.docCode}" name="docCode">
 				<div class="position-relative form-group index-front">
 		          	<div class="position-relative form-group document-form">
 		             		<label for="docType" >문서양식</label>
-		             		<input type="text" class="form-control" name="docType" th:value="${d.docTypeName}"  readonly="readonly">
+		             		<input type="text" class="form-control" th:value="${d.docTypeName}"  readonly="readonly">
 		              </div>
 		              <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
-		              	<input type="text" class="form-control" name="deadline" th:value="${d.deadline}" readonly="readonly">   
+		              	<input type="text" class="form-control"  th:value="${d.deadline}" readonly="readonly">   
 		              </div>
 		        </div>       
 		             <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
-		            		<input id="docTitle" type="text" class="form-control" name="docTitle" th:value="${d.docTitle}" readonly="readonly" >
+		            		<input id="docTitle" type="text" class="form-control"  th:value="${d.docTitle}" readonly="readonly" >
 		             </div>                  
-					 <textarea id="summernote" name="docContents" th:text="${d.docContents}" readonly="readonly"></textarea>
+					 <textarea id="summernote" th:text="${d.docContents}" readonly="readonly"></textarea>
 		             <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
-		             	<textarea name="docComent" id="docComent" class="form-control" th:text="${d.docComent}" readonly="readonly"></textarea>
+		             	<textarea  id="docComent" class="form-control" th:text="${d.docComent}" readonly="readonly"></textarea>
 		             </div>
 		             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
-		              	<input name="docFile" id="docFile" type="file" class="form-control-file" th:text="${d.docFile}">
+		              	<input  id="docFile" type="file" class="form-control-file" th:text="${d.docFile}">
 		             </div>
 		             <div class="position-relative form-group"> <label for="appSecurity" class="">보안처리</label>
-		               	<input type="checkbox" name="appSecurity" th:checked="${d.appSecurity eq '보안'}">
+		               	<input type="checkbox" th:checked="${d.appSecurity eq '보안'}">
 		             </div>
-		           </th:block>     
+		           </th:block> 
+  
      			</div>
      		</div>
      	</div>
@@ -107,27 +110,29 @@
                  </div>
                  <div class="modal-body">
                     <div class="main-card col-lg-12 card modal-inform">
-                    	<div class="card-body">
-                            <h5>결재유형선택하기</h5>
-                            <select class="form-control" name="appState">                          
-                            	<option value="" selected="selected" disabled="disabled">::결재하기::</option>
-                            	<option th:value="ac-02">반려</option>
-                            	<option th:value="ac-03">합의</option>
-                            </select>
-                    	</div>        
-                    	<div class="card-body">
-                            <h5>결재자 코멘트</h5>
-                            <textarea name="appStaffComent" class="form-control"></textarea>
-                    	</div>        
-                   		<div class="modal-footer">
-                       		<button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
-                       		<button type="button" id="choiceBtn" class="btn btn-primary" data-dismiss="modal">결재완료</button>
-                     	</div>
+	                    	<div class="card-body">                    	
+	                            <h5>결재유형선택하기</h5>
+	                            <input type="hidden" th:value="${session.SSTAFFNUM}" name="appStaffNum">
+	                            <select class="form-control" name="appStateCode">                          
+	                            	<option value="" selected="selected" disabled="disabled">::결재하기::</option>
+	                            	<option th:value="ac-02">반려</option>
+	                            	<option th:value="ac-03">합의</option>
+	                            </select>
+	                    	</div>        
+	                    	<div class="card-body">
+	                            <h5>결재자 코멘트</h5>
+	                            <textarea name="appStaffComent" class="form-control"></textarea>
+	                    	</div>        
+	                   		<div class="modal-footer">
+	                       		<button type="button" class="btn btn-outline-primary" data-dismiss="modal">취소</button>
+	                       		<button type="button" id="successBtn" class="btn btn-primary" data-dismiss="modal">결재완료</button>
+	                     	</div>                   	
                		</div>
             	</div>            
          	</div>
      	 </div>
      	</div>
+    </form>
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 
@@ -169,6 +174,12 @@
 	            }else{
 	            	$('.table-body').removeClass().addClass('table-body');
 	            }
+				
+				//결재완료 버튼 클릭 시 
+				$('#successBtn').click(function(){
+					$('#appDecide').submit();
+				});
+				
 			});				
 		</script>
 		

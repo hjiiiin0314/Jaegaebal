@@ -26,6 +26,12 @@ public class UpmuService {
 	
 	@Autowired private UpmuMapper upmumapper;
 	
+	//결재처리함 - 결재하기
+	public int appDecide(UpmuDocument appDecide) {
+		int result = upmumapper.appDecide(appDecide);
+		return result;
+	}
+	
 	//결재처리함 - 전체리스트
 	public List<UpmuDocument> decideList(){
 		List<UpmuDocument> decideList = upmumapper.decideList();
@@ -42,7 +48,7 @@ public class UpmuService {
 	//상세보기 - 문서내용만
 	public List<UpmuDocument> docDetail(String docCode){
 		List<UpmuDocument> docDetail = upmumapper.docDetail(docCode);
-		System.out.println(docDetail + "<--docDetail");
+		
 		return docDetail;
 	}
 	
@@ -75,11 +81,35 @@ public class UpmuService {
 	}
 	
 	//상신함 - 내가 올린 전체 결재리스트
-		public List<UpmuDocument> myAppList(){
-			List<UpmuDocument> myAppList = upmumapper.myAppList();
-			return myAppList;
+	public List<UpmuDocument> myAppList(){
+		List<UpmuDocument> myAppList = upmumapper.myAppList();
+		return myAppList;
+	}
+		
+	//기안하기 - 임시저장하기
+	public int addStorage(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
+		upmumapper.addStorage(upmuDocument);
+		
+		String getDocCode = upmuDocument.getDocCode();
+		
+		List<Map<String, Object>> storageAppLine = new ArrayList<>();
+		for(int i=0; i<jojicCode.length; i++) {
+			Map<String, Object> beforInfo = new HashMap<String, Object>();
+			beforInfo.put("jojicCode", jojicCode[i]);
+			beforInfo.put("levelCode", staffLevelCode[i]);
+			beforInfo.put("staffNum", staffNum[i]);
+			beforInfo.put("getDocCode", getDocCode);
+			
+			storageAppLine.add(beforInfo);
 		}
-	//기안하기 - 결재문서 db에 넣기
+		
+		log.info("UpmuService addStorage upmuDocument ::::: {}",storageAppLine);
+		int result = upmumapper.choiceStaff(storageAppLine);
+		
+		return result;
+	}
+		
+	//기안하기 - 결재올리기 
 		public int appWrite(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
 			upmumapper.appWrite(upmuDocument);
 			
