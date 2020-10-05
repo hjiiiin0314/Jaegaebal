@@ -1,7 +1,10 @@
 package kr.or.jaegaebal.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import kr.or.jaegaebal.service.UpmuService;
 
 /**
  * 담당자 : 장현지
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class UpmuController {
+	@Autowired private UpmuService upmuService;
 	
 	//업무관리 화면이동
 	@GetMapping("/upmuList")

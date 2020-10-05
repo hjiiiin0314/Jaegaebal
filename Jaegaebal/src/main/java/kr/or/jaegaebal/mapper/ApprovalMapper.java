@@ -10,7 +10,7 @@ import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.UpmuDocument;
 
 /**
- * 담당자 : 노종석,장현지
+ * 담당자 : 장현지
  * @author ECS
  *
  */

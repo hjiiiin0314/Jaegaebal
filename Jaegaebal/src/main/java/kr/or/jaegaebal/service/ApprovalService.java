@@ -13,7 +13,7 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 import kr.or.jaegaebal.mapper.ApprovalMapper;
 
 /**
- * 담당자 : 노종석,장현지
+ * 담당자 : 장현지
  * @author ECS
  *
  */
