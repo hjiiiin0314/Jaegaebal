@@ -1,5 +1,11 @@
 package kr.or.jaegaebal.dto;
 
+/**
+ * 구인게시판
+ * 작성자 : 김형진
+ * @author ECS
+ *
+ */
 public class ChaeYoungBoard {
 
 	private String jobNumber; //구인공고번호

@@ -1,5 +1,11 @@
 package kr.or.jaegaebal.dto;
 
+/**
+ * 지원자 지원정보
+ * 작성자 : 김형진
+ * @author ECS
+ *
+ */
 public class ChaeYoungApplicant {
 
 	 private String appEmail; //지원자 이메일
