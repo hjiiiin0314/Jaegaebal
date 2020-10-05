@@ -1,5 +1,11 @@
 package kr.or.jaegaebal.dto;
 
+/**
+ * 채용평가기준코드
+ * 작성자 : 김형진
+ * @author ECS
+ *
+ */
 public class ChaeYoungCode {
 
 	private String evLargeCateCode; //평가대분류코드

@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import groovy.util.logging.Log4j;
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
+import kr.or.jaegaebal.dto.ChaeYoungBasicInfo;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
+import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.service.ChaeYoungService;
 
@@ -151,15 +152,6 @@ public class ChaeYoungController {
 		
 		return "redirect:/cyboardList";
 	}
-	@PostMapping("/test")
-	public String test(ChaeYoungApplicant chaeYoungApplicant) {
-		
-		System.out.println(chaeYoungApplicant.getAppEmail());
-		System.out.println(chaeYoungApplicant.getAppName());
-		
-		
-		return null;
-	}
 	//채용평가기준화면
 	@GetMapping("/cyStandard")
 	public String cyStandard(Model model) {
@@ -169,5 +161,15 @@ public class ChaeYoungController {
 		
 		model.addAttribute("jojicCode", jojicCode);
 		return "chaeyoung/cyStandard";
+	}
+	
+	//지원서작성
+	@PostMapping(value = "/addInfo", produces = "application/json")
+	public String addInfo(ChaeYoungBasicInfo chaeYoungBasicInfo,ChaeYoungCareerInfo chaeYoungCareerInfo
+						) {
+		System.out.println(chaeYoungBasicInfo);
+		System.out.println(chaeYoungCareerInfo);
+
+		return "redirect:/cyboardList";
 	}
 }

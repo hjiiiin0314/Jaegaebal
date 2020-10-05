@@ -90,7 +90,7 @@
                             <div class="card-header">
                                 <div class="btn-actions-pane-right">
                                     <div class="nav">
-                                        <a data-toggle="tab" href="#isStaffBasicInfo" class="btn-pill btn-wide mr-1 m-b-xs active btn btn-outline-alternate btn-sm">인적사항</a>                   
+                                        <a data-toggle="tab" href="#isStaffBasicInfo" class="btn-pill btn-wide mr-1 m-b-xs active btn btn-outline-alternate btn-sm testa">인적사항</a>                   
                                         <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">사외경력</a>
                                         <a data-toggle="tab" href="#isCertificateInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">자격정보</a>
                                         <a data-toggle="tab" href="#isEducationInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">학력정보</a>
@@ -99,9 +99,9 @@
                                 </div>
                           	</div>
                             <div class="card-body">
-                                <div class="tab-content">
+                                <div class="tab-content formCheck">
                                     <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
-										<form action="/test" method="post">
+										<form action="/addInfo" method="post" name="basicInfo" class="basicInfo">
 											<table class="mb-12 table table-bordered">
 												<colgroup>
 													<col width = "12%">
@@ -112,55 +112,57 @@
 												<tr>
 													<td class="t_head2">영문 이름</td>
 													<td>
-														<input type="text" name="appEmail" class="form-control">
+														<input type="text" class="form-control last-name" value="김">
 													</td>
 													<td class="t_head2">영문 성</td>
 													<td>
-														<input type="text" name="appEmail" class="form-control">
+														<input type="text" class="form-control first-name" value="김">
+														<input type="hidden" name="staffEngName">
 													</td>
 												</tr> 
 												<tr>													
 													<td class="t_head2">성별</td>
 													<td>
-														<label><input type="radio" name="staff_gender" value="여" checked="checked"> 여</label>
-														<label><input type="radio" name="staff_gender" value="남"> 남</label>													
+														<label><input type="radio" name="staffGender" value="여" checked="checked"> 여</label>
+														<label><input type="radio" name="staffGender" value="남"> 남</label>													
 													</td>
 													<td class="t_head2">주민등록번호</td>
 													<td class="inputmaineus">
-														<input type="text" name="human_num1" class="form-control input-width21" >
+														<input type="text" name="humanNum1" class="form-control input-width21" value="950314">
 														<span class="span-font">-</span>
-														<input type="text" name="human_num2" class="form-control input-width22" >
+														<input type="password" name="humanNum2" class="form-control input-width22" value="1145645">
+														<input type="hidden" name="humanNum">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">내외국인</td>
 													<td>
-														<label><input type="radio" name="staff_nationality" value="내국인" checked="checked" class="staff-nationality-input"> 내국인</label>
-														<label><input type="radio" name="staff_nationality" value="외국인" class="staff-nationality-input"> 외국인</label>
+														<label><input type="radio" name="staffNationality" value="내국인" checked="checked" class="staff-nationality-input"> 내국인</label>
+														<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input"> 외국인</label>
 													<td class="t_head2">국적</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" disabled="disabled">
+														<input type="text" name="staffCountry" class="form-control" disabled="disabled" value="해당사항없음">
 													</td>
 												</tr> 
 												<tr>													
 													<td class="t_head2">결혼여부</td>
 													<td>
-														<label><input type="radio" name="staff_marriged" value="미혼" checked="checked"> 미혼 </label>
-														<label><input type="radio" name="staff_marriged" value="기혼"> 기혼</label>
+														<label><input type="radio" name="staffMarriged" value="미혼" checked="checked"> 미혼 </label>
+														<label><input type="radio" name="staffMarriged" value="기혼"> 기혼</label>
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus">
-														<input type="text" name="staff_email" class="form-control phoneNumber" maxlength="13">
+														<input type="text" name="staffPhone" class="form-control phoneNumber" maxlength="13" value="010-7565-4523">
 													</td>
 												</tr> 
 												<tr>													
 													<td class="t_head2">이메일</td>
 													<td>
-														<input type="text" name="staff_email" class="form-control">
+														<input type="text" name="staffEmail" class="form-control" value="김">
 													</td>
 													<td class="t_head2">주소</td>
 													<td>
-														<input type="text" name="staff_addr" class="form-control" >
+														<input type="text" name="staffAddr" class="form-control" value="김">
 													</td>
 												</tr> 
 
@@ -169,42 +171,42 @@
                                     </div>
                                     
             						<div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
-										<form>
+										<form class="careerInfo" action="/addInfo" method="post">
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">직장명</td>
 													<td >
-														<input type="text" name="companyName" class="form-control" >
+														<input type="text" name="companyName" class="form-control" value="김">
 													</td>
 													<td class="t_head2">직위</td>
 													<td >
-														<input type="text" name="companyAccess" class="form-control" >
+														<input type="text" name="companyAccess" class="form-control" value="김">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">직책</td>
 													<td>
-														<input type="text" name="companyPositionFromOut" class="form-control" >
+														<input type="text" name="companyPositionFromOut" class="form-control" value="김">
 													</td>
 													<td class="t_head2">담당업무</td>
 													<td>
-														<input type="text" name="companyWorkFormOut" class="form-control">
+														<input type="text" name="companyWorkFormOut" class="form-control" value="김">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">입사일자</td>
 													<td>
-														<input type="date" name="companyInDateFromOut" class="form-control" >
+														<input type="date" name="companyInDateFromOut" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">퇴사일자</td>
 													<td>
-														<input type="date" name="companyOutDateFromOut" class="form-control" >
+														<input type="date" name="companyOutDateFromOut" class="form-control" value="2020-09-09">
 													</td>
 												</tr>	
 												<tr>
 													<td class="t_head2">퇴직사유</td>
 													<td>
-														<textarea name="companyOutReason" class="form-control" ></textarea>
+														<textarea name="companyOutReason" class="form-control" >123</textarea>
 													</td>
 												</tr> 												
 												<tr>
@@ -216,38 +218,32 @@
 				                         </form>                              
                                      </div>
                                      <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
-										<form>
+										<form class="certificateInfo" action="/addInfo" method="post">
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">자격증명</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control">
+														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">발급기관</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">자격번호</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">취득일</td>
 													<td>
-														<input type="date" name="staff_phone1" class="form-control">
+														<input type="date" name="staff_phone1" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">만료일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control">
-													</td>
-												</tr> 
-												<tr>
-													<td class="t_head2">비고</td>
-													<td colspan="5">
-														<textarea name="is_staff_basic_info.notes" class="form-control"></textarea>
+														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 												
 												<tr>
@@ -260,42 +256,42 @@
 				                        </form>                             
                                     </div>
                                     <div class="tab-pane" id="isEducationInfo" role="tabpanel">
-										<form>
+										<form class="educationInfo" action="/addInfo" method="post">
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">학교명</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control">
+														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">전공</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="staff_country" class="form-control" value="2020-09-09" >
 													</td>
 													<td class="t_head2">부전공</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>												
 													<td class="t_head2">학위</td>
 													<td>
-														<input type="text" name="staff_phone1" class="form-control">
+														<input type="text" name="staff_phone1" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">상태</td>
 													<td>
-														<input type="text" name="staff_eng_name" class="form-control">
+														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입학일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control">
+														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">졸업일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control">
+														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
 													</td>												
 												</tr>
 											</table>
@@ -303,38 +299,38 @@
                                     </div>                                                                                                            
                                                                                                                                              
                                     <div class="tab-pane" id="isMilitaryInfo" role="tabpanel">
-										<form>
+										<form class="militaryInfo" action="/addInfo" method="post">
 											<table class="mb-12 table table-bordered">
 												<tr>
 													<td class="t_head2">군종</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control">
+														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">상태</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">계급</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" >
+														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입대일자</td>
 													<td >
-														<input type="date" name="staff_country" class="form-control" >
+														<input type="date" name="staff_country" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">전역일자</td>
 													<td>
-														<input type="date" name="staff_country" class="form-control" >
+														<input type="date" name="staff_country" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 												
 											</table>
 										</form>
 		                              <div class="d-block card-footer addDiv">
-		                                 <button type="button">임시저장</button>
+		                                 <button type="button" id="InfoStorage">임시저장</button>
 		                                 <button type="button">등록하기</button>
 		                              </div>
                                     </div>                                                                                                            
@@ -351,94 +347,7 @@
 		
 	<th:block layout:fragment="customJsScript">
 	<script src="/assets/scripts/chaeyoungBoard.js"></script>
-	<script>
-		$(function() {
-			
-			function message(){
-				var hiddenPw = $('.hiddenPw').val();
-				const swalWithBootstrapButtons = Swal.mixin({
-					  customClass: {
-					    confirmButton: 'btn btn-success',
-					    cancelButton: 'btn btn-danger'
-					  },
-					  buttonsStyling: false
-					})
-
-					swalWithBootstrapButtons.fire({
-					  title: '정말로 지원을 포기하시겠습니까?',
-					  text: "작성한 데이터는 전부 삭제됩니다.",
-					  icon: 'warning',
-					  showCancelButton: true,
-					  confirmButtonText: '네 포기하겠습니다.',
-					  cancelButtonText: '아니오!',
-					  reverseButtons: true
-					}).then((result) => {
-					  if (result.isConfirmed) {
-						  pwCheck(hiddenPw)
-	
-					  }
-					})
-			}
-			//비밀번호 체크
-        	function pwCheck(pw){
-        		var appEmail = $(".appEmail").text();
-        		
-        		(async () => {
-
-        			const { value: password } = await Swal.fire({
-        			  title: '비밀번호를 입력해 주세요.',
-        			  input: 'password',
-        			  inputPlaceholder: 'Enter your password',
-        			  inputAttributes: {
-        			    maxlength: 10,
-        			    autocapitalize: 'off',
-        			    autocorrect: 'off'
-        			  }
-        			})
-
-        			if (password) {
-        			  if(pw == password) {
- 
-        				  await Swal.fire(
-        					'Deleted!',
-        					'지원이 취소되었습니다.',
-        					'success'
-        					)      				
- 
-        					location.href="/deleteApplicant?appEmail="+ appEmail;
-        			  }else {
-        				  await Swal.fire(
-        				    	      'fail',
-        				    	      '비밀번호가 틀렸습니다',
-        				    	      'error')
-        				  return false;
-        			  }          			
-        			}           			
-        		})()
-        	}
-			//지원취소하기
-			$('.appDelete').click(function() {
-				
-				message();
-				
-
-			})
-			//내국인일 시 국적작성 x 외국인일시 국적작성 o
-			$('input[name=staff_nationality]').click(function() {
-				 if($("input[name=staff_nationality]:checked").val() == "내국인"){
-			            $("input:text[name=staff_country]").attr("disabled",true);
-			            $("input:text[name=staff_country]").val('');
-			 
-			     }else if($("input[name=staff_nationality]:checked").val() == "외국인"){
-			              $("input:text[name=staff_country]").attr("disabled",false);
-
-			     }
-			});
-
-	
-		});
-
-	</script>
+	<script src="/assets/scripts/chaeyoung-info.js"></script>
   	
 	</th:block>
 
