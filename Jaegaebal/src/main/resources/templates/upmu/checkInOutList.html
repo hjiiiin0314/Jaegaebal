@@ -37,12 +37,12 @@
    			<!-- 코드등록버튼 -->
 		<div class="code-btn">		
 				<div class="btn-group nav-item " th:with="staffNum1=${session.SSTAFFNUM}">
-		                  <a th:href="@{/checkIn(staffNum=${staffNum1})}" class="nav-link">
-		                       <button type="button" class="btn btn-danger checkInBtn">출근</button>
+		                  <a th:href="@{/checkIn(staffNum=${staffNum1})}" class="nav-link" id="checkInBtn">
+		                       <button type="button" class="btn btn-danger checkInBtn" id="checkInBtn">출근</button>
 		                  </a>
-		                  <a th:href="@{/checkOut(staffNum=${staffNum1})}" class="nav-link">
+		                  <a th:href="@{/checkOut(staffNum=${staffNum1})}" class="nav-link" id="checkOutBtn">
 		                       
-		                       <button type="button" class="btn btn-success checkOutBtn">퇴근</button>
+		                       <button type="button" class="btn btn-success checkOutBtn" id="checkOutBtn">퇴근</button>
 		                  </a>
 		         </div>
    		</div>
@@ -109,28 +109,7 @@
 		</div>
 </div>
 
-    <!-- Modal -->
-              <!--     <div class="modal fade" id="#checkInModal">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title">알림</h4>
-					      </div>
-					      <div class="modal-body">
-                           		   <p>출근처리 하시겠습니까?</p>
-                          </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-			        <button type="button" class="btn btn-primary" id="checkInBtn">
-			       		 <a th:href="@{/deleteWorkCode(workCode=${l.workCode})}">예</a>
-			       		 예			       		
-			        </button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
- -->
+   
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
@@ -139,25 +118,22 @@
   <th:block layout:fragment="customJsScript">
 	<script>
 	
-		
-			/* $(function(){
+			 $(function(){
 				$('#checkInBtn').click(function(){
-					
-				var checkBtn = $('.checkInBtn');
+										
+						alert('출근처리가 완료되었습니다.')
+					               
 
+		     }); 
+		});
+			 $(function(){
+				$('#checkOutBtn').click(function(){
+										
+						alert('퇴근처리가 완료되었습니다.')
+					               
 
-                // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-                // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-                var tr = checkBtn.parent().parent();
-                var td = tr.children();
-                var workCode = td.eq(0).text(); //근무형태코드
-               
-                //텍스트형식으로 workCode에 담아서 주소로 보내기
-                location.href="/deleteWorkCode?workCode="+workCode;
-				})
-                
-
-		     }); */
+		     }); 
+		});
 			
 	
 			

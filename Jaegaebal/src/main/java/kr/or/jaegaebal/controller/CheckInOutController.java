@@ -59,7 +59,8 @@ public class CheckInOutController {
 	//퇴근기록
 		@GetMapping("/checkOut")
 		public String checkOut(CheckInOut checkInOut
-				,@RequestParam(value="staffNum",required = false) String staffNum
+				,@RequestParam(value="staffNum",required = false) String wcCode
+				,@RequestParam(value="staffNum",required = false) String wcOutIp
 				,HttpServletRequest request
 				) {
 			String ipOut = request.getRemoteAddr();
@@ -67,7 +68,7 @@ public class CheckInOutController {
 			System.out.println("ipOut::::"+ipOut);
 			System.out.println(checkInOut);
 			checkInOut.setWcOutIp(ipOut);
-			checkInOutService.checkOut(staffNum);
+			checkInOutService.checkOut(checkInOut);
 			return "redirect:/getCheckInOutList";
 			
 		}

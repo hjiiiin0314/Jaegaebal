@@ -72,10 +72,10 @@
 			  #{wcCode}
 			, ${staffNum}
 			, NOW()
-			, 0
+			, '00:00:00'
 			, 0
 			, #{wcInIp}
-			, 0
+			, '-'
 			, NOW()
 			)
 	
@@ -84,11 +84,11 @@
 	<!-- 퇴근등록 -->
 		<update id="checkOut" parameterType="String">
 			UPDATE um_work_check
-				SET					
-					wc_out=NOW(),
-					wc_hour=0,
-					wc_out_ip=#{wcOutIp}
-				
-				WHERE staff_num=#{staffNum}
+			SET
+				wc_out=NOW(),
+				wc_hour= concat(left(right(TIMEDIFF(wc_in,wc_out),7),1),'시간'),
+				wc_out_ip=#{wcOutIp}
+			WHERE 
+				wc_out_ip='-';
    		</update>
    	</mapper>

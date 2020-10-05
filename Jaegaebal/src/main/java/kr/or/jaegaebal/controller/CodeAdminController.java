@@ -26,11 +26,7 @@ public class CodeAdminController {
 	
 	@Autowired private CodeAdminService codeAdminService;
 	
-	@GetMapping("/empCode")
-	public String empCode() {
-		
-		return "codeAdmin/empCode";
-	}
+	
 /* ==========고용형태코드관리========== */
 	
 	//고용형태코드리스트

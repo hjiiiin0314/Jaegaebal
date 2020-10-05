@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+		
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+	 
+			<div class="col-md-20; m-5">
+				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
+					<div class="col-md-20; m-5">						  
+		<form action="/addHdCode" method="post" id="signIn">
+								<input type="hidden" id="docCodeCheckResult" value=1>
+								<input type="hidden" id="docCheckCode">
+							    <label for="docCode">휴가코드</label>
+							    <input type="text" class="form-control input-lg" name="docCode" id="docCode" placeholder="문서코드">
+							    <br>
+							    <span class="input-group-btn"><button class="btn btn-primary" type="button" id="codeCheckBtn">중복확인</button></span>
+							 
+						 <br>	
+							  <br>
+							  	 <label for="docType">휴일코드</label>
+							   	 <input type="text" class="form-control input-lg" name="docType" placeholder="코드명">
+						
+						<br>  
+								 <label for="docStaffName">사업장</label>
+							   	 <input class="form-control input-lg" name="docStaffName" >
+					   <br>
+							    <label for="docStaffName">시작일</label>
+									   	 <input class="form-control input-lg" name="docStaffName" >
+					   <br>
+							    <label for="docStaffName">휴일명</label>
+									   	 <input class="form-control input-lg" name="docStaffName" >
+					   <br>
+							    <label for="docStaffName">종료일</label>
+									   	 <input class="form-control input-lg" name="docStaffName" >
+					   <br>
+							    <label for="docStaffName">등록자</label>
+									   	 <input class="form-control input-lg" name="docStaffName">
+					   <br>
+							    <label for="docStaffName">등록일</label>
+									   	 <input class="form-control input-lg" name="docStaffName">
+					   <br>
+					   
+		</form>
+								  <div class="widget-content-right ml-10" align="center">
+			                            	
+			                         <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm submitBtn" value="등록하기">
+			                          			                                    
+			                      </div>
+			                   <br>
+					 </div>
+				</div>
+			</div>
+		
+	
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	
+	
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+	<script>
+	
+	//근무형태코드 중복확인
+	
+	$(function() {
+		//아이디중복체크 및 유효성검사
+		$('#codeCheckBtn').click(function() {
+			var docCode = $('input[name="docCode"]');
+			
+			
+			if(docCode.val() == ''){
+				alert('문서코드를 입력해주세요.');
+				docCode.focus();
+				return false;
+				}
+			
+				var request = $.ajax({
+
+					  url: "/docCodeCheck",
+					  method: "POST",
+					  data: { docCode : docCode.val() },
+					  dataType: "json" 
+				});
+			
+				request.done(function( data ) {
+					var docCodeCheckResult = $('#docCodeCheckResult');
+					var docCheckCode = $('#docCheckCode');
+					
+					if(data == 0){
+						alert('사용 가능한 코드 입니다.');
+						docCheckCode.val(docCode.val());
+					}else{
+						alert('사용중인 코드 입니다.');
+					}
+					docCodeCheckResult.val(data);	             
+				});
+				
+				
+			}); 
+		}); 
+	 
+	//유효성검사
+	$(function(){
+		$('.submitBtn').click(function(){
+			
+			var docCode = $('input[name="docCode"]');
+			var docType = $('input[name="docType"]');
+			var docCodeCheckResult = $('#docCodeCheckResult').val();
+			var docCheckCode = $('#docCheckCode').val();
+			
+			
+			if(docCode.val() == ''){
+				alert('문서코드를 입력해주세요.');
+				docCode.focus();
+				return false;
+			}else if(docType.val() == ''){
+				alert('코드명을 입력해주세요.');
+				docType.focus();
+				return false;
+			}else if(docCodeCheckResult == 1 || docCode.val() != docCheckCode){
+				alert('코드중복검사를 진행해주세요.');
+				docCode.focus();
+				return false;
+			}
+			$('#signIn').submit();
+			alert('코드등록 완료.');
+		})
+	});
+	
+	</script>
+	</th:block>
+	
+	
+	
+    
+</html>
