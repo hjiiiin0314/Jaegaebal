@@ -55,13 +55,13 @@
                         			</tr>
                         			<tr>
                         				<td class='text-center' th:text="${l.appStaffName}"></td>
-                        			</tr>
+                        			</tr>                     				
                         			<tr>
-                        				<td class='text-center app-sign' th:text="${l.appStateName}"></td>
+                        				<td class='text-center app-sign' th:text="${l.appStateName}" th:title="${l.appStaffComent}"></td>
                         			</tr>
                         			<tr th:if="${l.appStaffNum eq session.SSTAFFNUM}">
                         				<td>
-                        					<button class='btn-transition btn btn-outline-primary appbtn-center' type="button" data-toggle="modal" data-target="#decideModdal">결재하기</button>
+                        					<button class='btn-transition btn  btn-outline-danger appbtn-center' type="button" data-toggle="modal" data-target="#decideModdal">결재하기</button>
                         				</td>
                         			</tr>
                         		</table>
@@ -113,7 +113,7 @@
 	                    	<div class="card-body">                    	
 	                            <h5>결재유형선택하기</h5>
 	                            <input type="hidden" th:value="${session.SSTAFFNUM}" name="appStaffNum">
-	                            <select class="form-control" name="appStateCode">                          
+	                            <select id="appState" class="form-control" name="appStateCode">                          
 	                            	<option value="" selected="selected" disabled="disabled">::결재하기::</option>
 	                            	<option th:value="ac-02">반려</option>
 	                            	<option th:value="ac-03">합의</option>
@@ -177,7 +177,15 @@
 				
 				//결재완료 버튼 클릭 시 
 				$('#successBtn').click(function(){
-					$('#appDecide').submit();
+					var appState = $('#appState option:selected').val();
+					console.log(appState + "<--appState");
+					if(appState == ''){
+						alert('결재유형을 선택하세요');
+						return false;
+					}
+					else{
+						$('#appDecide').submit();						
+					}
 				});
 				
 			});				
