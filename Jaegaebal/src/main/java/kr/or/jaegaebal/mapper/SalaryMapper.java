@@ -15,6 +15,12 @@ import kr.or.jaegaebal.dto.StaffInfo;
  */
 @Mapper
 public interface SalaryMapper {
+	//지급 설정에 따른 부가지급 입력 조회
+	public List<Map<String, Object>> getAddPay();
+	
+	//공제 설정에 따른 부가공제 입력 조회
+	public List<Map<String, Object>> getAddDeduct();
+	
 	//급상여입력 사원 연월데이터 존재여부 조회
 	public SalaryRecord getSelMonthData(String dataNum, String searchDate);
 	

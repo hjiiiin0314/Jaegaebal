@@ -248,6 +248,36 @@
 			is_jojic
 	</select>
 	
+	<!-- 지급 설정에 따른 부가지급 입력 조회 -->
+	<select id="getAddPay" resultType="Map">
+		SELECT
+			pay_num			AS		payNum,
+			pay_name		AS		payName,
+			pay_tax			AS		payTax,
+			pay_sal			AS		paySal,
+			pay_perdepart	AS		payPerdepart,
+			pay_per			AS		payPer
+		FROM
+			sal_pay
+		WHERE
+			pay_sal = 1
+	</select>
+	
+	<!-- 공제 설정에 따른 부가공제 입력 조회 -->
+	<select id="getAddDeduct" resultType="Map">
+		SELECT
+			deduct_num			AS		deductNum,
+			deduct_name			AS		deductName,
+			deduct_account		AS		deductAccount,
+			deduct_sal			AS		deductSal,
+			deduct_perdepart	AS		deductPerdepart,
+			deduct_per			AS		deductPer
+		FROM
+			sal_deduct
+		WHERE
+			deduct_sal = 1
+	</select>
+	
 	<!-- 급상여입력 해당 연월 데이터 존재 여부 조회 -->
 	<select id="getSelMonthData" parameterType="String" resultType="SalaryRecord">
 		SELECT

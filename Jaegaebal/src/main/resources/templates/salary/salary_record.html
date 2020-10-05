@@ -84,6 +84,32 @@
 					$('input[name=dataIncome]').val(data.dataIncome);
 					$('input[name=dataLoincome]').val(data.dataLoincome);
 					$('input[name=sqlKey]').val(data.sqlKey);
+					//데이터가 있어서 upd처리 시 월별 데이터에 저장된 항목과 값들이 저장됨 ins면 항목테이블의 항목들을 물러오는 ajax를 실행하여 값을 출력
+					if(data.sqlKey == "upd"){
+						if(data.dataAddpay != null){
+							var addpay = data.dataAddpay.split('&');
+							var pricepay = data.dataPricepay.split('&');
+							$('.pay-table').children('tbody').children('tr').remove();
+							for(var i in addpay) {
+								$('.pay-table').children('tbody').append('<tr><td>'+addpay[i]+'</td><td>'+pricepay[i]+'</td></tr>');
+							}
+						} else {
+							$('.pay-table').children('tbody').children('tr').remove();
+						}
+						
+						if(data.dataAdddeduct != null){
+							var adddeduct = data.dataAdddeduct.split('&');
+							var pricededuct = data.dataPricededuct.split('&');
+							$('.deduct-table').children('tbody').children('tr').remove();
+							for(var i in adddeduct) {
+								$('.deduct-table').children('tbody').append('<tr><td>'+adddeduct[i]+'</td><td>'+pricededuct[i]+'</td></tr>');
+							}
+						} else {
+							$('.deduct-table').children('tbody').children('tr').remove();
+						}
+					} else if(data.sqlKey == "ins"){
+						insAjax();
+					}
 				});
 				
 				request.fail(function( jqXHR, textStatus ) {
@@ -91,6 +117,30 @@
 				});
 			}
 			
+			function insAjax(){
+				var request = $.ajax({
+					url : "/salary/insert_data",
+					method : "POST",
+					data : { },
+					dataType : "Json"
+				});
+				
+				request.done(function(data){
+					$('.pay-table').children('tbody').children('tr').remove();
+					for(var i=0;i<data[0].length;i++) {
+						$('.pay-table').children('tbody').append('<tr><td>'+data[0][i].payName+'</td><td><input class="form-control" type="text" name="payArray"></td></tr>');
+					}
+					
+					$('.deduct-table').children('tbody').children('tr').remove();
+					for(var j=0;j<data[1].length;j++) {
+						$('.deduct-table').children('tbody').append('<tr><td>'+data[1][j].deductName+'</td><td><input class="form-control" type="text" name="deductArray"></td></tr>');
+					}
+				});
+				
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+			}
 			//급상여입력화면에서 사원 정보 클릭시 ajax통신을 통한 사원급여 존재여부 조회
 			$('.emp-record-table').children('tbody').children('tr').click(function(){
 				var dataNum = $(this).children('input[name=dataNum]').val();
@@ -248,16 +298,23 @@
 							<tr>
 								<td>부가지급항목</td>
 								<td colspan="3">
-									<table class="table add-table">
+									<table class="table pay-table add-table">
 										<thead>
 											<tr>
 												<th>지급명</th>
 												<th>금액</th>
 											</tr>
+										</thead>
 										<tbody>
-											<tr>
-												<td></td>
-												<td></td>
+											<tr th:each="p : ${listPayMap}">
+												<th:block th:if="${salaryRecord.sqlKey eq 'ins'}">
+													<td><input type="text" name="payName" th:value="${p.payName}"></td>
+													<td><input class="form-control" type="text" name="payPrice"></td>
+												</th:block>
+												<th:block th:if="${salaryRecord.sqlKey eq 'upd'}">
+													<td><input type="text" name="payName" th:value="${p.addpay}"></td>
+													<td><input class="form-control" type="text" name="payPrice" th:value="${p.pricepay}"></td>
+												</th:block>
 											</tr>
 										</tbody>
 									</table>
@@ -293,16 +350,23 @@
 							<tr>
 								<td>부가공제항목</td>
 								<td colspan="3">
-									<table class="table add-table">
+									<table class="table deduct-table add-table">
 										<thead>
 											<tr>
 												<th>공제명</th>
 												<th>금액</th>
 											</tr>
+										</thead>
 										<tbody>
-											<tr>
-												<td></td>
-												<td></td>
+											<tr th:each="d : ${listDeductMap}">
+												<th:block th:if="${salaryRecord.sqlKey eq 'ins'}">
+													<td><input type="text" name="deductName" th:value="${d.deductName}"></td>
+													<td><input class="form-control" type="text" name="deductPrice"></td>
+												</th:block>
+												<th:block th:if="${salaryRecord.sqlKey eq 'upd'}">
+													<td><input type="text" name="deductName" th:value="${d.adddeduct}"></td>
+													<td><input class="form-control" type="text" name="deductPrice" th:value="${d.pricededuct}"></td>
+												</th:block>
 											</tr>
 										</tbody>
 									</table>
@@ -310,6 +374,11 @@
 							</tr>
 						</table>
 						<input type="hidden" name="sqlKey" th:value="${salaryRecord.sqlKey}">
+						<span class="deadline-btn">
+						<th:block th:if="${salaryRecord.sqlKey eq 'upd' and salaryRecord.dataPay eq 0}">
+							<input type="submit" class="mt-2 btn btn-primary date_right" value="저장 후 마감">
+						</th:block>
+						</span>
 						<input type="submit" class="mt-2 btn btn-primary date_right" value="저장">
 					</form>
 				</div>

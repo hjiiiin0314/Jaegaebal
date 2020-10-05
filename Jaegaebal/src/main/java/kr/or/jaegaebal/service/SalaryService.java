@@ -21,6 +21,16 @@ public class SalaryService {
 	@Autowired
 	private SalaryMapper salaryMapper;
 	
+	public List<Map<String, Object>> getAddPay() {
+		List<Map<String, Object>> listPayMap = salaryMapper.getAddPay();
+		return listPayMap;
+	}
+	
+	public List<Map<String, Object>> getAddDeduct() {
+		List<Map<String, Object>> listDeductMap = salaryMapper.getAddDeduct();
+		return listDeductMap;
+	}
+	
 	public SalaryRecord getSelMonthData(String dataNum, String searchDate) {
 		SalaryRecord salaryRecord = salaryMapper.getSelMonthData(dataNum, searchDate);
 		return salaryRecord;
