@@ -58,7 +58,7 @@ public class InsaService {
 		parameterMap.put("rowPerPage", ROW_PER_PAGE);
 		parameterMap.put("map", map);
 		
-		List<Map<String, Object>> getStaffInfoList = insaMapper.getStaffInfo(parameterMap);
+		List<StaffInfo> getStaffInfoList = insaMapper.getStaffInfo(parameterMap);
 
 		if (currentPage >= (lastPage - 4)) {
 			lastPageNum = lastPage;

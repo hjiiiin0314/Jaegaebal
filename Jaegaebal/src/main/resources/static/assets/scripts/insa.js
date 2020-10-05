@@ -131,6 +131,44 @@
 			}
 		});
 		
+		//징계리스트 - 추가 버튼 클릭시
+/*		$('#insertPnshList').click(function(){
+			$('#insertPnshListModal').modal();
+		});*/
+		
+		//징계리스트 - 직원 검색 버튼 클릭시
+		$('#staffInfoSearchBtn').click(function(){
+			if($('#searchStaffInfoVal').val() == null || $('#searchStaffInfoVal').val() == ''){
+				alert("검색어를 입력해주세요.");
+			}else{
+				$('#staffInfoSearchBtn').attr("data-target", "#insertPnshListModal2");
+				var sk 	= $('#searchStaff').val();
+				var sv	= $('#searchStaffInfoVal').val();
+				var request = $.ajax({
+					url : "/getStaffInfo",
+					method : "POST",
+					data : { sk : sk,
+							 sv	: sv },
+					dataType : "json"
+				});	
+				request.done(function(data){
+					for(var i=0; i<data.length; i++){
+						$('#insertStaffInfoTbody').append("<tr class='insertStaffInfoTr'><td>" + data[i].staffNum + "</td><td>" + data[i].staffName + "</td><td>" + data[i].jojicName + "</td><td>" + data[i].levelName + "</td></tr>");
+					}
+				});
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});					
+			}
+		});
+		
+		//징계리스트 - 검색 후 tr 목록 선택시
+		$('#insertStaffInfoTbody tr').click(function(){
+			alert("000220");
+			$('#insertPnshListModal2').modal("hide");
+		});
+		
+		
 		$('.pnshListTr').click(function(){
 			var punishmentNum 	= $(this).children('td').eq(0).text();
 			var staffNum	 	= $(this).children('td').eq(1).text();
@@ -269,43 +307,43 @@
 			  dataType: "json"
 			});
 			request.done(function( data ) {
-			console.log(data);
-			//console.log(data.staffInfoByteamName.getStaffInfoList[0].staffNum);
-				$('.pagination').empty();
-			$('#t-body').children("tr").remove();
-			if(data.staffInfoByteamName != null){
-					for(var i=0; i<data.staffInfoByteamName.getStaffInfoList.length; i++){
-					var insertVal = data.staffInfoByteamName.getStaffInfoList[i];
-					var infoName = [insertVal.staffNum, insertVal.jojicName, insertVal.levelName, insertVal.positionName, insertVal.staffName, insertVal.jaejicStatusName, insertVal.staffEmail, insertVal.staffPhone];
-					var appendStr = "";
-					for(var n=0; n<infoName.length; n++){
-						if(infoName[n] != null){
-								if(infoName[n] == '재직중'){
-								appendStr += '<td><div class="mb-2 mr-2 badge badge-success">재직중</div></td>';
-							}else if(infoName[n] == '개발'){
-								appendStr += '<td><div class="mb-2 mr-2 badge badge-danger">개발</div></td>';
-							}else if(infoName[n] == '출장중'){
-								appendStr += '<td><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>';
-							}else if(infoName[n] == '휴가중'){
-								appendStr += '<td><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>';
-							}else if(infoName[n] == '퇴사'){
-								appendStr += '<td><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>';
-							}else if(infoName[n] == '기타'){
-								appendStr += '<td><div class="mb-2 mr-2 badge badge-focus">기타</div></td>';
+				console.log(data);
+				//console.log(data.staffInfoByteamName.getStaffInfoList[0].staffNum);
+					$('.pagination').empty();
+				$('#t-body').children("tr").remove();
+				if(data.staffInfoByteamName != null){
+						for(var i=0; i<data.staffInfoByteamName.getStaffInfoList.length; i++){
+						var insertVal = data.staffInfoByteamName.getStaffInfoList[i];
+						var infoName = [insertVal.staffNum, insertVal.jojicName, insertVal.levelName, insertVal.positionName, insertVal.staffName, insertVal.jaejicStatusName, insertVal.staffEmail, insertVal.staffPhone];
+						var appendStr = "";
+						for(var n=0; n<infoName.length; n++){
+							if(infoName[n] != null){
+									if(infoName[n] == '재직중'){
+									appendStr += '<td><div class="mb-2 mr-2 badge badge-success">재직중</div></td>';
+								}else if(infoName[n] == '개발'){
+									appendStr += '<td><div class="mb-2 mr-2 badge badge-danger">개발</div></td>';
+								}else if(infoName[n] == '출장중'){
+									appendStr += '<td><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>';
+								}else if(infoName[n] == '휴가중'){
+									appendStr += '<td><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>';
+								}else if(infoName[n] == '퇴사'){
+									appendStr += '<td><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>';
+								}else if(infoName[n] == '기타'){
+									appendStr += '<td><div class="mb-2 mr-2 badge badge-focus">기타</div></td>';
+								}else{
+									appendStr += '<td>' + infoName[n] + '</td>';
+								}
 							}else{
-								appendStr += '<td>' + infoName[n] + '</td>';
+								appendStr += '<td>' + "''" + '</td>';
 							}
-						}else{
-							appendStr += '<td>' + "''" + '</td>';
 						}
+						$('#t-body').append("<tr><td>" + [i+1] + " </td>" + appendStr + "</tr>");
 					}
-					$('#t-body').append("<tr><td>" + [i+1] + " </td>" + appendStr + "</tr>");
 				}
-			}
-		});
-		request.fail(function( jqXHR, textStatus ) {
-		  alert( "Request failed: " + textStatus );
-		});			
+			});
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+			});			
 		});
 			
 		$('#SelectTeam').change(function(){
