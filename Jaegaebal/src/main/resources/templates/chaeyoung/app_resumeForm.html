@@ -102,6 +102,11 @@
                                 <div class="tab-content formCheck">
                                     <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
 										<form action="/addInfo" method="post" name="basicInfo" class="basicInfo">
+										<th:block th:with="cy = ${chaeYoungApplicant}">
+											<input type="hidden" th:value=${cy.appNumCode} name="appNumCode">
+											<input type="hidden" th:value=${cy.appEmail} name="appEmail">
+											<input type="hidden" th:value=${cy.jobNumber} name="jobNumber">
+										</th:block>
 											<table class="mb-12 table table-bordered">
 												<colgroup>
 													<col width = "12%">
@@ -223,27 +228,27 @@
 												<tr>
 													<td class="t_head2">자격증명</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="text" name="certificateName" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">발급기관</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="issuingAgency" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">자격번호</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="certificateNum" class="form-control" value="2020-09-09">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">취득일</td>
 													<td>
-														<input type="date" name="staff_phone1" class="form-control" value="2020-09-09">
+														<input type="date" name="getDate" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">만료일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="date" name="finishedDate" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 												
 												<tr>
@@ -261,37 +266,37 @@
 												<tr>
 													<td class="t_head2">학교명</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="text" name="schoolName" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">전공</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09" >
+														<input type="text" name="majorName" class="form-control" value="2020-09-09" >
 													</td>
 													<td class="t_head2">부전공</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="minorName" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>												
 													<td class="t_head2">학위</td>
 													<td>
-														<input type="text" name="staff_phone1" class="form-control" value="2020-09-09">
+														<input type="text" name="degree" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">상태</td>
 													<td>
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="text" name="hakryuckStatus" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입학일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="date" name="entranceDate" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">졸업일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="date" name="graduatDate" class="form-control" value="2020-09-09">
 													</td>												
 												</tr>
 											</table>
@@ -302,29 +307,35 @@
 										<form class="militaryInfo" action="/addInfo" method="post">
 											<table class="mb-12 table table-bordered">
 												<tr>
-													<td class="t_head2">군종</td>
+													<td class="t_head2">병역구분</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="text" name="militaryClassidx" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
-													<td class="t_head2">상태</td>
+													<td class="t_head2">군별</td>
+													<td colspan="5">
+														<input type="text" name="militaryServiceType" class="form-control" value="2020-09-09">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">전역상태</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="militaryState" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">계급</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="militaryLevel" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입대일자</td>
 													<td >
-														<input type="date" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="date" name="militaryInDay" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">전역일자</td>
 													<td>
-														<input type="date" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="date" name="militaryOutDay" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 												
 											</table>

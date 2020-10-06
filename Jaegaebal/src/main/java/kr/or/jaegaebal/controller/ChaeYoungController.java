@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
-import kr.or.jaegaebal.dto.ChaeYoungBasicInfo;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
-import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
+import kr.or.jaegaebal.dto.ChaeYoungInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.service.ChaeYoungService;
 
@@ -165,10 +164,9 @@ public class ChaeYoungController {
 	
 	//지원서작성
 	@PostMapping(value = "/addInfo", produces = "application/json")
-	public String addInfo(ChaeYoungBasicInfo chaeYoungBasicInfo,ChaeYoungCareerInfo chaeYoungCareerInfo
-						) {
-		System.out.println(chaeYoungBasicInfo);
-		System.out.println(chaeYoungCareerInfo);
+	public String addInfo(ChaeYoungInfo chaeYoungInfo) {
+		
+		System.out.println(chaeYoungInfo);
 
 		return "redirect:/cyboardList";
 	}
