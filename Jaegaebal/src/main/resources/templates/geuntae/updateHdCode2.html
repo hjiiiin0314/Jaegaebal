@@ -14,28 +14,25 @@
 			<div class="col-md-20; m-5">
 				<div class="main-card mb-5 card" style="width: 40%; margin: auto; ">
 					<div class="col-md-20; m-5">						  
-		<form action="/addHdCode" method="post" id="signIn">
-								<input type="hidden" id="hdCodeCheckResult" value=1>
-								<input type="hidden" id="hdCheckCode">
+		<form action="/updateHdCode" method="post" >
+								
 							    <label for="hdCode">휴가코드</label>
-							    <input type="text" class="form-control input-lg" name="hdCode" id="hdCode" placeholder="문서코드">
-							    <br>
-							    <span class="input-group-btn"><button class="btn btn-primary" type="button" id="codeCheckBtn">중복확인</button></span>
-							 
+							    <input type="text" class="form-control input-lg" name="hdCode" id="hdCode" type="text" th:value="${Holiday.hdCode}">
+							  
 						 <br>	
 	
 						<br>  
 								 <label for="companyCode">사업장</label>
-							   	 <input class="form-control input-lg" name="companyCode" placeholder="사업장">
+							   	 <input class="form-control input-lg" name="companyCode" type="text" th:value="${Holiday.companyCode}">
 					   <br>
 							    <label for="hdName">휴일명</label>
-									   	 <input class="form-control input-lg" name="hdName" placeholder="휴일명">
+									   	 <input class="form-control input-lg" name="hdName" type="text" th:value="${Holiday.hdName}">
 					   <br>
 							    <label for="hdStartDay">시작일</label>
-									   	 <input class="form-control input-lg" name="hdStartDay" type="date" >
+									   	 <input class="form-control input-lg" name="hdStartDay" type="date" th:value="${Holiday.hdStartDay}">
 					   <br>
 							    <label for="hdEndDay">종료일</label>
-									   	 <input class="form-control input-lg" name="hdEndDay" type="date" >
+									   	 <input class="form-control input-lg" name="hdEndDay" type="date" th:value="${Holiday.hdEndDay}">
 					   <br>
 							    <label for="regStaffName">등록자</label>
 									   	 <input class="form-control input-lg" name="regStaffName" th:value="${session.SSTAFFNAME}" readonly/>
@@ -45,14 +42,14 @@
 		</form>
 								  <div class="widget-content-right ml-10" align="center">
 			                            	
-			                         <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm submitBtn" value="등록하기">
+			                         <input type="submit" class="btn-shadow p-1 btn btn-primary btn-sm submitBtn" value="수정하기">
 			                          			                                    
 			                      </div>
 			                   <br>
 					 </div>
 				</div>
-			</div>
-		
+			</div> 
+		 
 	
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 	

@@ -23,7 +23,7 @@
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-config icon-gradient bg-premium-dark">
+                    <i class="pe-7s-check icon-gradient bg-premium-dark">
                     </i>
                 </div>
                 <div>출퇴근관리
@@ -92,15 +92,15 @@
 				 		</tr>
 				 	</thead>
 				 	<tbody>
-				 		<tr th:each="l : ${checkInOutList}">
+				 		<tr th:each="l : ${checkInOutList}" th:if="${session.SSTAFFNUM eq l.staffNum}">
 				 			<td th:text="${l.wcCode}"></td>				 			
 				 			<td th:text="${l.staffNum}"></td>
-				 			<td th:text="${l.wcIn}"></td>
-				 			<td th:text="${l.wcOut}"></td>
-				 			<td th:text="${l.wcHour}"></td>
-				 			<td th:text="${l.wcInIp}"></td>
-				 			<td th:text="${l.wcOutIp}"></td>
-				 			<td th:text="${l.wcRegDate}"></td>
+				 			<td th:text="${l.wcIn}" id="wcIn"></td>
+				 			<td th:text="${l.wcOut}" id="wcOut"></td>
+				 			<td th:text="${l.wcHour}" id="wcHour"></td>
+				 			<td th:text="${l.wcInIp}"  id="wcInIp"></td>
+				 			<td th:text="${l.wcOutIp}" id="wcOutIp"></td>
+				 			<td th:text="${l.wcRegDate}" id="wcRegDate" ></td>
 				 							
 				 		</tr>
 				 	</tbody>
@@ -119,17 +119,32 @@
 	<script>
 	
 			 $(function(){
+				
+				
 				$('#checkInBtn').click(function(){
-										
-						alert('출근처리가 완료되었습니다.')
-					               
+					
+					
+					if($("#wcOutIp").text() == '-'){
+						alert('이미 출근처리가 완료된 상태입니다. \n 퇴근처리를 먼저 해주세요.');
+						return false;
+					}else{
+						alert('출근처리가 완료되었습니다.')	
+					}
 
 		     }); 
 		});
 			 $(function(){
 				$('#checkOutBtn').click(function(){
-										
+						
+						
+					if($("#wcOutIp").text() != '-'){
+
+						alert('퇴근처리할 항목이 존재하지 않습니다.')
+						return false;
+					}else{
+						
 						alert('퇴근처리가 완료되었습니다.')
+					}
 					               
 
 		     }); 

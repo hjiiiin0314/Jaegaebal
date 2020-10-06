@@ -17,6 +17,7 @@
    	
    	</resultMap>
    	
+   	<!-- 휴일리스트 -->
    		<select id="holidayList" resultMap="holiCodeResultMap">
    			SELECT
    			 	  hd_code
@@ -30,28 +31,69 @@
 				gt_holiday_code
    	   		
 	   	</select>
-   
+	   	
+      <!-- 휴일등록 -->
    <insert id="addHdCode" parameterType="Holiday">
    	INSERT INTO
    		 gt_holiday_code(
    		 		  hd_code
    		 		, company_code
-   		 		, hd_start_day
    		 		, hd_name
+   		 		, hd_start_day
    		 		, hd_end_day
    		 		, reg_staff_name
    		 		, hd_reg_date
    		 		)
 		VALUES (
-				  ''
-				, ''
-				, NOW()
-				, ''
-				, NOW()
-				, ''
+				  #{hdCode}
+				, #{companyCode}
+				, #{hdName}
+				, #{hdStartDay}
+				, #{hdEndDay}
+				, #{regStaffName}
 				, NOW()
 				)
    
    </insert>
    
+   <!-- 휴일코드 중복검사 -->
+   	<select id="hdCodeCheck" parameterType="String" resultType="String">
+   	
+		SELECT
+			 hd_code
+		FROM
+			 gt_holiday_code
+		WHERE
+			hd_code = #{hdCode}
+		
+		
+	</select>
+	
+	<!-- 휴일코드 수정 -->
+		<update id="updateHdCode" parameterType="Holiday">
+			UPDATE
+				 gt_holiday_code
+			SET
+				hd_code = #{hdCode},
+				company_code = #{companyCode},
+				hd_name = #{hdName},
+				hd_start_day = #{hdStartDay},
+				hd_end_day = #{hdEndDay},
+				reg_staff_name = #{regStaffName},
+				hd_reg_date=NOW()
+			WHERE
+				 hd_code = #{hdCode}
+	   </update>
+	   
+	   <!-- 휴일코드로 조회 -->
+	 
+   	<select id="getHdCode" parameterType = "String" resultType="Holiday" resultMap="holiCodeResultMap">
+   		SELECT
+   			 hd_code
+		FROM
+			 gt_holiday_code
+		WHERE
+			hd_code = #{hdCode}
+   	</select>
+   	
    </mapper>

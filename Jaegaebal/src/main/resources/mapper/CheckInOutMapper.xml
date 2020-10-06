@@ -46,6 +46,9 @@
 	   		 , wc_reg_date	as wcRegDate
 		FROM 
 			um_work_check
+		
+		ORDER BY 
+			 wc_code DESC
 	  
    	</select>
    	
@@ -70,7 +73,7 @@
    			 )
 	VALUES (
 			  #{wcCode}
-			, ${staffNum}
+			, #{staffNum}
 			, NOW()
 			, '00:00:00'
 			, 0

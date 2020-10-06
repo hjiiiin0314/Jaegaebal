@@ -11,7 +11,18 @@ import kr.or.jaegaebal.dto.Holiday;
 @Mapper
 public interface GeunTaeMapper {
 	
-	//문서코드리스트
+	//휴일 코드 리스트
 		public List<Holiday> holidayList();
-	
+		
+	//휴일 등록
+		public int addHdCode(Holiday holiday);
+		
+	// 코드 중복검사
+		public String hdCodeCheck(String hdCode);
+		
+	//휴일 수정
+		public int updateHdCode(Holiday holiday);
+		
+	//휴일 코드로 조회	
+		public Holiday getHdCode(String hdCode);
 }
