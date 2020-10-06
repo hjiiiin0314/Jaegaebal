@@ -36,6 +36,124 @@
 		<result column="data_tax_date2" property="dataTaxDate2"/>
 	</resultMap>
 	
+	<!-- 급상여입력(월별급여) 수정 -->
+	<update id="updateSalMonth" parameterType="SalaryRecord">
+		UPDATE
+			sal_month
+		<trim prefix="SET" suffixOverrides=",">
+			month_data = #{dataData}
+			,month_date = #{dataDate}
+			,month_pay = #{dataPay}
+			,month_normal = #{dataNormal}
+			<if test="dataBonus != null and dataBonus neq ''.toString()">
+				,month_bonus = #{dataBonus}
+			</if>
+			<if test="dataAnn != null and dataAnn neq ''.toString()">
+				,month_ann = #{dataAnn}
+			</if>
+			<if test="dataVehicle != null and dataVehicle neq ''.toString()">
+				,month_vehicle = #{dataVehicle}
+			</if>
+			<if test="dataMeal != null and dataMeal neq ''.toString()">
+				,month_meal = #{dataMeal}
+			</if>
+			<if test="dataOvertime != null and dataOvertime neq ''.toString()">
+				,month_overtime = #{dataOvertime}
+			</if>
+			<if test="dataNight != null and dataNight neq ''.toString()">
+				,month_night = #{dataNight}
+			</if>
+			<if test="dataHoli != null and dataHoli neq ''.toString()">
+				,month_holi = #{dataHoli}
+			</if>
+			<if test="dataGukmin != null and dataGukmin neq ''.toString()">
+				,month_gukmin = #{dataGukmin}
+			</if>
+			<if test="dataGeongang != null and dataGeongang neq ''.toString()">
+				,month_geongang = #{dataGeongang}
+			</if>
+			<if test="dataKhoyong != null and dataKhoyong neq ''.toString()">
+				,month_khoyong = #{dataKhoyong}
+			</if>
+			<if test="dataJanggi != null and dataJanggi neq ''.toString()">
+				,month_janggi = #{dataJanggi}
+			</if>
+			<if test="dataSanjae != null and dataSanjae neq ''.toString()">
+				,month_sanjae = #{dataSanjae}
+			</if>
+			<if test="dataSchexpan != null and dataSchexpan neq ''.toString()">
+				,month_schexpan = #{dataSchexpan}
+			</if>
+			<if test="dataIncome != null and dataIncome neq ''.toString()">
+				,month_income = #{dataIncome}
+			</if>
+			<if test="dataLoincome != null and dataLoincome neq ''.toString()">
+				,month_loincome = #{dataLoincome}
+			</if>
+			<if test="dataAddpay != null and dataAddpay neq ''.toString()">
+				,month_addpay = #{dataAddpay}
+			</if>
+			<if test="dataPricepay != null and dataPricepay neq ''.toString()">
+				,month_pricepay = #{dataPricepay}
+			</if>
+			<if test="dataSumpay != null and dataSumpay neq ''.toString()">
+				,month_sumpay = #{dataSumpay}
+			</if>
+			<if test="dataAdddeduct != null and dataAdddeduct neq ''.toString()">
+				,month_adddeduct = #{dataAdddeduct}
+			</if>
+			<if test="dataPricededuct != null and dataPricededuct neq ''.toString()">
+				,month_pricededuct = #{dataPricededuct}
+			</if>
+			<if test="dataSumdeduct != null and dataSumdeduct neq ''.toString()">
+				,month_sumdeduct = #{dataSumdeduct}
+			</if>
+		</trim>
+		WHERE
+			month_num = #{dataNum}
+	</update>
+	
+	<!-- 급상여입력(월별급여) 추가 -->
+	<insert id="addSalMonth" parameterType="SalaryRecord">
+		<selectKey resultType="string" keyProperty="dataNum" order="BEFORE">
+	        SELECT 
+				CONCAT('salmonth_', (max(CAST(substring(month_num,10) AS DECIMAL))+1)) 
+			FROM 
+				sal_month AS dataNum
+	    </selectKey>
+		INSERT INTO 
+			sal_month(month_num, month_data, month_date, month_pay, month_normal, month_bonus, month_ann, month_vehicle, month_meal, month_overtime, month_night, month_holi, month_gukmin, month_geongang, month_khoyong, month_janggi, month_sanjae, month_schexpan, month_income, month_loincome, month_addpay, month_pricepay, month_sumpay, month_adddeduct, month_pricededuct, month_sumdeduct)
+		VALUES(
+			#{dataNum}, 
+			#{dataData}, 
+			#{dataDate}, 
+			#{dataPay}, 
+			#{dataNormal}, 
+			#{dataBonus}, 
+			#{dataAnn}, 
+			#{dataVehicle}, 
+			#{dataMeal}, 
+			#{dataOvertime}, 
+			#{dataNight}, 
+			#{dataHoli}, 
+			#{dataGukmin}, 
+			#{dataGeongang}, 
+			#{dataKhoyong}, 
+			#{dataJanggi}, 
+			#{dataSanjae}, 
+			#{dataSchexpan}, 
+			#{dataIncome}, 
+			#{dataLoincome}, 
+			#{dataAddpay}, 
+			#{dataPricepay}, 
+			#{dataSumpay}, 
+			#{dataAdddeduct}, 
+			#{dataPricededuct}, 
+			#{dataSumdeduct}
+		)
+	</insert>
+	
+	<!-- 급여기본정보 수정 -->
 	<update id="updateSalaryInfo" parameterType="SalaryInfo">
 		UPDATE
 			sal_data
@@ -134,6 +252,20 @@
 	b.staff_num = d.staff_num
 		WHERE
 	data_emp = #{dataEmp}
+	</select>
+	
+	<!-- 해당사원의 기본급 조회 -->
+	<select id="getStaffNormal" parameterType="String" resultType="int">
+		SELECT
+			staff_basic_salary
+		FROM
+			is_staff a
+		INNER JOIN
+			sal_data b
+		ON
+			a.staff_num = b.data_emp
+		WHERE
+			data_num = #{dataNum}
 	</select>
 	
 	<!-- 화면 첫 로딩 시 기본정보 가장 상단 데이터 1줄 조회 -->

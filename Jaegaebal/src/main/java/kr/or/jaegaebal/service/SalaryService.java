@@ -31,6 +31,21 @@ public class SalaryService {
 		return listDeductMap;
 	}
 	
+	public int updateSalMonth(SalaryRecord salaryRecord) {
+		int result = salaryMapper.updateSalMonth(salaryRecord);
+		return result;
+	}
+	
+	public int addSalMonth(SalaryRecord salaryRecord) {
+		int result = salaryMapper.addSalMonth(salaryRecord);
+		return result;
+	}
+	
+	public int getStaffNormal(String dataNum) {
+		int staffBasicSalary = salaryMapper.getStaffNormal(dataNum);
+		return staffBasicSalary;
+	}
+	
 	public SalaryRecord getSelMonthData(String dataNum, String searchDate) {
 		SalaryRecord salaryRecord = salaryMapper.getSelMonthData(dataNum, searchDate);
 		return salaryRecord;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.jaegaebal.dto.SalaryInfo;
 import kr.or.jaegaebal.dto.SalaryRecord;
@@ -48,69 +49,103 @@ public class SalaryController {
 	
 	//급상여입력 insert, update 처리
 	@PostMapping("/salary/salary_record")
-	public String salaryRecord(SalaryRecord salaryRecord, String[] payName, String[] payPrice, String[] deductName, String[] deductPrice) {
+	public String salaryRecord(RedirectAttributes reAttr, SalaryRecord salaryRecord, String dateValue, String[] payName, String[] payPrice, String[] deductName, String[] deductPrice) {
 		String sqlKey = salaryRecord.getSqlKey();
-		//항목과 금액을 &로 묶어 저장
+		//항목과 금액을 &로 묶어 저장 (ex) 항목1&항목2&항목3
 		//지급항목
+		String addPay = "";
 		if(payName != null) {
-			String addPay = "";
 			for(int i=0;i<payName.length;i++) {
-				addPay = payName[i];
+				if(i==0) {
+					addPay = payName[i];
+				}
 				if(i>0) {
 					addPay += "&" + payName[i];
 				}
 			}
-			salaryRecord.setDataAddpay(addPay);
+			
 		}
+		
+		String pricePay = "";
+		int sumPay = 0;
 		if(payPrice != null) {
-			int sumPay = 0;
-			String pricePay = "";
 			for(int i=0;i<payPrice.length;i++) {
-				pricePay = payPrice[i];
 				sumPay += Integer.parseInt(payPrice[i]);
+				if(i==0) {
+					pricePay = payPrice[i];
+				}
 				if(i>0) {
 					pricePay += "&" + payPrice[i];
 				}
 			}
+		}
+		
+		salaryRecord.setDataSumpay(sumPay);
+		//합계가 0이라는 것은 값을 입력하지 않았다는 것이므로 항목과 값을 저장하지 않음
+		if(sumPay>0) {
+			salaryRecord.setDataAddpay(addPay);
 			salaryRecord.setDataPricepay(pricePay);
-			salaryRecord.setDataSumpay(sumPay);
 		}
 		
 		//공제항목
+		String addDeduct = "";
 		if(deductName != null) {
-			String addDeduct = "";
 			for(int i=0;i<deductName.length;i++) {
-				addDeduct = deductName[i];
+				if(i==0) {
+					addDeduct = deductName[i];
+				}
 				if(i>0) {
 					addDeduct += "&" + deductName[i];
 				}
 			}
-			salaryRecord.setDataAdddeduct(addDeduct);
+			
 		}
+		
+		String priceDeduct = "";
+		int sumDeduct = 0;
 		if(deductPrice != null) {
-			int sumDeduct = 0;
-			String priceDeduct = "";
 			for(int i=0;i<deductPrice.length;i++) {
-				priceDeduct = deductPrice[i];
 				sumDeduct += Integer.parseInt(deductPrice[i]);
+				if(i==0) {
+					priceDeduct = deductPrice[i];
+				}
 				if(i>0) {
 					priceDeduct += "&" + deductPrice[i];
 				}
 			}
+		}
+		
+		salaryRecord.setDataSumdeduct(sumDeduct);
+		//합계가 0이라는 것은 값을 입력하지 않았다는 것이므로 항목과 값을 저장하지 않음
+		if(sumDeduct>0) {
+			salaryRecord.setDataAdddeduct(addDeduct);
 			salaryRecord.setDataPricededuct(priceDeduct);
-			salaryRecord.setDataSumdeduct(sumDeduct);
 		}
-		if(sqlKey == "ins") {
-			
-		} else if (sqlKey == "upd") {
-			
+		
+		//귀속년월 SET (형식:YYYY-MM)
+		salaryRecord.setDataDate(dateValue);
+		int result = 0;
+		if(sqlKey.equals("ins")) {
+			System.out.println(salaryRecord);
+			result = salaryService.addSalMonth(salaryRecord);
+		} else if (sqlKey.equals("upd")) {
+			System.out.println(salaryRecord);
+			result = salaryService.updateSalMonth(salaryRecord);
 		}
+		
+		System.out.println(result + " <-- 급상여 insert, update 쿼리 실행 결과");
+		//쿼리 처리 후 화면으로 리다이렉트 시 설정 되었던 귀속년월, 급여정보 기본키를 보내 유지시킴
+		reAttr.addAttribute("dataData", salaryRecord.getDataData());
+		reAttr.addAttribute("dateValue", dateValue);
+		
 		return "redirect:/salary/salary_record";
 	}
 	
 	//급상여입력화면
 	@GetMapping("/salary/salary_record")
-	public String salaryRecord(Model model) {
+	public String salaryRecord(@RequestParam(value = "dateValue", required = false) String dateValue,
+								@RequestParam(value = "dataData", required = false) String dataData,
+								Model model) {
 		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
 		String dataNum = (String) staffInfoList.get(0).get("dataNum");
 		String sqlKey = null;
@@ -118,10 +153,21 @@ public class SalaryController {
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM");	
 		Date time = new Date();
 		String searchDate = format1.format(time);
+		//insert나 update되어 리타이렉트 되었을 경우 넘어온 귀속년월을 현재날짜에서 바꿈
+		if(dateValue != null) {
+			searchDate = dateValue;
+		}
+		//insert나 update되어 리타이렉트 되었을 경우 넘어온 급여정보 기본키를을 기본 조회 급여정보 기본키에서 바꿈
+		if(dataData != null) {
+			dataNum = dataData;
+		}
 		SalaryRecord salaryRecord = salaryService.getSelMonthData(dataNum, searchDate);
 		//조회된 값이 없었다면 화면에서 저장할 때 insert 조회된 값이 있었다면 update 처리
 		if(salaryRecord == null) {
 			salaryRecord = new SalaryRecord();
+			//insert일때 사원의 기본급 조회
+			int staffBasicSalary = salaryService.getStaffNormal(dataNum);
+			salaryRecord.setDataNormal(staffBasicSalary);
 			sqlKey = "ins";
 		} else {
 			sqlKey = "upd";
@@ -184,6 +230,7 @@ public class SalaryController {
 		List<Map<String, Object>> levelList = salaryService.getLevelList();
 		List<Map<String, Object>> jojicList = salaryService.getJojicList();
 		model.addAttribute("dataNum", dataNum);
+		model.addAttribute("searchDate", searchDate);
 		model.addAttribute("salaryRecord", salaryRecord);
 		model.addAttribute("levelList", levelList);
 		model.addAttribute("jojicList", jojicList);
@@ -238,6 +285,9 @@ public class SalaryController {
 		//조회된 값이 없었다면 화면에서 저장할 때 insert 처리 값이 있었다면 update 처리
 		if(salaryRecord == null) {
 			salaryRecord = new SalaryRecord();
+			//insert일때 사원의 기본급 조회
+			int staffBasicSalary = salaryService.getStaffNormal(dataNum);
+			salaryRecord.setDataNormal(staffBasicSalary);
 			sqlKey = "ins";
 		} else {
 			sqlKey = "upd";

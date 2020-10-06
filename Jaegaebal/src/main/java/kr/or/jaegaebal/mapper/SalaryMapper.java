@@ -21,8 +21,17 @@ public interface SalaryMapper {
 	//공제 설정에 따른 부가공제 입력 조회
 	public List<Map<String, Object>> getAddDeduct();
 	
+	//급상여입력 update 처리
+	public int updateSalMonth(SalaryRecord salaryRecord);
+	
+	//급상여입력 insert 처리
+	public int addSalMonth(SalaryRecord salaryRecord);
+	
 	//급상여입력 사원 연월데이터 존재여부 조회
 	public SalaryRecord getSelMonthData(String dataNum, String searchDate);
+	
+	//해당사원의 기본급 조회
+	public int getStaffNormal(String dataNum);
 	
 	//검색어가 적용된 사원기본정보 조회
 	public List<Map<String, Object>> getStaffListMap(String searchCate, String searchText, String searchLevel, String searchJojic);
