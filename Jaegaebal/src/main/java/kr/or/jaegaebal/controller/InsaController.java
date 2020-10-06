@@ -74,35 +74,6 @@ public class InsaController {
 		return "insa/staff_list";
 	}
 
-	/*
-	 * //검색 조건시 전체 화면
-	 * 
-	 * @PostMapping("/insa/staffInfoList") public String getStaffListBySearching(
-	 * Model model, ,@RequestParam(value = "currentPage", required = false,
-	 * defaultValue = "1") int currentPage ,) {
-	 * 
-	 * return null; }
-	 */
-
-	// 관리자 직원일때 직원 목록
-	@GetMapping("/insa/adminStaffInfoList")
-	public String adminStaffInfoList(Model model,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
-
-		/*
-		 * Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage);
-		 * model.addAttribute("title", "직원 목록"); model.addAttribute("lastPage",
-		 * resultMap.get("lastPage")); model.addAttribute("staffInfoList",
-		 * resultMap.get("getStaffInfoList")); model.addAttribute("startPageNum",
-		 * resultMap.get("startPageNum")); model.addAttribute("lastPageNum",
-		 * resultMap.get("lastPageNum")); model.addAttribute("currentPage",
-		 * currentPage);
-		 * 
-		 * log.info("staffInfoList---> {}", resultMap.get("getStaffInfoList"));
-		 */
-		return "insa/admin_staff_list";
-	}
-
 	// 직원 등록하기 화면
 	@GetMapping("/insa/insertStaff")
 	public String insertStaff(Model model) {
@@ -384,10 +355,44 @@ public class InsaController {
 	@PostMapping("/insa/insertPnshList")
 	public String insertPnshList(Punishment insertPnshListInfo) {
 		log.info("insertPnshListInfo.toString():::>>>>>>{}", insertPnshListInfo.toString());
-		int result = insaService.insertPnshList(insertPnshListInfo);
-		if(result != 0) {
-			System.out.println("insertPnshList(Punishment insertPnshListInfo) 인썰트 성공!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
+		insaService.insertPnshList(insertPnshListInfo);
 		return "redirect:/insa/punishment";
 	}
+	
+	//징계리스트 수정하기
+	@PostMapping(value = "/modifyPnshListInfo", produces = "application/json")
+	@ResponseBody	
+	public int modifyPnshListInfo(Punishment modifyPnshListInfo) {
+		int result = insaService.modifyPnshListInfo(modifyPnshListInfo);
+		return result;
+	}
+	
+	//징계리스트 삭제하기
+	@PostMapping(value = "/deletePnshListInfo", produces = "application/json")
+	@ResponseBody	
+	public int deletePnshListInfo(String punishmentNum) {
+		System.out.printf("punishmentNum>>>>>>>>>>>>>{}", punishmentNum);
+		int result = insaService.deletePnshListInfo(punishmentNum);
+		return result;
+	}
+	
+	//포상 리스트 화면
+	@GetMapping("/insa/prize")
+	public String getPrizeList(		 Model model
+									,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage
+									,@RequestParam Map<String, Object> map) {
+/*		Map<String, Object> resultMap = insaService.getPunishmentList(currentPage, map);
+		
+		log.info(">>>>>>resultMap>>>>>>>{}", resultMap);
+		
+		model.addAttribute("lastPage", resultMap.get("lastPage"));
+		model.addAttribute("pnshList", resultMap.get("pnshList"));
+		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
+		model.addAttribute("currentPage", currentPage);		*/
+		
+		model.addAttribute("title", "포상 정보");
+		return "insa/prize_list";
+	}
+	
 }

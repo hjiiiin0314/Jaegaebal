@@ -16,7 +16,7 @@
 		return hyphenStr;
 	};
 	
-	$(document).on('keyup', '.staff_phone_val, .family_phone_val, .human_num', function(){
+	$(document).on('keyup', '.staff_phone_val, .family_phone_val, .human_num, .modifyHaveToWriteVals, .onlyNum' , function(){
 		var regexp = /^[0-9]*$/;
 		var regexpChange = /[^0-9]/gi;
 		var v =  $(this).val();
@@ -149,10 +149,12 @@
 				});	
 				request.done(function(data){
 					if(data.toString() != null && data.toString() != ''){
+						$('#insertStaffInfoTbody').children("tr").remove();
 						for(var i=0; i<data.length; i++){
 							$('#insertStaffInfoTbody').append("<tr class='insertStaffInfoTr'><td>" + data[i].staffNum + "</td><td>" + data[i].staffName + "</td><td>" + data[i].jojicName + "</td><td>" + data[i].levelName + "</td></tr>");
 						}
 					}else{
+						$('#insertStaffInfoTbody').children("tr").remove();
 						$('#insertStaffInfoTbody').append("<tr class='insertStaffInfoTr'><td colspan='4'>검색어에 해당하는 직원 자료가 없습니다.</td></tr>");
 					}
 				});
@@ -174,7 +176,7 @@
 			request.done(function(data){
 				console.log(data);
 				for(var i=0; i<data.length; i++){
-					$('#pnshNameSelect').append("<option>"+ data[i].punishmentName +"</option>");					
+					$('.pnshNameSelect').append("<option>"+ data[i].punishmentName +"</option>");					
 				}
 			});		
 			request.fail(function( jqXHR, textStatus ) {
@@ -183,8 +185,9 @@
 		});
 		
 		//징계리스트 - 추가 버튼 클릭 - 징계명 클릭시 - 점수 삽입하기
-		$('#pnshNameSelect').change(function(){
-			var pnshNameSelect = $('#pnshNameSelect').val();
+		$(document).on('change', '.pnshNameSelect', function(){
+		//$('.pnshNameSelect').change(function(){
+			var pnshNameSelect = $(this).val();
 			var request = $.ajax({
 				url : "/getPnshInfo",
 				method : "POST",
@@ -231,9 +234,6 @@
 					$(this).filter("[value='null']").val("");
     			});
     			$('#insertPnshListForm').submit();
-    			//var insertPnshListForm = document.getElementById('insertPnshListForm');
-    			//console.log("insertPnshListForm>>", insertPnshListForm);
-    			//$(insertPnshListForm).submit();
     		}
     	});		
 		
@@ -254,12 +254,126 @@
 			var insertPnshListModal2 = document.getElementById('insertPnshListModal2'); //모달 찾기
 			$(insertPnshListModal2).modal('hide');										//모달 숨기기
 		});
+
+		//징계리스트 - 수정하기 버튼 클릭시
+		$('#modifyPunhInfo').click(function(){
+			if($('#punishmentStaffNumId').val() == null || $('#punishmentStaffNumId').val() == ''){
+				alert("수정할 직원의 정보를 검색해주세요.");
+			}else{
+				$('#modifyPunhInfo').attr("data-target", "#insertPnshListModal3");
+				var str = "";
+				var request = $.ajax({
+					url : "/getPnshInfo",
+					method : "POST",
+					data : { str  : str },
+					dataType : "json"
+				});
+				request.done(function(data){
+					console.log(data);
+					for(var i=0; i<data.length; i++){
+						$('.pnshNameSelect').append("<option>"+ data[i].punishmentName +"</option>");					
+					}
+				});		
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});	
+				var punishmentNumId 				= $('#punishmentNumId').val();
+				var punishmentStaffNumId 			= $('#punishmentStaffNumId').val();
+				var punishmentStaffNameId 			= $('#punishmentStaffNameId').val();
+				var punishmentReasonId 				= $('#punishmentReasonId').val();
+				var punishmentGivenDateId 			= $('#punishmentGivenDateId').val();
+				var punishmentPriceId 				= $('#punishmentPriceId').val();
+				var punishmentSalaryAppliedDateId 	= $('#punishmentSalaryAppliedDateId').val();
+				var punishmentNotesId 				= $('#punishmentNotesId').val();
+				$('#ModifyNumId').val(punishmentNumId);
+				$('#ModifyStaffNumId').val(punishmentStaffNumId);
+				$('#ModifyStaffNameId').val(punishmentStaffNameId);
+				$('#ModifyGivenDateId').val(punishmentGivenDateId);
+				$('#ModifySalaryAppliedDateId').val(punishmentGivenDateId);
+				$('#ModifyPriceId').val(punishmentPriceId);
+				$('#ModifyReasonId').val(punishmentReasonId);
+				$('#ModifyNotesId').val(punishmentNotesId);
+			}
+		});	
+		
+		//징계리스트 - 모달 - 수정하기 버튼 클릭시(submit)
+    	$(document).on('click', '#modifyPnshListModalBtn', function(){
+    		var modifyHaveToWriteVals = $('.modifyHaveToWriteVals');
+    		
+    		for(var i=0; i<modifyHaveToWriteVals.length; i++){
+    			var val = modifyHaveToWriteVals[i];
+    			
+    			if(modifyHaveToWriteVals[i].value != null && (modifyHaveToWriteVals[i].value) != ''){
+    				if($(val).hasClass('invalid')){    					
+    					$(val).removeClass('invalid');
+    				}
+    				val.className += " valid";
+    			}else{
+    				if($(val).hasClass('valid')){ 
+    					$(val).removeClass('valid');
+    				}
+    				val.className += " invalid";
+    			}
+    			
+    		}
+    		if($(modifyHaveToWriteVals).hasClass('invalid')){
+    			alert("필수 입력값을 입력해주세요.");
+    			false;
+    		}else{
+    			modifyHaveToWriteVals.find('.form-control').each(function(){
+					$(this).filter("[value='null']").val("");
+    			});
+				var request = $.ajax({
+					url : "/modifyPnshListInfo",
+					method : "POST",
+					data : $('#modifyPnshListForm').serialize(),
+					dataType : "json"
+				});
+				request.done(function(data){
+					if(data == 1){
+						alert("수정되었습니다.");
+						window.location.href = "/insa/punishment";
+					}
+				});		
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus + "수정실패");
+				});	
+    			//$('#modifyPnshListForm').submit();
+    		}
+    	});	
+    	
+    	//삭제하기 버튼 클릭시
+    	$('#deletePnshInfoBtn').click(function(){
+    		if($('#punishmentStaffNumId').val() == null || $('#punishmentStaffNumId').val() == ''){
+				alert("삭제할 직원의 정보를 검색해주세요.");
+			}else{
+	    		var deleteChecking = confirm("정말로 삭제하시겠습니까?");
+	    		if(deleteChecking){
+	    			var punishmentNum = $('#punishmentNumId').val();
+	    			var request = $.ajax({
+						url : "/deletePnshListInfo",
+						method : "POST",
+						data : { punishmentNum : punishmentNum },
+						dataType : "json"
+					});
+					request.done(function(data){
+						if(data == 1){
+							alert("삭제되었습니다.");
+							window.location.href = "/insa/punishment";
+						}
+					});		
+					request.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus + "삭제실패");
+					});	
+	    		}
+    			
+    		}
+    	});
 		
 		//징계리스트 - 직원 리스트 클릭시 오른쪽 상세정보 변경
 		$('.pnshListTr').click(function(){
 			var punishmentNum 	= $(this).children('td').eq(0).text();
 			var staffNum	 	= $(this).children('td').eq(1).text();
-			console.log(punishmentNum, "punishmentNum");
 			var request = $.ajax({
 				url : "/getPnshListInfo",
 				method : "POST",
@@ -268,6 +382,11 @@
 				dataType : "json"
 			});
 			request.done(function(data){
+				if(data.pnshList[0].punishmentNum != null){
+					$('input[name=punishment_num]').val(data.pnshList[0].punishmentNum);
+				} else {
+					$('input[name=punishment_num]').val('');
+				}
 				if(data.pnshList[0].staffNum != null){
 					$('input[name=staff_num]').val(data.pnshList[0].staffNum);
 				} else {

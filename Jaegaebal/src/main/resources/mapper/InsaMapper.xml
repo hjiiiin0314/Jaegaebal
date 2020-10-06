@@ -168,6 +168,20 @@
 		<result column="punishment_val" 			property="punishmentVal"/>
 	</resultMap>
 	
+	<resultMap type="Prize" id="PrizeResultMap">
+		<result column="prize_code" 				property="prizeCode"/>
+		<result column="prize_name" 				property="prizeName"/>
+		<result column="reg_staff_name" 			property="regStaffName"/>
+		<result column="prize_num" 					property="prizeNum"/>
+		<result column="staff_num" 					property="staffNum"/>
+		<result column="given_date" 				property="givenDate"/>
+		<result column="prize_reason" 				property="prizeReason"/>
+		<result column="prize_price" 				property="prizePrice"/>
+		<result column="salary_applied_date" 		property="salaryAppliedDate"/>
+		<result column="prize_notes" 				property="prizeNotes"/>
+		<result column="jojic_name" 				property="jojicName"/>
+	</resultMap>
+	
 	<!-- 회사 정보 목록 -->
 	<select id="getCompanyInfo" resultMap="CompanyResultMap">
 		SELECT 
@@ -842,7 +856,7 @@
 	<!-- 직원 학력정보 등록하기 -->
 	<insert id="insertStaffEducationInfo" parameterType="StaffInfo">
 		<selectKey keyProperty="educationInfoCode" resultType="String" order="BEFORE" >
-			select CONCAT('EDIF',(SELECT MAX(cast(SUBSTRING(education_info_code,6)AS DECIMAL)) + 1  FROM is_education_info AS ed))
+			select CONCAT('EDIF',(SELECT MAX(cast(SUBSTRING(education_info_code,5)AS DECIMAL)) + 1  FROM is_education_info AS ed))
 		</selectKey>	
 		INSERT INTO 
 			is_education_info
@@ -1140,6 +1154,92 @@
 					, '이은혜'
 					, NOW()
 					)
-	</insert>	
+	</insert>
 	
+	<!-- 징계리스트 수정하기  -->
+	<update id="modifyPnshListInfo" parameterType="Punishment">
+		<selectKey keyProperty="punishmentCode" resultType="Punishment" order="BEFORE" >
+			SELECT 
+				(SELECT p.punishment_code FROM is_punishment AS p WHERE p.punishment_name = #{punishmentName} GROUP BY p.punishment_code) 	AS punishmentCode
+		</selectKey>
+			UPDATE	is_punishment_list
+			SET
+					punishment_code 	= #{punishmentCode},
+					given_date			= #{givenDate},
+					punishment_reason	= #{punishmentReason},
+					punishment_price	= #{punishmentPrice},
+					salary_applied_date	= #{salaryAppliedDate},
+					punishment_notes	= #{punishmentNotes}
+			WHERE 
+					punishment_num = #{punishmentNum}
+	</update>	
+	
+	<!-- 징계리스트 삭제하기 -->	
+	<delete id="deletePnshListInfo" parameterType="String">
+		DELETE FROM is_punishment_list
+		WHERE
+			<if test="punishmentNum != null and punishmentNum != ''.toString()">			
+				punishment_num = #{punishmentNum}
+			</if> 
+	</delete>
+	
+	<!-- 포상 리스트 & 페이징 & 검색어 -->
+	<select id="getPrizeList" parameterType="Map" resultMap="PrizeResultMap">
+		SELECT 
+				  pl.prize_num
+				, pl.staff_num
+				, s.staff_name
+				, pl.prize_code
+				, p.prize_name
+				, pl.given_date
+				, pl.prize_reason
+				, pl.prize_price
+				, pl.salary_applied_date
+				, pl.prize_notes
+				, pl.reg_staff_name
+				, jj.jojic_name		
+
+		FROM 	is_prize_list 							AS pl
+				INNER JOIN
+				is_prize								AS p
+				on
+				pl.prize_code = p.prize_code
+				INNER JOIN
+				is_staff								AS s
+				on
+				s.staff_num = pl.staff_num	
+				LEFT JOIN 
+				is_jojic 								AS jj
+				on
+				s.jojic_code = jj.jojic_code
+		<where>
+			<if test="map.prizeNum neq null and map.prizeNum neq ''.toString()">		
+				pl.prize_num = #{map.prizeNum}
+				GROUP BY pl.staff_num 
+			</if>
+			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString() and map.sk neq 'staff_num'.toString()">
+				AND ${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+	 		</if>	
+			<if test="map.sk neq null and map.sk eq 'staff_num'.toString() and map.sv neq ''.toString()">
+				AND pl.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+	 		</if>
+		</where>
+		LIMIT 	0, 15;	
+	</select>
+	
+	<!-- 포상 리스트 & 페이징 & 검색어의 전체 행 갯수 -->
+	<select id="getPrizeListCount" parameterType="Map" resultType="int">
+		SELECT	
+				COUNT(*)
+		FROM 	is_prize_list 		AS pl
+				INNER JOIN
+				is_prize			AS p
+				on
+				pl.prize_code = p.prize_code
+				INNER JOIN
+				is_staff			AS s
+				on
+				s.staff_num = pl.staff_num	
+
+	</select>
 </mapper>	

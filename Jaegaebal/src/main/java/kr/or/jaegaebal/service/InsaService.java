@@ -359,5 +359,14 @@ public class InsaService {
 		int result = insaMapper.insertPnshList(insertPnshListInfo);
 		return result;
 	};
-	
+	//징계리스트 수정하기
+	public int modifyPnshListInfo(Punishment modifyPnshListInfo) {
+		int result = insaMapper.modifyPnshListInfo(modifyPnshListInfo);
+		return result;
+	};	
+	//징계리스트 삭제하기
+	public int deletePnshListInfo(String punishmentNum) {
+		int result = insaMapper.deletePnshListInfo(punishmentNum);
+		return result;
+	};
 }

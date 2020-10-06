@@ -111,6 +111,22 @@
 	width : 32%;
 }
 
+.date_right {
+	display: inline-block;
+}
+
+.div-left {
+	float: left;
+}
+
+.div-right {
+	float: right;
+}
+
+#insertPnshList {
+	padding: 0.5rem 0.65rem;
+}
+
 .staff-sk {
 	padding-left : 3px;
 	padding-right : 3px;
