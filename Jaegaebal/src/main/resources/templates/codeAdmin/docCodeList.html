@@ -141,9 +141,6 @@
 					
 				var checkBtn = $('.deleteDocBtn');
 
-
-                // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-                // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
                 var tr = checkBtn.parent().parent();
                 var td = tr.children();
                 var docCode = td.eq(0).text(); //근무형태코드

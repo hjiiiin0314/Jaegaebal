@@ -84,13 +84,39 @@
 		$('input[name=staffNationality]').click(function() {
 			 if($("input[name=staffNationality]:checked").val() == "내국인"){
 		         $("input:text[name=staffCountry]").attr("disabled",true);
-		         $("input:text[name=staffCountry]").val('해당사항없음');
+		         $("input:text[name=staffCountry]").val('대한민국');
 		 
 		     }else if($("input[name=staffNationality]:checked").val() == "외국인"){
 		    	 $("input:text[name=staffCountry]").val('');
 		         $("input:text[name=staffCountry]").attr("disabled",false);
 
 		     }
+		});
+		
+		//경력사항없음 클릭시.
+		$('.careerInfoCheck').on("click",function() {
+			if($('.careerInfoCheck').is(":checked") == true) {
+				$('.careerInfoTable input').attr('disabled', true);
+				$('.careerInfoTable textarea').attr('disabled', true);
+				$('.careerInfoTable input').val('');
+			}else {
+				$('.careerInfoTable input').attr('disabled', false);
+				$('.careerInfoTable textarea').attr('disabled', false);
+			}
+		})
+		
+		//자격증정보없음 클릭시.
+		$('.certificateInfoCheck').on("click", function() {
+			if($('.certificateInfoCheck').is(":checked") == true) {
+				$('.certificateInfoTable input').attr('disabled', true);
+				$('.certificateInfoTable input').val('');
+			}else {
+				$('.certificateInfoTable input').attr('disabled', false);
+			}
+		})
+		
+		$('.addTest').on("click",function() {
+
 		});
 		//입력된 첫번째 문자를 대문자로 변경함수
 		function capitalize(str) {
@@ -146,15 +172,16 @@
 					var Info = $('.'+className+' .form-control').eq(i).val();
 					
 					if(Info == '' || Info == undefined) {
-						
-	
+							
 						if(className == 'basicInfo') {
 							alert('인적사항을 입력해 주세요');
 							return false;							
-						}else if(className == 'careerInfo'){						
+						}else if(className == 'careerInfo'){
+							if($('.careerInfoCheck').is(":checked") == true) continue; //경력사항없음 체크박스가 체크 되어 있을 시 건너뛴다.
 							alert('경력 정보를 입력해 주세요');
 							return false;
 						}else if(className == 'certificateInfo') {
+							if($('.certificateInfoCheck').is(":checked") == true) continue; //자격증정보없음 체크박스가 체크 되어 있을 시 건너뛴다.
 							alert('자격증정보를 입력해 주세요');
 							return false;
 						}else if(className == 'educationInfo') {
@@ -187,7 +214,10 @@
   				});
   				 
   				request.done(function( data ) {
- 
+  					if(data != 0) {
+  						alert('정상적으로 지원이 완료되었습니다.');
+  						location.href="/cyboardList"
+  					}
   				});
   				 
   				request.fail(function( jqXHR, textStatus ) {

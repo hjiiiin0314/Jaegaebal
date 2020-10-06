@@ -95,6 +95,7 @@ public class CodeAdminController {
 			return "redirect:/getEmpCodeList";
 		}
 		
+		//코드삭제
 		@GetMapping("/deleteEmpCode")
 		public String deleteMember(EmpCodeAdmin empCodeAdmin) {
 			if(empCodeAdmin.getEmpCode() != null && !"".equals(empCodeAdmin.getEmpCode())) {

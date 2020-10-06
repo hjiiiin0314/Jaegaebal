@@ -76,8 +76,8 @@
 				 		<tr>				 			
 				 			<th>휴일코드</th>
 				 			<th>사업장</th>
-				 			<th>시작일</th>
 				 			<th>휴일명</th>
+				 			<th>시작일</th>
 				 			<th>종료일</th>
 				 			<th>등록자</th>
 				 			<th>등록일</th>
@@ -89,8 +89,8 @@
 				 		<tr th:each="l : ${holiCodeList}">
 				 			<td th:text="${l.hdCode}"></td>
 				 			<td th:text="${l.companyCode}"></td>				
-				 			<td th:text="${l.hdStartDay}"></td>
 				 			<td th:text="${l.hdName}"></td>
+				 			<td th:text="${l.hdStartDay}"></td>
 				 			<td th:text="${l.hdEndDay}"></td>
 				 			<td th:text="${l.regStaffName}"></td>
 				 			<td th:text="${l.hdRegDate}"></td>
@@ -155,7 +155,7 @@
                 var hdCode = td.eq(0).text(); //근무형태코드
                
                 //텍스트형식으로 hdCode에 담아서 주소로 보내기
-                location.href="/deleteHdCode?HdCode="+docCode;
+                location.href="/deleteHdCode?HdCode="+hdCode;
 				})
                 
 

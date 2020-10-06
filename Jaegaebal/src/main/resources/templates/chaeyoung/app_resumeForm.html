@@ -102,6 +102,11 @@
                                 <div class="tab-content formCheck">
                                     <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
 										<form action="/addInfo" method="post" name="basicInfo" class="basicInfo">
+										<th:block th:with="cy = ${chaeYoungApplicant}">
+											<input type="hidden" th:value=${cy.appNumCode} name="appNumCode">
+											<input type="hidden" th:value=${cy.appEmail} name="appEmail">
+											<input type="hidden" th:value=${cy.jobNumber} name="jobNumber">
+										</th:block>
 											<table class="mb-12 table table-bordered">
 												<colgroup>
 													<col width = "12%">
@@ -141,7 +146,7 @@
 														<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input"> 외국인</label>
 													<td class="t_head2">국적</td>
 													<td>
-														<input type="text" name="staffCountry" class="form-control" disabled="disabled" value="해당사항없음">
+														<input type="text" name="staffCountry" class="form-control" disabled="disabled" value="대한민국">
 													</td>
 												</tr> 
 												<tr>													
@@ -172,83 +177,96 @@
                                     
             						<div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
 										<form class="careerInfo" action="/addInfo" method="post">
-											<table class="mb-12 table table-bordered">
+											<div class="position-relative form-group">
+                                                <div>
+                                                    <div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox" id="exampleCustomInline" class="custom-control-input careerInfoCheck">
+                                                    	<label class="custom-control-label" for="exampleCustomInline">경력사항없음</label>
+                                      				</div>                                              
+                                                </div>
+                                            </div>
+											<table class="mb-12 table table-bordered careerInfoTable">
 												<tr>
 													<td class="t_head2">직장명</td>
 													<td >
-														<input type="text" name="companyName" class="form-control" value="김">
+														<input type="text" name="companyName" class="form-control">
 													</td>
 													<td class="t_head2">직위</td>
 													<td >
-														<input type="text" name="companyAccess" class="form-control" value="김">
+														<input type="text" name="companyAccess" class="form-control">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">직책</td>
 													<td>
-														<input type="text" name="companyPositionFromOut" class="form-control" value="김">
+														<input type="text" name="companyPositionFromOut" class="form-control">
 													</td>
 													<td class="t_head2">담당업무</td>
 													<td>
-														<input type="text" name="companyWorkFormOut" class="form-control" value="김">
+														<input type="text" name="companyWorkFormOut" class="form-control">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">입사일자</td>
 													<td>
-														<input type="date" name="companyInDateFromOut" class="form-control" value="2020-09-09">
+														<input type="date" name="companyInDateFromOut" class="form-control">
 													</td>
 													<td class="t_head2">퇴사일자</td>
 													<td>
-														<input type="date" name="companyOutDateFromOut" class="form-control" value="2020-09-09">
+														<input type="date" name="companyOutDateFromOut" class="form-control">
 													</td>
 												</tr>	
 												<tr>
 													<td class="t_head2">퇴직사유</td>
-													<td>
-														<textarea name="companyOutReason" class="form-control" >123</textarea>
+													<td colspan="3">
+														<textarea name="companyOutReason" class="form-control"></textarea>
 													</td>
 												</tr> 												
 												<tr>
 													<td colspan="8">
-														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addTest"><i class="pe-7s-add-user"></i>입력</button></div>
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addTest"><i class="pe-7s-add-user"></i>미구현</button></div>
 													</td>
 												</tr>
 											</table>
 				                         </form>                              
                                      </div>
                                      <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
-										<form class="certificateInfo" action="/addInfo" method="post">
-											<table class="mb-12 table table-bordered">
+										<form class="certificateInfo">
+										    <div class="position-relative form-group">
+                                                <div class="custom-checkbox custom-control">
+                                                	<input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input certificateInfoCheck">
+                                                	<label class="custom-control-label" for="exampleCustomCheckbox">자격증사항없음</label>
+                                               </div>                                            
+                                            </div>
+											<table class="mb-12 table table-bordered certificateInfoTable">
 												<tr>
 													<td class="t_head2">자격증명</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="text" name="certificateName" class="form-control">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">발급기관</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="issuingAgency" class="form-control">
 													</td>
 													<td class="t_head2">자격번호</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="certificateNum" class="form-control">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">취득일</td>
 													<td>
-														<input type="date" name="staff_phone1" class="form-control" value="2020-09-09">
+														<input type="date" name="getDate" class="form-control">
 													</td>
 													<td class="t_head2">만료일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="date" name="finishedDate" class="form-control">
 													</td>
 												</tr> 												
 												<tr>
 													<td colspan="8">
-														<div class="addDiv"><button class="font-icon-wrapper btn btn-light "><i class="pe-7s-add-user"></i>경력추가</button></div>
+														<div class="addDiv"><button class="font-icon-wrapper btn btn-light "><i class="pe-7s-add-user"></i>미구현</button></div>
 													</td>
 												</tr>
 
@@ -261,37 +279,37 @@
 												<tr>
 													<td class="t_head2">학교명</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="text" name="schoolName" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">전공</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09" >
+														<input type="text" name="majorName" class="form-control" value="2020-09-09" >
 													</td>
 													<td class="t_head2">부전공</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="minorName" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>												
 													<td class="t_head2">학위</td>
 													<td>
-														<input type="text" name="staff_phone1" class="form-control" value="2020-09-09">
+														<input type="text" name="degree" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">상태</td>
 													<td>
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="text" name="hakryuckStatus" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입학일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="date" name="entranceDate" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">졸업일</td>
 													<td>
-														<input type="date" name="staff_eng_name" class="form-control" value="2020-09-09">
+														<input type="date" name="graduatDate" class="form-control" value="2020-09-09">
 													</td>												
 												</tr>
 											</table>
@@ -302,36 +320,42 @@
 										<form class="militaryInfo" action="/addInfo" method="post">
 											<table class="mb-12 table table-bordered">
 												<tr>
-													<td class="t_head2">군종</td>
+													<td class="t_head2">병역구분</td>
 													<td colspan="5">
-														<input type="text" name="staff_eng_name" class="form-control" value="2020-09-09">
+													
+														<input type="text" name="militaryClassidx" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
-													<td class="t_head2">상태</td>
+													<td class="t_head2">군별</td>
+													<td colspan="5">
+														<input type="text" name="militaryServiceType" class="form-control" value="2020-09-09">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">전역상태</td>
 													<td >
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="militaryState" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">계급</td>
 													<td>
-														<input type="text" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="text" name="militaryLevel" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입대일자</td>
 													<td >
-														<input type="date" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="date" name="militaryInDay" class="form-control" value="2020-09-09">
 													</td>
 													<td class="t_head2">전역일자</td>
 													<td>
-														<input type="date" name="staff_country" class="form-control" value="2020-09-09">
+														<input type="date" name="militaryOutDay" class="form-control" value="2020-09-09">
 													</td>
 												</tr> 												
 											</table>
 										</form>
 		                              <div class="d-block card-footer addDiv">
-		                                 <button type="button" id="InfoStorage">임시저장</button>
-		                                 <button type="button">등록하기</button>
+		                                 <button class="mb-2 mr-2 btn btn-primary btn-sm btn-block" type="button" id="InfoStorage">등록하기</button>
 		                              </div>
                                     </div>                                                                                                            
                                 </div>                                             

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
+import kr.or.jaegaebal.dto.ChaeYoungInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.mapper.ChaeYoungMapper;
 
@@ -87,10 +88,21 @@ public class ChaeYoungService {
 		}	
 		return result;
 	};
-	
+	//지원자 이력서 등록
+	public int addAppInfo(ChaeYoungInfo chaeYoungInfo) {
+		int result = 0;
+		
+		result += chaeYoungMapper.addBasicInfo(chaeYoungInfo);
+		
+		if(result > 0) {
+			chaeYoungMapper.appFinalStateUpdate(chaeYoungInfo.getAppEmail());
+		}
+		return result;
+	}
 	//지원자 정보 삭제
 	public int deleteApplicant(String appEmail) {
 		
 		return chaeYoungMapper.deleteApplicant(appEmail);
 	};
+	
 }
