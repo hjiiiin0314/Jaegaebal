@@ -89,7 +89,7 @@
 		             	<textarea  id="docComent" class="form-control" th:text="${d.docComent}" readonly="readonly"></textarea>
 		             </div>
 		             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
-		              	<input  id="docFile" type="file" class="form-control-file" th:text="${d.docFile}">
+		              	<input  id="docFile" type="file" class="form-control-file" th:value="${d.docFile}">
 		             </div>
 		             <div class="position-relative form-group"> <label for="appSecurity" class="">보안처리</label>
 		               	<input type="checkbox" th:checked="${d.appSecurity eq '보안'}">
