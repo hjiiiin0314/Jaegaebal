@@ -131,10 +131,6 @@
 			}
 		});
 		
-		//징계리스트 - 추가 버튼 클릭시
-/*		$('#insertPnshList').click(function(){
-			$('#insertPnshListModal').modal();
-		});*/
 		
 		//징계리스트 - 직원 검색 버튼 클릭시
 		$('#staffInfoSearchBtn').click(function(){
@@ -152,8 +148,12 @@
 					dataType : "json"
 				});	
 				request.done(function(data){
-					for(var i=0; i<data.length; i++){
-						$('#insertStaffInfoTbody').append("<tr class='insertStaffInfoTr'><td>" + data[i].staffNum + "</td><td>" + data[i].staffName + "</td><td>" + data[i].jojicName + "</td><td>" + data[i].levelName + "</td></tr>");
+					if(data.toString() != null && data.toString() != ''){
+						for(var i=0; i<data.length; i++){
+							$('#insertStaffInfoTbody').append("<tr class='insertStaffInfoTr'><td>" + data[i].staffNum + "</td><td>" + data[i].staffName + "</td><td>" + data[i].jojicName + "</td><td>" + data[i].levelName + "</td></tr>");
+						}
+					}else{
+						$('#insertStaffInfoTbody').append("<tr class='insertStaffInfoTr'><td colspan='4'>검색어에 해당하는 직원 자료가 없습니다.</td></tr>");
 					}
 				});
 				request.fail(function( jqXHR, textStatus ) {
@@ -162,13 +162,100 @@
 			}
 		});
 		
-		//징계리스트 - 검색 후 tr 목록 선택시
-		$('#insertStaffInfoTbody tr').click(function(){
-			alert("000220");
-			$('#insertPnshListModal2').modal("hide");
+		//징계리스트 - 추가 버튼 클릭시 - 징계명에 옵션값 삽입하기
+		$('#insertPnshList').click(function(){
+			var str = "";
+			var request = $.ajax({
+				url : "/getPnshInfo",
+				method : "POST",
+				data : { str  : str },
+				dataType : "json"
+			});
+			request.done(function(data){
+				console.log(data);
+				for(var i=0; i<data.length; i++){
+					$('#pnshNameSelect').append("<option>"+ data[i].punishmentName +"</option>");					
+				}
+			});		
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});				
 		});
 		
+		//징계리스트 - 추가 버튼 클릭 - 징계명 클릭시 - 점수 삽입하기
+		$('#pnshNameSelect').change(function(){
+			var pnshNameSelect = $('#pnshNameSelect').val();
+			var request = $.ajax({
+				url : "/getPnshInfo",
+				method : "POST",
+				data : { pnshNameSelect  : pnshNameSelect },
+				dataType : "json"
+			});
+			request.done(function(data){
+				if(data != null){
+					$('input[name=punishmentPoint]').val(data[0].punishmentPoint);
+				} else {
+					$('input[name=punishmentPoint]').val('');
+				}
+			});		
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});			
+		});
 		
+    	//징계리스트 - 추가하기 클릭시 - 필수입력값 유효성 검사
+    	$(document).on('click', '#insertPnshListBtn', function(){
+    		var haveToWriteVals = $('.haveToWriteVals');
+    		
+    		for(var i=0; i<haveToWriteVals.length; i++){
+    			var val = haveToWriteVals[i];
+    			
+    			if(haveToWriteVals[i].value != null && (haveToWriteVals[i].value) != ''){
+    				if($(val).hasClass('invalid')){    					
+    					$(val).removeClass('invalid');
+    				}
+    				val.className += " valid";
+    			}else{
+    				if($(val).hasClass('valid')){ 
+    					$(val).removeClass('valid');
+    				}
+    				val.className += " invalid";
+    			}
+    			
+    		}
+    		if($(haveToWriteVals).hasClass('invalid')){
+    			alert("필수 입력값을 입력해주세요.");
+    			false;
+    		}else{
+    			haveToWriteVals.find('.form-control').each(function(){
+					$(this).filter("[value='null']").val("");
+    			});
+    			$('#insertPnshListForm').submit();
+    			//var insertPnshListForm = document.getElementById('insertPnshListForm');
+    			//console.log("insertPnshListForm>>", insertPnshListForm);
+    			//$(insertPnshListForm).submit();
+    		}
+    	});		
+		
+		//징계리스트 - 검색 후 tr 목록 선택시
+		$(document).on('click', '.insertStaffInfoTr', function(){
+			var punishmentNum 	= $(this).children('td').eq(0).text();
+			var staffNum	 	= $(this).children('td').eq(1).text();
+			if(punishmentNum != null){
+				$('#insertStaffNum').val(punishmentNum);
+			} else {
+				$('#insertStaffNum').val('');
+			}
+			if(staffNum != null){
+				$('#insertStaffName').val(staffNum);
+			} else {
+				$('#insertStaffName').val('');
+			}
+			var insertPnshListModal2 = document.getElementById('insertPnshListModal2'); //모달 찾기
+			$(insertPnshListModal2).modal('hide');										//모달 숨기기
+		});
+		
+		//징계리스트 - 직원 리스트 클릭시 오른쪽 상세정보 변경
 		$('.pnshListTr').click(function(){
 			var punishmentNum 	= $(this).children('td').eq(0).text();
 			var staffNum	 	= $(this).children('td').eq(1).text();
@@ -506,23 +593,8 @@
 			
 			$('#insertform').submit();
     	});
-/*    	//징계리스트 - 검색어 선택시, name value 변경
-    	$(document).on('click', '#searchObjectBtn', function(){
-    		var searchObject = $('#searchObject');
-    		$('#staff_phone_val').attr("value", staffPhone);
-    		console.log($('#staff_phone_val').attr("name"));
-    		
-    		var familyPhone = $('.family_phone_val').addHyphen();
-    		$('#family_phone_val').attr("value", familyPhone);
-    		console.log($('#family_phone_val').attr("name"));
-    		
-    		var humanNum = $('.human_num').addHyphen();
-    		$('#humanNum').attr("value", humanNum);
-    		console.log($('#humanNum').attr("name"));
-    		
-    		$('#insertform').submit();
-    	});*/
     	
+    	//직원 등록 - 등록하기 클릭시 - 필수입력값 유효성 검사
     	$(document).on('click', '#insertStaff', function(){
     		var haveToWriteVals = $('.haveToWriteVals');
     		
@@ -550,65 +622,6 @@
 					$(this).filter("[value='null']").val("");
     			});
     			$('#insertform').submit();
-    			//폼 전체값 읽어와서 객체에 넣기
-    			
-/*    			var insertStaffVals = $('#insertform');
-    			//테이블
-    			var staffInfo				= $('#staffInfo');
-    			var isStaffBasicInfo		= $('.is_staff_basic_info');
-    			var isStaffFamilyInfo 		= $('.is_staff_family_info');
-    			var isCareerInfoFromIn		= $('.is_career_info_from_in');
-    			var isCareerInfoFromOut		= $('.is_career_info_from_out');
-    			var isCertificateInfo		= $('.is_certificate_info');
-    			var isEducationInfo			= $('.is_education_info');
-    			var isBalryoungInfo			= $('.is_balryoung_info'); 
-    			var isMilitaryInfo			= $('.is_military_info'); 
-    			
-    			var staffInfoVal			= [];
-    			
-    			staffInfo.find('.haveToWriteVals').each(function(){
-    				console.log("$(this).val()", $(this).val());
-   				if(staffInfo.find('.staffInfoNotes').val() == null || staffInfo.find('.staffInfoNotes').val() == ''){
-    					staffInfoVal.push($(this).text(""));
-    				}else{
-    					staffInfoVal.push($(this).val());
-    				}
-    				staffInfoVal.push($(this).val());
-    				
-    			});
-    			staffInfoVal.push(staffInfo.find('.staffInfoNotes').val());
-    			console.log("staffInfoVal", staffInfoVal);
-    			
-        		var request = $.ajax({
-        			url: "/insertStaffInfoAll",
-        			method: "POST",
-        			data: {  staffInfoVal : staffInfoVal	},
-        			dataType: "json"
-        		});
-        		request.done(function( data ) {
-        			if(data == null){
-        				
-        				alert("ajax호출 성공");
-        			}
-        		});
-        		request.fail(function( jqXHR, textStatus ) {
-        			alert("/insertStaffInfoAll 응답 실패");
-        		});*/
-/*    			var staffInfoNotes			= staffInfo.children('input[name="notes"]').val();
-    			var isStaffBasicInfoNotes	= isStaffBasicInfo.children('input[name="notes"]').val();
-    			var isStaffFamilyInfoNotes	= isStaffFamilyInfo.children('input[name="notes"]').val();
-    			var isCareerInfoFromInNotes	= isCareerInfoFromIn.children('input[name="notes"]').val();
-    			var isCareerInfoFromOutNotes= isCareerInfoFromOut.children('input[name="notes"]').val();
-    			var isCertificateInfoNotes	= isCertificateInfo.children('input[name="notes"]').val();
-    			var isEducationInfoNotes	= isEducationInfo.children('input[name="notes"]').val();
-    			var isBalryoungInfoNotes	= isBalryoungInfo.children('input[name="notes"]').val();
-    			var isMilitaryInfoNotes		= isMilitaryInfo.children('input[name="notes"]').val();*/
-
-    			//console.log("tbIsStaffFamilyInfo>>", tbIsStaffFamilyInfo);
-    			
-    			//console.log("insertStaffVals>>>>", insertStaffVals, "<<<<<");
-    			//$('#insertform').submit();
-
     		}
     	});
     	

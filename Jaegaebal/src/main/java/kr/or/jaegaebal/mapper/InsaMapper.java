@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.or.jaegaebal.dto.Code;
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.Punishment;
 import kr.or.jaegaebal.dto.StaffInfo;
 
 
@@ -55,6 +56,10 @@ public interface InsaMapper {
 	public int insertBuseoName(String insertBuseoName);
 	//조직도 - 팀 추가 생성하기
 	public int insertTeamName(String modalSosocVal, String insertTeamName);
+	//조직 활성상태로 수정하기
+	public int changeJojicStatus1(List<String> jojicName);
+	//조직 비활성 상태로 수정하기
+	public int changeJojicStatus0(List<String> jojicName);
 	
 	//권한 레벨, 명 가져오기 
 	public List<Code> getAccessInfo();
@@ -70,11 +75,6 @@ public interface InsaMapper {
 	
 	//사번 생성 후 가져오기
 	//public String makeStaffNum();
-	
-	//활성상태로 수정하기
-	public int changeJojicStatus1(List<String> jojicName);
-	//비활성 상태로 수정하기
-	public int changeJojicStatus0(List<String> jojicName);
 	
 	//회원가입(필수 정보 입력)
 	public int insertToIsStaffInfo(StaffInfo staffInfo);
@@ -103,4 +103,10 @@ public interface InsaMapper {
 	public List<Map<String, Object>> getPnshList(Map<String, Object> parameterMap);
 	//징계 리스트의 전체 행 갯수
 	public int getPnshListCount(Map<String, Object> map);
+	//징계리스트 - 징계리스트 추가 - 징계명 클릭시  / 징계 정보 가져오기 
+	public List<Punishment> getPnshInfo();
+	//징계리스트 - 추가 버튼 클릭 - 징계명 클릭시 - 점수 삽입하기
+	public List<Punishment> getPnshInfo(String pnshNameSelect);
+	//징계리스트 추가하기
+	public int insertPnshList(Punishment insertPnshListInfo);
 }

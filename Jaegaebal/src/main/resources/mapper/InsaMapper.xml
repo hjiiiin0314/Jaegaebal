@@ -218,11 +218,14 @@
 		AND sf.staff_num 			= sbif.staff_num
 		AND sf.staff_status_code 	= jaejic.jaejic_status_code		
 		<where>
-			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString()">
-				And ${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+			<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString() and map.sk neq 'staff_num'.toString()">
+				${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+				ORDER BY 			sf.staff_num
+	 		</if>
+			<if test="map.sk neq null and map.sk eq 'staff_num'.toString() and map.sv neq ''.toString()">
+				AND sf.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
 	 		</if>
 		</where>
-		ORDER BY 			sf.staff_num
 		<if test="startRow neq null and startRow neq ''.toString() and rowPerPage neq null and rowPerPage neq ''.toString()">
 			LIMIT 	#{startRow}, #{rowPerPage};
 		</if>
@@ -1069,41 +1072,6 @@
 	 		</if>
 		</where>
 		LIMIT 	0, 15;	
-<!-- 		SELECT 
-				  pl.punishment_num
-				, pl.staff_num
-				, s.staff_name
-				, pl.punishment_code
-				, p.punishment_name
-				, pl.given_date
-				, pl.punishment_reason
-				, pl.punishment_price
-				, pl.salary_applied_date
-				, pl.punishment_notes
-				, pl.reg_staff_name
-				, p.punishment_val
-				<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
-					, SUM(p.punishment_point) AS totalPnsmtPoint
-	 			</if>
-		 		, SUM(p.punishment_point) AS totalPnsmtPoint 
-		FROM 	is_punishment_list 	AS pl
-				INNER JOIN
-				is_punishment			AS p
-				on
-				pl.punishment_code = p.punishment_code
-				INNER JOIN
-				is_staff					AS s
-				on
-				s.staff_num = pl.staff_num	
-		<where>
-			<if test="map.punishmentNum neq null and map.punishmentNum neq ''.toString()">
-				pl.punishment_num LIKE CONCAT('%',#{map.punishmentNum},'%')
-				pl.punishment_num = #{map.punishmentNum}
-				GROUP BY pl.staff_num
-	 		</if>
-		
-		</where>
-		LIMIT 	#{startRow}, #{rowPerPage}; -->
 	</select>
 	
 	<!-- 징계리스트 & 페이징 & 검색어의 전체 행 갯수 -->
@@ -1121,4 +1089,57 @@
 				s.staff_num = pl.staff_num	
 
 	</select>
+	
+	<!-- 징계리스트 - 추가 버튼 클릭시 - 징계명에 옵션값 삽입하기 & 징계명 클릭시 - 점수 삽입하기  -->
+	<select id="getPnshInfo" parameterType="String" resultMap="PunishmentResultMap">
+		SELECT 
+				  punishment_code
+				, punishment_name
+				, punishment_val
+				, punishment_point
+		
+		FROM 	  is_punishment
+		<where>
+			<if test="punishmentName neq null and punishmentName neq ''.toString()">
+				punishment_name = #{punishmentName}
+	 		</if>
+		</where>		
+	</select>
+	
+	<!-- 징계리스트 추가하기 -->
+	<insert id="insertPnshList" parameterType="Punishment">
+		<selectKey keyProperty="punishmentNum,punishmentCode" resultType="Punishment" order="BEFORE" >
+			SELECT 
+					 (SELECT MAX(l.punishment_num) + 1 FROM is_punishment_list AS l) 
+					 	AS punishmentNum
+					,(SELECT p.punishment_code FROM is_punishment AS p WHERE p.punishment_name = #{punishmentName} GROUP BY p.punishment_code) 
+						AS punishmentCode
+		</selectKey>	
+		INSERT INTO 
+				is_punishment_list
+					( punishment_num
+					, staff_num
+					, punishment_code
+					, given_date
+					, punishment_reason
+					, punishment_price
+					, salary_applied_date
+					, punishment_notes
+					, reg_staff_name
+					, reg_date
+					)
+		VALUES 
+					( #{punishmentNum}
+					, #{staffNum}
+					, #{punishmentCode}
+					, #{givenDate}
+					, #{punishmentReason}
+					, #{punishmentPrice}
+					, #{salaryAppliedDate}
+					, #{punishmentNotes}
+					, '이은혜'
+					, NOW()
+					)
+	</insert>	
+	
 </mapper>	

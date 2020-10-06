@@ -12,6 +12,7 @@
    </th:block>
    
    <th:block layout:fragment="customJs">
+   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script type="text/javascript" th:src="@{/assets/scripts/insa.js}"></script>
 	</th:block>
    
@@ -102,59 +103,59 @@
 															<div class="scrollbar-container">
 																<div class="row col-md-12 p-r-none m-r-none">
 																	<div class="row col-md-12 p-r-none" style="background-color : white;">
-															  			<table class="mb-0 table table-bordered m-b-sm m-t-none">
-																            <tr>
-																            	<td class="t_head">사원번호
-																            	</td>
-																            	<td>
-																            		<input type="text" name="staff_num" class="form-control" id="insertStaffNum" readonly>
-																            	</td>
-																            	<td class="t_head">이름</td>
-																            	<td>
-																            		<input type="text" name="staff_name" class="form-control" id="insertStaffName" readonly>
-																            	</td>									            	
-																            </tr>
-																            <tr>	
-																            	<td class="t_head">징계명</td>
-																            	<td>
-															                     	<select id="" class="custom-select" name="">
-															                     		<option value="staff_num">사원번호</option>
-															                     		<option value="staff_name">이름</option>
-															                     		<option value="jojic_name">부서명</option>
-															                     	</select>
-																            	</td>									            	
-																            	<td class="t_head">징계사유</td>
-																            	<td>
-																            		<input type="text" name="punishment_reason" class="form-control" >
-																            	</td>									            	
-																            </tr>
-																            <tr>									            
-																            	<td class="t_head">점수</td>
-																            	<td>
-																            		<input type="text" name="punishment_point" class="form-control" id="insertPunishmentPoint" readonly>
-																            	</td>									            								            	
-																            	<td class="t_head">징계일</td>
-																            	<td>
-																            		<input type="date" name="given_date" class="form-control">
-																            	</td>									            	
-																            </tr>
-																            <tr>									            	
-																            	<td class="t_head">징계금액</td>
-																            	<td>
-																            		<input type="text" name="punishment_price" class="form-control">
-																            	</td>									            	
-																            	<td class="t_head">급여반영일</td>
-																            	<td>
-																            		<input type="text" name="salary_applied_date" class="form-control">
-																            	</td>									            	
-																            </tr>
-																            <tr>									            	
-																            	<td class="t_head">비고</td>
-																            	<td colspan="3">
-																            		<textarea rows="" cols="" name="punishment_notes" class="form-control"></textarea>
-																            	</td>									            	
-																            </tr>
-															     		</table>
+																		<form id="insertPnshListForm" method="post" action="/insa/insertPnshList">
+																  			<table class="mb-0 table table-bordered m-b-sm m-t-none">
+																	            <tr>
+																	            	<td class="t_head">사원번호
+																	            	</td>
+																	            	<td>
+																	            		<input type="text" name="staffNum" class="form-control haveToWriteVals" id="insertStaffNum" readonly>
+																	            	</td>
+																	            	<td class="t_head">이름</td>
+																	            	<td>
+																	            		<input type="text" name="staffName" class="form-control haveToWriteVals" id="insertStaffName" readonly>
+																	            	</td>									            	
+																	            </tr>
+																	            <tr>	
+																	            	<td class="t_head">징계명</td>
+																	            	<td>
+																                     	<select id="pnshNameSelect" class="custom-select haveToWriteVals" name="punishmentName">
+																                     		<option selected="selected" disabled="disabled" value="">징계명</option>
+																                     	</select>
+																	            	</td>			            	
+																	            	<td class="t_head">점수</td>
+																	            	<td>
+																	            		<input type="text" name="punishmentPoint" class="form-control haveToWriteVals" id="insertPunishmentPoint" readonly>
+																	            	</td>									            								            	
+																	            </tr>
+																	            <tr>									            
+																	            	<td class="t_head">징계일</td>
+																	            	<td>
+																	            		<input type="date" name="givenDate" class="form-control haveToWriteVals">
+																	            	</td>									            	
+																	            	<td class="t_head">급여반영일</td>
+																	            	<td>
+																	            		<input type="date" name="salaryAppliedDate" class="form-control haveToWriteVals">
+																	            	</td>									            	
+																	            </tr>
+																	            <tr>									            	
+																	            	<td class="t_head">징계금액</td>
+																	            	<td colspan="3">
+																	            		<input type="text" name="punishmentPrice" class="form-control">
+																	            	</td>									            	
+																	            </tr>
+																	            <tr>									            	
+																	            	<td class="t_head">징계사유</td>
+																	            	<td>
+																	            		<textarea rows="" cols="" name="punishmentReason" class="form-control haveToWriteVals"></textarea>
+																	            	</td>									            	
+																	            	<td class="t_head">비고</td>
+																	            	<td>
+																	            		<textarea rows="" cols="" name="punishmentNotes" class="form-control"></textarea>
+																	            	</td>									            	
+																	            </tr>
+																     		</table>
+																		</form>
 																	</div>																	
 																</div>
 															</div>								
@@ -165,7 +166,7 @@
 							            </div>
 							            <div class="modal-footer">
 							                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-							                <button type="button" class="btn btn-primary" id="insertBuseoModalBtn">추가 하기</button>
+							                <button type="button" class="btn btn-primary" id="insertPnshListBtn">추가 하기</button>
 							            </div>
 							        </div>
 							    </div>
