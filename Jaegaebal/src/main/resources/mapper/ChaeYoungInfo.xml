@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.jaegaebal.mapper.ChaeYoungMapper">
+	<resultMap type="ChaeYoungInfo" id="ChaeYoungInfoResultMap">
+		
+	<!-- 공통사항 -->
+	<result column="app_num_code"				property="appNumCode"/>
+	<result column="job_number"					property="jobNumber"/>
+	<result column="app_email"					property="appEmail"/>
+	<result column="reg_date"					property="regDate"/>
+	
+	<!-- 기본인적사항 -->
+	<result column="staff_eng_name"				property="staffEngName"/>
+	<result column="human_num"					property="humanNum"/>
+	<result column="staff_gender"				property="staffGender"/>
+	<result column="staff_nationality"			property="staffNationality"/>
+	<result column="staff_country"				property="staffCountry"/>
+	<result column="staff_phone"				property="staffPhone"/>
+	<result column="staff_email"				property="staffEmail"/>
+	<result column="staff_marriged"				property="staffMarriged"/>
+	<result column="staff_addr"					property="staffAddr"/>
+	
+	<!-- 경력사항 -->
+	<result column="career_info_code"			property="careerInfoCode"/>
+	<result column="company_name"				property="companyName"/>
+	<result column="company_access"				property="companyAccess"/>
+	<result column="company_position_from_out"	property="companyPositionFromOut"/>
+	<result column="company_work_form_out"		property="companyWorkFormOut"/>
+	<result column="company_in_date_from_out"	property="companyInDateFromOut"/>
+	<result column="company_out_date_from_out"	property="companyOutDateFromOut"/>
+	<result column="company_out_reason"			property="companyOutReason"/>
+	
+	<!-- 자격증사항 -->
+	<result column="certificate_info_code"		property="certificateInfoCode"/>
+	<result column="certificate_name"			property="certificateName"/>
+	<result column="issuing_agency"				property="issuingAgency"/>
+	<result column="certificate_num"			property="certificateNum"/>
+	<result column="get_date"					property="getDate"/>
+	<result column="finished_date"				property="finishedDate"/>
+	
+	<!-- 학력사항 -->
+	<result column="education_info_code"		property="educationInfoCode"/>
+	<result column="school_name"				property="schoolName"/>
+	<result column="hakryuck_status"			property="hakryuckStatus"/>
+	<result column="major_name"					property="majorName"/>
+	<result column="minor_name"					property="minorName"/>
+	<result column="entrance_date"				property="entranceDate"/>
+	<result column="graduat_date"				property="graduatDate"/>
+	<result column="degree"						property="degree"/>
+	
+	<!-- 병역사항 -->
+	<result column="military_info_code"			property="militaryInfoCode"/>
+	<result column="military_classidx"			property="militaryClassidx"/>
+	<result column="military_service_type"		property="militaryServiceType"/>
+	<result column="military_state"				property="militaryState"/>
+	<result column="military_in_day"			property="militaryInDay"/>
+	<result column="military_out_day"			property="militaryOutDay"/>
+	<result column="military_level"				property="militaryLevel"/>
+	<result column="military_info_notes"		property="militaryInfoNotes"/>
+
+	</resultMap>
+</mapper>
