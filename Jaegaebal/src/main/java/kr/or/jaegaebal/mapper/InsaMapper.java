@@ -109,4 +109,8 @@ public interface InsaMapper {
 	public List<Punishment> getPnshInfo(String pnshNameSelect);
 	//징계리스트 추가하기
 	public int insertPnshList(Punishment insertPnshListInfo);
+	//징계리스트 수정하기
+	public int modifyPnshListInfo(Punishment modifyPnshListInfo);	
+	//징계리스트 삭제하기
+	public int deletePnshListInfo(String punishmentNum);
 }

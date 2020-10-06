@@ -501,9 +501,12 @@
 	                                    <div class="tab-pane" id="isMilitaryInfo" role="tabpanel">
 											<table class="mb-12 table table-bordered forms is_military_info">
 												<tr>
-													<td class="t_head2" >군종</td>
+													<td class="t_head2" >군별 선택</td>
 													<td colspan="5">
-														<input type="text" name="militaryServiceType" class="form-control staffDetailInfo">
+														<select name="militaryServiceType" class="form-control staffDetailInfo">
+															 <option value="" selected="selected" disabled="disabled"></option>
+							                                <option value="육군">육군</option><option value="해군">해군</option><option value="공군">공군</option><option value="의경">의경</option><option value="공익">공익</option><option value="전문연구요원">전문연구요원</option><option value="산업기능요원">산업기능요원</option><option value="기타">기타</option>
+							                            </select>														
 													</td>
 												</tr> 
 												<tr>
@@ -513,7 +516,10 @@
 													</td>
 													<td class="t_head2">계급</td>
 													<td>
-														<input type="text" name="militaryLevel" class="form-control staffDetailInfo">
+														<select name="militaryLevel" class="form-control staffDetailInfo">
+							                                <option value="" selected="selected" disabled="disabled"></option>
+							                                <option value="이병">이병</option><option value="일병">일병</option><option value="상병">상병</option><option value="병장">병장</option><option value="하사">하사</option><option value="중사">중사</option><option value="상사">상사</option><option value="준위">준위</option><option value="소위">소위</option><option value="중위">중위</option><option value="대위">대위</option><option value="소령">소령</option><option value="중령">중령</option><option value="대령">대령</option><option value="준장">준장</option><option value="소장">소장</option><option value="중장">중장</option><option value="대장">대장</option>
+							                            </select>														
 													</td>
 												</tr> 
 												<tr>
