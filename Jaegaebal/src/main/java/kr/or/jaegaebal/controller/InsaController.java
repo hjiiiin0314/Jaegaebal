@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.Punishment;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.InsaMapper;
 import kr.or.jaegaebal.service.InsaService;
@@ -363,5 +364,30 @@ public class InsaController {
 		List<StaffInfo> staffInfo = insaMapper.getStaffInfo(map);
 		log.info("staffInfo.toString()::::::::::{}",staffInfo.toString());
 		return staffInfo;
+	}
+	//징계리스트 - 추가 버튼 클릭시
+	@PostMapping(value = "/getPnshInfo", produces = "application/json")
+	@ResponseBody	
+	public List<Punishment> getPnshInfo(@RequestParam(value = "pnshNameSelect", required = false) String pnshNameSelect){
+		if(pnshNameSelect == null || pnshNameSelect.equals("")) {
+			List<Punishment> pnshInfo = insaMapper.getPnshInfo();
+			log.info("pnshInfo.toString()::::::::::{}", pnshInfo.toString());
+			return pnshInfo;
+		}else if(pnshNameSelect != null && !pnshNameSelect.equals("")){
+			List<Punishment> pnshInfo = insaMapper.getPnshInfo(pnshNameSelect);
+			return pnshInfo;
+		}
+		return null;
+	}
+	
+	//징계리스트 추가하기
+	@PostMapping("/insa/insertPnshList")
+	public String insertPnshList(Punishment insertPnshListInfo) {
+		log.info("insertPnshListInfo.toString():::>>>>>>{}", insertPnshListInfo.toString());
+		int result = insaService.insertPnshList(insertPnshListInfo);
+		if(result != 0) {
+			System.out.println("insertPnshList(Punishment insertPnshListInfo) 인썰트 성공!!!!!!!!!!!!!!!!!!!!!!!!!");
+		}
+		return "redirect:/insa/punishment";
 	}
 }

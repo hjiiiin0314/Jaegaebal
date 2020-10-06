@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.or.jaegaebal.dto.Code;
 import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.Punishment;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.InsaMapper;
 
@@ -342,4 +343,21 @@ public class InsaService {
 		
 		return resultMap;
 	}	
+	
+	//징계리스트 - 징계리스트 추가 - 징계명 클릭시  / 징계 정보 가져오기 
+	public List<Punishment> getPnshInfo(){
+		List<Punishment> pnshInfo = insaMapper.getPnshInfo();
+		return pnshInfo;
+	};
+	//징계리스트 - 추가 버튼 클릭 - 징계명 클릭시 - 점수 삽입하기
+	public List<Punishment> getPnshInfo(String pnshNameSelect){
+		List<Punishment> pnshInfo = insaMapper.getPnshInfo(pnshNameSelect);
+		return pnshInfo;
+	};
+	//징계리스트 추가하기
+	public int insertPnshList(Punishment insertPnshListInfo) {
+		int result = insaMapper.insertPnshList(insertPnshListInfo);
+		return result;
+	};
+	
 }

@@ -23,6 +23,188 @@ public class Punishment {
 	private String totalPnsmtPoint;			//누적점수
 	private String jojicName;				//소속명
 	
+	
+	
+	public String getPunishmentNum() {
+		return punishmentNum;
+	}
+
+
+
+	public void setPunishmentNum(String punishmentNum) {
+		this.punishmentNum = punishmentNum;
+	}
+
+
+
+	public String getStaffNum() {
+		return staffNum;
+	}
+
+
+
+	public void setStaffNum(String staffNum) {
+		this.staffNum = staffNum;
+	}
+
+
+
+	public String getPunishmentCode() {
+		return punishmentCode;
+	}
+
+
+
+	public void setPunishmentCode(String punishmentCode) {
+		this.punishmentCode = punishmentCode;
+	}
+
+
+
+	public String getPunishmentName() {
+		return punishmentName;
+	}
+
+
+
+	public void setPunishmentName(String punishmentName) {
+		this.punishmentName = punishmentName;
+	}
+
+
+
+	public String getGivenDate() {
+		return givenDate;
+	}
+
+
+
+	public void setGivenDate(String givenDate) {
+		this.givenDate = givenDate;
+	}
+
+
+
+	public String getPunishmentReason() {
+		return punishmentReason;
+	}
+
+
+
+	public void setPunishmentReason(String punishmentReason) {
+		this.punishmentReason = punishmentReason;
+	}
+
+
+
+	public String getPunishmentPrice() {
+		return punishmentPrice;
+	}
+
+
+
+	public void setPunishmentPrice(String punishmentPrice) {
+		this.punishmentPrice = punishmentPrice;
+	}
+
+
+
+	public String getStaffName() {
+		return staffName;
+	}
+
+
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+
+
+	public String getSalaryAppliedDate() {
+		return salaryAppliedDate;
+	}
+
+
+
+	public void setSalaryAppliedDate(String salaryAppliedDate) {
+		this.salaryAppliedDate = salaryAppliedDate;
+	}
+
+
+
+	public String getPunishmentNotes() {
+		return punishmentNotes;
+	}
+
+
+
+	public void setPunishmentNotes(String punishmentNotes) {
+		this.punishmentNotes = punishmentNotes;
+	}
+
+
+
+	public String getRegStaffName() {
+		return regStaffName;
+	}
+
+
+
+	public void setRegStaffName(String regStaffName) {
+		this.regStaffName = regStaffName;
+	}
+
+
+
+	public String getPunishmentPoint() {
+		return punishmentPoint;
+	}
+
+
+
+	public void setPunishmentPoint(String punishmentPoint) {
+		this.punishmentPoint = punishmentPoint;
+	}
+
+
+
+	public String getPunishmentVal() {
+		return punishmentVal;
+	}
+
+
+
+	public void setPunishmentVal(String punishmentVal) {
+		this.punishmentVal = punishmentVal;
+	}
+
+
+
+	public String getTotalPnsmtPoint() {
+		return totalPnsmtPoint;
+	}
+
+
+
+	public void setTotalPnsmtPoint(String totalPnsmtPoint) {
+		this.totalPnsmtPoint = totalPnsmtPoint;
+	}
+
+
+
+	public String getJojicName() {
+		return jojicName;
+	}
+
+
+
+	public void setJojicName(String jojicName) {
+		this.jojicName = jojicName;
+	}
+
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -59,100 +241,4 @@ public class Punishment {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	public String getJojicName() {
-		return jojicName;
-	}
-
-	public void setJojicName(String jojicName) {
-		this.jojicName = jojicName;
-	}
-
-	public String getTotalPnsmtPoint() {
-		return totalPnsmtPoint;
-	}
-
-	public void setTotalPnsmtPoint(String totalPnsmtPoint) {
-		this.totalPnsmtPoint = totalPnsmtPoint;
-	}
-
-	public String getPunishmentNum() {
-		return punishmentNum;
-	}
-	public void setPunishmentNum(String punishmentNum) {
-		this.punishmentNum = punishmentNum;
-	}
-	public String getStaffNum() {
-		return staffNum;
-	}
-	public void setStaffNum(String staffNum) {
-		this.staffNum = staffNum;
-	}
-	public String getPunishmentCode() {
-		return punishmentCode;
-	}
-	public void setPunishmentCode(String punishmentCode) {
-		this.punishmentCode = punishmentCode;
-	}
-	public String getPunishmentName() {
-		return punishmentName;
-	}
-	public void setPunishmentName(String punishmentName) {
-		this.punishmentName = punishmentName;
-	}
-	public String getGivenDate() {
-		return givenDate;
-	}
-	public void setGivenDate(String givenDate) {
-		this.givenDate = givenDate;
-	}
-	public String getPunishmentReason() {
-		return punishmentReason;
-	}
-	public void setPunishmentReason(String punishmentReason) {
-		this.punishmentReason = punishmentReason;
-	}
-	public String getPunishmentPrice() {
-		return punishmentPrice;
-	}
-	public void setPunishmentPrice(String punishmentPrice) {
-		this.punishmentPrice = punishmentPrice;
-	}
-	public String getStaffName() {
-		return staffName;
-	}
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
-	}
-	public String getSalaryAppliedDate() {
-		return salaryAppliedDate;
-	}
-	public void setSalaryAppliedDate(String salaryAppliedDate) {
-		this.salaryAppliedDate = salaryAppliedDate;
-	}
-	public String getPunishmentNotes() {
-		return punishmentNotes;
-	}
-	public void setPunishmentNotes(String punishmentNotes) {
-		this.punishmentNotes = punishmentNotes;
-	}
-	public String getRegStaffName() {
-		return regStaffName;
-	}
-	public void setRegStaffName(String regStaffName) {
-		this.regStaffName = regStaffName;
-	}
-	public String getPunishmentPoint() {
-		return punishmentPoint;
-	}
-	public void setPunishmentPoint(String punishmentPoint) {
-		this.punishmentPoint = punishmentPoint;
-	}
-	public String getPunishmentVal() {
-		return punishmentVal;
-	}
-	public void setPunishmentVal(String punishmentVal) {
-		this.punishmentVal = punishmentVal;
-	}
-
 }
