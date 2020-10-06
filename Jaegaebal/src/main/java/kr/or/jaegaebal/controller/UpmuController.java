@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.Upmu;
@@ -19,6 +21,13 @@ import kr.or.jaegaebal.service.UpmuService;
 @Controller
 public class UpmuController {
 	@Autowired private UpmuService upmuService;
+	
+	//업무등록처리
+	@PostMapping("/addTask")
+	public String addTask(Upmu newTask) {
+		upmuService.addTask(newTask);
+		return "redirect:/upmuList";
+	}
 	
 	//업무관리 화면이동
 	@GetMapping("/upmuList")

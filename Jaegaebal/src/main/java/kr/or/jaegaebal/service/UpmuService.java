@@ -18,6 +18,12 @@ import kr.or.jaegaebal.mapper.UpmuMapper;
 public class UpmuService {
 	@Autowired UpmuMapper upmumapper;
 	
+	//업무등록
+	public int addTask(Upmu newTask) {
+		int result = upmumapper.addTask(newTask);
+		return result;
+	}
+	
 	//업무관리 - 나의 업무목록 조회
 	public List<Upmu> myTesk(){
 		List<Upmu> myTesk = upmumapper.myTesk();

@@ -85,23 +85,23 @@
 				</div>
 				<div class="col-lg-8">
 					<div class="main-card mb-3 card">
-						<div class="card-body">
-							<h5 class="mb-3">업무정보</h5>
-							<div class="scroll-div">								
-								<button type="button" id="myTesk" class="2 btn btn-warning btn-right">나의업무정보</button>	
+						<div class="card-body">							
+							<div class="scroll-div">											
 								<div>									
 							        <h5 class="text-centar">업무 등록</h5>
-							        <form id="addTask">
-								        <input id="new-task" type="text" class="form-control">
-								        <button type="button" class="btn btn-outline-info date_right">등록</button>
+							        <form id="addTask" action="/addTask" method="post">
+							        	<input type="hidden" th:value="${session.SSTAFFNUM}" name="staffNum">
+								        <input type="text" class="form-control" name="taskInfo">
+								        <button type="submit" class="btn btn-outline-info date_right">등록</button>
 							        </form>
 							        	
 							      	<h5 class="text-centar">업무 목록</h5>
 							      	<th:block th:each="t : ${myTesk}" th:if="${session.SSTAFFNUM eq t.staffNum}">
 								    	<ul id="incomplete-tasks">
-									        <li  th:if="${t.taskResult eq null}">											        
-										        <input type="text" th:value="${t.taskInfo}">
-										        <button class="success">완료</button>
+									        <li  th:if="${t.taskResult eq null}">	
+									        	<input type="hidden" th:value="${t.taskNum}">											        
+										        <input type="text" th:value="${t.taskInfo}" class="form-control" >
+										        <button class="success ">완료</button>
 										        <button class="delete">삭제</button>
 									        </li>												        
 								    	</ul>  
@@ -109,8 +109,9 @@
 								    <h5 class="text-centar">완료 업무목록</h5>
 								    <th:block th:each="t : ${myTesk}" th:if="${session.SSTAFFNUM eq t.staffNum}">      
 								      	<ul id="completed-tasks">
-								        	<li th:if="${t.taskResult != null}">										        	
-									        	<input type="text" th:value="${t.taskInfo}">										        	
+								        	<li th:if="${t.taskResult != null}">
+								        		<input type="hidden" th:value="${t.taskNum}">									        	
+									        	<input type="text" th:value="${t.taskInfo}" class="form-control">										        	
 									        	<button class="delete">삭제</button>
 								        	</li>
 								      	</ul>
@@ -128,12 +129,18 @@
 		
 		<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
    </th:block>
-   <th:block layout:fragment="customJsScript">  
+   <th:block layout:fragment="customJsScript"> 
    
 	   <script>
-			$(function(){  
-			
-			});
+	   	$(document).ready(function(){
+	   		
+	   		$('.delete').click(function(){
+	
+	   			
+	   		});
+							
+	   	
+		});
 		</script>
    </th:block>
 </html>

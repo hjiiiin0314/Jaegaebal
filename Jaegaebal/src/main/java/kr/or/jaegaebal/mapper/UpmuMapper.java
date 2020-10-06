@@ -15,6 +15,9 @@ import kr.or.jaegaebal.dto.Upmu;
 @Mapper
 public interface UpmuMapper {
 	
+	//업무등록
+	public int addTask(Upmu newTask);
+	
 	//업무관리 - 나의업무목록
 	public List<Upmu> myTesk();
 
