@@ -3,4 +3,38 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
+
+<!-- 나의 업무 목록  -->
+<select id="myTesk" resultType="Upmu">
+	SELECT 
+		task_num		as taskNum
+		, staff_num		as staffNum
+		, task_info		as taskInfo
+		, task_result	as taskResult
+		, task_reg_date	as taskRegDate
+	FROM 
+		um_task
+
+</select>
+
+<!-- 직원업무관리 -->
+<select id="staffTask" resultType="StaffInfo">
+	SELECT 
+		s.staff_num			as staffNum
+		, s.staff_name		as staffName
+		,j.jojic_name		as jojicName
+		,l.level_name		as levelName
+		,s.jojic_code		as jojicCode
+	FROM 
+			is_staff	AS s
+		INNER JOIN 
+			is_jojic	AS j
+		on
+			s.jojic_code = j.jojic_code 
+		INNER join
+			is_level	AS	l
+		ON 
+			s.staff_level_code = l.level_code
+</select>
+
 </mapper>
