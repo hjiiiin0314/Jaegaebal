@@ -29,6 +29,16 @@ public class ApprovalController {
 	@Autowired private ApprovalService approvalService;
 	private static final Logger  log = LoggerFactory.getLogger(ApprovalController.class);
 	
+	//보안문서열람시 비밀번호 확인 - ajax
+		@PostMapping(value="/securityPW",produces = "application/json")
+		@ResponseBody
+		public String securityPW(@RequestParam(value="SSTAFFNUM") String SSTAFFNUM) {
+
+			String securityPW = approvalService.securityPW(SSTAFFNUM);
+
+			return securityPW;
+		}
+	
 	//결재처리함 - 결재하기 
 	@PostMapping("/appDecide")
 	public String appDecide(UpmuDocument appDecide) {

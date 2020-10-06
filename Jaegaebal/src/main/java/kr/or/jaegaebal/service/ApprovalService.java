@@ -21,10 +21,15 @@ import kr.or.jaegaebal.mapper.ApprovalMapper;
 public class ApprovalService {
 
 	
-	private static final Logger  log = LoggerFactory.getLogger(ApprovalService.class);
-
-	
+	private static final Logger  log = LoggerFactory.getLogger(ApprovalService.class);	
 	@Autowired private ApprovalMapper approvalmapper;
+	
+	//보안문서 열람 시 비밀번호 입력
+	public String securityPW(String SSTAFFNUM) {
+		String securityPW = approvalmapper.securityPW(SSTAFFNUM);
+		
+		return securityPW;
+	}
 	
 	//결재처리함 - 결재하기
 	public int appDecide(UpmuDocument appDecide) {

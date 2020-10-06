@@ -17,6 +17,9 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface ApprovalMapper {
 	
+	//보안문서 열람 시 비밀번호 확인
+		public String securityPW(String SSTAFFNUM);
+	
 	//결재처리함 - 결재하기
 		public int appDecide(UpmuDocument appDecide);
 	

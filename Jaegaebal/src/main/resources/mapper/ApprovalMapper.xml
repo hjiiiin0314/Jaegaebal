@@ -4,6 +4,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.ApprovalMapper">
 
+<!-- 보안문서 열람 시 비밀번호 확인  -->
+	<select id="securityPW" parameterType="String" resultType="String">
+	SELECT 
+		staff_pw
+	FROM 
+		is_staff
+	WHERE 
+		staff_num = #{SSTAFFNUM};
+	</select>
+
 <!-- 결재처리함 - 결재하기 - 결재결과 저장하기  -->
 	<update id="appDecide" parameterType="UpmuDocument">
 		UPDATE um_app_line

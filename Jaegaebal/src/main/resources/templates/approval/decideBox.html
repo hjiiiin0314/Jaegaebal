@@ -59,16 +59,16 @@
 	                         </tr>
 	                    </thead>
                         <tbody id="decideList">                       
-	                        <tr th:each="de : ${decideList}" th:if="${de.appStaffNum eq session.SSTAFFNUM}">
+	                        <tr th:each="de : ${decideList}" th:if="${de.appStaffNum eq session.SSTAFFNUM}">	                        
 	                            <td th:text="${de.docCode}" th:value="${de.docCode}" id="docCode" class='text-center'></td>
 	                            <td th:text="${de.docTypeName}" id="docTypeName" class='text-center'></td>
-	                            <td><a th:text="${de.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${de.docCode})}"></a></td>
+	                            <td><a th:text="${de.docTitle}" class="text-center docTitle" href="javascript:void(0);"></a></td>
 	                            <td th:text="${de.writerBuseoName}"  id="writerBuseoName" class='text-center'></td>
 	                            <td th:text="${de.writerLevelName}"  id="writerLevelName" class='text-center'></td>
 	                            <td th:text="${de.writerName}"  id="writerName" class='text-center'></td>
 	                            <td th:text="${de.writeDate}"  id="writeDate" class='text-center'></td>
 	                            <td th:text="${de.docFile}"  id="docFile" class='text-center'></td>
-	                            <td th:text="${de.appSecurity}" id="security" class='text-center'></td>
+	                            <td th:text="${de.appSecurity}" class='text-center security'></td>
 	                            <td th:text="${de.deadline}" id="deadline" class='text-center'></td>
 	                            </tr>
 	                       
@@ -83,15 +83,76 @@
 
 
 
-
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 
 	</th:block>
     <th:block layout:fragment="customJsScript">   
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script type="text/javascript" th:inline="javascript">
+    //타임리프에서 변수 선언 후 값 담기 
+	    /*<![CDATA[*/
+		
+		    var SSTAFFNUM = /*[[${session.SSTAFFNUM}]]*/;
+		   	
+		/*]]>*/
+    </script>
     
      <script type="text/javascript">
-    	$(function(){	
-    		
+     $(document).ready(function(){	
+    	 
+    	 
+    	 //보안문서 열람 시 비밀번호 입력 모달 함수
+    	 function pwCheck(securityPW,docCode){
+     		(async () => {
+     			const { value: password } = await Swal.fire({
+     			  title: '보안문서입니다.',
+     			  input: 'password',
+     			  inputPlaceholder: '당신의 비밀번호를 입력하세요',
+     			  inputAttributes: {
+     			    maxlength: 10,
+     			    autocapitalize: 'off',
+     			    autocorrect: 'off'
+     			  }
+     			})
+
+     			if (password) {
+     			  if(securityPW == password) {
+     				 
+     				 location.href="/docDetail?docCode="+docCode; 
+     			  }else {
+     				  alert('비밀번호가 일치하지 않습니다.');
+     				  return ;
+     			  }          			
+     			}           			
+     		})()
+     	}
+    	 
+    	 
+    	 
+    	 //보안문서인지 확인 --> 보안문서일 경우 비밀번호로 본인 확인
+    		 $('.docTitle').click(function(){   			 
+	    		var tr = $(this).parent().parent();
+				var td = tr.children();
+				var docCode = td.eq(0).text(); //문서코드
+    			 console.log("SSTAFFNUM-->"+ SSTAFFNUM); //세션값 잘 넘어오는 지 확인
+    			
+    			var security = $(this).parent('td').nextAll('.security').text();    			
+    			if(security == '보안'){    		
+    				var request = $.ajax({
+					      				  url: "/securityPW", //컨트롤러 맵핑
+					      				  method: "POST",
+					      				  data: { SSTAFFNUM : SSTAFFNUM }, //세션값 - 사원번호로 해당 비밀번호 가지고 오기
+					      				  dataType: "json" // json방식으로 값 전달
+				      				});
+    				request.done(function( data ) {
+    					var securityPW = data;   					
+    					pwCheck(securityPW,docCode); //비밀번호 확인 모달 함수 호출
+    				});   				
+    			}else{
+    				location.href="/docDetail?docCode="+docCode; 
+    			}
+    			
+    		});
     	});
 	</script>
 	
