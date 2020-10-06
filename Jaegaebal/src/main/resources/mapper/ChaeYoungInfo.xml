@@ -12,6 +12,7 @@
 	<result column="reg_date"					property="regDate"/>
 	
 	<!-- 기본인적사항 -->
+	<result column="basic_info_code"			property="basicInfoCode"/>
 	<result column="staff_eng_name"				property="staffEngName"/>
 	<result column="human_num"					property="humanNum"/>
 	<result column="staff_gender"				property="staffGender"/>
@@ -61,4 +62,77 @@
 	<result column="military_info_notes"		property="militaryInfoNotes"/>
 
 	</resultMap>
+	
+	<!-- 기본인적사항 -->
+	<insert id="addBasicInfo" parameterType="ChaeYoungInfo">
+		<selectKey resultType="String" keyProperty="basicInfoCode" order="BEFORE">
+			SELECT 
+				CONCAT('basic',LPAD(max(cast(SUBSTRING(basic_info_code,6)AS DECIMAL))+1,5,0))
+			FROM
+				cy_applicant_basic_info
+		</selectKey>
+		INSERT INTO cy_applicant_basic_info
+			(basic_info_code, job_number, app_email, app_num_code, staff_eng_name, human_num, staff_gender, staff_nationality, staff_country, staff_phone, staff_email, staff_marriged, staff_addr, reg_date)
+		VALUES (
+			#{basicInfoCode},
+			#{jobNumber},
+			#{appEmail},
+			#{appNumCode},		
+			<if test="staffEngName != null and staffEngName neq ''.toString()">
+				#{staffEngName},
+			</if>
+			<if test="humanNum != null and humanNum neq ''.toString()">
+				#{humanNum},
+			</if>
+			<if test="staffGender != null and staffGender neq ''.toString()">
+				#{staffGender},
+			</if>
+			<if test="staffNationality != null and staffNationality neq ''.toString()">
+				#{staffNationality},
+			</if>
+			<if test="staffCountry != null and staffCountry neq ''.toString()">
+				#{staffCountry},
+			</if>
+			<if test="staffCountry == null || staffCountry eq ''.toString()">
+				'대한민국',
+			</if>
+			<if test="staffPhone != null and staffPhone neq ''.toString()">
+				#{staffPhone},
+			</if>
+			<if test="staffEmail != null and staffEmail neq ''.toString()">
+				#{staffEmail},
+			</if>
+			<if test="staffMarriged != null and staffMarriged neq ''.toString()">
+				#{staffMarriged},
+			</if>
+			<if test="staffAddr != null and staffAddr neq ''.toString()">
+				#{staffAddr},
+			</if>
+			NOW())
+	</insert>
+	
+	<!-- 경력사항 -->
+	<insert id="addCareerInfo" parameterType="ChaeYoungInfo">
+	
+
+	</insert>
+	
+	<!-- 자격증사항 -->
+	<insert id="addCertificateInfo" parameterType="ChaeYoungInfo">
+	
+
+	</insert>
+	
+	<!-- 학력사항 -->
+	<insert id="addEducationInfo" parameterType="ChaeYoungInfo">
+	
+
+	</insert>
+	
+	<!-- 병역사항 -->
+	<insert id="addMilitaryInfo" parameterType="ChaeYoungInfo">
+	
+
+	</insert>
+
 </mapper>

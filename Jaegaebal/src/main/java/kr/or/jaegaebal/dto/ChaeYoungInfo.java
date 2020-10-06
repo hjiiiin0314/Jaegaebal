@@ -12,6 +12,9 @@ public class ChaeYoungInfo {
 	private String appNumCode; //지원자접수번호
 	private String jobNumber; //구인공고번호
 	private String appEmail; //지원자이메일
+	
+	//지원자 인적사항
+	private String basicInfoCode; //인적사항코드
 	private String staffEngName; //영문이름
 	private String humanNum; //주민등록번호
 	private char staffGender; //성별
@@ -61,6 +64,7 @@ public class ChaeYoungInfo {
 	private String militaryLevel; //계급
 	private String militaryInfoNotes; //비고
 	
+	
 	public String getAppNumCode() {
 		return appNumCode;
 	}
@@ -78,6 +82,13 @@ public class ChaeYoungInfo {
 	}
 	public void setAppEmail(String appEmail) {
 		this.appEmail = appEmail;
+	}
+	
+	public String getBasicInfoCode() {
+		return basicInfoCode;
+	}
+	public void setBasicInfoCode(String basicInfoCode) {
+		this.basicInfoCode = basicInfoCode;
 	}
 	public String getStaffEngName() {
 		return staffEngName;
@@ -322,22 +333,23 @@ public class ChaeYoungInfo {
 	@Override
 	public String toString() {
 		return "ChaeYoungInfo [appNumCode=" + appNumCode + ", jobNumber=" + jobNumber + ", appEmail=" + appEmail
-				+ ", staffEngName=" + staffEngName + ", humanNum=" + humanNum + ", staffGender=" + staffGender
-				+ ", staffNationality=" + staffNationality + ", staffCountry=" + staffCountry + ", staffPhone="
-				+ staffPhone + ", staffEmail=" + staffEmail + ", staffMarriged=" + staffMarriged + ", staffAddr="
-				+ staffAddr + ", regDate=" + regDate + ", careerInfoCode=" + careerInfoCode + ", companyName="
-				+ companyName + ", companyAccess=" + companyAccess + ", companyPositionFromOut="
-				+ companyPositionFromOut + ", companyWorkFormOut=" + companyWorkFormOut + ", companyInDateFromOut="
-				+ companyInDateFromOut + ", companyOutDateFromOut=" + companyOutDateFromOut + ", companyOutReason="
-				+ companyOutReason + ", certificateInfoCode=" + certificateInfoCode + ", certificateName="
-				+ certificateName + ", issuingAgency=" + issuingAgency + ", certificateNum=" + certificateNum
-				+ ", getDate=" + getDate + ", finishedDate=" + finishedDate + ", educationInfoCode=" + educationInfoCode
-				+ ", schoolName=" + schoolName + ", hakryuckStatus=" + hakryuckStatus + ", majorName=" + majorName
-				+ ", minorName=" + minorName + ", entranceDate=" + entranceDate + ", graduatDate=" + graduatDate
-				+ ", degree=" + degree + ", militaryInfoCode=" + militaryInfoCode + ", militaryClassidx="
-				+ militaryClassidx + ", militaryServiceType=" + militaryServiceType + ", militaryState=" + militaryState
-				+ ", militaryInDay=" + militaryInDay + ", militaryOutDay=" + militaryOutDay + ", militaryLevel="
-				+ militaryLevel + ", militaryInfoNotes=" + militaryInfoNotes + "]";
+				+ ", basicInfoCode=" + basicInfoCode + ", staffEngName=" + staffEngName + ", humanNum=" + humanNum
+				+ ", staffGender=" + staffGender + ", staffNationality=" + staffNationality + ", staffCountry="
+				+ staffCountry + ", staffPhone=" + staffPhone + ", staffEmail=" + staffEmail + ", staffMarriged="
+				+ staffMarriged + ", staffAddr=" + staffAddr + ", regDate=" + regDate + ", careerInfoCode="
+				+ careerInfoCode + ", companyName=" + companyName + ", companyAccess=" + companyAccess
+				+ ", companyPositionFromOut=" + companyPositionFromOut + ", companyWorkFormOut=" + companyWorkFormOut
+				+ ", companyInDateFromOut=" + companyInDateFromOut + ", companyOutDateFromOut=" + companyOutDateFromOut
+				+ ", companyOutReason=" + companyOutReason + ", certificateInfoCode=" + certificateInfoCode
+				+ ", certificateName=" + certificateName + ", issuingAgency=" + issuingAgency + ", certificateNum="
+				+ certificateNum + ", getDate=" + getDate + ", finishedDate=" + finishedDate + ", educationInfoCode="
+				+ educationInfoCode + ", schoolName=" + schoolName + ", hakryuckStatus=" + hakryuckStatus
+				+ ", majorName=" + majorName + ", minorName=" + minorName + ", entranceDate=" + entranceDate
+				+ ", graduatDate=" + graduatDate + ", degree=" + degree + ", militaryInfoCode=" + militaryInfoCode
+				+ ", militaryClassidx=" + militaryClassidx + ", militaryServiceType=" + militaryServiceType
+				+ ", militaryState=" + militaryState + ", militaryInDay=" + militaryInDay + ", militaryOutDay="
+				+ militaryOutDay + ", militaryLevel=" + militaryLevel + ", militaryInfoNotes=" + militaryInfoNotes
+				+ "]";
 	}
 
 	

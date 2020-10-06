@@ -84,7 +84,7 @@
 		$('input[name=staffNationality]').click(function() {
 			 if($("input[name=staffNationality]:checked").val() == "내국인"){
 		         $("input:text[name=staffCountry]").attr("disabled",true);
-		         $("input:text[name=staffCountry]").val('해당사항없음');
+		         $("input:text[name=staffCountry]").val('대한민국');
 		 
 		     }else if($("input[name=staffNationality]:checked").val() == "외국인"){
 		    	 $("input:text[name=staffCountry]").val('');
@@ -214,7 +214,10 @@
   				});
   				 
   				request.done(function( data ) {
- 
+  					if(data != 0) {
+  						alert('정상적으로 지원이 완료되었습니다.');
+  						location.href="/cyboardList"
+  					}
   				});
   				 
   				request.fail(function( jqXHR, textStatus ) {
