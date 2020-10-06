@@ -239,6 +239,14 @@
 			,'임시저장')
 	</insert>
 	
+	<!-- 지원서 작성이 완료되면 지원자상태정보 수정 -->
+	<update id="appFinalStateUpdate" parameterType="String">
+		UPDATE cy_applicant_number
+		SET
+			app_final_state='지원완료'
+		WHERE 
+			app_email = #{appEmail}
+	</update>
 	<!-- 지원자 정보 삭제 -->
 	<delete id="deleteApplicant" parameterType="String">
 		call proc_applicant_delete(#{appEmail})

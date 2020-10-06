@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
+import kr.or.jaegaebal.dto.ChaeYoungInfo;
 import kr.or.jaegaebal.dto.Jojic;
 
 /**
@@ -51,4 +52,22 @@ public interface ChaeYoungMapper {
 	
 	//지원자 정보 삭제
 	public int deleteApplicant(String appEmail);
+	
+	//지원자 상태정보 수정
+	public int appFinalStateUpdate(String appEmail);
+	
+	/*************************** 지원자 이력서작성 Start ****************************/
+	
+	//지원자 인적사항
+	public int addBasicInfo(ChaeYoungInfo chaeYoungInfo);
+	//지원자 경력사항
+	public int addCareerInfo(ChaeYoungInfo chaeYoungInfo);
+	//지원자 자격증사항
+	public int addCertificateInfo(ChaeYoungInfo chaeYoungInfo);
+	//지원자 학력사항
+	public int addEducationInfo(ChaeYoungInfo chaeYoungInfo);
+	//지원자 병역사항
+	public int addMilitaryInfo(ChaeYoungInfo chaeYoungInfo);
+	
+	/*************************** 지원자 이력서작성 End ******************************/
 }
