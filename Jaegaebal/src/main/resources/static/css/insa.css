@@ -128,6 +128,10 @@
 	font-size : 20px;
 }
 
+.pe-7s-help1:hover{
+	color: #fff;
+}
+
 #insertPnshList {
 	padding: 0.5rem 0.65rem;
 }
