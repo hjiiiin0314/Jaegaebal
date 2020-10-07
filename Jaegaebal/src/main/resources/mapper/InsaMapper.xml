@@ -1242,4 +1242,18 @@
 				s.staff_num = pl.staff_num	
 
 	</select>
+	
+	<!-- 포상리스트 - 추가 버튼 클릭시 - 포상명에 옵션값 삽입하기   -->
+	<select id="getPrizeInfo" parameterType="String" resultMap="PrizeResultMap">
+		SELECT 
+				  prize_code
+				, prize_name
+		
+		FROM 	  is_prize
+		<where>
+			<if test="prizeName neq null and prizeName neq ''.toString()">
+				prize_name = #{prizeName}
+	 		</if>
+		</where>		
+	</select>
 </mapper>	
