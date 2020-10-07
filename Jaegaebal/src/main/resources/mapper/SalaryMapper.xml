@@ -480,6 +480,7 @@
 			a.jojic_code=c.jojic_code
 		AND
 			a.staff_num=d.data_emp
+		ORDER BY staffNum
 	</select>
 	
 	<select id="getMonthSalList" parameterType="String" resultType="Map">

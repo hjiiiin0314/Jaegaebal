@@ -112,8 +112,9 @@
 	margin-right:10px;
 }
 
+/*add-table(급상여 입력에서 부가항목 테이블 클래스)*/
 .add-table thead {
-	background:#eeeeee !important;
+	background:#f9f9f9;
 }
 
 .add-table td {
@@ -131,6 +132,15 @@ table.ui-datepicker-calendar {
 	color: transparent;
 	text-shadow: 0 0 0 black;
 	cursor:default;
+}
+
+.add-table thead tr {
+	height:auto;
+}
+
+/*사원 테이블 사원 클릭 시 사원부분에 파란줄 남도록*/
+.emp-table-on{
+	background:#e0f3ff;
 }
 
 @media(min-width:992px){

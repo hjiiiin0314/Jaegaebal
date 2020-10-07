@@ -5,6 +5,10 @@
  */
 
 $(function(){
+	//salary_info.html
+	//사원 가장 첫 데이터가 자동으로 선택되므로 파란색 처리
+	$('.emp-info-table').children('tbody').children('tr').eq(0).addClass('emp-table-on');
+	
 	//사원 검색 기능
 	$('#search_submit').click(function(){
 		var searchCate = $('[name=searchCate]').val();
@@ -76,6 +80,8 @@ $(function(){
 	
 	//사원 정보 클릭시 ajax통신을 통한 급여정보 조회
 	$('.emp-info-table').children('tbody').children('tr').click(function(){
+		$('.emp-info-table').children('tbody').children('tr').removeClass('emp-table-on');
+		$(this).addClass('emp-table-on');
 		var dataEmp = $(this).children('td').eq(0).text();
 		var request = $.ajax({
 			url : "/salary/salary_info",
@@ -286,8 +292,14 @@ $(function(){
 		});
 	});
 	
+	//salary_month.html
+	//사원 가장 첫 데이터가 자동으로 선택되므로 파란색 처리
+	$('.emp-month-table').children('tbody').children('tr').eq(0).addClass('emp-table-on');
+	
 	//월별급여화면에서 사원 정보 클릭시 ajax통신을 통한 월별급여 조회
 	$('.emp-month-table').children('tbody').children('tr').click(function(){
+		$('.emp-month-table').children('tbody').children('tr').removeClass('emp-table-on');
+		$(this).addClass('emp-table-on');
 		var dataNum = $(this).children('input[name=dataNum]').val();
 		$('input[name=searchNum]').val(dataNum);
 		var searchYear = $('select[name=searchYear]').val();
@@ -399,4 +411,212 @@ $(function(){
 			return false;
 		}
 	}
+	
+	//salary_record.html
+	$(function(){
+		//사원 가장 첫 데이터가 자동으로 선택되므로 파란색 처리
+		$('.emp-record-table').children('tbody').children('tr').eq(0).addClass('emp-table-on');
+		
+		//귀속년월 넣음(첫 화면은 현재날짜)
+		$('#datepicker').val(searchDate);
+		
+		$( "#datepicker" ).datepicker({
+	        changeMonth: true,
+	        changeYear: true,
+	        showButtonPanel: true,
+	        showMonthAfterYear: true,
+	        yearRange: 'c-99:c+99',
+	        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        dateFormat: 'yy-mm',
+	        onClose: function(dateText, inst) { 
+	            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+	            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+	            $(this).datepicker('setDate', new Date(year, month, 1));
+	           	schData(month, year);
+	        },
+	        beforeShow : function(input, inst) {
+	            if ((datestr = $(this).val()).length > 0) {
+	                actDate = datestr.split('-');
+	                year = actDate[0];
+	                month = actDate[1]-1;
+	                $(this).datepicker('option', 'defaultDate', new Date(year, month));
+	                $(this).datepicker('setDate', new Date(year, month));
+	            }
+	        }
+	    });
+		
+		//필터에서 년월이 선택되었을 시 ajax 통신
+		function schData(month, year){
+			month = numFormat(Number(month)+1);
+			var dataNum = $('input[name=searchNum]').val();
+			var searchDate = year+"-"+month;
+			$('input[name=dateValue]').val(searchDate);
+			var request = $.ajax({
+				url : "/salary/search_data",
+				method : "POST",
+				data : { dataNum : dataNum ,
+					searchDate : searchDate },
+				dataType : "Json"
+			});
+			
+			request.done(function(data){
+				$('input[name=dataNum]').val(data.dataNum);
+				$('input[name=dataNormal]').val(data.dataNormal);
+				$('input[name=dataBonus]').val(data.dataBonus);
+				$('input[name=dataAnn]').val(data.dataAnn);
+				$('input[name=dataVehicle]').val(data.dataVehicle);
+				$('input[name=dataMeal]').val(data.dataMeal);
+				$('input[name=dataOvertime]').val(data.dataOvertime);
+				$('input[name=dataNight]').val(data.dataNight);
+				$('input[name=dataHoli]').val(data.dataHoli);
+				$('input[name=dataGukmin]').val(data.dataGukmin);
+				$('input[name=dataGeongang]').val(data.dataGeongang);
+				$('input[name=dataKhoyong]').val(data.dataKhoyong);
+				$('input[name=dataJanggi]').val(data.dataJanggi);
+				$('input[name=dataSanjae]').val(data.dataSanjae);
+				$('input[name=dataSchexpan]').val(data.dataSchexpan);
+				$('input[name=dataIncome]').val(data.dataIncome);
+				$('input[name=dataLoincome]').val(data.dataLoincome);
+				$('input[name=sqlKey]').val(data.sqlKey);
+				//데이터가 있어서 upd처리 시 월별 데이터에 저장된 항목과 값들이 저장됨 ins면 항목테이블의 항목들을 물러오는 ajax를 실행하여 값을 출력
+				if(data.sqlKey == "upd"){
+					if(data.dataAddpay != null){
+						var addpay = data.dataAddpay.split('&');
+						var pricepay = data.dataPricepay.split('&');
+						$('.pay-table').children('tbody').children('tr').remove();
+						for(var i in addpay) {
+							$('.pay-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="payName" value="'+addpay[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="payPrice" value="'+pricepay[i]+'"></td></tr>');
+						}
+					} else {
+						$('.pay-table').children('tbody').children('tr').remove();
+					}
+					
+					if(data.dataAdddeduct != null){
+						var adddeduct = data.dataAdddeduct.split('&');
+						var pricededuct = data.dataPricededuct.split('&');
+						$('.deduct-table').children('tbody').children('tr').remove();
+						for(var i in adddeduct) {
+							$('.deduct-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="deductName" value="'+adddeduct[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="deductPrice" value="'+pricededuct[i]+'"></td></tr>');
+						}
+					} else {
+						$('.deduct-table').children('tbody').children('tr').remove();
+					}
+				} else if(data.sqlKey == "ins"){
+					insAjax();
+				}
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+		}
+		
+		function insAjax(){
+			var request = $.ajax({
+				url : "/salary/insert_data",
+				method : "POST",
+				data : { },
+				dataType : "Json"
+			});
+			
+			request.done(function(data){
+				$('.pay-table').children('tbody').children('tr').remove();
+				for(var i=0;i<data[0].length;i++) {
+					$('.pay-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="payName" value="'+data[0][i].payName+'" readonly></td><td><input class="form-control number-form" type="number" name="payPrice" value="0"></td></tr>');
+				}
+				
+				$('.deduct-table').children('tbody').children('tr').remove();
+				for(var j=0;j<data[1].length;j++) {
+					$('.deduct-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="deductName" value="'+data[1][j].deductName+'" readonly></td><td><input class="form-control number-form" type="number" name="deductPrice" value="0"></td></tr>');
+				}
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+		}
+		//급상여입력화면에서 사원 정보 클릭시 ajax통신을 통한 사원급여 존재여부 조회
+		$('.emp-record-table').children('tbody').children('tr').click(function(){
+			//클릭한 사원 파란색 유지
+			$('.emp-record-table').children('tbody').children('tr').removeClass('emp-table-on');
+			$(this).addClass('emp-table-on');
+			var dataNum = $(this).children('input[name=monthNum]').val();
+			$('input[name=searchNum]').val(dataNum);
+			$('input[name=dataData]').val(dataNum);
+			var searchDate = $('#datepicker').val();
+			var request = $.ajax({
+				url : "/salary/search_data",
+				method : "POST",
+				data : { dataNum : dataNum ,
+					searchDate : searchDate },
+				dataType : "Json"
+			});
+			
+			request.done(function(data){
+				$('input[name=dataNum]').val(data.dataNum);
+				$('input[name=dataNormal]').val(data.dataNormal);
+				$('input[name=dataBonus]').val(data.dataBonus);
+				$('input[name=dataAnn]').val(data.dataAnn);
+				$('input[name=dataVehicle]').val(data.dataVehicle);
+				$('input[name=dataMeal]').val(data.dataMeal);
+				$('input[name=dataOvertime]').val(data.dataOvertime);
+				$('input[name=dataNight]').val(data.dataNight);
+				$('input[name=dataHoli]').val(data.dataHoli);
+				$('input[name=dataGukmin]').val(data.dataGukmin);
+				$('input[name=dataGeongang]').val(data.dataGeongang);
+				$('input[name=dataKhoyong]').val(data.dataKhoyong);
+				$('input[name=dataJanggi]').val(data.dataJanggi);
+				$('input[name=dataSanjae]').val(data.dataSanjae);
+				$('input[name=dataSchexpan]').val(data.dataSchexpan);
+				$('input[name=dataIncome]').val(data.dataIncome);
+				$('input[name=dataLoincome]').val(data.dataLoincome);
+				$('input[name=sqlKey]').val(data.sqlKey);
+				//데이터가 있어서 upd처리 시 월별 데이터에 저장된 항목과 값들이 저장됨 ins면 항목테이블의 항목들을 물러오는 ajax를 실행하여 값을 출력
+				if(data.sqlKey == "upd"){
+					if(data.dataAddpay != null){
+						var addpay = data.dataAddpay.split('&');
+						var pricepay = data.dataPricepay.split('&');
+						$('.pay-table').children('tbody').children('tr').remove();
+						for(var i in addpay) {
+							$('.pay-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="payName" value="'+addpay[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="payPrice" value="'+pricepay[i]+'"></td></tr>');
+						}
+					} else {
+						$('.pay-table').children('tbody').children('tr').remove();
+					}
+					
+					if(data.dataAdddeduct != null){
+						var adddeduct = data.dataAdddeduct.split('&');
+						var pricededuct = data.dataPricededuct.split('&');
+						$('.deduct-table').children('tbody').children('tr').remove();
+						for(var i in adddeduct) {
+							$('.deduct-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="deductName" value="'+adddeduct[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="deductPrice" value="'+pricededuct[i]+'"></td></tr>');
+						}
+					} else {
+						$('.deduct-table').children('tbody').children('tr').remove();
+					}
+				} else if(data.sqlKey == "ins"){
+					insAjax();
+				}
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+		});
+		
+		//월 1자리 일 시 앞에 0 붙임
+		function numFormat(variable) { 
+			variable = Number(variable).toString(); 
+			if(Number(variable) < 10 && variable.length == 1) 
+				variable = "0" + variable; return variable; 
+		}
+		
+		//number-form 클래스가 있는 input들 공백으로 만들면 자동으로 0생성
+		$('.number-form').keyup(function(){
+			if($(this).val() == null || $(this).val() == ''){
+				$(this).val(0);
+			}
+		});
+	});
 });

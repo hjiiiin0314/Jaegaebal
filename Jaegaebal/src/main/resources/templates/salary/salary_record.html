@@ -13,9 +13,6 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}">
 </th:block>
 <th:block layout:fragment="customJs">
-	
-	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
-	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
 	<script type="text/javascript" th:inline="javascript">
 		//model로 넘어온 귀속년월을 스크립트에서 사용
 		/*<![CDATA[*/
@@ -25,207 +22,8 @@
 	
 		/*]]>*/
 	</script>
-	<script>
-		$(function(){
-			//귀속년월 넣음(첫 화면은 현재날짜)
-			$('#datepicker').val(searchDate);
-			
-			$( "#datepicker" ).datepicker({
-		        changeMonth: true,
-		        changeYear: true,
-		        showButtonPanel: true,
-		        showMonthAfterYear: true,
-		        yearRange: 'c-99:c+99',
-		        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-		        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-		        dateFormat: 'yy-mm',
-		        onClose: function(dateText, inst) { 
-		            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-		            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-		            $(this).datepicker('setDate', new Date(year, month, 1));
-		           	schData(month, year);
-		        },
-		        beforeShow : function(input, inst) {
-		            if ((datestr = $(this).val()).length > 0) {
-		                actDate = datestr.split('-');
-		                year = actDate[0];
-		                month = actDate[1]-1;
-		                $(this).datepicker('option', 'defaultDate', new Date(year, month));
-		                $(this).datepicker('setDate', new Date(year, month));
-		            }
-		        }
-		    });
-			
-			//필터에서 년월이 선택되었을 시 ajax 통신
-			function schData(month, year){
-				month = numFormat(Number(month)+1);
-				var dataNum = $('input[name=searchNum]').val();
-				var searchDate = year+"-"+month;
-				$('input[name=dateValue]').val(searchDate);
-				var request = $.ajax({
-					url : "/salary/search_data",
-					method : "POST",
-					data : { dataNum : dataNum ,
-						searchDate : searchDate },
-					dataType : "Json"
-				});
-				
-				request.done(function(data){
-					$('input[name=dataNum]').val(data.dataNum);
-					$('input[name=dataNormal]').val(data.dataNormal);
-					$('input[name=dataBonus]').val(data.dataBonus);
-					$('input[name=dataAnn]').val(data.dataAnn);
-					$('input[name=dataVehicle]').val(data.dataVehicle);
-					$('input[name=dataMeal]').val(data.dataMeal);
-					$('input[name=dataOvertime]').val(data.dataOvertime);
-					$('input[name=dataNight]').val(data.dataNight);
-					$('input[name=dataHoli]').val(data.dataHoli);
-					$('input[name=dataGukmin]').val(data.dataGukmin);
-					$('input[name=dataGeongang]').val(data.dataGeongang);
-					$('input[name=dataKhoyong]').val(data.dataKhoyong);
-					$('input[name=dataJanggi]').val(data.dataJanggi);
-					$('input[name=dataSanjae]').val(data.dataSanjae);
-					$('input[name=dataSchexpan]').val(data.dataSchexpan);
-					$('input[name=dataIncome]').val(data.dataIncome);
-					$('input[name=dataLoincome]').val(data.dataLoincome);
-					$('input[name=sqlKey]').val(data.sqlKey);
-					//데이터가 있어서 upd처리 시 월별 데이터에 저장된 항목과 값들이 저장됨 ins면 항목테이블의 항목들을 물러오는 ajax를 실행하여 값을 출력
-					if(data.sqlKey == "upd"){
-						if(data.dataAddpay != null){
-							var addpay = data.dataAddpay.split('&');
-							var pricepay = data.dataPricepay.split('&');
-							$('.pay-table').children('tbody').children('tr').remove();
-							for(var i in addpay) {
-								$('.pay-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="payName" value="'+addpay[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="payPrice" value="'+pricepay[i]+'"></td></tr>');
-							}
-						} else {
-							$('.pay-table').children('tbody').children('tr').remove();
-						}
-						
-						if(data.dataAdddeduct != null){
-							var adddeduct = data.dataAdddeduct.split('&');
-							var pricededuct = data.dataPricededuct.split('&');
-							$('.deduct-table').children('tbody').children('tr').remove();
-							for(var i in adddeduct) {
-								$('.deduct-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="deductName" value="'+adddeduct[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="deductPrice" value="'+pricededuct[i]+'"></td></tr>');
-							}
-						} else {
-							$('.deduct-table').children('tbody').children('tr').remove();
-						}
-					} else if(data.sqlKey == "ins"){
-						insAjax();
-					}
-				});
-				
-				request.fail(function( jqXHR, textStatus ) {
-					alert( "Request failed: " + textStatus );
-				});
-			}
-			
-			function insAjax(){
-				var request = $.ajax({
-					url : "/salary/insert_data",
-					method : "POST",
-					data : { },
-					dataType : "Json"
-				});
-				
-				request.done(function(data){
-					$('.pay-table').children('tbody').children('tr').remove();
-					for(var i=0;i<data[0].length;i++) {
-						$('.pay-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="payName" value="'+data[0][i].payName+'" readonly></td><td><input class="form-control number-form" type="number" name="payPrice" value="0"></td></tr>');
-					}
-					
-					$('.deduct-table').children('tbody').children('tr').remove();
-					for(var j=0;j<data[1].length;j++) {
-						$('.deduct-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="deductName" value="'+data[1][j].deductName+'" readonly></td><td><input class="form-control number-form" type="number" name="deductPrice" value="0"></td></tr>');
-					}
-				});
-				
-				request.fail(function( jqXHR, textStatus ) {
-					alert( "Request failed: " + textStatus );
-				});
-			}
-			//급상여입력화면에서 사원 정보 클릭시 ajax통신을 통한 사원급여 존재여부 조회
-			$('.emp-record-table').children('tbody').children('tr').click(function(){
-				var dataNum = $(this).children('input[name=monthNum]').val();
-				$('input[name=searchNum]').val(dataNum);
-				$('input[name=dataData]').val(dataNum);
-				var searchDate = $('#datepicker').val();
-				var request = $.ajax({
-					url : "/salary/search_data",
-					method : "POST",
-					data : { dataNum : dataNum ,
-						searchDate : searchDate },
-					dataType : "Json"
-				});
-				
-				request.done(function(data){
-					$('input[name=dataNum]').val(data.dataNum);
-					$('input[name=dataNormal]').val(data.dataNormal);
-					$('input[name=dataBonus]').val(data.dataBonus);
-					$('input[name=dataAnn]').val(data.dataAnn);
-					$('input[name=dataVehicle]').val(data.dataVehicle);
-					$('input[name=dataMeal]').val(data.dataMeal);
-					$('input[name=dataOvertime]').val(data.dataOvertime);
-					$('input[name=dataNight]').val(data.dataNight);
-					$('input[name=dataHoli]').val(data.dataHoli);
-					$('input[name=dataGukmin]').val(data.dataGukmin);
-					$('input[name=dataGeongang]').val(data.dataGeongang);
-					$('input[name=dataKhoyong]').val(data.dataKhoyong);
-					$('input[name=dataJanggi]').val(data.dataJanggi);
-					$('input[name=dataSanjae]').val(data.dataSanjae);
-					$('input[name=dataSchexpan]').val(data.dataSchexpan);
-					$('input[name=dataIncome]').val(data.dataIncome);
-					$('input[name=dataLoincome]').val(data.dataLoincome);
-					$('input[name=sqlKey]').val(data.sqlKey);
-					//데이터가 있어서 upd처리 시 월별 데이터에 저장된 항목과 값들이 저장됨 ins면 항목테이블의 항목들을 물러오는 ajax를 실행하여 값을 출력
-					if(data.sqlKey == "upd"){
-						if(data.dataAddpay != null){
-							var addpay = data.dataAddpay.split('&');
-							var pricepay = data.dataPricepay.split('&');
-							$('.pay-table').children('tbody').children('tr').remove();
-							for(var i in addpay) {
-								$('.pay-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="payName" value="'+addpay[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="payPrice" value="'+pricepay[i]+'"></td></tr>');
-							}
-						} else {
-							$('.pay-table').children('tbody').children('tr').remove();
-						}
-						
-						if(data.dataAdddeduct != null){
-							var adddeduct = data.dataAdddeduct.split('&');
-							var pricededuct = data.dataPricededuct.split('&');
-							$('.deduct-table').children('tbody').children('tr').remove();
-							for(var i in adddeduct) {
-								$('.deduct-table').children('tbody').append('<tr><td><input class="border-none" type="text" name="deductName" value="'+adddeduct[i]+'" readonly></td><td><input class="form-control number-form" type="number" name="deductPrice" value="'+pricededuct[i]+'"></td></tr>');
-							}
-						} else {
-							$('.deduct-table').children('tbody').children('tr').remove();
-						}
-					} else if(data.sqlKey == "ins"){
-						insAjax();
-					}
-				});
-				
-				request.fail(function( jqXHR, textStatus ) {
-					alert( "Request failed: " + textStatus );
-				});
-			});
-			
-			//월 1자리 일 시 앞에 0 붙임
-			function numFormat(variable) { 
-				variable = Number(variable).toString(); 
-				if(Number(variable) < 10 && variable.length == 1) 
-					variable = "0" + variable; return variable; 
-			}
-			
-			$('.number-form').keyup(function(){
-				if($(this).val() == null || $(this).val() == ''){
-					$(this).val(0);
-				}
-			});
-		});
-	</script>
+	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
 </th:block>
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 <div class="app-main__inner">
@@ -310,8 +108,9 @@
 							</tr>
 							<tr>
 								<td>기본급</td>
+								<td>
 								<!-- 월별급여 기본키(update시에만 사용) -->
-								<td><input type="hidden" name="dataNum" th:value="${salaryRecord.dataNum}">
+								<input type="hidden" name="dataNum" th:value="${salaryRecord.dataNum}">
 								<!-- 급여정보 기본키 -->
 								<input type="hidden" name="dataData" th:value="${dataNum}">
 								<!-- 귀속년월이 저장될 곳 -->
