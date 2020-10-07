@@ -123,7 +123,20 @@
 			return str.charAt(0).toUpperCase() + str.slice(1);
 		}
 
-		//지원서 임시저장
+/*		//사외경력등록 화면에서 가족정보-'경력추가' 버튼 클릭시 / 입력칸 추가 생성
+		$(document).on('click', '.addCareerInfoFromOutBtn', function(){
+			var aa = $('.careerInfo').eq(0).clone();
+			$('#isCareerInfoFromOut').append(aa);
+			var addCareerInfoFromOutBtnTr 		= $('.addCareerInfoFromOutBtnTr').clone();
+			$('.addCareerInfoFromOutBtnTr').remove();
+			var is_career_info_from_out 	= $(".is_career_info_from_out").eq(0).clone();
+			is_career_info_from_out.find('input').val("");
+			is_career_info_from_out.find('textarea').val("");
+			$('#isCareerInfoFromOut').append(is_career_info_from_out);
+			$('#isCareerInfoFromOut').append(addCareerInfoFromOutBtnTr);
+		});*/
+		
+		//지원서 작성 등록
 		$('#InfoStorage').click(function() {
 			
 			// *************** 영어이름 첫글자 대문자로 변경 start 
