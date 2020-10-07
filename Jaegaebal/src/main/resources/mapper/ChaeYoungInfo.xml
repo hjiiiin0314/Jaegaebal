@@ -113,8 +113,41 @@
 	
 	<!-- 경력사항 -->
 	<insert id="addCareerInfo" parameterType="ChaeYoungInfo">
-	
-
+		<selectKey resultType="String" keyProperty="careerInfoCode" order="BEFORE">
+			SELECT 
+				CONCAT('career',LPAD(max(cast(SUBSTRING(career_info_code,7)AS DECIMAL))+1,5,0))
+			FROM
+				cy_applicant_career_info
+		</selectKey>
+		INSERT INTO cy_applicant_career_info
+			(career_info_code, job_number, app_email, app_num_code, company_name, company_access, company_position_from_out, company_work_form_out, company_in_date_from_out, company_out_date_from_out, company_out_reason, reg_date)
+		VALUES (
+			#{careerInfoCode},
+			#{jobNumber},
+			#{appEmail},
+			#{appNumCode},		
+			<if test="companyName != null and companyName neq ''.toString()">
+				#{companyName},
+			</if>
+			<if test="companyAccess != null and companyAccess neq ''.toString()">
+				#{companyAccess},
+			</if>
+			<if test="companyPositionFromOut != null and companyPositionFromOut neq ''.toString()">
+				#{companyPositionFromOut},
+			</if>
+			<if test="companyWorkFormOut != null and companyWorkFormOut neq ''.toString()">
+				#{companyWorkFormOut},
+			</if>
+			<if test="companyInDateFromOut != null and companyInDateFromOut neq ''.toString()">
+				#{companyInDateFromOut},
+			</if>
+			<if test="companyOutDateFromOut != null and companyOutDateFromOut neq ''.toString()">
+				#{companyOutDateFromOut},
+			</if>
+			<if test="companyOutReason != null and companyOutReason neq ''.toString()">
+				#{companyOutReason},
+			</if>
+			NOW())
 	</insert>
 	
 	<!-- 자격증사항 -->

@@ -88,17 +88,24 @@ public class ChaeYoungService {
 		}	
 		return result;
 	};
-	//지원자 이력서 등록
+	
+	// *********************** 지원자 이력서 등록 Start ***************************** //
 	public int addAppInfo(ChaeYoungInfo chaeYoungInfo) {
 		int result = 0;
 		
-		result += chaeYoungMapper.addBasicInfo(chaeYoungInfo);
+		if(chaeYoungInfo != null) {
+			
+			result += chaeYoungMapper.addBasicInfo(chaeYoungInfo);
+			result += chaeYoungMapper.addCareerInfo(chaeYoungInfo);
+		}
 		
 		if(result > 0) {
 			chaeYoungMapper.appFinalStateUpdate(chaeYoungInfo.getAppEmail());
 		}
 		return result;
 	}
+	
+	// *********************** 지원자 이력서 등록 End ***************************** //
 	//지원자 정보 삭제
 	public int deleteApplicant(String appEmail) {
 		
