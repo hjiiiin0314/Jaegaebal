@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.Upmu;
@@ -21,6 +21,20 @@ import kr.or.jaegaebal.service.UpmuService;
 @Controller
 public class UpmuController {
 	@Autowired private UpmuService upmuService;
+	
+	//업무삭제처리
+	@GetMapping("/delTask")
+	public String delTask(int taskNum) {
+		upmuService.delTask(taskNum);
+		return"redirect:/upmuList";	
+	}
+	
+	//업무완료
+	@GetMapping("/endTask")
+	public String endTask(int taskNum) {
+		upmuService.endTask(taskNum);
+		return"redirect:/upmuList";
+	}
 	
 	//업무등록처리
 	@PostMapping("/addTask")

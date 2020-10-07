@@ -18,6 +18,18 @@ import kr.or.jaegaebal.mapper.UpmuMapper;
 public class UpmuService {
 	@Autowired UpmuMapper upmumapper;
 	
+	//업무삭제
+	public int delTask(int taskNum) {
+		int result = upmumapper.delTask(taskNum);
+		return result;		
+	}
+	
+	//업무완료
+	public int endTask(int taskNum) {
+		int result = upmumapper.endTask(taskNum);
+		return result;		
+	}
+	
 	//업무등록
 	public int addTask(Upmu newTask) {
 		int result = upmumapper.addTask(newTask);

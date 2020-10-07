@@ -30,6 +30,7 @@
 					</div>
 				</div>
 			</div>
+			
 		    <div class="row">
 				<div class="col-lg-4">
 					<div class="main-card mb-3 card">
@@ -44,75 +45,76 @@
 												<option value="">부서</option>
 												<option value="">직책</option>
 												<option value="">사원번호</option>
-												<option value="">이름</option>
-												
+												<option value="">이름</option>												
 											</select>			
 											<input type="text" name="sv" class="form-control search-input">											
-											<button type="submit" id="seachBtn" class="btn btn-primary date_right">검색</button>
-									
+											<button type="submit" id="seachBtn" class="btn btn-primary btn-right">검색</button>									
 									</div>
 								</div>
-								</form>
-							
-							
-							
-							<div class="scroll-div date_left">
-								<div class="scrollbar-container">
-									<table class="mb-0 emp-table emp-info-table table table-hover text-center">
-										<thead>
-											<tr class="tr-1">										
-												<th>부서명</th>
-												<th>직책</th>
-												<th>사원번호</th>
-												<th>이름</th>
+								</form>														
+								<table class="mb-0 emp-table emp-info-table table table-hover text-center">
+									<thead>
+										<tr class="tr-1">										
+											<th>부서명</th>
+											<th>직책</th>
+											<th>사원번호</th>
+											<th>이름</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="t : ${staffTask}">
+											<tr th:if="${session.SJOJICCODE eq t.jojicCode}" class="staffTask">
+												<td th:text="${t.jojicName}"></td>
+												<td th:text="${t.levelName}"></td>
+												<td th:text="${t.staffNum}"></td>
+												<td th:text="${t.staffName}"></td>
 											</tr>
-										</thead>
-										<tbody>
-											<th:block th:each="t : ${staffTask}">
-												<tr th:if="${session.SJOJICCODE eq t.jojicCode}" class="staffTask">
-													<td th:text="${t.jojicName}"></td>
-													<td th:text="${t.levelName}"></td>
-													<td th:text="${t.staffNum}"></td>
-													<td th:text="${t.staffName}"></td>
-												</tr>
-											</th:block>
-										</tbody>
-									</table>
-								</div>
-							</div>													
+										</th:block>
+									</tbody>
+								</table>																					
+							</div>
 						</div>
 					</div>
-				</div>
 				<div class="col-lg-8">
 					<div class="main-card mb-3 card">
 						<div class="card-body">							
 							<div class="scroll-div">											
 								<div>									
-							        <h5 class="text-centar">업무 등록</h5>
+							        <h5 class="title-text text-centar">업무 등록</h5>
 							        <form id="addTask" action="/addTask" method="post">
-							        	<input type="hidden" th:value="${session.SSTAFFNUM}" name="staffNum">
-								        <input type="text" class="form-control" name="taskInfo">
-								        <button type="submit" class="btn btn-outline-info date_right">등록</button>
+							        	<ul>
+									        <li>
+									        	<input type="hidden" th:value="${session.SSTAFFNUM}" name="staffNum">
+										        <input type="text" class="form-control task-input" name="taskInfo">
+										        <button type="submit" class="btn btn-outline-info btn-right one-Btn">
+										        	<i class="pe-7s-plus">  등록</i>
+										        </button>
+										    </li>												        
+								    	</ul>  
 							        </form>
 							        	
-							      	<h5 class="text-centar">업무 목록</h5>
+							      	<h5 class="title-text text-centar">업무 목록</h5>
 							      	<th:block th:each="t : ${myTesk}" th:if="${session.SSTAFFNUM eq t.staffNum}">
 								    	<ul id="incomplete-tasks">
-									        <li  th:if="${t.taskResult eq null}">	
-									        	<input type="hidden" th:value="${t.taskNum}">											        
-										        <input type="text" th:value="${t.taskInfo}" class="form-control" >
-										        <button class="success ">완료</button>
-										        <button class="delete">삭제</button>
+									        <li  th:if="${t.taskResult eq null}">				        											        
+										        <input type="text" th:value="${t.taskInfo}" class="form-control task-input">      
+										        <a class="btn-right btn btn-outline-danger" th:href="@{/delTask(taskNum=${t.taskNum})}">
+										        	<i class="pe-7s-close-circle"> 삭제</i>
+										        </a>
+										        <a class="btn btn-outline-success btn-right end-task" th:href="@{/endTask(taskNum=${t.taskNum})}">
+										        	<i class="pe-7s-angle-down-circle"> 완료</i>
+										        </a>
 									        </li>												        
 								    	</ul>  
 							      	</th:block>								
-								    <h5 class="text-centar">완료 업무목록</h5>
+								    <h5 class="title-text text-centar">완료 업무목록</h5>
 								    <th:block th:each="t : ${myTesk}" th:if="${session.SSTAFFNUM eq t.staffNum}">      
 								      	<ul id="completed-tasks">
-								        	<li th:if="${t.taskResult != null}">
-								        		<input type="hidden" th:value="${t.taskNum}">									        	
-									        	<input type="text" th:value="${t.taskInfo}" class="form-control">										        	
-									        	<button class="delete">삭제</button>
+								        	<li th:if="${t.taskResult != null}">								        										        	
+									        	<input type="text" th:value="${t.taskInfo}" class="form-control task-input" readonly="readonly">										        	
+									        	 <a class="btn-right btn btn-outline-danger one-Btn" th:href="@{/delTask(taskNum=${t.taskNum})}">
+										        	<i class="pe-7s-close-circle"> 삭제</i>
+										        </a>
 								        	</li>
 								      	</ul>
 								      </th:block>														
@@ -131,16 +133,5 @@
    </th:block>
    <th:block layout:fragment="customJsScript"> 
    
-	   <script>
-	   	$(document).ready(function(){
-	   		
-	   		$('.delete').click(function(){
-	
-	   			
-	   		});
-							
-	   	
-		});
-		</script>
    </th:block>
 </html>

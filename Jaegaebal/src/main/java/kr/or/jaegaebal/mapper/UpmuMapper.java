@@ -15,6 +15,12 @@ import kr.or.jaegaebal.dto.Upmu;
 @Mapper
 public interface UpmuMapper {
 	
+	//업무삭제
+	public int delTask(int taskNum);
+	
+	//업무완료
+	public int endTask(int taskNum);
+	
 	//업무등록
 	public int addTask(Upmu newTask);
 	

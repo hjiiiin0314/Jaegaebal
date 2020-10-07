@@ -4,6 +4,24 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
 
+<!-- 업무삭제  -->
+<delete id="delTask" parameterType="int">
+	DELETE FROM 
+			um_task 	
+	WHERE
+		 task_num= #{taskNum}
+</delete>
+
+<!-- 업무완료 -->
+<update id="endTask" parameterType="int">
+	UPDATE 
+		um_task
+	SET
+		task_result='완료'
+	WHERE 
+		task_num = #{taskNum}
+</update>
+
 <!-- 업무등록 -->
 <insert id="addTask" parameterType="Upmu">
 	INSERT INTO um_task
