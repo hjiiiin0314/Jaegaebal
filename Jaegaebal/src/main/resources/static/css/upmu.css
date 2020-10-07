@@ -144,8 +144,10 @@
 .one-Btn{
 	    margin-right: 35px;
 	    padding-left: 23px;
-    padding-right: 30px;
+   		padding-right: 30px;
 }
 .title-text{
 	font-weight: 600;
+	padding-right: 100px;
+	padding-bottom: 10px;
 }

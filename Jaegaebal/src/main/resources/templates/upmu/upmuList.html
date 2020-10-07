@@ -80,7 +80,7 @@
 						<div class="card-body">							
 							<div class="scroll-div">											
 								<div>									
-							        <h5 class="title-text text-centar">업무 등록</h5>
+							        <h5 class="title-text text-centar">업무 등록하기</h5>
 							        <form id="addTask" action="/addTask" method="post">
 							        	<ul>
 									        <li>
@@ -101,13 +101,13 @@
 										        <a class="btn-right btn btn-outline-danger" th:href="@{/delTask(taskNum=${t.taskNum})}">
 										        	<i class="pe-7s-close-circle"> 삭제</i>
 										        </a>
-										        <a class="btn btn-outline-success btn-right end-task" th:href="@{/endTask(taskNum=${t.taskNum})}">
+										        <a class="btn btn-outline-info btn-right end-task" th:href="@{/endTask(taskNum=${t.taskNum})}">
 										        	<i class="pe-7s-angle-down-circle"> 완료</i>
 										        </a>
 									        </li>												        
 								    	</ul>  
 							      	</th:block>								
-								    <h5 class="title-text text-centar">완료 업무목록</h5>
+								    <h5 class="title-text text-centar">완료한 업무</h5>
 								    <th:block th:each="t : ${myTesk}" th:if="${session.SSTAFFNUM eq t.staffNum}">      
 								      	<ul id="completed-tasks">
 								        	<li th:if="${t.taskResult != null}">								        										        	
