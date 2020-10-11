@@ -10,10 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.jaegaebal.dto.CareerInfoFromIn;
+import kr.or.jaegaebal.dto.CareerInfoFromOut;
+import kr.or.jaegaebal.dto.CertificateInfo;
 import kr.or.jaegaebal.dto.Code;
 import kr.or.jaegaebal.dto.Company;
+import kr.or.jaegaebal.dto.EducationInfo;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.MilitaryInfo;
 import kr.or.jaegaebal.dto.Punishment;
+import kr.or.jaegaebal.dto.StaffBasicInfo;
+import kr.or.jaegaebal.dto.StaffFamilyInfo;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.InsaMapper;
 
@@ -274,38 +281,38 @@ public class InsaService {
 	};
 	
 	//직원 등록 - 인적사항 insert
-	public int insertStaffDetaillInfo(StaffInfo staffInfo) {
-		int result = insaMapper.insertStaffBasicInfo(staffInfo);
+	public int insertStaffDetaillInfo(StaffBasicInfo staffBasicInfo) {
+		int result = insaMapper.insertStaffBasicInfo(staffBasicInfo);
 		return result;
 	};
 	//직원 등록 - 가족정보 insert
-	public int insertStaffFamilyInfo(StaffInfo staffInfo) {
-		int result = insaMapper.insertStaffFamilyInfo(staffInfo);
+	public int insertStaffFamilyInfo(StaffFamilyInfo staffFamilyInfo) {
+		int result = insaMapper.insertStaffFamilyInfo(staffFamilyInfo);
 		return result;
 	};
 	//직원 등록 - 사내 경력 정보 insert
-	public int insertStaffCareerInfoFromIn(StaffInfo staffInfo) {
-		int result = insaMapper.insertStaffCareerInfoFromIn(staffInfo);
+	public int insertStaffCareerInfoFromIn(CareerInfoFromIn careerInfoFromIn) {
+		int result = insaMapper.insertStaffCareerInfoFromIn(careerInfoFromIn);
 		return result;
 	};
 	//직원 등록 - 사외 경력 정보 insert
-	public int insertStaffCareerInfoFromOut(StaffInfo staffInfo) {
-		int result = insaMapper.insertStaffCareerInfoFromOut(staffInfo);
+	public int insertStaffCareerInfoFromOut(CareerInfoFromOut careerInfoFromOut) {
+		int result = insaMapper.insertStaffCareerInfoFromOut(careerInfoFromOut);
 		return result;
 	};
 	//직원 등록 - 자격증 경력 정보 insert
-	public int insertStaffCertificateInfo(StaffInfo staffInfo) {
-		int result = insaMapper.insertStaffCertificateInfo(staffInfo);
+	public int insertStaffCertificateInfo(CertificateInfo certificateInfo) {
+		int result = insaMapper.insertStaffCertificateInfo(certificateInfo);
 		return result;
 	};
 	//직원 등록 - 학력 정보 insert
-	public int insertStaffEducationInfo(StaffInfo staffInfo) {
-		int result = insaMapper.insertStaffEducationInfo(staffInfo);
+	public int insertStaffEducationInfo(EducationInfo educationInfo) {
+		int result = insaMapper.insertStaffEducationInfo(educationInfo);
 		return result;
 	};
 	//직원 등록 - 병역 정보 insert
-	public int insertStaffMilitaryInfo(StaffInfo staffInfo) {
-		int result = insaMapper.insertStaffMilitaryInfo(staffInfo);
+	public int insertStaffMilitaryInfo(MilitaryInfo militaryInfo) {
+		int result = insaMapper.insertStaffMilitaryInfo(militaryInfo);
 		return result;
 	};
 	

@@ -651,7 +651,7 @@
 	</select>
 	
 	<!-- 직원 인적사항 등록하기 -->
-	<insert id="insertStaffBasicInfo" parameterType="StaffInfo">
+	<insert id="insertStaffBasicInfo" parameterType="StaffBasicInfo">
 		<selectKey keyProperty="basicInfoCode" resultType="String" order="BEFORE" >
 			select CONCAT('BSIF',(SELECT MAX(cast(SUBSTRING(basic_info_code,5)AS DECIMAL)) + 1  FROM is_staff_basic_info AS bsif))
 		</selectKey>	
@@ -689,7 +689,7 @@
 	</insert>
 	
 	<!-- 직원 가족정보 등록하기 -->
-	<insert id="insertStaffFamilyInfo" parameterType="StaffInfo">
+	<insert id="insertStaffFamilyInfo" parameterType="StaffFamilyInfo">
 		<selectKey keyProperty="familyInfoCode" resultType="String" order="BEFORE" >
 			select CONCAT('FMLIF',(SELECT MAX(cast(SUBSTRING(family_info_code,6)AS DECIMAL)) + 1  FROM is_staff_family_info AS FMLIF))
 		</selectKey>
@@ -726,7 +726,7 @@
 	</insert>
 	
 	<!-- 직원 사내경력 정보 등록하기 -->
-	<insert id="insertStaffCareerInfoFromIn" parameterType="StaffInfo">
+	<insert id="insertStaffCareerInfoFromIn" parameterType="CareerInfoFromIn">
 		<selectKey keyProperty="careerInfoFromInCode" resultType="String" order="BEFORE" >
 			select CONCAT('CINIF',(SELECT MAX(cast(SUBSTRING(career_info_from_in_code,6)AS DECIMAL)) + 1  FROM is_career_info_from_in AS ci))
 		</selectKey>	
@@ -770,7 +770,7 @@
 	</insert>
 	
 	<!-- 직원 사외 경력 정보 등록하기 -->
-	<insert id="insertStaffCareerInfoFromOut" parameterType="StaffInfo">
+	<insert id="insertStaffCareerInfoFromOut" parameterType="CareerInfoFromOut">
 		<selectKey keyProperty="careerInfoFromOutCode" resultType="String" order="BEFORE" >
 			select CONCAT('COUTIF',(SELECT MAX(cast(SUBSTRING(career_info_from_out_code,7)AS DECIMAL)) + 1  FROM is_career_info_from_out AS cout))
 		</selectKey>	
@@ -814,7 +814,7 @@
 	</insert>
 	
 	<!-- 직원 자격증 정보 등록하기 -->
-	<insert id="insertStaffCertificateInfo" parameterType="StaffInfo">
+	<insert id="insertStaffCertificateInfo" parameterType="CertificateInfo">
 		<selectKey keyProperty="certificateInfoCode" resultType="String" order="BEFORE" >
 			select CONCAT('CTIF',(SELECT MAX(cast(SUBSTRING(certificate_info_code,5)AS DECIMAL)) + 1  FROM is_certificate_info AS c))
 		</selectKey>	
@@ -854,7 +854,7 @@
 	</insert>
 	
 	<!-- 직원 학력정보 등록하기 -->
-	<insert id="insertStaffEducationInfo" parameterType="StaffInfo">
+	<insert id="insertStaffEducationInfo" parameterType="EducationInfo">
 		<selectKey keyProperty="educationInfoCode" resultType="String" order="BEFORE" >
 			select CONCAT('EDIF',(SELECT MAX(cast(SUBSTRING(education_info_code,5)AS DECIMAL)) + 1  FROM is_education_info AS ed))
 		</selectKey>	
@@ -898,7 +898,7 @@
 	</insert>
 	
 	<!-- 직원 병역정보 등록하기 -->
-	<insert id="insertStaffMilitaryInfo" parameterType="StaffInfo">
+	<insert id="insertStaffMilitaryInfo" parameterType="MilitaryInfo">
 		<selectKey keyProperty="militaryInfoCode" resultType="String" order="BEFORE" >
 			select CONCAT('MLIF',(SELECT MAX(cast(SUBSTRING(military_info_code,5)AS DECIMAL)) + 1  FROM is_military_info AS ml))
 		</selectKey>	

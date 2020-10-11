@@ -15,9 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.jaegaebal.dto.CareerInfoFromIn;
+import kr.or.jaegaebal.dto.CareerInfoFromOut;
+import kr.or.jaegaebal.dto.CertificateInfo;
 import kr.or.jaegaebal.dto.Company;
+import kr.or.jaegaebal.dto.EducationInfo;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.MilitaryInfo;
 import kr.or.jaegaebal.dto.Punishment;
+import kr.or.jaegaebal.dto.StaffBalryoungInfo;
+import kr.or.jaegaebal.dto.StaffBasicInfo;
+import kr.or.jaegaebal.dto.StaffFamilyInfo;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.mapper.InsaMapper;
 import kr.or.jaegaebal.service.InsaService;
@@ -118,15 +126,27 @@ public class InsaController {
 
 	// 직원 등록 - 추가 입력 사항
 	@PostMapping("/insertStaffDetaillInfo")
-	public String insertStaffDetaillInfo(StaffInfo insertStaffInfo, Model model, RedirectAttributes redirectAttr) {
+	public String insertStaffDetaillInfo(	  StaffInfo insertStaffInfo
+											, Model model
+											, RedirectAttributes redirectAttr
+											, StaffBasicInfo staffBasicInfo
+											, CareerInfoFromIn careerInfoFromIn
+											, CareerInfoFromOut careerInfoFromOut
+											, CertificateInfo certificateInfo
+											, EducationInfo educationInfo
+											, MilitaryInfo militaryInfo
+											, StaffBalryoungInfo staffBalryoungInfo
+											, StaffInfo staffInfo
+											, StaffFamilyInfo staffFamilyInfo) {
 		log.info("insertStaffInfo>>>>>>>>>{}", insertStaffInfo);
-		int resultBSIF = insaService.insertStaffDetaillInfo(insertStaffInfo);
-		int resultFMLIF = insaService.insertStaffFamilyInfo(insertStaffInfo);
-		int resultCINIF = insaService.insertStaffCareerInfoFromIn(insertStaffInfo);
-		int resultCOUTIF = insaService.insertStaffCareerInfoFromOut(insertStaffInfo);
-		int resultCTIF = insaService.insertStaffCertificateInfo(insertStaffInfo);
-		int resultEDIF = insaService.insertStaffEducationInfo(insertStaffInfo);
-		int resultMLIF = insaService.insertStaffMilitaryInfo(insertStaffInfo);
+		log.info("staffFamilyInfo>>>>>>>>>{}", staffFamilyInfo);
+		int resultBSIF = insaService.insertStaffDetaillInfo(staffBasicInfo);
+		int resultFMLIF = insaService.insertStaffFamilyInfo(staffFamilyInfo);
+		int resultCINIF = insaService.insertStaffCareerInfoFromIn(careerInfoFromIn);
+		int resultCOUTIF = insaService.insertStaffCareerInfoFromOut(careerInfoFromOut);
+		int resultCTIF = insaService.insertStaffCertificateInfo(certificateInfo);
+		int resultEDIF = insaService.insertStaffEducationInfo(educationInfo);
+		int resultMLIF = insaService.insertStaffMilitaryInfo(militaryInfo);
 
 		log.info("resultBSIF:::::{}", resultBSIF, "<<<<<<<<<<<<");
 		log.info("resultFMLIF:::::{}", resultFMLIF, "<<<<<<<<<<<<");
@@ -135,7 +155,7 @@ public class InsaController {
 		log.info("resultCTIF:::::{}", resultCTIF, "<<<<<<<<<<<<");
 		log.info("resultEDIF:::::{}", resultEDIF, "<<<<<<<<<<<<");
 		log.info("resultMLIF:::::{}", resultMLIF, "<<<<<<<<<<<<");
-		return "redirect:/";
+		return "redirect:/insa/staffInfoList";
 
 	}
 

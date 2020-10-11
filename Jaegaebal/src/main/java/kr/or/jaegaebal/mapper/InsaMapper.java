@@ -5,10 +5,17 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.or.jaegaebal.dto.CareerInfoFromIn;
+import kr.or.jaegaebal.dto.CareerInfoFromOut;
+import kr.or.jaegaebal.dto.CertificateInfo;
 import kr.or.jaegaebal.dto.Code;
 import kr.or.jaegaebal.dto.Company;
+import kr.or.jaegaebal.dto.EducationInfo;
 import kr.or.jaegaebal.dto.Jojic;
+import kr.or.jaegaebal.dto.MilitaryInfo;
 import kr.or.jaegaebal.dto.Punishment;
+import kr.or.jaegaebal.dto.StaffBasicInfo;
+import kr.or.jaegaebal.dto.StaffFamilyInfo;
 import kr.or.jaegaebal.dto.StaffInfo;
 
 
@@ -83,19 +90,19 @@ public interface InsaMapper {
 	//추가 정보 입력시 정보가져오기
 	public StaffInfo getInsertStaffInfo(String staffNum);
 	//직원 등록 - 인적사항 insert
-	public int insertStaffBasicInfo(StaffInfo staffInfo);
+	public int insertStaffBasicInfo(StaffBasicInfo staffBasicInfo);
 	//직원 등록 - 가족정보 insert
-	public int insertStaffFamilyInfo(StaffInfo staffInfo);
+	public int insertStaffFamilyInfo(StaffFamilyInfo staffFamilyInfo);
 	//직원 등록 - 사내 경력 정보 insert
-	public int insertStaffCareerInfoFromIn(StaffInfo staffInfo);
+	public int insertStaffCareerInfoFromIn(CareerInfoFromIn careerInfoFromIn);
 	//직원 등록 - 사외 경력 정보 insert
-	public int insertStaffCareerInfoFromOut(StaffInfo staffInfo);
+	public int insertStaffCareerInfoFromOut(CareerInfoFromOut careerInfoFromOut);
 	//직원 등록 - 자격증 경력 정보 insert
-	public int insertStaffCertificateInfo(StaffInfo staffInfo);
+	public int insertStaffCertificateInfo(CertificateInfo certificateInfo);
 	//직원 등록 - 학력 정보 insert
-	public int insertStaffEducationInfo(StaffInfo staffInfo);
+	public int insertStaffEducationInfo(EducationInfo educationInfo);
 	//직원 등록 - 병역 정보 insert
-	public int insertStaffMilitaryInfo(StaffInfo staffInfo);
+	public int insertStaffMilitaryInfo(MilitaryInfo militaryInfo);
 	//직원 등록 - 급여기본 정보 insert
 	public int insertStaffSalaryInfo(StaffInfo staffInfo);
 
