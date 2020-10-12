@@ -22,6 +22,7 @@ import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.EducationInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.MilitaryInfo;
+import kr.or.jaegaebal.dto.Prize;
 import kr.or.jaegaebal.dto.Punishment;
 import kr.or.jaegaebal.dto.StaffBalryoungInfo;
 import kr.or.jaegaebal.dto.StaffBasicInfo;
@@ -396,23 +397,110 @@ public class InsaController {
 		return result;
 	}
 	
-	//포상 리스트 화면
+	// 포상 리스트 화면
 	@GetMapping("/insa/prize")
-	public String getPrizeList(		 Model model
-									,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage
-									,@RequestParam Map<String, Object> map) {
-/*		Map<String, Object> resultMap = insaService.getPunishmentList(currentPage, map);
+	public String getPrizeList(	 		 Model model
+										,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage
+										,@RequestParam Map<String, Object> map) {
+		Map<String, Object> resultMap = insaService.getPrizeList(currentPage, map);
 		
 		log.info(">>>>>>resultMap>>>>>>>{}", resultMap);
 		
 		model.addAttribute("lastPage", resultMap.get("lastPage"));
-		model.addAttribute("pnshList", resultMap.get("pnshList"));
+		model.addAttribute("prizeList", resultMap.get("prizeList"));
 		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
-		model.addAttribute("currentPage", currentPage);		*/
+		model.addAttribute("currentPage", currentPage);		
 		
 		model.addAttribute("title", "포상 정보");
+		
 		return "insa/prize_list";
 	}
+	
+	//포상리스트 - tr 리스트 한 행 클릭시 상세정보 가져오기
+	@PostMapping(value = "/getPrizeListInfo", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getPrizeListInfo(		 @RequestParam(value = "prizeNum", required = false) String prizeNum
+													,@RequestParam(value = "staffNum", 		required = false) String staffNum
+													,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		
+		Map<String, Object> map 		= new HashMap<String, Object>();
+		map.put("prizeNum", 		prizeNum);
+		map.put("staffNum", 		staffNum);
+		log.info("map 1::::::{}", map.get("prizeNum"));
+		log.info("map 2::::::{}", map.get("staffNum"));
+		
+		Map<String, Object> resultMap 	= insaService.getPrizeList(currentPage, map);
+		log.info("resultMap::::/getPrizeListInfo:::::{}", resultMap.toString());
+		return resultMap;
+	}
+	
+	//포상리스트 - 검색어 서칭시 리스트 새로 출력하기
+	@PostMapping("/insa/prize")
+	public String searchPrizeList(	 Model model
+									,@RequestParam(value = "sk", required = false) String sk
+									,@RequestParam(value = "sv", required = false) String sv
+									,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		if(sk == null || sk.equals("")) {
+			System.out.println("공백ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ");
+			return "/insa/prize";
+		}
+		Map<String, Object> map 		= new HashMap<String, Object>();
+		map.put("sk", sk);
+		map.put("sv", sv);
+		Map<String, Object> resultMap 	= insaService.getPrizeList(currentPage, map);
+		model.addAttribute("lastPage", resultMap.get("lastPage"));
+		model.addAttribute("prizeList", resultMap.get("prizeList"));
+		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
+		model.addAttribute("currentPage", currentPage);	
+		
+		model.addAttribute("title", "포상 정보");
+		
+		return "insa/prize_list";
+	}
+	
+	//포상리스트 - 추가 버튼 클릭시
+	@PostMapping(value = "/getPrizeInfo", produces = "application/json")
+	@ResponseBody	
+	public List<Prize> getPrizeInfo(@RequestParam(value = "prizeNameSelect", required = false) String prizeNameSelect){
+		if(prizeNameSelect == null || prizeNameSelect.equals("")) {
+			List<Prize> prizeInfo = insaMapper.getPrizeInfo();
+			log.info("prizeInfo.toString()::::::::::{}", prizeInfo.toString());
+			return prizeInfo;
+		}else if(prizeNameSelect != null && !prizeNameSelect.equals("")){
+			List<Prize> prizeInfo = insaMapper.getPrizeInfo(prizeNameSelect);
+			return prizeInfo;
+		}
+		return null;
+	}
+	
+	//포상리스트 추가하기
+	@PostMapping("/insa/insertPrizeList")
+	public String insertPrizeList(Prize insertPrizeListInfo) {
+		log.info("insertPrizeListInfo.toString():::>>>>>>{}", insertPrizeListInfo.toString());
+		insaService.insertPrizeList(insertPrizeListInfo);
+		return "redirect:/insa/prize";
+	}
+	
+	//포상리스트 수정하기
+	@PostMapping(value = "/modifyPrizeListInfo", produces = "application/json")
+	@ResponseBody	
+	public int modifyPrizeListInfo(Prize modifyPrizeListInfo) {
+		log.info("modifyPrizeListInfo.toString>>>>>>{}", modifyPrizeListInfo.toString());
+		int result = insaService.modifyPrizeListInfo(modifyPrizeListInfo);
+		return result;
+	}
+	
+	//포상리스트 삭제하기
+	@PostMapping(value = "/deletePrizeListInfo", produces = "application/json")
+	@ResponseBody	
+	public int deletePrizeListInfo(String prizeNum) {
+		System.out.printf("prizeNum>>>>>>>>>>>>>{}", prizeNum);
+		int result = insaService.deletePrizeListInfo(prizeNum);
+		return result;
+	}
+	
+
 	
 }

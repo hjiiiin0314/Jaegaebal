@@ -9,7 +9,7 @@ public class Prize {
 	//prize_num, staff_num, given_date, prize_reason, prize_price, salary_applied_date, prize_notes
 	
 	//추가된 것
-	//jojic_name
+	//jojic_name, staff_name
 	
 	private String prizeCode;
 	private String prizeName;
@@ -22,6 +22,7 @@ public class Prize {
 	private String salaryAppliedDate;
 	private String prizeNotes;
 	private String jojicName;
+	private String staffName;
 	
 	@Override
 	public String toString() {
@@ -48,10 +49,17 @@ public class Prize {
 		builder.append(prizeNotes);
 		builder.append(", jojicName=");
 		builder.append(jojicName);
+		builder.append(", staffName=");
+		builder.append(staffName);
 		builder.append("]");
 		return builder.toString();
 	}
-	
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}	
 	public String getPrizeCode() {
 		return prizeCode;
 	}

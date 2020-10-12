@@ -18,6 +18,7 @@ import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.EducationInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.MilitaryInfo;
+import kr.or.jaegaebal.dto.Prize;
 import kr.or.jaegaebal.dto.Punishment;
 import kr.or.jaegaebal.dto.StaffBasicInfo;
 import kr.or.jaegaebal.dto.StaffFamilyInfo;
@@ -352,7 +353,7 @@ public class InsaService {
 	}	
 	
 	//징계리스트 - 징계리스트 추가 - 징계명 클릭시  / 징계 정보 가져오기 
-	public List<Punishment> getPnshInfo(){
+	public List<Punishment> getPunhInfo(){
 		List<Punishment> pnshInfo = insaMapper.getPnshInfo();
 		return pnshInfo;
 	};
@@ -374,6 +375,68 @@ public class InsaService {
 	//징계리스트 삭제하기
 	public int deletePnshListInfo(String punishmentNum) {
 		int result = insaMapper.deletePnshListInfo(punishmentNum);
+		return result;
+	};
+	
+	
+	//포상 리스트 & 검색조건 & 페이징
+	public Map<String, Object> getPrizeList(int currentPage, Map<String, Object> map) {
+		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
+		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
+		int startPageNum 				= 1; 				// 시작페이지번호
+		int lastPageNum 				= ROW_PER_PAGE; 	// 끝페이지번호
+		// 6번째 가운데 위치
+		if (currentPage > (ROW_PER_PAGE / 2)) {
+			startPageNum 				= currentPage - ((lastPageNum / 2) - 1);
+			lastPageNum 			   += (startPageNum - 1);
+		}
+		startRow = (currentPage - 1) * ROW_PER_PAGE;		// 페이징 알고리즘
+		double totalRowCount = insaMapper.getPrizeListCount(map);
+		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
+		
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startRow", startRow);
+		parameterMap.put("rowPerPage", ROW_PER_PAGE);
+		parameterMap.put("map", map);
+		
+		List<Map<String, Object>> prizeList = insaMapper.getPrizeList(parameterMap);
+		
+		if (currentPage >= (lastPage - 4)) {
+			lastPageNum = lastPage;
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("prizeList", prizeList);
+		resultMap.put("lastPage", lastPage);
+		resultMap.put("startPageNum", startPageNum);
+		resultMap.put("lastPageNum", lastPageNum);
+		
+		return resultMap;
+	}	
+	
+	//포상리스트 - 포상리스트 추가 - 포상명 클릭시  / 징계 정보 가져오기 
+	public List<Prize> getPrizeInfo(){
+		List<Prize> prizeInfo = insaMapper.getPrizeInfo();
+		return prizeInfo;
+	};
+	//포상리스트 - 추가 버튼 클릭 - 포상명 클릭시 - 점수 삽입하기
+	public List<Prize> getPrizeInfo(String prizeNameSelect){
+		List<Prize> prizeInfo = insaMapper.getPrizeInfo(prizeNameSelect);
+		return prizeInfo;
+	};
+	//포상리스트 추가하기
+	public int insertPrizeList(Prize insertPrizeListInfo) {
+		int result = insaMapper.insertPrizeList(insertPrizeListInfo);
+		return result;
+	};
+	//포상리스트 수정하기
+	public int modifyPrizeListInfo(Prize modifyPrizeListInfo) {
+		int result = insaMapper.modifyPrizeListInfo(modifyPrizeListInfo);
+		return result;
+	};	
+	//포상리스트 삭제하기
+	public int deletePrizeListInfo(String prizeNum) {
+		int result = insaMapper.deletePrizeInfo(prizeNum);
 		return result;
 	};
 }

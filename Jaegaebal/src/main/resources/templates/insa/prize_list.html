@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="layout/default">
+     
+   <th:block layout:fragment="customTitle">
+      <title th:text="${title}"></title> 
+   </th:block>
+   
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+   </th:block>
+   
+   <th:block layout:fragment="customJs">
+   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript" th:src="@{/assets/scripts/insa.js}"></script>
+	</th:block>
+   
+   <th:block layout:fragment="customContent">
+		<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+		
+		<div class="app-main__inner">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>포상 관리
+					       <div class="page-title-subheading">인사관리/직원관리/포상관리</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		    <div class="row">
+				<div class="col-lg-4">
+					<div class="main-card mb-3 card">
+						<div class="card-body">
+							<h5 class="mt-2 card-title search-left">포상 리스트</h5>
+							<div class="date_right">
+								<form method="post" id="prizeSearchForm" action="/insa/prize">
+									<div class="input-group p-l-none p-r-none p-b-xs col-md-8 div-left" >
+					                     <div class="input-group-prepend">
+					                         <button type="button" class="btn btn-outline-secondary" id="mocroc">목록</button>
+					                         <input type="hidden" id="mocrocVal" name="sk"/>
+					                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
+					                       	 	<span class="sr-only"></span>
+					                       	 </button>
+					                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+					                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPrizeStaffNum" name="staff_num">사원번호</button>
+					                             <div tabindex="-1" class="dropdown-divider"></div>
+					                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPrizeStaffName" name="staff_name">이름</button>
+					                             <div tabindex="-1" class="dropdown-divider"></div>
+					                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPrizeGivenDate" name="given_date">조회기준일</button>
+					                             <div tabindex="-1" class="dropdown-divider"></div>
+					                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPrizeName" name="prize_name">포상명</button>
+					                             <div tabindex="-1" class="dropdown-divider"></div>
+					                             <button type="button" tabindex="0" class="dropdown-item" id="BtnPrizeSosoc" name="jojic_name">소속</button>
+					                         </div>
+					                     </div>
+					                   	 <input placeholder="검색어" type="text" class="form-control" name="sv" id="prizeSearchInput">
+					                     <div class="input-group-append">
+					                         <button type="button" class="btn btn-secondary" id="staffPrizeSearchBtn1">검색</button>
+					                     </div>
+									</div> 	
+									<div class="div-right ">
+										<button type="button" class="mb-2 mr-2 btn btn-alternate m-r-none" id="insertPrizeList" data-toggle="modal" data-target="#insertPrizeListModal">+ 리스트 추가</button>
+									</div>										
+								</form>
+							</div>
+							<!-- 추가 클릭시 modal -->
+							<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="insertPrizeListModal">
+							    <div class="modal-dialog modal-lg">
+							        <div class="modal-content">
+							            <div class="modal-header">
+							                <h5 class="modal-title" id="exampleModalLongTitle">포상 리스트 추가</h5>
+							                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							                    <span aria-hidden="true">&times;</span>
+							                </button>
+							            </div>
+							            <div class="modal-body">
+											<div class="col-md-12">
+												<div class="main-card card">
+													<div class="card-body">
+														<h5 class="mt-2 card-title mb-4 m-b-xs">기입 정보</h5>
+														<div class="input-group col-md-7 p-l-none p-b-xs">
+										                     <div class="input-group-prepend">
+										                     	<span class="input-group-text" id="inputGroupPrepend">직원 검색</span>
+										                     </div>
+										                     	<select id="searchStaffPrize" class="custom-select" name="sk">
+										                     		<option value="staff_num">사원번호</option>
+										                     		<option value="staff_name">이름</option>
+										                     		<option value="jojic_name">부서명</option>
+										                     	</select>
+										                   	 <input placeholder="검색어" type="text" class="form-control" name="sv" id="searchStaffPrizeInfoVal">
+										                     <div class="input-group-append">
+										                         <button type="submit" class="btn btn-secondary" id="staffPrizeInfoSearchBtn" data-toggle="modal" >검색</button>
+										                     	<!-- data-target="#insertprizeListModal2" -->
+										                     </div>
+														</div> 	
+														<div class="scroll-div">
+															<div class="scrollbar-container">
+																<div class="row col-md-12 p-r-none m-r-none">
+																	<div class="row col-md-12 p-r-none" style="background-color : white;">
+																		<form id="insertPrizeListForm" method="post" action="/insa/insertPrizeList">
+																  			<table class="mb-0 table table-bordered m-b-sm m-t-none">
+																	            <tr>
+																	            	<td class="t_head">사원번호
+																	            	</td>
+																	            	<td>
+																	            		<input type="text" name="staffNum" class="form-control haveToWriteVals" id="insertPrizeStaffNum" readonly>
+																	            	</td>
+																	            	<td class="t_head">이름</td>
+																	            	<td>
+																	            		<input type="text" name="staffName" class="form-control haveToWriteVals" id="insertPrizeStaffName" readonly>
+																	            	</td>									            	
+																	            </tr>
+																	            <tr>	
+																	            	<td class="t_head">포상명</td>
+																	            	<td>
+																                     	<select class="prizeNameSelect custom-select haveToWriteVals" name="prizeName">
+																                     		<option selected="selected" disabled="disabled" value="">포상명</option>
+																                     	</select>
+																	            	</td>			            	
+																	            	<td class="t_head">포상금액</td>
+																	            	<td>
+																	            		<input type="text" name="prizePrice" class="form-control onlyNum">
+																	            	</td>									            	
+																	            </tr>
+																	            <tr>									            
+																	            	<td class="t_head">포상일</td>
+																	            	<td>
+																	            		<input type="date" name="givenDate" class="form-control haveToWriteVals">
+																	            	</td>									            	
+																	            	<td class="t_head">급여반영일</td>
+																	            	<td>
+																	            		<input type="date" name="salaryAppliedDate" class="form-control haveToWriteVals">
+																	            	</td>									            	
+																	            </tr>
+																	            <tr>									            	
+																	            	<td class="t_head">포상사유</td>
+																	            	<td>
+																	            		<textarea rows="" cols="" name="prizeReason" class="form-control haveToWriteVals"></textarea>
+																	            	</td>									            	
+																	            	<td class="t_head">비고</td>
+																	            	<td>
+																	            		<textarea rows="" cols="" name="prizeNotes" class="form-control"></textarea>
+																	            	</td>									            	
+																	            </tr>
+																     		</table>
+																		</form>
+																	</div>																	
+																</div>
+															</div>								
+														</div>	
+													</div>
+												</div>
+											</div>											
+							            </div>
+							            <div class="modal-footer">
+							                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							                <button type="button" class="btn btn-primary" id="insertPrizeListBtn">추가 하기</button>
+							            </div>
+							        </div>
+							    </div>
+							</div>									
+							<!-- 검색 클릭시 modal -->
+							<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="insertPrizeListModal2">
+							    <div class="modal-dialog modal-lg">
+							        <div class="modal-content">
+							            <div class="modal-header">
+							                <h5 class="modal-title" id="exampleModalLongTitle">직원 목록</h5>
+							                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							                    <span aria-hidden="true">&times;</span>
+							                </button>
+							            </div>
+							            <div class="modal-body">
+											<div class="col-md-12">
+												<div class="main-card card">
+													<div class="card-body">
+														<h5 class="mt-2 card-title mb-4 m-b-xs">리스트에 추가할 직원을 선택해주세요.</h5>
+														<div class="scroll-div">
+															<div class="scrollbar-container">
+																<div class="row col-md-12 p-r-none m-r-none">
+																	<div class="row col-md-12 p-r-none" style="background-color : white;">
+																		<table class="mb-0 table table-bordered table-hover">
+																			<thead>
+																				<tr class="tr-1" >
+																					<th>사원번호</th>
+																					<th>이름</th>
+																					<th>소속</th>
+																					<th>직급</th>
+								
+																				</tr>
+																			</thead>
+																			<tbody id="insertStaffPrizeInfoTbody">
+																			</tbody>
+																		</table>
+																	</div>																	
+																</div>
+															</div>								
+														</div>	
+													</div>
+												</div>
+											</div>											
+							            </div>
+							            <div class="modal-footer">
+							                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							            </div>
+							        </div>
+							    </div>
+							</div>									
+							<div class="scroll-div date_left">
+								<div class="scrollbar-container">
+									<table class="mb-0 emp-table emp-info-table table table-hover text-center">
+										<thead>
+											<tr class="tr-1">
+												<th>번호</th>
+												<th>사원번호</th>
+												<th>이름</th>
+												<th>포상명</th>
+											</tr>
+										</thead>
+										<tbody >
+											<tr th:each="l : ${prizeList}" th:if="${not #lists.isEmpty(prizeList)}" class="prizeListTr"> 
+												<td th:text="${l.prizeNum}" id="prizeNum"></td>
+												<td th:text="${l.staffNum}"></td>
+												<td th:text="${l.staffName}"></td>
+												<td th:text="${l.prizeName}"></td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(prizeList)}" class="prizeListTr"> 
+												<td colspan="4">검색하신 직원의 포상 정보는 없습니다.</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="row p-t-xs">
+								<div class="col-md-4"></div>
+								<div class="col-md-4 m-t-none">
+									<nav class="" aria-label="Page navigation example">
+										<ul class="pagination">
+											<li class="page-item">							
+												<a th:href="@{/insa/prize}" class="page-link">
+													<span class="">&lt;&lt;</span>
+												</a>
+											</li>
+											<li class="page-item">
+												<a th:if="${currentPage > 1}" th:href="@{/insa/prize(currentPage=${currentPage-1})}" class="page-link">
+													 <span class="">&lt;</span>
+												</a>
+											</li>
+											<th:block th:each="num : ${#numbers.sequence(startPageNum, lastPageNum)}">
+												<span>
+													<a th:href="@{/insa/prize(currentPage=${num})}" class="page-link">[[${num}]]</a>
+												</span>
+											</th:block>
+											<li class="page-item">
+												<a th:if="${currentPage < lastPage}" th:href="@{/insa/prize(currentPage=${currentPage+1})}" class="page-link">
+													<span class="">&gt;</span>
+												</a>
+											</li>	
+											<li class="page-item">
+												<a th:href="@{/insa/prize(currentPage=${lastPage})}" class="page-link">
+													<span class="">&gt;&gt;</span>
+												</a>	
+											</li>		
+										</ul>									
+									</nav>
+								</div>
+								<div class="col-md-4"></div>	
+							</div>							
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="main-card card">
+						<div class="card-body">
+							<h5 class="mt-2 card-title mb-4 m-b-xs">상세정보</h5>
+							<div class="scroll-div">
+								<div class="scrollbar-container">
+									<form>
+										<div class="row col-md-12 p-r-none m-r-none">
+											<div class="row col-md-12 p-r-none" style="background-color : white;">
+									  			<table class="mb-0 table table-bordered m-b-sm m-t-none" id="prizeInfo">
+										            <tr>
+										            	<td class="t_head">사원번호
+										            		<input type="hidden" name="prize_num" id="prizeNumId">
+										            	</td>
+										            	<td>
+										            		<input type="text" name="staff_num" class="form-control" id="prizeStaffNumId" readonly>
+										            	</td>
+										            	<td class="t_head">이름</td>
+										            	<td>
+										            		<input type="text" name="staff_name" class="form-control" id="prizeStaffNameId" readonly>
+										            	</td>									            	
+										            </tr>
+										            <tr>	
+										            	<td class="t_head">포상명</td>
+										            	<td>
+										            		<input type="text" name="prize_name" class="form-control" readonly>
+										            	</td>									            	
+										            	<td class="t_head">포상사유</td>
+										            	<td>
+										            		<input type="text" name="prize_reason" class="form-control" id="prizeReasonId" readonly>
+										            	</td>									            	
+										            </tr>
+										            <tr>									            	
+										            	<td class="t_head">포상일</td>
+										            	<td>
+										            		<input type="text" name="given_date" class="form-control" id="prizeGivenDateId" readonly>
+										            	</td>									            	
+										            	<td class="t_head">포상금액</td>
+										            	<td>
+										            		<input type="text" name="prize_price" class="form-control" id="prizePriceId" readonly>
+										            	</td>									            	
+										            </tr>
+										            <tr>									            	
+										            	<td class="t_head">급여반영일</td>
+										            	<td>
+										            		<input type="text" name="salary_applied_date" class="form-control" id="prizeSalaryAppliedDateId" readonly>
+										            	</td>									            	
+										            	<td class="t_head">비고</td>
+										            	<td>
+										            		<input type="text" name="prize_notes" class="form-control" id="prizeNotesId" readonly>
+										            	</td>									            	
+										            </tr>
+									     		</table>
+											</div>																	
+							            	<div class="centerDiv m-r-none">							            	
+							            		<button type="button" class="mb-2 mr-2 btn btn-alternate" id="modifyPrizeInfo" data-toggle="modal" >수정하기</button>
+							            		<!-- data-target="#insertprizeListModal3" -->
+							            	</div>	
+							            	<div class="centerDiv m-l-xs">							            	
+							            		<button type="button" class="mb-2 mr-2 btn btn-alternate" id="deletePrizeInfoBtn">삭제하기</button>
+							            	</div>	
+										</div>
+									</form>
+								</div>								
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 수정버튼 클릭시 modal -->
+		<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-keyboard="true" id="insertPrizeListModal3">
+		    <div class="modal-dialog modal-lg">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="exampleModalLongTitle">포상 리스트 수정</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <div class="modal-body">
+						<div class="col-md-12">
+							<div class="main-card card">
+								<div class="card-body">
+									<h5 class="mt-2 card-title mb-4 m-b-xs">기입 정보</h5>
+									<div class="scroll-div">
+										<div class="scrollbar-container">
+											<div class="row col-md-12 p-r-none m-r-none">
+												<div class="row col-md-12 p-r-none" style="background-color : white;">
+													<form id="modifyPrizeListForm" method="post">
+											  			<table class="mb-0 table table-bordered m-b-sm m-t-none">
+												            <tr>
+												            	<td class="t_head">사원번호
+												            		<input type="hidden" name="prizeNum" id="ModifyPrizeNumId">
+												            	</td>
+												            	<td>
+												            		<input type="text" name="staffNum" class="form-control modifyHaveToWriteVals" id="ModifyStaffNumId" readonly>
+												            	</td>
+												            	<td class="t_head">이름</td>
+												            	<td>
+												            		<input type="text" name="staffName" class="form-control modifyHaveToWriteVals" id="ModifyStaffNameId" readonly>
+												            	</td>									            	
+												            </tr>
+												            <tr>	
+												            	<td class="t_head">포상명</td>
+												            	<td>
+											                     	<select class="prizeNameSelect custom-select modifyHaveToWriteVals" name="prizeName">
+											                     		<option selected="selected" disabled="disabled" value="">포상명</option>
+											                     	</select>
+												            	</td>			            	
+												            	<td class="t_head">포상금액</td>
+												            	<td>
+												            		<input type="text" name="prizePrice" class="form-control modifyHaveToWriteVals" id="ModifyPriceId">
+												            	</td>									            	
+												            </tr>
+												            <tr>									            
+												            	<td class="t_head">포상일</td>
+												            	<td>
+												            		<input type="date" name="givenDate" class="form-control modifyHaveToWriteVals" id="ModifyGivenDateId">
+												            	</td>									            	
+												            	<td class="t_head">급여반영일</td>
+												            	<td>
+												            		<input type="date" name="salaryAppliedDate" class="form-control modifyHaveToWriteVals" id="ModifySalaryAppliedDateId">
+												            	</td>									            	
+												            </tr>
+												            <tr>									            	
+												            	<td class="t_head">포상사유</td>
+												            	<td>
+												            		<textarea rows="" cols="" name="prizeReason" class="form-control modifyHaveToWriteVals" id="ModifyReasonId"></textarea>
+												            	</td>									            	
+												            	<td class="t_head">비고</td>
+												            	<td>
+												            		<textarea rows="" cols="" name="prizeNotes" class="form-control" id="ModifyNotesId"></textarea>
+												            	</td>									            	
+												            </tr>
+											     		</table>
+													</form>
+												</div>																	
+											</div>
+										</div>								
+									</div>	
+								</div>
+							</div>
+						</div>											
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                <button type="button" class="btn btn-primary" id="modifyPrizeListModalBtn">수정하기</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>			
+		
+		
+		
+		<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+   </th:block>
+    
+</html>

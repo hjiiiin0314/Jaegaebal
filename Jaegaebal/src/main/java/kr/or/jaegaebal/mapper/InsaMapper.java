@@ -13,6 +13,7 @@ import kr.or.jaegaebal.dto.Company;
 import kr.or.jaegaebal.dto.EducationInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.MilitaryInfo;
+import kr.or.jaegaebal.dto.Prize;
 import kr.or.jaegaebal.dto.Punishment;
 import kr.or.jaegaebal.dto.StaffBasicInfo;
 import kr.or.jaegaebal.dto.StaffFamilyInfo;
@@ -120,4 +121,19 @@ public interface InsaMapper {
 	public int modifyPnshListInfo(Punishment modifyPnshListInfo);	
 	//징계리스트 삭제하기
 	public int deletePnshListInfo(String punishmentNum);
+	
+	//포상 리스트
+	public List<Map<String, Object>> getPrizeList(Map<String, Object> parameterMap);
+	//포상 리스트의 전체 행 갯수
+	public int getPrizeListCount(Map<String, Object> map);
+	//포상리스트 - 포상리스트 추가 - 포상명 클릭시  / 징계 정보 가져오기 
+	public List<Prize> getPrizeInfo();
+	//포상리스트 - 추가 버튼 클릭 - 포상명 클릭시 - 점수 삽입하기
+	public List<Prize> getPrizeInfo(String prizeNameSelect);
+	//포상리스트 추가하기
+	public int insertPrizeList(Prize insertPrizeListInfo);
+	//포상리스트 수정하기
+	public int modifyPrizeListInfo(Prize modifyPrizeListInfo);	
+	//포상리스트 삭제하기
+	public int deletePrizeInfo(String prizeNum);
 }
