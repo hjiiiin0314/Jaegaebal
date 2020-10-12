@@ -42,10 +42,16 @@ public class UpmuService {
 		return myTesk;
 	}
 	
+	//업무관리 - 사원검색
+	public List<StaffInfo> staffTaskList(String sk, String sv){
+		List<StaffInfo> staffTask = upmumapper.staffTaskList(sk, sv);
+		return staffTask;
+	}
+	
 	//업무관리 - 사원목록
-		public List<StaffInfo> staffTask(){
-			List<StaffInfo> staffTask = upmumapper.staffTask();
-			return staffTask;
-		}
+	public List<StaffInfo> staffTask(){
+		List<StaffInfo> staffTask = upmumapper.staffTask();
+		return staffTask;
+	}
 
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.Upmu;
@@ -43,6 +43,30 @@ public class UpmuController {
 		return "redirect:/upmuList";
 	}
 	
+	//업무관리 - 사원검색
+	@PostMapping("/staffTaskList")
+	public String staffTaskList(Model model
+								,@RequestParam(value = "sk",required = false)String sk
+								,@RequestParam(value = "sv",required = false)String sv) {
+		
+		if(sk != null && !"".equals(sk) 
+				&& sv != null && !"".equals(sv)){
+			List<StaffInfo> staffTask = upmuService.staffTaskList(sk,sv);
+			model.addAttribute("staffTask", staffTask);
+			//업무정보란에는 기본적으로 내 업무정보가 나오도록
+			List<Upmu> myTesk = upmuService.myTesk();
+			model.addAttribute("myTesk", myTesk);
+			
+		}else {
+			List<StaffInfo> staffTask = upmuService.staffTask();
+			model.addAttribute("staffTask", staffTask);
+			//업무정보란에는 기본적으로 내 업무정보가 나오도록
+			List<Upmu> myTesk = upmuService.myTesk();
+			model.addAttribute("myTesk", myTesk);
+		}	
+		
+		return "upmu/upmuList";
+	}	
 	//업무관리 화면이동
 	@GetMapping("/upmuList")
 	public String upmuList(Model model) {

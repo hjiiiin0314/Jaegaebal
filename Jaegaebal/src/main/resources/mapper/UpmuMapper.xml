@@ -4,7 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
 
-<!-- 업무삭제  -->
+
+<!-- 업무관리 - 업무삭제  -->
 <delete id="delTask" parameterType="int">
 	DELETE FROM 
 			um_task 	
@@ -12,7 +13,7 @@
 		 task_num= #{taskNum}
 </delete>
 
-<!-- 업무완료 -->
+<!-- 업무관리 - 업무완료 -->
 <update id="endTask" parameterType="int">
 	UPDATE 
 		um_task
@@ -22,7 +23,7 @@
 		task_num = #{taskNum}
 </update>
 
-<!-- 업무등록 -->
+<!-- 업무관리 - 업무등록 -->
 <insert id="addTask" parameterType="Upmu">
 	INSERT INTO um_task
 		(staff_num, task_info, task_reg_date)
@@ -32,7 +33,7 @@
 		, NOW())
 </insert>
 
-<!-- 나의 업무 목록  -->
+<!-- 업무관리- 나의 업무 목록  -->
 <select id="myTesk" resultType="Upmu">
 	SELECT 
 		task_num		as taskNum
@@ -45,7 +46,32 @@
 
 </select>
 
-<!-- 직원업무관리 -->
+<!-- 업무관리 - 사원검색리스트  -->
+<select id="staffTaskList" resultType="StaffInfo">
+	SELECT 
+			s.staff_num			as staffNum
+			, s.staff_name		as staffName
+			,j.jojic_name		as jojicName
+			,l.level_name		as levelName
+			,s.jojic_code		as jojicCode
+	FROM 
+			is_staff	AS s
+		INNER JOIN 
+			is_jojic	AS j
+		on
+			s.jojic_code = j.jojic_code 
+		INNER join
+			is_level	AS	l
+		ON 
+			s.staff_level_code = l.level_code
+	<if test="sk neq ''.toString">
+	WHERE
+		${sk} LIKE CONCAT('%',#{sv},'%')
+	</if>
+
+</select>
+
+<!-- 업무관리 - 해당 부서 모든 직원 -->
 <select id="staffTask" resultType="StaffInfo">
 	SELECT 
 		s.staff_num			as staffNum

@@ -26,6 +26,9 @@ public interface UpmuMapper {
 	
 	//업무관리 - 나의업무목록
 	public List<Upmu> myTesk();
+	
+	//업무관리 - 사원검색
+	public List<StaffInfo> staffTaskList(String sk, String sv);
 
 	//업무관리 - 사원목록
 	public List<StaffInfo> staffTask();

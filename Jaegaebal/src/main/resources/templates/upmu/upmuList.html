@@ -36,21 +36,17 @@
 					<div class="main-card mb-3 card">
 						<div class="card-body">
 							<h5 class="mb-3">직원업무조회</h5>
-								<form action="/myAppList" method="post">
-								<div >
-									<div class="input-group col-md-12 mb-3">
-										
+								<form action="/staffTaskList" method="post">								
+									<div class="input-group col-md-12 mb-3">										
 											<select id = "sk" name="sk" class="form-control search-select" >
-												<option value="" selected="selected" disabled="disabled">::검색조건::</option>
-												<option value="">부서</option>
-												<option value="">직책</option>
-												<option value="">사원번호</option>
-												<option value="">이름</option>												
+												<option value="" selected="selected" disabled="disabled">::검색조건::</option>												
+												<option value="l.level_name">직책</option>
+												<option value="s.staff_num">사원번호</option>
+												<option value="s.staff_name">이름</option>												
 											</select>			
 											<input type="text" name="sv" class="form-control search-input">											
-											<button type="submit" id="seachBtn" class="btn btn-primary btn-right">검색</button>									
-									</div>
-								</div>
+											<button type="submit" class="btn btn-primary btn-right">검색</button>									
+									</div>								
 								</form>														
 								<table class="mb-0 emp-table emp-info-table table table-hover text-center">
 									<thead>
