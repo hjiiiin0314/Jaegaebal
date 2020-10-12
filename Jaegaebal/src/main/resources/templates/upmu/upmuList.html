@@ -28,9 +28,12 @@
 					    </div>
 					    <div>업무관리</div>
 					</div>
-				</div>
+				</div>				
+		    <button type="button" id="myTaskBtn" class="btn btn-warning btn-right">나의업무</button>
 			</div>
-			
+	
+		<div>
+		</div>
 		    <div class="row">
 				<div class="col-lg-4">
 					<div class="main-card mb-3 card">
@@ -59,10 +62,10 @@
 									</thead>
 									<tbody>
 										<th:block th:each="t : ${staffTask}">
-											<tr th:if="${session.SJOJICCODE eq t.jojicCode}" class="staffTask">
+											<tr th:if="${session.SJOJICCODE eq t.jojicCode}" class="staffTask">												
 												<td th:text="${t.jojicName}"></td>
 												<td th:text="${t.levelName}"></td>
-												<td th:text="${t.staffNum}"></td>
+												<td th:text="${t.staffNum}" class="staffNum"></td>
 												<td th:text="${t.staffName}"></td>
 											</tr>
 										</th:block>
@@ -74,10 +77,10 @@
 				<div class="col-lg-8">
 					<div class="main-card mb-3 card">
 						<div class="card-body">							
-							<div class="scroll-div">											
-								<div>									
+							<div class="taskList">											
+								<div class="myTask">									
+							      <form id="addTask" action="/addTask" method="post">
 							        <h5 class="title-text text-centar">업무 등록하기</h5>
-							        <form id="addTask" action="/addTask" method="post">
 							        	<ul>
 									        <li>
 									        	<input type="hidden" th:value="${session.SSTAFFNUM}" name="staffNum">
@@ -90,8 +93,8 @@
 							        </form>
 							        	
 							      	<h5 class="title-text text-centar">업무 목록</h5>
-							      	<th:block th:each="t : ${myTesk}" th:if="${session.SSTAFFNUM eq t.staffNum}">
-								    	<ul id="incomplete-tasks">
+							      	<th:block th:each="t : ${myTask}" th:if="${session.SSTAFFNUM eq t.staffNum}">
+								    	<ul>
 									        <li  th:if="${t.taskResult eq null}">				        											        
 										        <input type="text" th:value="${t.taskInfo}" class="form-control task-input">      
 										        <a class="btn-right btn btn-outline-danger" th:href="@{/delTask(taskNum=${t.taskNum})}">
@@ -104,8 +107,8 @@
 								    	</ul>  
 							      	</th:block>								
 								    <h5 class="title-text text-centar">완료한 업무</h5>
-								    <th:block th:each="t : ${myTesk}" th:if="${session.SSTAFFNUM eq t.staffNum}">      
-								      	<ul id="completed-tasks">
+								    <th:block th:each="t : ${myTask}" th:if="${session.SSTAFFNUM eq t.staffNum}">      
+								      	<ul>
 								        	<li th:if="${t.taskResult != null}">								        										        	
 									        	<input type="text" th:value="${t.taskInfo}" class="form-control task-input" readonly="readonly">										        	
 									        	 <a class="btn-right btn btn-outline-danger one-Btn" th:href="@{/delTask(taskNum=${t.taskNum})}">
@@ -128,6 +131,68 @@
 		<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
    </th:block>
    <th:block layout:fragment="customJsScript"> 
-   
+
+	<script type="text/javascript" >
+	
+	$(document).ready(function() {
+		
+		$('.staffTask').click(function(){
+			alert('확인');
+			var staffNum = $(this).find('.staffNum').text();
+			console.log("선택한 사원번호:"+staffNum);
+			var request = $.ajax({
+									url: "/staffUpmu", //컨트롤러 맵핑
+									method: "POST",
+									data: { "staffNum" : staffNum }, //세션값 - 사원번호로 해당 업무리스트 가져오기
+									dataType: "json" // json방식으로 값 전달				
+			}); 
+			
+			 request.done(function(data){
+				var staffUpmu = data;
+				$('.taskList').children().remove();
+				
+			 	$('.taskList').append("<h5 class='title-text text-centar'>업무 목록</h5>");
+				
+				 for(var i=0; i<staffUpmu.length; i++){
+
+					 var taskInfo = staffUpmu[i].taskInfo;
+					 var taskResult = staffUpmu[i].taskResult;
+					 var taskRegDate = staffUpmu[i].taskRegDate;
+					 console.log(taskInfo + "<--taskInfo")
+					 
+					if(taskInfo != null){
+						 if(taskResult == null){						 
+							$('.taskList').append(	 "<ul>"
+													+    "<li>"				        											        
+													+	    "<input type='text' value='" + taskInfo + "' class='form-control task-input'>" 
+													+     "</li>"												        
+												    +"</ul>");
+						 }						
+					}
+					
+				 }
+				 $('.taskList').append("<h5 class='title-text text-centar'>완료한 업무</h5>");
+					 
+					 for(var i=0; i<staffUpmu.length; i++){
+
+						 var taskInfo = staffUpmu[i].taskInfo;
+						 var taskResult = staffUpmu[i].taskResult;
+						 var taskRegDate = staffUpmu[i].taskRegDate;
+					 
+						  if(taskResult != null){						 
+							  $('.taskList').append("<ul>"
+											        +	"<li>"								        										        	
+												    +   	"<input type='text' value='" + taskInfo + "' class='form-control task-input' readonly='readonly'>"									        	 
+											        +	"</li>"
+											      	+"</ul>");
+						        
+						 }
+					 }	 
+			 });
+						
+		});
+	});
+
+	</script>
    </th:block>
 </html>

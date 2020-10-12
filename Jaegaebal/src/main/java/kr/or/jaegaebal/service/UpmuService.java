@@ -37,9 +37,15 @@ public class UpmuService {
 	}
 	
 	//업무관리 - 나의 업무목록 조회
-	public List<Upmu> myTesk(){
-		List<Upmu> myTesk = upmumapper.myTesk();
-		return myTesk;
+	public List<Upmu> myTask(){
+		List<Upmu> myTask = upmumapper.myTask();
+		return myTask;
+	}
+	
+	//업무관리 - 선택한 사원의 업무조회
+	public List<Upmu> staffUpmu(String staffNum){
+		List<Upmu> staffUpmu = upmumapper.staffUpmu(staffNum);
+		return staffUpmu;
 	}
 	
 	//업무관리 - 사원검색

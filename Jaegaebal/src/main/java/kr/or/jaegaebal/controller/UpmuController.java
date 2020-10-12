@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.Upmu;
@@ -43,6 +44,14 @@ public class UpmuController {
 		return "redirect:/upmuList";
 	}
 	
+	//업무관리 - 선택한 사원의 업무
+	@PostMapping(value="/staffUpmu",produces = "application/json")
+	@ResponseBody
+	public List<Upmu> staffUpmu(@RequestParam(value = "staffNum",required = false)String staffNum) {		
+		List<Upmu> staffUpmu = upmuService.staffUpmu(staffNum);		
+		return staffUpmu;
+	}
+	
 	//업무관리 - 사원검색
 	@PostMapping("/staffTaskList")
 	public String staffTaskList(Model model
@@ -54,15 +63,15 @@ public class UpmuController {
 			List<StaffInfo> staffTask = upmuService.staffTaskList(sk,sv);
 			model.addAttribute("staffTask", staffTask);
 			//업무정보란에는 기본적으로 내 업무정보가 나오도록
-			List<Upmu> myTesk = upmuService.myTesk();
-			model.addAttribute("myTesk", myTesk);
+			List<Upmu> myTask = upmuService.myTask();
+			model.addAttribute("myTask", myTask);
 			
 		}else {
 			List<StaffInfo> staffTask = upmuService.staffTask();
 			model.addAttribute("staffTask", staffTask);
 			//업무정보란에는 기본적으로 내 업무정보가 나오도록
-			List<Upmu> myTesk = upmuService.myTesk();
-			model.addAttribute("myTesk", myTesk);
+			List<Upmu> myTask = upmuService.myTask();
+			model.addAttribute("myTask", myTask);
 		}	
 		
 		return "upmu/upmuList";
@@ -76,8 +85,8 @@ public class UpmuController {
 		model.addAttribute("staffTask", staffTask);
 		
 		//나의 업무목록
-		List<Upmu> myTesk = upmuService.myTesk();
-		model.addAttribute("myTesk", myTesk);
+		List<Upmu> myTask = upmuService.myTask();
+		model.addAttribute("myTask", myTask);
 		
 		return "upmu/upmuList";
 	}

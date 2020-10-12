@@ -15,6 +15,7 @@ import kr.or.jaegaebal.dto.Upmu;
 @Mapper
 public interface UpmuMapper {
 	
+	
 	//업무삭제
 	public int delTask(int taskNum);
 	
@@ -24,8 +25,11 @@ public interface UpmuMapper {
 	//업무등록
 	public int addTask(Upmu newTask);
 	
+	//업무관리 - 선택한 사원의 업무
+	public List<Upmu> staffUpmu(String staffNum);
+	
 	//업무관리 - 나의업무목록
-	public List<Upmu> myTesk();
+	public List<Upmu> myTask();
 	
 	//업무관리 - 사원검색
 	public List<StaffInfo> staffTaskList(String sk, String sv);

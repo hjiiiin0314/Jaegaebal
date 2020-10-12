@@ -33,8 +33,22 @@
 		, NOW())
 </insert>
 
+<!-- 업무관리 - 선택한 사원의 업무  -->
+<select id="staffUpmu" parameterType="String" resultType="Upmu">
+SELECT 
+		task_num		as taskNum
+		, staff_num		as staffNum
+		, task_info		as taskInfo
+		, task_result	as taskResult
+		, task_reg_date	as taskRegDate
+	FROM 
+		um_task
+	where
+		staff_num = #{staffNum}
+</select>
+
 <!-- 업무관리- 나의 업무 목록  -->
-<select id="myTesk" resultType="Upmu">
+<select id="myTask" resultType="Upmu">
 	SELECT 
 		task_num		as taskNum
 		, staff_num		as staffNum
