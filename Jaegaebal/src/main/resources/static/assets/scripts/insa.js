@@ -333,6 +333,8 @@
 					if(data == 1){
 						alert("수정되었습니다.");
 						window.location.href = "/insa/punishment";
+					}else{
+						alert("다시 시도해주세요.");
 					}
 				});		
 				request.fail(function( jqXHR, textStatus ) {
@@ -360,6 +362,8 @@
 						if(data == 1){
 							alert("삭제되었습니다.");
 							window.location.href = "/insa/punishment";
+						}else{
+							alert("다시 시도해주세요.");
 						}
 					});		
 					request.fail(function( jqXHR, textStatus ) {
@@ -442,6 +446,301 @@
 				  alert( "Request failed: " + textStatus );
 			});			
 		});
+		
+		//포상리스트 - 목록 꼭 선택하게 하기 & 검색하기
+		$('#staffPrizeSearchBtn1').click(function(){
+			var mocrocVal = $('#mocrocVal').attr("value");
+			if(mocrocVal == null){
+				alert("목록을 선택해주세요");
+				false;
+			}else if($('#prizeSearchInput').val() == "" || $('#prizeSearchInput').val() == null){
+				alert("검색어를 입력해주세요");
+				false;
+			}else{
+				$('#prizeSearchForm').submit();
+			}
+		});
+		
+		//포상리스트 - 추가버튼 클릭 - 직원 검색 버튼 클릭시
+		$('#staffPrizeInfoSearchBtn').click(function(){
+			if($('#searchStaffPrizeInfoVal').val() == null || $('#searchStaffPrizeInfoVal').val() == ''){
+				alert("검색어를 입력해주세요.");
+			}else{
+				$('#staffPrizeInfoSearchBtn').attr("data-target", "#insertPrizeListModal2");
+				var sk 	= $('#searchStaffPrize').val();
+				var sv	= $('#searchStaffPrizeInfoVal').val();
+				var request = $.ajax({
+					url : "/getStaffInfo",
+					method : "POST",
+					data : { sk : sk,
+							 sv	: sv },
+					dataType : "json"
+				});	
+				request.done(function(data){
+					if(data.toString() != null && data.toString() != ''){
+						$('#insertStaffPrizeInfoTbody').children("tr").remove();
+						for(var i=0; i<data.length; i++){
+							$('#insertStaffPrizeInfoTbody').append("<tr class='insertStaffPrizeInfoTr'><td>" + data[i].staffNum + "</td><td>" + data[i].staffName + "</td><td>" + data[i].jojicName + "</td><td>" + data[i].levelName + "</td></tr>");
+						}
+					}else{
+						$('#insertStaffPrizeInfoTbody').children("tr").remove();
+						$('#insertStaffPrizeInfoTbody').append("<tr class='insertStaffPrizeInfoTr'><td colspan='4'>검색어에 해당하는 직원 자료가 없습니다.</td></tr>");
+					}
+				});
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});					
+			}
+		});
+		
+		//포상리스트 - 추가 버튼 클릭시 - 포상명에 옵션값 삽입하기
+		$('#insertPrizeList').click(function(){
+			var str = "";
+			var request = $.ajax({
+				url : "/getPrizeInfo",
+				method : "POST",
+				data : { str  : str },
+				dataType : "json"
+			});
+			request.done(function(data){
+				for(var i=0; i<data.length; i++){
+					$('.prizeNameSelect').append("<option>"+ data[i].prizeName +"</option>");					
+				}
+			});		
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});				
+		});
+		
+		//포상리스트 - 검색 후 tr 목록 선택시
+		$(document).on('click', '.insertStaffPrizeInfoTr', function(){
+			var prizeNum 		= $(this).children('td').eq(0).text();
+			var staffNum	 	= $(this).children('td').eq(1).text();
+			if(prizeNum != null){
+				$('#insertPrizeStaffNum').val(prizeNum);
+			} else {
+				$('#insertPrizeStaffNum').val('');
+			}
+			if(staffNum != null){
+				$('#insertPrizeStaffName').val(staffNum);
+			} else {
+				$('#insertPrizeStaffName').val('');
+			}
+			var insertPnshListModal2 = document.getElementById('insertPrizeListModal2'); //모달 찾기
+			$(insertPrizeListModal2).modal('hide');										//모달 숨기기
+		});
+		
+    	//포상리스트 - 추가하기 클릭시 - 필수입력값 유효성 검사
+    	$(document).on('click', '#insertPrizeListBtn', function(){
+    		var haveToWriteVals = $('.haveToWriteVals');
+    		for(var i=0; i<haveToWriteVals.length; i++){
+    			var val = haveToWriteVals[i];
+    			
+    			if(haveToWriteVals[i].value != null && (haveToWriteVals[i].value) != ''){
+    				if($(val).hasClass('invalid')){    					
+    					$(val).removeClass('invalid');
+    				}
+    				val.className += " valid";
+    			}else{
+    				if($(val).hasClass('valid')){ 
+    					$(val).removeClass('valid');
+    				}
+    				val.className += " invalid";
+    			}
+    			
+    		}
+    		if($(haveToWriteVals).hasClass('invalid')){
+    			alert("필수 입력값을 입력해주세요.");
+    			false;
+    		}else{
+    			haveToWriteVals.find('.form-control').each(function(){
+					$(this).filter("[value='null']").val("");
+    			});
+    			$('#insertPrizeListForm').submit();
+    		}
+    	});
+    	
+		//포상리스트 - 직원 리스트 클릭시 오른쪽 상세정보 변경
+		$('.prizeListTr').click(function(){
+			var prizeNum 		= $(this).children('td').eq(0).text();
+			var staffNum	 	= $(this).children('td').eq(1).text();
+			var request = $.ajax({
+				url : "/getPrizeListInfo",
+				method : "POST",
+				data : { prizeNum  	:  prizeNum,
+						 staffNum	:  staffNum	 },
+				dataType : "json"
+			});
+			request.done(function(data){
+				if(data.prizeList[0].prizeNum != null){
+					$('input[name=prize_num]').val(data.prizeList[0].prizeNum);
+				} else {
+					$('input[name=prize_num]').val('');
+				}
+				if(data.prizeList[0].staffNum != null){
+					$('input[name=staff_num]').val(data.prizeList[0].staffNum);
+				} else {
+					$('input[name=staff_num]').val('');
+				}
+				if(data.prizeList[0].staffName != null){
+					$('input[name=staff_name]').val(data.prizeList[0].staffName);
+				} else {
+					$('input[name=staff_name]').val('');
+				}
+				if(data.prizeList[0].prizeName != null){
+					$('input[name=prize_name]').val(data.prizeList[0].prizeName);
+				} else {
+					$('input[name=prize_name]').val('');
+				}
+				if(data.prizeList[0].prizeReason != null){
+					$('input[name=prize_reason]').val(data.prizeList[0].prizeReason);
+				} else {
+					$('input[name=prize_reason]').val('');
+				}
+				if(data.prizeList[0].givenDate != null){
+					$('input[name=given_date]').val(data.prizeList[0].givenDate);
+				} else {
+					$('input[name=given_date]').val('');
+				}
+				if(data.prizeList[0].prizePrice != null){
+					$('input[name=prize_price]').val(data.prizeList[0].prizePrice);
+				} else {
+					$('input[name=prize_price]').val('');
+				}
+				if(data.prizeList[0].salaryAppliedDate != null){
+					$('input[name=salary_applied_date]').val(data.prizeList[0].salaryAppliedDate);
+				} else {
+					$('input[name=salary_applied_date]').val('');
+				}
+				if(data.prizeList[0].prizeNotes != null){
+					$('input[name=prize_notes]').val(data.prizeList[0].prizeNotes);
+				} else {
+					$('input[name=prize_notes]').val('');
+				}
+			});		
+			request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+			});			
+		});
+		
+		//포상리스트 - 모달 - 수정하기 버튼 클릭시(submit)
+    	$(document).on('click', '#modifyPrizeListModalBtn', function(){
+    		var modifyHaveToWriteVals = $('.modifyHaveToWriteVals');
+    		
+    		for(var i=0; i<modifyHaveToWriteVals.length; i++){
+    			var val = modifyHaveToWriteVals[i];
+    			
+    			if(modifyHaveToWriteVals[i].value != null && (modifyHaveToWriteVals[i].value) != ''){
+    				if($(val).hasClass('invalid')){    					
+    					$(val).removeClass('invalid');
+    				}
+    				val.className += " valid";
+    			}else{
+    				if($(val).hasClass('valid')){ 
+    					$(val).removeClass('valid');
+    				}
+    				val.className += " invalid";
+    			}
+    			
+    		}
+    		if($(modifyHaveToWriteVals).hasClass('invalid')){
+    			alert("필수 입력값을 입력해주세요.");
+    			false;
+    		}else{
+    			modifyHaveToWriteVals.find('.form-control').each(function(){
+					$(this).filter("[value='null']").val("");
+    			});
+				var request = $.ajax({
+					url : "/modifyPrizeListInfo",
+					method : "POST",
+					data : $('#modifyPrizeListForm').serialize(),
+					dataType : "json"
+				});
+				request.done(function(data){
+					if(data == 1){
+						alert("수정되었습니다.");
+						window.location.href = "/insa/prize";
+					}else{
+						alert("다시 시도해주세요.");
+					}
+				});		
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus + "수정실패");
+				});	
+    			//$('#modifyPnshListForm').submit();
+    		}
+    	});	
+    	
+		//포상리스트 - 수정하기 버튼 클릭시
+		$('#modifyPrizeInfo').click(function(){
+			if($('#prizeStaffNumId').val() == null || $('#prizeStaffNumId').val() == ''){
+				alert("수정할 직원의 정보를 검색해주세요.");
+			}else{
+				$('#modifyPrizeInfo').attr("data-target", "#insertPrizeListModal3");
+				var str = "";
+				var request = $.ajax({
+					url : "/getPrizeInfo",
+					method : "POST",
+					data : { str  : str },
+					dataType : "json"
+				});
+				request.done(function(data){
+					console.log(data);
+					for(var i=0; i<data.length; i++){
+						$('.prizeNameSelect').append("<option>"+ data[i].prizeName +"</option>");					
+					}
+				});		
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});	
+				var prizeNumId 					= $('#prizeNumId').val();
+				var prizeStaffNumId 			= $('#prizeStaffNumId').val();
+				var prizeStaffNameId 			= $('#prizeStaffNameId').val();
+				var prizeReasonId 				= $('#prizeReasonId').val();
+				var prizeGivenDateId 			= $('#prizeGivenDateId').val();
+				var prizePriceId 				= $('#prizePriceId').val();
+				var prizeSalaryAppliedDateId 	= $('#prizeSalaryAppliedDateId').val();
+				var prizeNotesId 				= $('#prizeNotesId').val();
+				$('#ModifyPrizeNumId').val(prizeNumId);
+				$('#ModifyStaffNumId').val(prizeStaffNumId);
+				$('#ModifyStaffNameId').val(prizeStaffNameId);
+				$('#ModifyGivenDateId').val(prizeGivenDateId);
+				$('#ModifySalaryAppliedDateId').val(prizeSalaryAppliedDateId);
+				$('#ModifyPriceId').val(prizePriceId);
+				$('#ModifyReasonId').val(prizeReasonId);
+				$('#ModifyNotesId').val(prizeNotesId);
+			}
+		});
+		
+    	//포상 관리 - 삭제하기 버튼 클릭시
+    	$('#deletePrizeInfoBtn').click(function(){
+    		if($('#prizeStaffNumId').val() == null || $('#prizeStaffNumId').val() == ''){
+				alert("삭제할 직원의 정보를 검색해주세요.");
+			}else{
+	    		var deleteChecking = confirm("정말로 삭제하시겠습니까?");
+	    		if(deleteChecking){
+	    			var prizeNum = $('#prizeNumId').val();
+	    			var request = $.ajax({
+						url : "/deletePrizeListInfo",
+						method : "POST",
+						data : { prizeNum : prizeNum },
+						dataType : "json"
+					});
+					request.done(function(data){
+						if(data == 1){
+							alert("삭제되었습니다.");
+							window.location.href = "/insa/prize";
+						}else{
+							alert("다시 시도해주세요.");
+						}
+					});		
+					request.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus + "삭제실패");
+					});	
+	    		}
+    			
+    		}
+    	});
 		
 		/* 부서 옵션 클릭시 ajax 호출 */
 		$('#SelectBuseo').change(function(){
@@ -627,23 +926,58 @@
 			BtnPhoneParentTag.attr('class','dropdown-menu');        
 	 	});
 		$('#BtnPunishmentName').click(function(){
-			var BtnPhoneParentTag = $(this).parent();
+			var BtnPunishmentNameParentTag = $(this).parent();
 			$('#mocroc').html($(this).html());
 			$('#mocrocVal').attr("value", "punishment_name");
 			BtnPhoneParentTag.attr('class','dropdown-menu');        
 		});
 		$('#BtnSosoc').click(function(){
-			var BtnPhoneParentTag = $(this).parent();
+			var BtnSosocParentTag = $(this).parent();
 			$('#mocroc').html($(this).html());
 			$('#mocrocVal').attr("value", "jojic_name");
 			BtnPhoneParentTag.attr('class','dropdown-menu');        
 		});
-		$('#BtngivenDate').click(function(){
-			var BtnPhoneParentTag = $(this).parent();
+		$('#BtnGivenDate').click(function(){
+			var BtnGivenDateParentTag = $(this).parent();
 			$('#mocroc').html($(this).html());
 			$('#mocrocVal').attr("value", "given_date");
 			$('#pnshSearchInput').attr("type", "date");
 			BtnPhoneParentTag.attr('class','dropdown-menu');        
+		});
+		$('#BtnPrizeStaffNum').click(function(){
+			var BtnPrizeStaffNumParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "staff_num");
+			$('#prizeSearchInput').attr("type", "text");
+			BtnPrizeStaffNumParentTag.attr('class','dropdown-menu');        
+		});
+		$('#BtnPrizeStaffName').click(function(){
+			var BtnPrizeStaffNameParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "staff_name");
+			$('#prizeSearchInput').attr("type", "text");
+			BtnPrizeStaffNameParentTag.attr('class','dropdown-menu');        
+		});
+		$('#BtnPrizeGivenDate').click(function(){
+			var BtnPrizeGivenDateParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "given_date");
+			$('#prizeSearchInput').attr("type", "date");
+			BtnPrizeGivenDateParentTag.attr('class','dropdown-menu');        
+		});
+		$('#BtnPrizeName').click(function(){
+			var BtnPrizeNameParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "prize_name");
+			$('#prizeSearchInput').attr("type", "text");
+			BtnPrizeNameParentTag.attr('class','dropdown-menu');        
+		});
+		$('#BtnPrizeSosoc').click(function(){
+			var BtnPrizeSosocParentTag = $(this).parent();
+			$('#mocroc').html($(this).html());
+			$('#mocrocVal').attr("value", "jojic_name");
+			$('#prizeSearchInput').attr("type", "text");
+			BtnPrizeSosocParentTag.attr('class','dropdown-menu');        
 		});
 		
     	//조직 활성 상태 바꾸기

@@ -180,6 +180,7 @@
 		<result column="salary_applied_date" 		property="salaryAppliedDate"/>
 		<result column="prize_notes" 				property="prizeNotes"/>
 		<result column="jojic_name" 				property="jojicName"/>
+		<result column="staff_name" 				property="staffName"/>
 	</resultMap>
 	
 	<!-- 회사 정보 목록 -->
@@ -1256,4 +1257,68 @@
 	 		</if>
 		</where>		
 	</select>
+	
+	
+	<!-- 포상리스트 추가하기 -->
+	<insert id="insertPrizeList" parameterType="Prize">
+		<selectKey keyProperty="prizeNum,prizeCode" resultType="Prize" order="BEFORE" >
+			SELECT 
+					 (SELECT MAX(l.prize_num) + 1 FROM is_prize_list AS l) 
+					 	AS prizeNum
+					,(SELECT p.prize_code FROM is_prize AS p WHERE p.prize_name = #{prizeName} GROUP BY p.prize_code) 
+						AS prizeCode
+		</selectKey>	
+		INSERT INTO 
+				is_prize_list
+					( prize_num
+					, staff_num
+					, prize_code
+					, given_date
+					, prize_reason
+					, prize_price
+					, salary_applied_date
+					, prize_notes
+					, reg_staff_name
+					, reg_date
+					)
+		VALUES 
+					( #{prizeNum}
+					, #{staffNum}
+					, #{prizeCode}
+					, #{givenDate}
+					, #{prizeReason}
+					, #{prizePrice}
+					, #{salaryAppliedDate}
+					, #{prizeNotes}
+					, '이은혜'
+					, NOW()
+					)
+	</insert>
+	
+	<!-- 포상리스트 수정하기  -->
+	<update id="modifyPrizeListInfo" parameterType="Prize">
+		<selectKey keyProperty="prizeCode" resultType="Prize" order="BEFORE" >
+			SELECT 
+				(SELECT p.prize_code FROM is_prize AS p WHERE p.prize_name = #{prizeName} GROUP BY p.prize_code) 	AS prizeCode
+		</selectKey>
+			UPDATE	is_prize_list
+			SET
+					prize_code 			= #{prizeCode},
+					given_date			= #{givenDate},
+					prize_reason		= #{prizeReason},
+					prize_price			= #{prizePrice},
+					salary_applied_date	= #{salaryAppliedDate},
+					prize_notes			= #{prizeNotes}
+			WHERE 
+					prize_num 			= #{prizeNum}
+	</update>	
+
+	<!-- 포상리스트 삭제하기 -->	
+	<delete id="deletePrizeInfo" parameterType="String">
+		DELETE FROM is_prize_list
+		WHERE
+			<if test="prizeNum != null and prizeNum != ''.toString()">			
+				prize_num = #{prizeNum}
+			</if> 
+	</delete>	
 </mapper>	
