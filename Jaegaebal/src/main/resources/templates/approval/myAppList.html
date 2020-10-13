@@ -14,7 +14,7 @@
     
 	<th:block layout:fragment="customContent">
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
- 		<div class="col-md-10">
+ 		<div class="col-md-12">
 			<div class="app-page-title">
 				<div class="page-title-wrapper">
 					<div class="page-title-heading">
@@ -29,7 +29,7 @@
 					</div>
 				</div>
 			</div>
-             <div class="main-card mb-10 card">
+             <div class="main-card mb-12 card">
                   <div class="card-body">  
                   	<h4><i class="pe-7s-note2"></i> 상신함 </h4><br>
                   	<form action="/myAppList" method="post">
@@ -58,7 +58,7 @@
 	                         </tr>
 	                    </thead>
                         <tbody id="myAppList">                       
-	                        <tr th:each="l : ${myAppList}" th:if="${l.writerNum eq session.SSTAFFNUM}">
+	                        <tr th:each="l : ${myAppList}" th:if="${l.writerNum eq session.SSTAFFNUM and l.storage eq ''}">
 	                            <td th:text="${l.docCode}" th:value="${l.docCode}" id="docCode" class='text-center'></td>
 	                            <td th:text="${l.docTypeName}" id="docTypeName" class='text-center'></td>
 	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${l.docCode})}"></a></td>
