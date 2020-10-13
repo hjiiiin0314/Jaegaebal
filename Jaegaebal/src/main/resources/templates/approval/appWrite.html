@@ -244,7 +244,7 @@
          });
          
             
-         $(function(){
+         $(document).ready(function(){
             
             //최상단 체크박스 클릭
               $("#checkAll").click(function(){
@@ -319,8 +319,28 @@
             });
             
             //임시저장버튼 클릭 시 
-             $('#appKeepBtn').click(function(){                     
-                if(confirm("저장하시겠습니까 ?") == true){
+             $('#appKeepBtn').click(function(){  
+            	 var appLine = $('#appLine').find('.app-StaffLevel').length; //결재란 생성된 값
+            	 var docType = $('#docType option:selected').val(); // 선택된 옵션 값 -문서유형
+                 var deadline = $('input[name= "deadline"]').val(); // 마감요청일
+                 var docTitle = $('input[name= "docTitle"]').val(); // 제목
+                 if(appLine == 0){
+               	  alert('결재라인을 지정해주세요');
+               	  return false;
+                 }          
+                 if(docType == ''){
+                     alert('문서양식을 선택하셔야 합니다.');                        
+                     return false;   
+                  }
+                  if(deadline == ''){
+                     alert('마감요청일을 지정해주세요.');
+                     return false;
+                  }
+                  if(docTitle == ''){
+                     alert('제목을 입력해주세요.');
+                     return false;
+                  }
+                 if(confirm("저장하시겠습니까 ?") == true){
                 	$(this).parent().append("<input type='hidden' name='storage' value='임시저장'>");
                 	var addAppDoc = $("form[name=addAppDocForm]").serialize(); //form전체를 넘기기
                 	console.log("addAppDoc:" + addAppDoc);
@@ -332,14 +352,13 @@
 											dataType: "json" // json방식으로 값 전달				
 					}); 
 	                request.done(function(data){
-	                	console.log(data);
 	                   alert("임시저장함으로 이동합니다.");
 	                  window.location.href="/storageBox";  
 	                });
                 	                        
                  }else{
-                       return ;
-                   }         
+                    return ;
+                 }         
             });
             
             //결재올리기 버튼 클릭 시 유효성 검사진행
@@ -355,7 +374,7 @@
                 	  alert('결재라인을 지정해주세요');
                 	  return false;
                   }                     
-                  if(docType == '::문서양식선택하기::'){
+                  if(docType == ''){
                      alert('문서양식을 선택하셔야 합니다.');                        
                      return false;   
                   }

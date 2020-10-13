@@ -158,13 +158,9 @@
 		WHERE 
 			d.app_doc_code = #{docCode}
 	</select>
-<!-- 임시저장함 - 삭제 -->
+<!-- 임시저장함 - 해당문서와 문서내부에 선택된 결재라인까지 삭제 -->
 	<delete id="delStorage" parameterType="String">
-		DELETE 
-		FROM 
-			um_storage_box
-		WHERE
-			app_doc_code = #{docCode} 	
+		call proc_delete_storage(#{docCode})				
 	</delete>
 <!-- 임시저장함 - 조건검색 -->	
 	<select id="searchStorage" resultType="UpmuDocument">

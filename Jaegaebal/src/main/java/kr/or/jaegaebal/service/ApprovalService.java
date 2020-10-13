@@ -85,7 +85,7 @@ public class ApprovalService {
 		return searchAppList;
 	}
 	
-	//상신함 - 내가 올린 전체 결재리스트
+	//상신함 - 내가 올린 결재문서 리스트
 	public List<UpmuDocument> myAppList(){
 		List<UpmuDocument> myAppList = approvalmapper.myAppList();
 		return myAppList;

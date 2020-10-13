@@ -33,7 +33,7 @@ public interface ApprovalMapper {
 		public List<UpmuDocument> docDetail(String docCode);
 	
 	//임시저장함 - 삭제
-		public int delStorage(String doccode);
+		public int delStorage(String docCode);
 	
 	//임시저장함 - 조건검색
 		public List<UpmuDocument> searchStorage(String sk, String sv);
@@ -47,23 +47,23 @@ public interface ApprovalMapper {
 	//상신함 - 전체목록
 		public List<UpmuDocument> myAppList();			
 		
-	//기안하기 - 결재올리기 - 문서
+	//기안하기 - 결재올리기 - 문서저장
 		public int appWrite(UpmuDocument upmuDocument);
 		
-	//기안하기 - 결재올리기 - 결재라인
+	//기안하기 - 결재올리기 - 결재라인저장
 		public int choiceStaff(List<Map<String, Object>> choiceStaff);
 	
-	//기안하기 - 결재라인  - 사원
+	//기안하기 - 결재라인  - 사원검색
 		public List<StaffInfo> getStaff();
 	
-	//기안하기 - 결재라인 - 팀
+	//기안하기 - 결재라인 - 팀검색
 		public List<Jojic> getTeam();
 		
-	//기안하기 - 결재라인 - 최상위(부서)
+	//기안하기 - 결재라인 - 최상위(부서)검색
 		public List<Jojic> getJojic();
 
 
-	//기안하기 - 문서유형
+	//기안하기 - 문서유형검색
 		public List<Map<String, Object>> getDocType();
 
 }

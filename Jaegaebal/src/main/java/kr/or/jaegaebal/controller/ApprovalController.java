@@ -104,7 +104,7 @@ public class ApprovalController {
 	
 	//임시저장 - 삭제
 	@GetMapping("/delStorage")
-	public String delStorage( @RequestParam(value = "docCode",required = false)String docCode) {		
+	public String delStorage( @RequestParam(value = "docCode",required = false)String docCode) {
 		approvalService.delStorage(docCode);
 		return "redirect:/storageBox";
 	}
@@ -139,7 +139,7 @@ public class ApprovalController {
 		return "approval/storageBox";
 	}
 	
-	//기안하기 - 임시저장
+	//기안하기 - 임시저장 ajax
 	@PostMapping(value = "/addSotorage", produces = "application/json")
 	@ResponseBody
 	public int addStorage(UpmuDocument addAppDoc
@@ -162,13 +162,6 @@ public class ApprovalController {
 		approvalService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
 		
 		return "redirect:/myAppList";
-	}
-	
-	//기안하기 - 결재라인선택 후  db에 넣기
-	@PostMapping("/choiceStaff")
-	public String choiceStaff() {
-					
-		return "redirect:/appWrite";
 	}
 	
 
