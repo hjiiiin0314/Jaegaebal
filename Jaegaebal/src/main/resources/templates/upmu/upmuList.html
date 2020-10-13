@@ -29,7 +29,7 @@
 					    <div>업무관리</div>
 					</div>
 				</div>				
-		    <a type="button" id="myTaskBtn" class="btn btn-warning btn-right" href="/upmuList" >업무등록하기</a>
+		    <a type="button" id="myTaskBtn" class="btn btn-warning btn-right" href="/upmuList" ><i class="pe-7s-photo-gallery">   나의 업무 등록하기</i></a>
 			</div>
 	
 		<div>
@@ -80,7 +80,7 @@
 							<div class="taskList">											
 								<div class="myTask">									
 							      <form id="addTask" action="/addTask" method="post">
-							        <h5 class="title-text text-centar">업무 등록하기</h5>
+							        <h5 class="title-text text-centar">등록하기</h5>
 							        	<ul>
 									        <li>
 									        	<input type="hidden" th:value="${session.SSTAFFNUM}" name="staffNum">
@@ -106,7 +106,7 @@
 									        </li>												        
 								    	</ul>  
 							      	</th:block>								
-								    <h5 class="title-text text-centar">완료한 업무</h5>
+								    <h5 class="title-text text-centar">완료 업무</h5>
 								    <th:block th:each="t : ${myTask}" th:if="${session.SSTAFFNUM eq t.staffNum}">      
 								      	<ul>
 								        	<li th:if="${t.taskResult != null}">								        										        	
@@ -137,9 +137,9 @@
 	$(document).ready(function() {
 		
 		$('.staffTask').click(function(){
-			alert('확인');
+			
 			var staffNum = $(this).find('.staffNum').text();
-			console.log("선택한 사원번호:"+staffNum);
+			
 			var request = $.ajax({
 									url: "/staffUpmu", //컨트롤러 맵핑
 									method: "POST",
@@ -151,28 +151,30 @@
 				var staffUpmu = data;
 				$('.taskList').children().remove();
 				
+				/* 업무목록 생성 */
 			 	$('.taskList').append("<h5 class='title-text text-centar'>업무 목록</h5>");
-				
-				 for(var i=0; i<staffUpmu.length; i++){
-
-					 var taskInfo = staffUpmu[i].taskInfo;
-					 var taskResult = staffUpmu[i].taskResult;
-					 var taskRegDate = staffUpmu[i].taskRegDate;
-					 console.log(taskInfo + "<--taskInfo")
-					 
-					if(taskInfo != null){
+							
+				if(staffUpmu[0] != undefined){
+					for(var i=0; i<staffUpmu.length; i++){
+						 var taskInfo = staffUpmu[i].taskInfo;
+						 var taskResult = staffUpmu[i].taskResult;
+						 var taskRegDate = staffUpmu[i].taskRegDate;					 
 						 if(taskResult == null){						 
 							$('.taskList').append(	 "<ul>"
 													+    "<li>"				        											        
 													+	    "<input type='text' value='" + taskInfo + "' class='form-control task-input'>" 
 													+     "</li>"												        
 												    +"</ul>");
-						 }						
+						 }
+						 
 					}
+				}else if(staffUpmu[0] == undefined){
+						$('.taskList').append("<p class='task-p text-centar'><i class='pe-7s-attention'>  등록된 업무가 없습니다.</i></p>");
+				}
 					
-				 }
-				 $('.taskList').append("<h5 class='title-text text-centar'>완료한 업무</h5>");
-					 
+				/* 완료업무생성 */
+				 $('.taskList').append("<h5 class='title-text text-centar'>완료 업무</h5>");
+				 if(staffUpmu[0] != undefined){ 
 					 for(var i=0; i<staffUpmu.length; i++){
 
 						 var taskInfo = staffUpmu[i].taskInfo;
@@ -187,7 +189,11 @@
 											      	+"</ul>");
 						        
 						 }
-					 }	 
+					 }	
+				 }else if(staffUpmu[0] == undefined){
+						$('.taskList').append("<p class='task-p text-centar'><i class='pe-7s-attention'>  완료된 업무가 없습니다.</i></p>");
+				}
+
 			 });
 						
 		});
