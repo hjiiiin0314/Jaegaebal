@@ -98,7 +98,7 @@ public class ChaeYoungService {
 			result += chaeYoungMapper.addBasicInfo(chaeYoungInfo);
 			result += chaeYoungMapper.addCareerInfo(chaeYoungInfo);
 		}
-		
+		//지원이 완료 되면 지원상태 지원완료 로 변경 
 		if(result > 0) {
 			chaeYoungMapper.appFinalStateUpdate(chaeYoungInfo.getAppEmail());
 		}

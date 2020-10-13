@@ -117,11 +117,11 @@
 												<tr>
 													<td class="t_head2">영문 이름</td>
 													<td>
-														<input type="text" class="form-control last-name" value="김">
+														<input type="text" class="form-control last-name textValue" value="김">
 													</td>
 													<td class="t_head2">영문 성</td>
 													<td>
-														<input type="text" class="form-control first-name" value="김">
+														<input type="text" class="form-control first-name textValue" value="김">
 														<input type="hidden" name="staffEngName">
 													</td>
 												</tr> 
@@ -133,9 +133,9 @@
 													</td>
 													<td class="t_head2">주민등록번호</td>
 													<td class="inputmaineus">
-														<input type="text" name="humanNum1" class="form-control input-width21" value="950314">
+														<input type="text" name="humanNum1" class="form-control input-width21 textValue" value="950314">
 														<span class="span-font">-</span>
-														<input type="password" name="humanNum2" class="form-control input-width22" value="1145645">
+														<input type="password" name="humanNum2" class="form-control input-width22 textValue" value="1145645">
 														<input type="hidden" name="humanNum">
 													</td>
 												</tr> 
@@ -146,7 +146,7 @@
 														<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input"> 외국인</label>
 													<td class="t_head2">국적</td>
 													<td>
-														<input type="text" name="staffCountry" class="form-control" disabled="disabled" value="대한민국">
+														<input type="text" name="staffCountry" class="form-control textValue" disabled="disabled" value="대한민국">
 													</td>
 												</tr> 
 												<tr>													
@@ -157,17 +157,17 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus">
-														<input type="text" name="staffPhone" class="form-control phoneNumber" maxlength="13" value="010-7565-4523">
+														<input type="text" name="staffPhone" class="form-control phoneNumber textValue" maxlength="13" value="010-7565-4523">
 													</td>
 												</tr> 
 												<tr>													
 													<td class="t_head2">이메일</td>
 													<td>
-														<input type="text" name="staffEmail" class="form-control" value="김">
+														<input type="text" name="staffEmail" class="form-control textValue" value="김">
 													</td>
 													<td class="t_head2">주소</td>
 													<td>
-														<input type="text" name="staffAddr" class="form-control" value="김">
+														<input type="text" name="staffAddr" class="form-control textValue" value="김">
 													</td>
 												</tr> 
 
@@ -176,7 +176,7 @@
                                     </div>
                                   
             						<div class="tab-pane scroll-area-lg scrollbar-container" id="isCareerInfoFromOut" role="tabpanel">
-										<form class="careerInfo" action="/addInfo" method="post">
+										
 											<div class="position-relative form-group">
                                                 <div>
                                                     <div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox" id="exampleCustomInline" class="custom-control-input careerInfoCheck">
@@ -189,37 +189,37 @@
 												<tr>
 													<td class="t_head2">직장명</td>
 													<td >
-														<input type="text" name="companyName" class="form-control">
+														<input type="text" name="companyName" class="form-control textValue">
 													</td>
 													<td class="t_head2">직위</td>
 													<td >
-														<input type="text" name="companyAccess" class="form-control">
+														<input type="text" name="companyAccess" class="form-control textValue">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">직책</td>
 													<td>
-														<input type="text" name="companyPositionFromOut" class="form-control">
+														<input type="text" name="companyPositionFromOut" class="form-control textValue">
 													</td>
 													<td class="t_head2">담당업무</td>
 													<td>
-														<input type="text" name="companyWorkFormOut" class="form-control">
+														<input type="text" name="companyWorkFormOut" class="form-control textValue">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">입사일자</td>
 													<td>
-														<input type="date" name="companyInDateFromOut" class="form-control">
+														<input type="date" name="companyInDateFromOut" class="form-control textValue">
 													</td>
 													<td class="t_head2">퇴사일자</td>
 													<td>
-														<input type="date" name="companyOutDateFromOut" class="form-control">
+														<input type="date" name="companyOutDateFromOut" class="form-control textValue">
 													</td>
 												</tr>	
 												<tr>
 													<td class="t_head2">퇴직사유</td>
 													<td colspan="3">
-														<textarea name="companyOutReason" class="form-control"></textarea>
+														<textarea name="companyOutReason" class="form-control textValue"></textarea>
 													</td>
 												</tr> 												
 												<tr>
@@ -228,9 +228,17 @@
 													</td>
 												</tr>
 											</table>
-											
-											<table class="aa">
-												<tr><td> companyName </td><td><button type="button" class="mb-2 mr-2 btn btn-link" onclick="deleteLine(this)"></button></td></tr>
+										<form class="careerInfo" action="/addInfo" method="post">
+											<table class="aa mb-0 table table-borderless">
+												<tr>
+													<td> 직장명 </td>
+													<td> 직위 </td>
+													<td> 직책 </td>
+													<td> 담당업무 </td>
+													<td> 입사일자 </td>
+													<td> 퇴사일자 </td>
+													<td> 퇴직사유 </td>
+												</tr>
 											</table>
 									
 				                         </form>                              
@@ -247,27 +255,27 @@
 												<tr>
 													<td class="t_head2">자격증명</td>
 													<td colspan="5">
-														<input type="text" name="certificateName" class="form-control">
+														<input type="text" name="certificateName" class="form-control textValue">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">발급기관</td>
 													<td >
-														<input type="text" name="issuingAgency" class="form-control">
+														<input type="text" name="issuingAgency" class="form-control textValue">
 													</td>
 													<td class="t_head2">자격번호</td>
 													<td>
-														<input type="text" name="certificateNum" class="form-control">
+														<input type="text" name="certificateNum" class="form-control textValue">
 													</td>
 												</tr>
 												<tr>
 													<td class="t_head2">취득일</td>
 													<td>
-														<input type="date" name="getDate" class="form-control">
+														<input type="date" name="getDate" class="form-control textValue">
 													</td>
 													<td class="t_head2">만료일</td>
 													<td>
-														<input type="date" name="finishedDate" class="form-control">
+														<input type="date" name="finishedDate" class="form-control textValue">
 													</td>
 												</tr> 												
 												<tr>
@@ -285,37 +293,37 @@
 												<tr>
 													<td class="t_head2">학교명</td>
 													<td colspan="5">
-														<input type="text" name="schoolName" class="form-control" value="2020-09-09">
+														<input type="text" name="schoolName" class="form-control textValue" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">전공</td>
 													<td >
-														<input type="text" name="majorName" class="form-control" value="2020-09-09" >
+														<input type="text" name="majorName" class="form-control textValue" value="2020-09-09" >
 													</td>
 													<td class="t_head2">부전공</td>
 													<td>
-														<input type="text" name="minorName" class="form-control" value="2020-09-09">
+														<input type="text" name="minorName" class="form-control textValue" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>												
 													<td class="t_head2">학위</td>
 													<td>
-														<input type="text" name="degree" class="form-control" value="2020-09-09">
+														<input type="text" name="degree" class="form-control textValue" value="2020-09-09">
 													</td>
 													<td class="t_head2">상태</td>
 													<td>
-														<input type="text" name="hakryuckStatus" class="form-control" value="2020-09-09">
+														<input type="text" name="hakryuckStatus" class="form-control textValue" value="2020-09-09">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입학일</td>
 													<td>
-														<input type="date" name="entranceDate" class="form-control" value="2020-09-09">
+														<input type="date" name="entranceDate" class="form-control textValue" value="2020-09-09">
 													</td>
 													<td class="t_head2">졸업일</td>
 													<td>
-														<input type="date" name="graduatDate" class="form-control" value="2020-09-09">
+														<input type="date" name="graduatDate" class="form-control textValue" value="2020-09-09">
 													</td>												
 												</tr>
 											</table>
@@ -328,7 +336,7 @@
 												<tr>
 													<td class="t_head2">병역구분</td>
 													<td colspan="5">
-														<select id="militaryclassidx" class="form-control" name="militaryClassidx">
+														<select id="militaryclassidx" class="form-control textValue" name="militaryClassidx">
                                								 <option value="">병역구분 선택</option>
                                								 <option value="병역필">병역필</option>
                                								 <option value="장교제대">장교제대</option>
@@ -342,7 +350,7 @@
 												<tr>
 													<td class="t_head2">군별</td>
 													<td colspan="5">
-														<select name="militaryServiceType" class="form-control staffDetailInfo">
+														<select name="militaryServiceType" class="form-control staffDetailInfo textValue">
 															<option value="" selected="selected" disabled="disabled"></option>
 							                                <option value="육군">육군</option>
 							                                <option value="해군">해군</option>
@@ -358,7 +366,7 @@
 												<tr>
 													<td class="t_head2">전역상태</td>
 													<td >
-														<select id="militaryState" class="form-control" name="militaryState">
+														<select id="militaryState" class="form-control textValue" name="militaryState">
                                 							<option value="">선택</option>
                                 							<option value="만기제대">만기제대</option>
                                 							<option value="의가사제대">의가사제대</option>
@@ -367,7 +375,7 @@
 													</td>
 													<td class="t_head2">계급</td>
 													<td>
-														<select name="militaryLevel" class="form-control staffDetailInfo">
+														<select name="militaryLevel" class="form-control staffDetailInfo textValue">
 							                                <option value="" selected="selected" disabled="disabled"></option>
 							                                <option value="이병">이병</option>
 							                                <option value="일병">일병</option>
@@ -393,11 +401,11 @@
 												<tr>
 													<td class="t_head2">입대일자</td>
 													<td >
-														<input type="date" name="militaryInDay" class="form-control" value="2020-09-09">
+														<input type="date" name="militaryInDay" class="form-control textValue" value="2020-09-09">
 													</td>
 													<td class="t_head2">전역일자</td>
 													<td>
-														<input type="date" name="militaryOutDay" class="form-control" value="2020-09-09">
+														<input type="date" name="militaryOutDay" class="form-control textValue" value="2020-09-09">
 													</td>
 												</tr> 												
 											</table>

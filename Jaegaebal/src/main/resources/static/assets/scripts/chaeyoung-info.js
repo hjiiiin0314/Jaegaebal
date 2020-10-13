@@ -99,6 +99,7 @@
 				$('.careerInfoTable input').attr('disabled', true);
 				$('.careerInfoTable textarea').attr('disabled', true);
 				$('.careerInfoTable input').val('');
+				$('.careerInfoTable textarea').val('');
 			}else {
 				$('.careerInfoTable input').attr('disabled', false);
 				$('.careerInfoTable textarea').attr('disabled', false);
@@ -115,18 +116,32 @@
 			}
 		})
 		
-		function deleteLine(obj) {
-			var tr = $(obj).parent().parent();
-			tr.remove();
-		}
+		//경력사항 추가
 		$('.addCareerInfoFromOutBtn').click(function() {
 			var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
-			var companyName = $('.careerInfo input[name=companyName]').val().replace(regExp, '');
-			console.log(companyName);
+			var companyName = $('.careerInfoTable input[name=companyName]').val().replace(regExp, '');
+			var companyAccess = $('.careerInfoTable input[name=companyAccess]').val().replace(regExp, '');
+			var companyPositionFromOut = $('.careerInfoTable input[name=companyPositionFromOut]').val().replace(regExp, '');
+			var companyWorkFormOut = $('.careerInfoTable input[name=companyWorkFormOut]').val().replace(regExp, '');
+			var companyInDateFromOut = $('.careerInfoTable input[name=companyInDateFromOut]').val();
+			var companyOutDateFromOut = $('.careerInfoTable input[name=companyOutDateFromOut]').val();
+			var companyOutReason = $('.careerInfoTable textarea[name=companyOutReason]').val();
 
-			$('.aa').append('<tr><td> '+ companyName +' </td><td><button type="button" class="mb-2 mr-2 btn btn-link" onclick="deleteLine(this);"><i class="pe-7s-trash"> </i></button></td></tr>');
+			$('.aa').append('<tr><td class="textValue"><input type="hidden" name="companyName" value="'+companyName+'"/>'+ companyName +'</td>'+
+							'<td class="textValue" ><input type="hidden" name="companyAccess" value="'+companyAccess+'"/>' + companyAccess +'</td>'+
+							'<td class="textValue" ><input type="hidden" name="companyPositionFromOut" value="'+companyPositionFromOut+'"/>'+ companyPositionFromOut +'</td>'+
+							'<td class="textValue" ><input type="hidden" name="companyWorkFormOut" value="'+companyWorkFormOut+'"/>'+ companyWorkFormOut +'</td>'+
+							'<td class="textValue" ><input type="hidden" name="companyInDateFromOut" value="'+companyInDateFromOut+'"/>'+ companyInDateFromOut +'</td>'+
+							'<td class="textValue" ><input type="hidden" name="companyOutDateFromOut" value="'+companyOutDateFromOut+'"/>'+ companyOutDateFromOut +'</td>'+
+							'<td class="textValue" ><input type="hidden" name="companyOutReason" value="'+companyOutReason+'"/>'+ companyOutReason +'</td>'+
+							'<td><button type="button" class="mb-2 mr-2 btn btn-link abtn"><i class="pe-7s-trash"> </i></button></td></tr>');
+			
 		});
-		
+		//추가 입력사항 삭제
+		$(document).on("click",'.abtn',function() {
+			var tr = $(this).parent().parent();
+			tr.remove();
+		})
 		
 		$('.addTest').on("click",function() {
 
@@ -193,11 +208,15 @@
 			var classStr = ''; //form 클래스명 전부
 			for(var n=0; n<form.length; n++) {
 				var className = form[n][0].className;
-				
-				for(var i=0; i<$('.'+className+' .form-control').length; i++) {
-					var Info = $('.'+className+' .form-control').eq(i).val();
-					
-					if(Info == '' || Info == undefined) {
+				if(className == 'careerInfo' && $('.careerInfo .textValue').length == 0) {
+					if($('.careerInfoCheck').is(":checked") == true) continue; //경력사항없음 체크박스가 체크 되어 있을 시 건너뛴다.
+					alert('경력 정보를 입력해 주세요');
+					return false;
+				}
+				for(var i=0; i<$('.'+className+' .textValue').length; i++) {
+					var Info = $('.'+className+' .textValue').eq(i).val();
+					var InfoText = $('.'+className+' .textValue').eq(i).text();
+					if((className != 'careerInfo' && Info == '') || Info == undefined) {
 							
 						if(className == 'basicInfo') {
 							alert('인적사항을 입력해 주세요');
@@ -217,6 +236,12 @@
 							alert('병역정보를 입력해 주세요');
 							return false;
 						}
+					}else {
+						if(className == 'careerInfo' && InfoText == '') {
+							if($('.careerInfoCheck').is(":checked") == true) continue;
+							alert('경력정보 : ' + $('.aa td').eq(i).text() + '(을/를) 작성하여 입력버튼을 눌러주세요.');
+							return false;
+						}
 					}
 				}
 				if(n<form.length) classStr += '.'+className+', ';
@@ -228,13 +253,12 @@
 			}else if(!isCellPhone($('input[name=staffPhone]').val())) {
 				alert('올바른 핸드폰번호를 입력해 주세요');
 				return false;
-			}else {
-					
-		
-				
+			}else {		
+				console.log($(".careerInfo").serializeObject());
 				var request = $.ajax({
   				  url: "/addInfo", //컨트롤러 맵핑
   				  method: "POST",
+  				  traditional : true,
   				  data: $(classStr).serialize(),
   				  dataType: "json" // json방식으로 값 전달
   				});

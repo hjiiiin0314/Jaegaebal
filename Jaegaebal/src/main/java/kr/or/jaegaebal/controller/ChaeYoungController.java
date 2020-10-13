@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
+import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
 import kr.or.jaegaebal.dto.ChaeYoungInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.mapper.ChaeYoungMapper;
@@ -166,9 +167,11 @@ public class ChaeYoungController {
 	//지원서작성
 	@PostMapping(value = "/addInfo", produces = "application/json")
 	@ResponseBody
-	public int addInfo(ChaeYoungInfo chaeYoungInfo) {
+	public int addInfo(ChaeYoungInfo chaeYoungInfo,ChaeYoungCareerInfo chaeYoungCareerInfo) {
 		
-		System.out.println(chaeYoungInfo);
+		System.out.println(chaeYoungInfo + "<--- dfdfadf");
+		System.out.println(chaeYoungCareerInfo + "<--- chaeYoungCareerInfo");
+
 		
 		int result = chaeYoungService.addAppInfo(chaeYoungInfo);
 

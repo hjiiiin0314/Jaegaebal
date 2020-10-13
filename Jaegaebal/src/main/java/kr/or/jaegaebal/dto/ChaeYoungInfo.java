@@ -26,7 +26,7 @@ public class ChaeYoungInfo {
 	private String staffAddr; //주소
 	private String regDate; //등록일
 	
-	//지원자 경력사항
+/*	//지원자 경력사항
 	private String careerInfoCode; //지원자경력정보코드
 	private String companyName; //직장명
 	private String companyAccess; //직위
@@ -34,7 +34,7 @@ public class ChaeYoungInfo {
 	private String companyWorkFormOut; //직무
 	private String companyInDateFromOut; //입사일자
 	private String companyOutDateFromOut; //퇴사일자
-	private String companyOutReason; //퇴직사유
+	private String companyOutReason; //퇴직사유 */
 	
 	//지원자 자격증정보
 	private String certificateInfoCode; //자격증정보코드
@@ -149,54 +149,6 @@ public class ChaeYoungInfo {
 	}
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
-	}
-	public String getCareerInfoCode() {
-		return careerInfoCode;
-	}
-	public void setCareerInfoCode(String careerInfoCode) {
-		this.careerInfoCode = careerInfoCode;
-	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	public String getCompanyAccess() {
-		return companyAccess;
-	}
-	public void setCompanyAccess(String companyAccess) {
-		this.companyAccess = companyAccess;
-	}
-	public String getCompanyPositionFromOut() {
-		return companyPositionFromOut;
-	}
-	public void setCompanyPositionFromOut(String companyPositionFromOut) {
-		this.companyPositionFromOut = companyPositionFromOut;
-	}
-	public String getCompanyWorkFormOut() {
-		return companyWorkFormOut;
-	}
-	public void setCompanyWorkFormOut(String companyWorkFormOut) {
-		this.companyWorkFormOut = companyWorkFormOut;
-	}
-	public String getCompanyInDateFromOut() {
-		return companyInDateFromOut;
-	}
-	public void setCompanyInDateFromOut(String companyInDateFromOut) {
-		this.companyInDateFromOut = companyInDateFromOut;
-	}
-	public String getCompanyOutDateFromOut() {
-		return companyOutDateFromOut;
-	}
-	public void setCompanyOutDateFromOut(String companyOutDateFromOut) {
-		this.companyOutDateFromOut = companyOutDateFromOut;
-	}
-	public String getCompanyOutReason() {
-		return companyOutReason;
-	}
-	public void setCompanyOutReason(String companyOutReason) {
-		this.companyOutReason = companyOutReason;
 	}
 	public String getCertificateInfoCode() {
 		return certificateInfoCode;
@@ -336,21 +288,18 @@ public class ChaeYoungInfo {
 				+ ", basicInfoCode=" + basicInfoCode + ", staffEngName=" + staffEngName + ", humanNum=" + humanNum
 				+ ", staffGender=" + staffGender + ", staffNationality=" + staffNationality + ", staffCountry="
 				+ staffCountry + ", staffPhone=" + staffPhone + ", staffEmail=" + staffEmail + ", staffMarriged="
-				+ staffMarriged + ", staffAddr=" + staffAddr + ", regDate=" + regDate + ", careerInfoCode="
-				+ careerInfoCode + ", companyName=" + companyName + ", companyAccess=" + companyAccess
-				+ ", companyPositionFromOut=" + companyPositionFromOut + ", companyWorkFormOut=" + companyWorkFormOut
-				+ ", companyInDateFromOut=" + companyInDateFromOut + ", companyOutDateFromOut=" + companyOutDateFromOut
-				+ ", companyOutReason=" + companyOutReason + ", certificateInfoCode=" + certificateInfoCode
-				+ ", certificateName=" + certificateName + ", issuingAgency=" + issuingAgency + ", certificateNum="
-				+ certificateNum + ", getDate=" + getDate + ", finishedDate=" + finishedDate + ", educationInfoCode="
-				+ educationInfoCode + ", schoolName=" + schoolName + ", hakryuckStatus=" + hakryuckStatus
-				+ ", majorName=" + majorName + ", minorName=" + minorName + ", entranceDate=" + entranceDate
-				+ ", graduatDate=" + graduatDate + ", degree=" + degree + ", militaryInfoCode=" + militaryInfoCode
-				+ ", militaryClassidx=" + militaryClassidx + ", militaryServiceType=" + militaryServiceType
-				+ ", militaryState=" + militaryState + ", militaryInDay=" + militaryInDay + ", militaryOutDay="
-				+ militaryOutDay + ", militaryLevel=" + militaryLevel + ", militaryInfoNotes=" + militaryInfoNotes
-				+ "]";
+				+ staffMarriged + ", staffAddr=" + staffAddr + ", regDate=" + regDate + ", certificateInfoCode="
+				+ certificateInfoCode + ", certificateName=" + certificateName + ", issuingAgency=" + issuingAgency
+				+ ", certificateNum=" + certificateNum + ", getDate=" + getDate + ", finishedDate=" + finishedDate
+				+ ", educationInfoCode=" + educationInfoCode + ", schoolName=" + schoolName + ", hakryuckStatus="
+				+ hakryuckStatus + ", majorName=" + majorName + ", minorName=" + minorName + ", entranceDate="
+				+ entranceDate + ", graduatDate=" + graduatDate + ", degree=" + degree + ", militaryInfoCode="
+				+ militaryInfoCode + ", militaryClassidx=" + militaryClassidx + ", militaryServiceType="
+				+ militaryServiceType + ", militaryState=" + militaryState + ", militaryInDay=" + militaryInDay
+				+ ", militaryOutDay=" + militaryOutDay + ", militaryLevel=" + militaryLevel + ", militaryInfoNotes="
+				+ militaryInfoNotes + "]";
 	}
+
 
 	
 	
