@@ -168,52 +168,57 @@
 	</delete>
 <!-- 임시저장함 - 조건검색 -->	
 	<select id="searchStorage" resultType="UpmuDocument">
-		SELECT 
-			s.storage_code  			AS docCode
-			, s.doc_type			AS docType
-			, t.doc_type			AS docTypeName				
-			, writer_buseo_code		AS writerBuseoCode
-			, writer_num			AS writerNum
-			, doc_title				AS docTitle
-			, doc_contents			AS docContents
-			, write_date			AS writeDate
-			, doc_file				AS docFile
-			, app_security			AS appSecurity
-			, deadline				AS deadline
-		FROM 
-				um_storage_box AS s
-			join
-				um_doctype AS t
-			on
-				s.doc_type = t.doc_code
-		<if test="sk neq ''.toString">
-		where
-		${sk} LIKE CONCAT('%',#{sv},'%')
-		</if>
+		SELECT
+			d.app_doc_code		as docCode
+			,t.doc_type			as docTypeName
+			,writer_buseo_code	as writerBuseoCode
+			,writer_num			as writerNum
+			,doc_title			as docTitle
+			,doc_contents		as docContents
+			,write_date			as writeDate
+			,doc_file			as docFile	
+			,app_security		as appSecurity
+			,deadline			as deadline
+			,d.doc_type			as docType
+			,d.storage			as storage
+		FROM			
+			um_document AS 	d
+		INNER join
+			um_doctype AS t
+		on
+			t.doc_code=d.doc_type
+		where 
+			d.storage ='임시저장'
+		and				
+			<if test="sk neq ''.toString">
+			${sk} LIKE CONCAT('%',#{sv},'%')
+			</if>
 	</select>
 
 
 <!-- 임시저장함 - 전체검색  -->
 	<select id="storageBox" resultType="UpmuDocument">
 		SELECT
-			storage_code			AS docCode
-			, t.doc_type 			AS docTypeName
-			, s.doc_type 			AS docType
-			, writer_buseo_code 	AS writerBuseoCode
-			, writer_num			AS writerNum
-			, doc_title				AS docTitle
-			, doc_contents			AS docContents
-			, write_date			AS writeDate
-			, doc_file				AS docFile
-			,app_security			as appSecurity
-			, deadline				AS deadline
-		FROM
-				um_storage_box AS s
-			join
-				um_doctype AS t
-			ON 
-				s.doc_type = t.doc_code
-	
+			d.app_doc_code		as docCode
+			,t.doc_type			as docTypeName
+			,writer_buseo_code	as writerBuseoCode
+			,writer_num			as writerNum
+			,doc_title			as docTitle
+			,doc_contents		as docContents
+			,write_date			as writeDate
+			,doc_file			as docFile	
+			,app_security		as appSecurity
+			,deadline			as deadline
+			,d.doc_type			as docType
+			,d.storage			as storage
+		FROM			
+			um_document AS 	d
+		INNER join
+			um_doctype AS t
+		on
+			t.doc_code=d.doc_type
+		where 
+			d.storage ='임시저장'	
 	</select>
 		
 <!-- 상신함 - 조건검색 -->	
