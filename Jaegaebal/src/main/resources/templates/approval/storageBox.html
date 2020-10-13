@@ -59,7 +59,7 @@
 	                        <tr th:each="s : ${storageBox}" th:if="${s.writerNum eq session.SSTAFFNUM}">
 	                            <td th:text="${s.docCode}" th:value="${s.docCode}" id="docCode" class='text-center'></td>
 	                            <td th:text="${s.docTypeName}" id="docTypeName" class='text-center'></td>
-	                            <td><a th:text="${s.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${s.docCode})}"></a></td>
+	                            <td><a th:text="${s.docTitle}" id="docTitle" class='text-center' th:href="@{/docModify(docCode=${s.docCode})}"></a></td>
 	                            <td th:text="${s.docFile}"  id="docFile" class='text-center'></td>
 	                            <td th:text="${s.deadline}" id="deadline" class='text-center'></td>
 	                            <td th:text="${s.appSecurity}" id="appSecurity" class='text-center' ></td>

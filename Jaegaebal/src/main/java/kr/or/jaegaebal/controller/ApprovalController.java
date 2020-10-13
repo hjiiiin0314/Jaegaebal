@@ -29,6 +29,19 @@ public class ApprovalController {
 	@Autowired private ApprovalService approvalService;
 	private static final Logger  log = LoggerFactory.getLogger(ApprovalController.class);
 	
+	//문서수정화면
+	@GetMapping("/docModify")
+	public String docModify(Model model
+							,@RequestParam(value = "docCode",required = false)String docCode) {
+		List<UpmuDocument> getAppLine = approvalService.getAppLine(docCode);		
+		model.addAttribute("getAppLine", getAppLine);
+				
+		List<UpmuDocument> docDetail = approvalService.docDetail(docCode);
+		model.addAttribute("docDetail", docDetail);
+		
+		return "approval/docModify";
+	}
+	
 	//보안문서열람시 비밀번호 확인 - ajax
 		@PostMapping(value="/securityPW",produces = "application/json")
 		@ResponseBody
