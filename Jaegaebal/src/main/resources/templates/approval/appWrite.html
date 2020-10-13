@@ -23,7 +23,7 @@
    <th:block layout:fragment="customContent">
  
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->      
-      <form  id="addAppDoc" action="/appWrite" method="post">
+      <form  id="addAppDoc" action="/appWrite" method="post" name="addAppDocForm">
         <div class="col-md-10">
       <div class="app-page-title">
             <div class="page-title-wrapper">
@@ -184,7 +184,7 @@
       
       
       <!--  결재라인 모달  관련 -->
-      <script>
+      <script type="text/javascript">
       $('#jojic').jstree();
 
          
@@ -321,9 +321,22 @@
             //임시저장버튼 클릭 시 
              $('#appKeepBtn').click(function(){                     
                 if(confirm("저장하시겠습니까 ?") == true){
-                   alert("임시저장함으로 이동합니다.");
-                  window.location.href="/storageBox";   
-                       
+                	$(this).parent().append("<input type='hidden' name='storage' value='임시저장'>");
+                	var addAppDoc = $("form[name=addAppDocForm]").serialize(); //form전체를 넘기기
+                	console.log("addAppDoc:" + addAppDoc);
+                
+	                var request = $.ajax({
+											url: "/addSotorage", //컨트롤러 맵핑
+											method: "POST",
+											data: $("form[name=addAppDocForm]").serialize(), 
+											dataType: "json" // json방식으로 값 전달				
+					}); 
+	                request.done(function(data){
+	                	console.log(data);
+	                   alert("임시저장함으로 이동합니다.");
+	                  window.location.href="/storageBox";  
+	                });
+                	                        
                  }else{
                        return ;
                    }         
@@ -337,11 +350,7 @@
                   var deadline = $('input[name= "deadline"]').val(); // 마감요청일
                   var docTitle = $('input[name= "docTitle"]').val(); // 제목
                   var docContents = $('#summernote'); // 내용
-                     console.log(docType + "<--docType");
-                     console.log(deadline + "<--deadline");
-                     console.log(docTitle + "<--docTitle");
-                     console.log(docContents.val() + "<--docContents");
-                     console.log(appLine + "<--appLine");
+               
                   if(appLine == 0){
                 	  alert('결재라인을 지정해주세요');
                 	  return false;
@@ -364,8 +373,7 @@
                   }
                   
                   if(confirm("결재를 올리시겠습니까?")== true){
-                     $('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 놓고 결재라인정보는 um_app_line에 넣기                 
-                     
+                     $('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 놓고 결재라인정보는 um_app_line에 넣기                                    
                   }else{
                      return ;
                   }

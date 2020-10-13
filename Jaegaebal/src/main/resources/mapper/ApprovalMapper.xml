@@ -219,7 +219,7 @@
 <!-- 상신함 - 조건검색 -->	
 	<select id="searchAppList" resultType="UpmuDocument">
 		SELECT
-			a.app_state_code		as appStateCode
+			a.app_state_code	as appStateCode
 			,d.app_doc_code		as docCode
 			,t.doc_type			as docTypeName
 			,writer_buseo_code	as writerBuseoCode
@@ -232,6 +232,7 @@
 			,app_security		as appSecurity
 			,deadline			as deadline
 			,d.doc_type			as docType
+			,d.storage			as storage
 		FROM
 			um_appstate AS a
 			INNER join
@@ -264,6 +265,7 @@
 			,app_security		as appSecurity
 			,deadline			as deadline
 			,d.doc_type			as docType
+			,d.storage			as storage
 		FROM
 			um_appstate AS a
 			INNER join
@@ -279,61 +281,7 @@
 	</select>
 	
 	
-	<!-- 기안하기 - 임시저장 - 문서저장 -->
-	<insert id="addStorage" parameterType="UpmuDocument" >
-		<selectKey resultType="String" keyProperty="docCode" order="BEFORE">
-			select 
-				CONCAT('sc-',max(CAST(substring(storage_code,4) AS DECIMAL))+1) 
-			FROM 
-				um_storage_box
-		</selectKey>
-		INSERT INTO um_storage_box
-					(storage_code
-					, doc_type
-					, writer_buseo_code
-					, writer_num
-					, doc_title
-					, doc_contents
-					, doc_coment
-					, write_date
-					, doc_file
-					, app_security
-					, deadline)
-		VALUES 
-			(#{docCode}
-			, #{docType}
-			, #{writerBuseoCode}     		<!-- 세션으로 넘어올 값 -->
-			, #{writerNum}  				<!-- 세션으로 넘어올 값 -->
-			, #{docTitle}
-			, #{docContents}
-			, #{docComent}
-			, NOW()
-			, #{docFile}
-			, #{appSecurity}
-			, #{deadline})		 	
-	</insert>
-	
-<!-- 기안하기 - 임시저장 - 결재라인저장   -->
-	<insert id="storageAppLine" parameterType="list" >
-	INSERT INTO um_storage_appline
-						(
-						storage_code
-						, app_jojic_code 	
-						, staff_level_code  
-						, app_staff_num		
-						, chamjo)
-	VALUES 
-	<foreach collection="list" item="item" separator=",">	
-		(#{item.getDocCode}
-		, #{item.jojicCode}
-		, #{item.levelCode}
-		, #{item.staffNum}
-		, '')
-	</foreach>
-	</insert>	
-	
-	
-<!-- 기안하기 - 결재올리기 - 문서 -->
+<!-- 기안하기 - 결재올리기/임시저장 - 문서 -->
 	<insert id="appWrite" parameterType="UpmuDocument" >
 		<selectKey resultType="String" keyProperty="docCode" order="BEFORE">
 			select 
@@ -353,7 +301,8 @@
 					, doc_file
 					, app_security
 					, deadline
-					, app_state)
+					, app_state
+					, storage)
 	VALUES 
 		(#{docCode}
 		, #{docType}
@@ -366,11 +315,12 @@
 		, #{docFile}
 		, #{appSecurity}
 		, #{deadline}
-		, 'ac-04')		 	<!-- 초기값은 미열람  -->
+		, 'ac-04'				<!-- 초기값은 미열람  -->
+		,#{storage})		 	
 	
 	</insert>
 	
-<!-- 기안하기 - 결재올리기 - 결재라인저장   -->
+<!-- 기안하기 - 결재올리기/임시저장 - 결재라인저장   -->
 	<insert id="choiceStaff" parameterType="list" >
 	INSERT INTO um_app_line
 						(

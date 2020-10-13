@@ -45,13 +45,7 @@ public interface ApprovalMapper {
 		public List<UpmuDocument> searchAppList(String sk, String sv);		
 		
 	//상신함 - 전체목록
-		public List<UpmuDocument> myAppList();
-			
-	//기안하기 - 임시저장 - 문서
-		public int addStorage(UpmuDocument upmuDocument);
-		
-	//기안하기 - 임시저장 - 결재라인
-		public int storageAppLine(List<Map<String, Object>> storageAppLine);
+		public List<UpmuDocument> myAppList();			
 		
 	//기안하기 - 결재올리기 - 문서
 		public int appWrite(UpmuDocument upmuDocument);

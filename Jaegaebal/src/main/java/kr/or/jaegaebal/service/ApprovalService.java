@@ -92,10 +92,10 @@ public class ApprovalService {
 	}
 		
 	//기안하기 - 임시저장하기
-	public int addStorage(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
-		approvalmapper.addStorage(upmuDocument);
+	public int addStorage(UpmuDocument addAppDoc, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
+		approvalmapper.appWrite(addAppDoc);
 		
-		String getDocCode = upmuDocument.getDocCode();
+		String getDocCode = addAppDoc.getDocCode();
 		
 		List<Map<String, Object>> storageAppLine = new ArrayList<>();
 		for(int i=0; i<jojicCode.length; i++) {

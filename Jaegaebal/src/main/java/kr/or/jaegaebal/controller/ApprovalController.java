@@ -85,14 +85,10 @@ public class ApprovalController {
 								,@RequestParam(value = "sk", required = false)String sk
 								,@RequestParam(value = "sv", required = false)String sv){	
 	
-		if(sk != null && !"".equals(sk) 
-				&& sv != null && !"".equals(sv)){
+		
 			List<UpmuDocument> myAppList = approvalService.searchAppList(sk,sv);
 			model.addAttribute("myAppList", myAppList);
-		}else {
-			List<UpmuDocument> myAppList = approvalService.myAppList();
-			model.addAttribute("myAppList", myAppList);
-		}	
+		
 		return "approval/myAppList";		
 	
 	}
@@ -146,12 +142,12 @@ public class ApprovalController {
 	//기안하기 - 임시저장
 	@PostMapping(value = "/addSotorage", produces = "application/json")
 	@ResponseBody
-	public int addStorage(UpmuDocument storageDoc
+	public int addStorage(UpmuDocument addAppDoc
 						,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
 						,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 						,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
 			
-		int	result = approvalService.addStorage(storageDoc, jojicCode, staffLevelCode, staffNum);
+		int	result = approvalService.addStorage(addAppDoc, jojicCode, staffLevelCode, staffNum);
 		
 		return result;
 	}

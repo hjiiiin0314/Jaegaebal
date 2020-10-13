@@ -24,6 +24,7 @@ public class UpmuDocument {
 	private String docComent;
 	private String finalStateName;
 	private String umstType;
+	private String storage;
 	
 //	결재라인 관련
 	private String appJojicCode;		//결재사원의 부서코드
@@ -38,6 +39,13 @@ public class UpmuDocument {
 	private String appDate;				//결재사원의 결재처리날짜
 	
 	
+	
+	public String getStorage() {
+		return storage;
+	}
+	public void setStorage(String storage) {
+		this.storage = storage;
+	}
 	public String getDocCode() {
 		return docCode;
 	}
@@ -261,6 +269,8 @@ public class UpmuDocument {
 		builder.append(finalStateName);
 		builder.append(", umstType=");
 		builder.append(umstType);
+		builder.append(", storage=");
+		builder.append(storage);
 		builder.append(", appJojicCode=");
 		builder.append(appJojicCode);
 		builder.append(", staffLevelCode=");
