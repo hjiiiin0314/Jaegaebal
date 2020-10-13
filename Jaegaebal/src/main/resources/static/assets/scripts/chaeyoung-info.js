@@ -115,6 +115,19 @@
 			}
 		})
 		
+		function deleteLine(obj) {
+			var tr = $(obj).parent().parent();
+			tr.remove();
+		}
+		$('.addCareerInfoFromOutBtn').click(function() {
+			var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+			var companyName = $('.careerInfo input[name=companyName]').val().replace(regExp, '');
+			console.log(companyName);
+
+			$('.aa').append('<tr><td> '+ companyName +' </td><td><button type="button" class="mb-2 mr-2 btn btn-link" onclick="deleteLine(this);"><i class="pe-7s-trash"> </i></button></td></tr>');
+		});
+		
+		
 		$('.addTest').on("click",function() {
 
 		});

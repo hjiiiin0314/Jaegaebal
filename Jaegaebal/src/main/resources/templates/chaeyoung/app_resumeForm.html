@@ -82,7 +82,7 @@
 				</div>
 			</div>
 		</div>
-				<div class="col-md-8">
+				<div class="col-lg-8 col-lg-4">
 					<div class="main-card card">
 						<div class="card-body p-b-xs emp-table">
 							<h5 class="card-title">추가 기입 정보</h5>
@@ -174,8 +174,8 @@
 											</table>
 				                   	    </form>    
                                     </div>
-                                    
-            						<div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
+                                  
+            						<div class="tab-pane scroll-area-lg scrollbar-container" id="isCareerInfoFromOut" role="tabpanel">
 										<form class="careerInfo" action="/addInfo" method="post">
 											<div class="position-relative form-group">
                                                 <div>
@@ -184,7 +184,8 @@
                                       				</div>                                              
                                                 </div>
                                             </div>
-											<table class="mb-12 table table-bordered careerInfoTable">
+                                           
+											<table class="mb-12 table table-bordered careerInfoTable ">
 												<tr>
 													<td class="t_head2">직장명</td>
 													<td >
@@ -227,6 +228,11 @@
 													</td>
 												</tr>
 											</table>
+											
+											<table class="aa">
+												<tr><td> companyName </td><td><button type="button" class="mb-2 mr-2 btn btn-link" onclick="deleteLine(this)"></button></td></tr>
+											</table>
+									
 				                         </form>                              
                                      </div>
                                      <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
@@ -322,8 +328,15 @@
 												<tr>
 													<td class="t_head2">병역구분</td>
 													<td colspan="5">
-													
-														<input type="text" name="militaryClassidx" class="form-control" value="2020-09-09">
+														<select id="militaryclassidx" class="form-control" name="militaryClassidx">
+                               								 <option value="">병역구분 선택</option>
+                               								 <option value="병역필">병역필</option>
+                               								 <option value="장교제대">장교제대</option>
+                               								 <option value="면제">면제</option>
+                               								 <option value="병역미필">병역미필</option>
+                               								 <option value="병역특례">병역특례</option>
+                               								 <option value="여성">해당없음(여성)</option>
+                           								</select>
 													</td>
 												</tr> 
 												<tr>
@@ -345,7 +358,12 @@
 												<tr>
 													<td class="t_head2">전역상태</td>
 													<td >
-														<input type="text" name="militaryState" class="form-control" value="2020-09-09">
+														<select id="militaryState" class="form-control" name="militaryState">
+                                							<option value="">선택</option>
+                                							<option value="만기제대">만기제대</option>
+                                							<option value="의가사제대">의가사제대</option>
+                                							<option value="기타">기타</option>
+                            							</select>
 													</td>
 													<td class="t_head2">계급</td>
 													<td>
