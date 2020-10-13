@@ -142,7 +142,7 @@
 }
 
 .one-Btn{
-	    margin-right: 35px;
+	    width: 20%;
 	    padding-left: 23px;
    		padding-right: 30px;
 }
@@ -158,4 +158,10 @@
 	margin: 20px 0px 16px 0px;
     color: gray;
     font-size: 15px;
+}
+#myTaskBtn{
+	margin-top: 37px;
+}
+.task-card{
+	margin-top: 50px;
 }
