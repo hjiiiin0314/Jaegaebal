@@ -46,6 +46,16 @@ public class SalaryService {
 		return staffBasicSalary;
 	}
 	
+	public int getPrizeList(String dataNum, String searchDate) {
+		int prizeSum = salaryMapper.getPrizeList(dataNum, searchDate);
+		return prizeSum;
+	}
+	
+	public int getPunishmentList(String dataNum, String searchDate) {
+		int punishmentSum = salaryMapper.getPunishmentList(dataNum, searchDate);
+		return punishmentSum;
+	}
+	
 	public SalaryRecord getSelMonthData(String dataNum, String searchDate) {
 		SalaryRecord salaryRecord = salaryMapper.getSelMonthData(dataNum, searchDate);
 		return salaryRecord;
@@ -97,7 +107,7 @@ public class SalaryService {
 		DecimalFormat dc = new DecimalFormat("###,###");
 		String ch = null;
 		Object numValue = null;
-		for(int i=0;i<18;i++) {
+		for(int i=0;i<22;i++) {
 			for(int j=1;j<13;j++) {
 				numValue = monthSalList.get(i).get("M"+j); 
 				ch = dc.format(numValue);

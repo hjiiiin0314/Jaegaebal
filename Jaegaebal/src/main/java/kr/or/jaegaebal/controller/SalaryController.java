@@ -153,11 +153,11 @@ public class SalaryController {
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM");	
 		Date time = new Date();
 		String searchDate = format1.format(time);
-		//insert나 update되어 리타이렉트 되었을 경우 넘어온 귀속년월을 현재날짜에서 바꿈
+		//insert나 update되어 리다이렉트 되었을 경우 넘어온 귀속년월을 현재날짜에서 바꿈
 		if(dateValue != null) {
 			searchDate = dateValue;
 		}
-		//insert나 update되어 리타이렉트 되었을 경우 넘어온 급여정보 기본키를을 기본 조회 급여정보 기본키에서 바꿈
+		//insert나 update되어 리다이렉트 되었을 경우 넘어온 급여정보 기본키를을 기본 조회 급여정보 기본키에서 바꿈
 		if(dataData != null) {
 			dataNum = dataData;
 		}
@@ -167,7 +167,11 @@ public class SalaryController {
 			salaryRecord = new SalaryRecord();
 			//insert일때 사원의 기본급 조회
 			int staffBasicSalary = salaryService.getStaffNormal(dataNum);
+			int prizeSum = salaryService.getPrizeList(dataNum, searchDate);
+			int punishmentSum = salaryService.getPunishmentList(dataNum, searchDate);
 			salaryRecord.setDataNormal(staffBasicSalary);
+			salaryRecord.setDataBonus(prizeSum);
+			salaryRecord.setDataMalus(punishmentSum);
 			sqlKey = "ins";
 		} else {
 			sqlKey = "upd";
@@ -287,7 +291,11 @@ public class SalaryController {
 			salaryRecord = new SalaryRecord();
 			//insert일때 사원의 기본급 조회
 			int staffBasicSalary = salaryService.getStaffNormal(dataNum);
+			int prizeSum = salaryService.getPrizeList(dataNum, searchDate);
+			int punishmentSum = salaryService.getPunishmentList(dataNum, searchDate);
 			salaryRecord.setDataNormal(staffBasicSalary);
+			salaryRecord.setDataBonus(prizeSum);
+			salaryRecord.setDataMalus(punishmentSum);
 			sqlKey = "ins";
 		} else {
 			sqlKey = "upd";
@@ -322,7 +330,6 @@ public class SalaryController {
 		String searchLevel = ajaxArray[2];
 		String searchJojic = ajaxArray[3];
 		List<Map<String, Object>> staffList = salaryService.getStaffListMap(searchCate, searchText, searchLevel, searchJojic);
-		System.out.println(staffList);
 		return staffList;
 	}
 }

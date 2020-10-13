@@ -33,6 +33,12 @@ public interface SalaryMapper {
 	//해당사원의 기본급 조회
 	public int getStaffNormal(String dataNum);
 	
+	//해당사원의 지급리스트 조회
+	public int getPrizeList(String dataNum, String searchDate);
+	
+	//해당사원의 징계리스트 조회
+	public int getPunishmentList(String dataNum, String searchDate);
+	
 	//검색어가 적용된 사원기본정보 조회
 	public List<Map<String, Object>> getStaffListMap(String searchCate, String searchText, String searchLevel, String searchJojic);
 	

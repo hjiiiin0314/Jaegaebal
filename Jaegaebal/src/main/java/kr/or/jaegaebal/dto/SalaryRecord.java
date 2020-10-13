@@ -7,6 +7,7 @@ public class SalaryRecord {
 	private int dataPay;
 	private int dataNormal;
 	private int dataBonus;
+	private int dataMalus;
 	private int dataAnn;
 	private int dataVehicle;
 	private int dataMeal;
@@ -64,6 +65,12 @@ public class SalaryRecord {
 	}
 	public void setDataBonus(int dataBonus) {
 		this.dataBonus = dataBonus;
+	}
+	public int getDataMalus() {
+		return dataMalus;
+	}
+	public void setDataMalus(int dataMalus) {
+		this.dataMalus = dataMalus;
 	}
 	public int getDataAnn() {
 		return dataAnn;
@@ -191,13 +198,12 @@ public class SalaryRecord {
 	public void setSqlKey(String sqlKey) {
 		this.sqlKey = sqlKey;
 	}
-	
 	@Override
 	public String toString() {
 		return "SalaryRecord [dataNum=" + dataNum + ", dataData=" + dataData + ", dataDate=" + dataDate + ", dataPay="
-				+ dataPay + ", dataNormal=" + dataNormal + ", dataBonus=" + dataBonus + ", dataAnn=" + dataAnn
-				+ ", dataVehicle=" + dataVehicle + ", dataMeal=" + dataMeal + ", dataOvertime=" + dataOvertime
-				+ ", dataNight=" + dataNight + ", dataHoli=" + dataHoli + ", dataGukmin=" + dataGukmin
+				+ dataPay + ", dataNormal=" + dataNormal + ", dataBonus=" + dataBonus + ", dataMalus=" + dataMalus
+				+ ", dataAnn=" + dataAnn + ", dataVehicle=" + dataVehicle + ", dataMeal=" + dataMeal + ", dataOvertime="
+				+ dataOvertime + ", dataNight=" + dataNight + ", dataHoli=" + dataHoli + ", dataGukmin=" + dataGukmin
 				+ ", dataGeongang=" + dataGeongang + ", dataKhoyong=" + dataKhoyong + ", dataJanggi=" + dataJanggi
 				+ ", dataSanjae=" + dataSanjae + ", dataSchexpan=" + dataSchexpan + ", dataIncome=" + dataIncome
 				+ ", dataLoincome=" + dataLoincome + ", dataAddpay=" + dataAddpay + ", dataPricepay=" + dataPricepay

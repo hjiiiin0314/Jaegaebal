@@ -35,7 +35,7 @@
 	left: 0;
 	border-left:none;
 	background:#f9f9f9;
-	padding:20px;
+	padding:20px 5px;
 	z-index:9;
 	word-break:keep-all;
 }
@@ -46,8 +46,40 @@
 	top: 0;
 	border-top:none;
 	background:#e9ecef;
-	padding:20px;
+	padding:20px 5px;
 	z-index:10;
+}
+
+/*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
+.month-table tbody tr:nth-last-child( 3 ) td {
+	position: sticky;
+	bottom: 120px;
+	background:#e1ffe8;
+	padding:20px 5px;
+	z-index:20;
+}
+
+/*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
+.month-table tbody tr:nth-last-child( 2 ) td {
+	position: sticky;
+	bottom: 60px;
+	background:#e1ffe8;
+	padding:20px 5px;
+	z-index:20;
+}
+
+/*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
+.month-table tbody tr:nth-last-child( 1 ) td {
+	position: sticky;
+	bottom: 0;
+	background:#e1ffe8;
+	padding:20px 5px;
+	z-index:20;
+}
+
+/*(월별 테이블 전용) 고정 bottom중 값이 뜨는 부분 정렬 뒤로 보내기*/
+.month-table tbody tr:nth-last-child( 3 ) td:nth-child( n+2 ), .month-table tbody tr:nth-last-child( 2 ) td:nth-child( n+2 ), .month-table tbody tr:nth-last-child( 1 ) td:nth-child( n+2 ) {
+	z-index:5;
 }
 
 /*사원정보 테이블 스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
@@ -166,7 +198,7 @@ table.ui-datepicker-calendar {
 		height:468px;
 	}
 	.scroll-div-month{
-		height:368px;
+		height:800px;
 	}
 	.table-overflow .table{
 		width:250%;

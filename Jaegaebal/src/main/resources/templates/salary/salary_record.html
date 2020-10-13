@@ -22,6 +22,12 @@
 	
 		/*]]>*/
 	</script>
+	<script>
+		$(function(){
+			//귀속년월 넣음(첫 화면은 현재날짜)
+			$('#datepicker').val(searchDate);
+		});
+	</script>
 	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
 </th:block>
@@ -108,7 +114,7 @@
 							</tr>
 							<tr>
 								<td>기본급</td>
-								<td>
+								<td colspan="3">
 								<!-- 월별급여 기본키(update시에만 사용) -->
 								<input type="hidden" name="dataNum" th:value="${salaryRecord.dataNum}">
 								<!-- 급여정보 기본키 -->
@@ -116,9 +122,12 @@
 								<!-- 귀속년월이 저장될 곳 -->
 								<input type="hidden" name="dateValue" th:value="${searchDate}">
 								<input type="number" name="dataNormal" class="form-control" th:value="${salaryRecord.dataNormal}" readonly></td>
-								<td>상여</td>
-								<td><input type="number" name="dataBonus" class="form-control number-form" th:value="${salaryRecord.dataBonus}"></td>
 							</tr>
+							<tr>
+								<td>상여</td>
+								<td><input type="number" name="dataBonus" class="form-control number-form" th:value="${salaryRecord.dataBonus}" readonly></td>
+								<td>감봉</td>
+								<td><input type="number" name="dataMalus" class="form-control number-form" th:value="${salaryRecord.dataMalus}" readonly></td>
 							<tr>
 								<td>연차수당</td>
 								<td><input type="number" name="dataAnn" class="form-control number-form" th:value="${salaryRecord.dataAnn}"></td>
