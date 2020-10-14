@@ -254,7 +254,8 @@
 				alert('올바른 핸드폰번호를 입력해 주세요');
 				return false;
 			}else {		
-				console.log($(".careerInfo").serializeObject());
+				console.log($(classStr).serialize());
+				console.log($('.careerInfo').serializeArray());
 				var request = $.ajax({
   				  url: "/addInfo", //컨트롤러 맵핑
   				  method: "POST",

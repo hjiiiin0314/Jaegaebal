@@ -167,10 +167,9 @@ public class ChaeYoungController {
 	//지원서작성
 	@PostMapping(value = "/addInfo", produces = "application/json")
 	@ResponseBody
-	public int addInfo(ChaeYoungInfo chaeYoungInfo,ChaeYoungCareerInfo chaeYoungCareerInfo) {
+	public int addInfo(ChaeYoungInfo chaeYoungInfo) {
 		
 		System.out.println(chaeYoungInfo + "<--- dfdfadf");
-		System.out.println(chaeYoungCareerInfo + "<--- chaeYoungCareerInfo");
 
 		
 		int result = chaeYoungService.addAppInfo(chaeYoungInfo);
