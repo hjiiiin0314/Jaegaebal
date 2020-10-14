@@ -29,15 +29,38 @@ public class ApprovalController {
 	@Autowired private ApprovalService approvalService;
 	private static final Logger  log = LoggerFactory.getLogger(ApprovalController.class);
 	
+	//문서 수정 - 임시저장
+	@PostMapping(value="/modifyStorage",produces = "application/json")
+	@ResponseBody
+	public int modifyStorage(UpmuDocument modifyStorage
+							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
+							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
+							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
+		int result = approvalService.modifyStorage(modifyStorage, jojicCode, staffLevelCode, staffNum);		
+		return result;
+	}
+	
 	//문서수정화면
 	@GetMapping("/docModify")
 	public String docModify(Model model
 							,@RequestParam(value = "docCode",required = false)String docCode) {
 		List<UpmuDocument> getAppLine = approvalService.getAppLine(docCode);		
 		model.addAttribute("getAppLine", getAppLine);
+		
+		List<Map<String, Object>> docType = approvalService.getDocType();	
+		model.addAttribute("docType", docType);
 				
 		List<UpmuDocument> docDetail = approvalService.docDetail(docCode);
 		model.addAttribute("docDetail", docDetail);
+		
+		List<Jojic> jojic = approvalService.getJojic();
+		model.addAttribute("jojic", jojic);
+		
+		List<Jojic> team = approvalService.getTeam();
+		model.addAttribute("team", team);
+				
+		List<StaffInfo> staff = approvalService.getStaff();
+		model.addAttribute("staff", staff);
 		
 		return "approval/docModify";
 	}

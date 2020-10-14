@@ -4,6 +4,39 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.ApprovalMapper">
 
+<!-- 문서수정 - 임시저장 (결재라인) -->
+<update id="modifyAppLine" parameterType="list">
+	<foreach collection="list" item="item" separator=",">	
+	UPDATE um_app_line
+	SET	
+		doc_code=#{item.getDocCode},	
+		app_jojic_code=#{item.jojicCode},
+		staff_level_code=#{item.levelCode},
+		app_staff_num=#{item.staffNum}
+	WHERE 
+		doc_code=#{item.getDocCode}		
+	</foreach>
+</update>
+
+<!-- 문서 수정 - 임시저장(문서만)  -->
+<update id="modifyStorage" parameterType="UpmuDocument">
+	UPDATE um_document
+	SET
+		doc_type			=	#{docType},
+		writer_buseo_code	=	#{writerBuseoCode},
+		writer_num			=	#{writerNum},
+		doc_title			=	#{docTitle},
+		doc_contents		=	#{docContents},
+		doc_coment			=	#{docComent},
+		write_date			=	NOW(),
+		doc_file			=	#{docFile},
+		app_security		=	#{appSecurity},
+		deadline			=	#{deadline},		
+		`storage`			=	#{storage}
+	WHERE 
+		app_doc_code		= #{docCode}
+</update>
+
 <!-- 보안문서 열람 시 비밀번호 확인  -->
 	<select id="securityPW" parameterType="String" resultType="String">
 	SELECT 

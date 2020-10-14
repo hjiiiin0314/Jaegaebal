@@ -17,6 +17,12 @@ import kr.or.jaegaebal.dto.UpmuDocument;
 @Mapper
 public interface ApprovalMapper {
 	
+	//문서수정 - 임시저장(문서)
+		public int modifyStorage(UpmuDocument modifyStorage);
+	
+	//문서수정 - 임시저장(결재라인)
+		public int modifyAppLine(List<Map<String, Object>>modifyAppLine);
+	
 	//보안문서 열람 시 비밀번호 확인
 		public String securityPW(String SSTAFFNUM);
 	

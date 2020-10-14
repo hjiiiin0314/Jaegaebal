@@ -24,6 +24,26 @@ public class ApprovalService {
 	private static final Logger  log = LoggerFactory.getLogger(ApprovalService.class);	
 	@Autowired private ApprovalMapper approvalmapper;
 	
+	//문서수정 - 임시저장
+	public int modifyStorage(UpmuDocument modifyStorage, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
+		approvalmapper.modifyStorage(modifyStorage);
+		
+		String getDocCode = modifyStorage.getDocCode();
+		
+		List<Map<String, Object>> modifyAppLine = new ArrayList<>();
+		for(int i=0; i<jojicCode.length; i++) {
+			Map<String, Object> beforInfo = new HashMap<String, Object>();
+			beforInfo.put("jojicCode", jojicCode[i]);
+			beforInfo.put("levelCode", staffLevelCode[i]);
+			beforInfo.put("staffNum", staffNum[i]);
+			beforInfo.put("getDocCode", getDocCode);
+			
+			modifyAppLine.add(beforInfo);
+		}
+		int result = approvalmapper.modifyAppLine(modifyAppLine);
+		return result;
+	}
+	
 	//보안문서 열람 시 비밀번호 입력
 	public String securityPW(String SSTAFFNUM) {
 		String securityPW = approvalmapper.securityPW(SSTAFFNUM);
@@ -108,7 +128,7 @@ public class ApprovalService {
 			storageAppLine.add(beforInfo);
 		}
 		
-		log.info("UpmuService addStorage upmuDocument ::::: {}",storageAppLine);
+		
 		int result = approvalmapper.choiceStaff(storageAppLine);
 		
 		return result;

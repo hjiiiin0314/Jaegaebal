@@ -24,7 +24,7 @@
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
 
- <form id="appDecide" action="/appDecide" method="post">
+ <form id="addAppDoc" action="/appWrite" method="post" name="addAppDocForm">
   	<div class="col-md-10">
 		<div class="app-page-title">
 			<div class="page-title-wrapper">
@@ -45,6 +45,8 @@
 		<div class="main-card mb-3 card"> 
 			<div class="card-body">
 				<div class="table-body">
+				<input type="hidden" name="writerBuseoCode" th:value="${session.SJOJICCODE}">
+                <input type="hidden" name = "writerNum" th:value="${session.SSTAFFNUM}">
 					<table id="appLine" class="mb-2 table table-bordered">
 						<tr>
 							<th:block th:each="l : ${getAppLine}">							
@@ -72,37 +74,40 @@
                     </div>	
 				</div>	
 				<th:block th:each="d : ${docDetail}">
-				<input type="hidden" th:value="${d.docCode}" name="docCode">
-				<div class="position-relative form-group index-front">
-		          	<div class="position-relative form-group document-form">
-		             		<label for="docType" >문서양식</label>
-		             		<input type="text" class="form-control" th:value="${d.docTypeName}">
-		              </div>
-		              <div class="position-relative form-group deadline-form"><label for="deadline" class="" >마감요청일</label>
-		              	<input type="date" class="form-control"  th:value="${d.deadline}">   
-		              </div>
-		        </div>       
-		             <div class="position-relative form-group"><label for="docTitle" class="">제목</label>
-		            		<input id="docTitle" type="text" class="form-control"  th:value="${d.docTitle}" >
-		             </div>                  
-					 <textarea id="summernote" th:text="${d.docContents}" ></textarea>
-		             <div class="position-relative form-group"><label for="exampleText" class="">코멘트</label>
-		             	<textarea  id="docComent" class="form-control" th:text="${d.docComent}"></textarea>
-		             </div>
-		             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
-		              	<input  id="docFile" type="file" class="form-control-file" th:value="${d.docFile}">
-		             </div>
-		             <div class="position-relative form-group"> <label for="appSecurity" class="">보안처리</label>
-		               	<input type="checkbox" th:checked="${d.appSecurity eq '보안'}">
-		             </div>
-		           </th:block> 
-  
-     			</div>
+					<input type="hidden" th:value="${d.docCode}" name="docCode">
+					<div class="position-relative form-group index-front">
+			          	<div class="position-relative form-group document-form">
+			             		<label for="docType" >문서양식</label>
+			             		<select id="docType" class="form-control" name="docType">
+		                             <option th:each="doc : ${docType}" th:selected="${d.docTypeName eq doc.docTypeName}" th:text="${doc.docTypeName}" th:value="${doc.docCode}" ></option>                                                                     
+		                         </select>
+			              </div>
+			              <div class="position-relative form-group deadline-form"><label for="deadline">마감요청일</label>
+			              	<input type="date" class="form-control"  th:value="${d.deadline}" name="deadline">   
+			              </div>
+			        </div>       
+		            <div class="position-relative form-group"><label for="docTitle" >제목</label>
+		            	<input id="docTitle" type="text" class="form-control"  th:value="${d.docTitle}" name="docTitle">
+		            </div>                  
+					<textarea id="summernote" th:text="${d.docContents}" name="docContents"></textarea>
+		            <div class="position-relative form-group"><label for="exampleText" >코멘트</label>
+		            	<textarea  id="docComent" class="form-control" th:text="${d.docComent}" name="docComent"></textarea>
+		            </div>
+		            <div class="position-relative form-group" ><label for="docFile" >첨부파일</label>
+		            	<input  id="docFile" type="file" class="form-control-file" th:value="${d.docFile}" name="docFile">
+		            </div>
+		            <div class="position-relative form-group"> <label for="appSecurity">보안처리</label>
+		            	<input type="checkbox" th:checked="${d.appSecurity eq '보안'}" name="appSecurity">
+		            </div>
+		        </th:block> 
+ 				<button type="button" id="appSubmitBtn" class="mb-2 mr-2 btn btn-success active btn-right" ><i class="pe-7s-news-paper"></i>   결재올리기</button>                
+                <button type="button" id="appKeepBtn" class="mb-2 mr-2 btn-transition btn btn-outline-success btn-right"><i class= "pe-7s-drawer"></i>  저장하기</button>                
+     		  </div>
      		</div>
      	</div>
      </div>
      
-              <!------------------- appModal 시작   ------------------------>     
+<!------------------- appModal 시작   ------------------------>     
          <div  class="modal fade" id="appModal">
             <div class="modal-dialog modal-lg" style="width: auto; ">
               <div class="modal-content">
@@ -114,36 +119,35 @@
                     <div class="main-card col-lg-5 card modal-inform">
                        <div class="card-body">
                             <h4>조직도</h4>
-                            <div class="form-group form-scroll" >
-                                           
+                            <div class="form-group form-scroll" >                                           
                                <div id="jojic">                                     
-                             <ul>
-                                <th:block th:each="j : ${jojic}" >   
-                                   <li>      
-                                     <span th:text="${j.parentJojicName}"></span> 
-                                     
-                                     <ul th:each="s : ${staff}">
-                                        <li th:if="${s.jojicName eq j.parentJojicName and s.jojicSosocName ne '팀'}">
-                                           <span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
-                                        </li>
-                                     </ul>                                        
-                                     
-                                     <th:block th:each="t : ${team}" th:if="${t.parentJojicName eq j.parentJojicName}">
-                                        <ul th:if="${t.jojicName ne j.parentJojicName and t.jojicSosocName eq '팀'}">
-                                           <li>
-                                              <span th:text="${t.jojicName}"></span>
-                                              <ul th:each="s : ${staff}">
-                                                 <li th:if="${s.jojicName eq t.jojicName}">
-                                                    <span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
-                                                 </li>
-                                              </ul>
-                                           </li>
-                                        </ul>                                                        
-                                     </th:block>      
-                                  </li>   
-                                </th:block>                                                             
-                             </ul>
-                           </div>                                                              
+	                             <ul>
+	                                <th:block th:each="j : ${jojic}" >   
+	                                   <li>      
+	                                     <span th:text="${j.parentJojicName}"></span> 
+	                                     
+	                                     <ul th:each="s : ${staff}">
+	                                        <li th:if="${s.jojicName eq j.parentJojicName and s.jojicSosocName ne '팀'}">
+	                                           <span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
+	                                        </li>
+	                                     </ul>                                        
+	                                     
+	                                     <th:block th:each="t : ${team}" th:if="${t.parentJojicName eq j.parentJojicName}">
+	                                        <ul th:if="${t.jojicName ne j.parentJojicName and t.jojicSosocName eq '팀'}">
+	                                           <li>
+	                                              <span th:text="${t.jojicName}"></span>
+	                                              <ul th:each="s : ${staff}">
+	                                                 <li th:if="${s.jojicName eq t.jojicName}">
+	                                                    <span class="choice-staff" th:text="${s.staffName}" th:data-staffName="${s.staffName}" th:data-staffNum="${s.staffNum}" th:data-staffLevelCode="${s.staffLevelCode}" th:data-levelName="${s.levelName}" th:data-jojicName="${s.jojicName}" th:data-jojicCode="${s.jojicCode}"></span>
+	                                                 </li>
+	                                              </ul>
+	                                           </li>
+	                                        </ul>                                                        
+	                                     </th:block>      
+	                                  </li>   
+	                                </th:block>                                                             
+	                             </ul>
+                           		</div>                                                              
                             </div>
                          </div>                               
                       </div>
@@ -248,6 +252,7 @@
       });
 	            
 		$(document).ready(function() {
+			
 			//최상단 체크박스 클릭
             $("#checkAll").click(function(){
                 //클릭되었으면
@@ -336,7 +341,91 @@
 				
 				
 				
-			});				
+			});
+		
+		
+		 //임시저장버튼 클릭 시 
+        $('#appKeepBtn').click(function(){  
+       	 var appLine = $('#appLine').find('.app-StaffLevel').length; //결재란 생성된 값
+       	 var docType = $('#docType option:selected').val(); // 선택된 옵션 값 -문서유형
+            var deadline = $('input[name= "deadline"]').val(); // 마감요청일
+            var docTitle = $('input[name= "docTitle"]').val(); // 제목
+            if(appLine == 0){
+          	  alert('결재라인을 지정해주세요');
+          	  return false;
+            }          
+            if(docType == ''){
+                alert('문서양식을 선택하셔야 합니다.');                        
+                return false;   
+             }
+             if(deadline == ''){
+                alert('마감요청일을 지정해주세요.');
+                return false;
+             }
+             if(docTitle == ''){
+                alert('제목을 입력해주세요.');
+                return false;
+             }
+            if(confirm("저장하시겠습니까 ?") == true){
+	            $('.hiStorage').remove();
+	           	$(this).parent().append("<input type='hidden' name='storage' class='hiStorage' value='임시저장'>");
+	           	var addAppDoc = $("form[name=addAppDocForm]").serialize(); //form전체를 넘기기
+	           	console.log("addAppDoc:" + addAppDoc);
+           
+               var request = $.ajax({
+										url: "/modifyStorage", //컨트롤러 맵핑
+										method: "POST",
+										data: $("form[name='addAppDocForm']").serialize(), 
+										dataType: "json" // json방식으로 값 전달				
+				});   
+               request.done(function(data){
+                   alert("임시저장함으로 이동합니다.");
+	                  window.location.href="/storageBox";  
+		       });             
+           	                        
+            }else{
+               return ;
+            }         
+       });
+       
+       //결재올리기 버튼 클릭 시 유효성 검사진행
+        $('#appSubmitBtn').click(function(){
+             
+             var appLine = $('#appLine').find('.app-StaffLevel').length; //결재란 생성된 값
+             var docType = $('#docType option:selected').val(); // 선택된 옵션 값 -문서유형
+             var deadline = $('input[name= "deadline"]').val(); // 마감요청일
+             var docTitle = $('input[name= "docTitle"]').val(); // 제목
+             var docContents = $('#summernote'); // 내용
+          
+             if(appLine == 0){
+           	  alert('결재라인을 지정해주세요');
+           	  return false;
+             }                     
+             if(docType == ''){
+                alert('문서양식을 선택하셔야 합니다.');                        
+                return false;   
+             }
+             if(deadline == ''){
+                alert('마감요청일을 지정해주세요.');
+                return false;
+             }
+             if(docTitle == ''){
+                alert('제목을 입력해주세요.');
+                return false;
+             }
+             if(docContents.val() == ''){
+                alert('내용을 입력해주세요.');
+                return false;
+             }
+             
+             if(confirm("결재를 올리시겠습니까?")== true){
+                $('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 놓고 결재라인정보는 um_app_line에 넣기                                    
+             }else{
+                return ;
+             }
+ 
+          });
+
 		</script>
 		
 	
