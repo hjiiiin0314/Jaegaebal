@@ -62,7 +62,7 @@
 	<result column="military_info_notes"		property="militaryInfoNotes"/>
 
 	</resultMap>
-	<resultMap type="ChaeYoungCareerInfo" id="ChaeYoungCareerInfoResultMap">
+	<resultMap type="ChaeYoungCareerInfo" id="ChaeYoungCareerInfoResultMap" >
 		<!-- 공통사항 -->
 		<result column="app_num_code"				property="appNumCode"/>
 		<result column="job_number"					property="jobNumber"/>
