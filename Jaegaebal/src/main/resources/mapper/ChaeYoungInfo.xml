@@ -24,14 +24,14 @@
 	<result column="staff_addr"					property="staffAddr"/>
 	
 	<!-- 경력사항 -->
-	<result column="career_info_code"			property="careerInfoCode"/>
+<!-- 	<result column="career_info_code"			property="careerInfoCode"/>
 	<result column="company_name"				property="companyName"/>
 	<result column="company_access"				property="companyAccess"/>
 	<result column="company_position_from_out"	property="companyPositionFromOut"/>
 	<result column="company_work_form_out"		property="companyWorkFormOut"/>
 	<result column="company_in_date_from_out"	property="companyInDateFromOut"/>
 	<result column="company_out_date_from_out"	property="companyOutDateFromOut"/>
-	<result column="company_out_reason"			property="companyOutReason"/>
+	<result column="company_out_reason"			property="companyOutReason"/> -->
 	
 	<!-- 자격증사항 -->
 	<result column="certificate_info_code"		property="certificateInfoCode"/>
@@ -62,7 +62,22 @@
 	<result column="military_info_notes"		property="militaryInfoNotes"/>
 
 	</resultMap>
-	
+	<resultMap type="ChaeYoungCareerInfo" id="ChaeYoungCareerInfoResultMap">
+		<!-- 공통사항 -->
+		<result column="app_num_code"				property="appNumCode"/>
+		<result column="job_number"					property="jobNumber"/>
+		<result column="app_email"					property="appEmail"/>
+		<result column="reg_date"					property="regDate"/>
+		<!-- 경력사항 -->
+		<result column="career_info_code"			property="careerInfoCode"/>
+		<result column="company_name"				property="companyName"/>
+		<result column="company_access"				property="companyAccess"/>
+		<result column="company_position_from_out"	property="companyPositionFromOut"/>
+		<result column="company_work_form_out"		property="companyWorkFormOut"/>
+		<result column="company_in_date_from_out"	property="companyInDateFromOut"/>
+		<result column="company_out_date_from_out"	property="companyOutDateFromOut"/>
+		<result column="company_out_reason"			property="companyOutReason"/>
+	</resultMap>
 	<!-- 기본인적사항 -->
 	<insert id="addBasicInfo" parameterType="ChaeYoungInfo">
 		<selectKey resultType="String" keyProperty="basicInfoCode" order="BEFORE">
@@ -112,7 +127,7 @@
 	</insert>
 	
 	<!-- 경력사항 -->
-	<insert id="addCareerInfo" parameterType="ChaeYoungInfo">
+	<insert id="addCareerInfo" parameterType="ChaeYoungCareerInfo">
 		<selectKey resultType="String" keyProperty="careerInfoCode" order="BEFORE">
 			SELECT 
 				CONCAT('career',LPAD(max(cast(SUBSTRING(career_info_code,7)AS DECIMAL))+1,5,0))
