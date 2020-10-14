@@ -58,7 +58,7 @@
 	                         </tr>
 	                    </thead>
                         <tbody id="myAppList">                       
-	                        <tr th:each="l : ${myAppList}" th:if="${l.writerNum eq session.SSTAFFNUM and l.storage eq ''}">
+	                        <tr th:each="l : ${myAppList}" th:if="${l.writerNum eq session.SSTAFFNUM and (l.storage eq null || l.storage eq '')}">
 	                            <td th:text="${l.docCode}" th:value="${l.docCode}" id="docCode" class='text-center'></td>
 	                            <td th:text="${l.docTypeName}" id="docTypeName" class='text-center'></td>
 	                            <td><a th:text="${l.docTitle}" id="docTitle" class='text-center' th:href="@{/docDetail(docCode=${l.docCode})}"></a></td>
