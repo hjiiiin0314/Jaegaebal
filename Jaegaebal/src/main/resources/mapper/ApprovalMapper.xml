@@ -101,6 +101,77 @@
 				s.staff_level_code = lv.level_code
 
 	</select>
+	
+
+<!-- 임시저장함 - 해당문서와 문서내부에 선택된 결재라인까지 삭제 -->
+	<delete id="delStorage" parameterType="String">
+		call proc_delete_storage(#{docCode})				
+	</delete>
+<!-- 임시저장함 - 조건검색 -->	
+	<select id="searchStorage" resultType="UpmuDocument">
+		SELECT
+			d.app_doc_code		as docCode
+			,t.doc_type			as docTypeName
+			,writer_buseo_code	as writerBuseoCode
+			,writer_num			as writerNum
+			,doc_title			as docTitle
+			,doc_contents		as docContents
+			,write_date			as writeDate
+			,doc_file			as docFile	
+			,app_security		as appSecurity
+			,deadline			as deadline
+			,d.doc_type			as docType
+			,d.storage			as storage
+		FROM			
+			um_document AS 	d
+		INNER join
+			um_doctype AS t
+		on
+			t.doc_code=d.doc_type
+		where 
+			d.storage ='임시저장'
+		and				
+			<if test="sk neq ''.toString">
+			${sk} LIKE CONCAT('%',#{sv},'%')
+			</if>
+	</select>
+
+
+<!-- 임시저장함 - 전체검색  -->
+	<select id="storageBox" resultType="UpmuDocument">
+		SELECT
+			d.app_doc_code		as docCode
+			,t.doc_type			as docTypeName
+			,writer_buseo_code	as writerBuseoCode
+			,writer_num			as writerNum
+			,doc_title			as docTitle
+			,doc_contents		as docContents
+			,write_date			as writeDate
+			,doc_file			as docFile	
+			,app_security		as appSecurity
+			,deadline			as deadline
+			,d.doc_type			as docType
+			,d.storage			as storage
+		FROM			
+			um_document AS 	d
+		INNER join
+			um_doctype AS t
+		on
+			t.doc_code=d.doc_type
+		where 
+			d.storage ='임시저장'	
+	</select>
+	
+	
+<!-- 상신함 - 문서회수하기 -->	
+	<update id="docReturn" parameterType="String">
+		UPDATE um_document
+		SET
+			`storage`='임시저장'
+		WHERE 
+			app_doc_code = #{docCode}	
+	</update>
+
 <!-- 상신함 - 결재상태보기  -->
 	<select id="appResult" parameterType="String" resultType="UpmuDocument">
 		SELECT 
@@ -130,6 +201,7 @@
 				d.app_doc_code= #{docCode};
 	
 	</select>
+	
 <!-- 상신함 - 상세보기 결재라인만  -->
 	<select id="getAppLine" parameterType="String" resultType="UpmuDocument">
 		SELECT
@@ -191,65 +263,7 @@
 		WHERE 
 			d.app_doc_code = #{docCode}
 	</select>
-<!-- 임시저장함 - 해당문서와 문서내부에 선택된 결재라인까지 삭제 -->
-	<delete id="delStorage" parameterType="String">
-		call proc_delete_storage(#{docCode})				
-	</delete>
-<!-- 임시저장함 - 조건검색 -->	
-	<select id="searchStorage" resultType="UpmuDocument">
-		SELECT
-			d.app_doc_code		as docCode
-			,t.doc_type			as docTypeName
-			,writer_buseo_code	as writerBuseoCode
-			,writer_num			as writerNum
-			,doc_title			as docTitle
-			,doc_contents		as docContents
-			,write_date			as writeDate
-			,doc_file			as docFile	
-			,app_security		as appSecurity
-			,deadline			as deadline
-			,d.doc_type			as docType
-			,d.storage			as storage
-		FROM			
-			um_document AS 	d
-		INNER join
-			um_doctype AS t
-		on
-			t.doc_code=d.doc_type
-		where 
-			d.storage ='임시저장'
-		and				
-			<if test="sk neq ''.toString">
-			${sk} LIKE CONCAT('%',#{sv},'%')
-			</if>
-	</select>
-
-
-<!-- 임시저장함 - 전체검색  -->
-	<select id="storageBox" resultType="UpmuDocument">
-		SELECT
-			d.app_doc_code		as docCode
-			,t.doc_type			as docTypeName
-			,writer_buseo_code	as writerBuseoCode
-			,writer_num			as writerNum
-			,doc_title			as docTitle
-			,doc_contents		as docContents
-			,write_date			as writeDate
-			,doc_file			as docFile	
-			,app_security		as appSecurity
-			,deadline			as deadline
-			,d.doc_type			as docType
-			,d.storage			as storage
-		FROM			
-			um_document AS 	d
-		INNER join
-			um_doctype AS t
-		on
-			t.doc_code=d.doc_type
-		where 
-			d.storage ='임시저장'	
-	</select>
-		
+				
 <!-- 상신함 - 조건검색 -->	
 	<select id="searchAppList" resultType="UpmuDocument">
 		SELECT
@@ -313,7 +327,6 @@
 	
 	 
 	</select>
-	
 	
 <!-- 기안하기 - 결재올리기/임시저장 - 문서 -->
 	<insert id="appWrite" parameterType="UpmuDocument" >

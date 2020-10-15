@@ -67,7 +67,7 @@
 	                            <td th:text="${l.deadline}" id="deadline" class='text-center'></td>
 	                            <td th:text="${l.writeDate}" id="writeDate" class='text-center'></td>
 	                            <td th:text="${l.appStateName}" th:value="${l.appStateName}" id="appStateName" class='text-center'></td>	                        	
-	                            <td class='text-center'><button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-primary retrievalBtn" >회수하기</button></td>	                        	
+	                            <td class='text-center'><button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-primary retrievalBtn">회수하기</button></td>	                        	
 	                        </tr>
 	                       
                         </tbody>
@@ -111,12 +111,26 @@
 				var tr = retrievalBtn.parent().parent();
 			    var td = tr.children();
 				var appStateName = td.eq(7).text();
-				console.log(appStateName +"<--appStateName");
-				if(appStateName == "미열람" ){
-					alert('반려/회수함으로 이동되었습니다.');
+				var docCode = td.eq(0).text();
+				
+				console.log(docCode + "<--docCode");
+				
+				if(appStateName == "미열람" ){					
+					alert('회수된 문서는 임시저장함에 저장됩니다.');
+				var request = $.ajax({
+									url: "/docReturn", //컨트롤러 맵핑
+    				  				method: "POST",
+    				 				data: { docCode : docCode }, 
+    				  				dataType: "json" // json방식으로 값 전달
+				});	
+				request.done(function(data){
+					alert('임시저장함으로 이동합니다.');
+					window.location.href="/storageBox";					
+				});
+
 					return false;
 				}else{
-					alert('미열람 시에만 회수하실 수 있습니다.');
+					alert('결재상태가 미열람일 경우에만 회수하실 수 있습니다.');
 				}
 								
 	  		});		

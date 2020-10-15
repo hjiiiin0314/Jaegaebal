@@ -99,6 +99,12 @@ public class ApprovalService {
 		return storageBox;
 	}
 	
+	//상신함 - 문서회수하기
+	public int docReturn(String docCode) {
+		int result = approvalmapper.docReturn(docCode);
+		return result;
+	}
+	
 	//상신함 - 검색
 	public List<UpmuDocument> searchAppList(String sk, String sv){
 		List<UpmuDocument> searchAppList = approvalmapper.searchAppList(sk,sv);		

@@ -29,7 +29,9 @@ public class ApprovalController {
 	@Autowired private ApprovalService approvalService;
 	private static final Logger  log = LoggerFactory.getLogger(ApprovalController.class);
 	
-	//문서 수정 - 임시저장
+	
+	
+	//문서 수정 - 임시저장ajax
 	@PostMapping(value="/modifyStorage",produces = "application/json")
 	@ResponseBody
 	public int modifyStorage(UpmuDocument modifyStorage
@@ -86,8 +88,7 @@ public class ApprovalController {
 
 	//결재처리함 화면이동 - 결재처리문서리스트 
 	@GetMapping("/decideBox")
-	public String decideBox(Model model
-							) {
+	public String decideBox(Model model) {
 		List<UpmuDocument> decideList = approvalService.decideList();
 		model.addAttribute("decideList", decideList);
 
@@ -107,12 +108,12 @@ public class ApprovalController {
 		return "approval/docDetail";
 	}
 	
-	
-	
-	//반려/회수함화면연결
-	@GetMapping("/retrievalBox")
-	public @ResponseBody String retrievalBox() {
-		return "approval/retrievalBox";
+	//상신함 - 회수하기 ajax
+	@PostMapping(value="/docReturn",produces = "application/json")
+	@ResponseBody
+	public int docReturn(@RequestParam(value="docCode",required = false)String docCode) {				
+		int result = approvalService.docReturn(docCode);
+		return result;
 	}
 	
 	//상신함 검색리스트

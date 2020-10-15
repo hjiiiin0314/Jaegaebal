@@ -46,6 +46,9 @@ public interface ApprovalMapper {
 	
 	//임시저장함 - 전체목록
 		public List<UpmuDocument> storageBox();
+		
+	//상신함 - 문서회수하기
+		public int docReturn(String docCode);
 	
 	//상신함 - 검색목록
 		public List<UpmuDocument> searchAppList(String sk, String sv);		
