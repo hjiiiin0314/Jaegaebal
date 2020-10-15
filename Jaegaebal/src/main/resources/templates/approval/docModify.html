@@ -24,7 +24,7 @@
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
 
- <form id="addAppDoc" action="/appWrite" method="post" name="addAppDocForm">
+ <form id="addAppDoc" name="addAppDocForm">
   	<div class="col-md-10">
 		<div class="app-page-title">
 			<div class="page-title-wrapper">
@@ -50,14 +50,14 @@
 					<table id="appLine" class="mb-2 table table-bordered">
 						<tr>
 							<th:block th:each="l : ${getAppLine}">							
-	                        	<td class='text-center app-StaffLevel' th:text="${l.appLevelName}"></td>
+	                        	<td class='text-center app-StaffLevel' th:text="${l.appLevelName}" th:value="${l.staffLevelCode}" th:name="staffLevelCode"></td>
 	                        	<td class='appLine-form'>
-				                     <table>
+				                     <table id="appLine">
 				                     	<tr>
-				                        	<td class='text-center' th:text="${l.appJojicName}"></td>
+				                        	<td class='text-center' th:text="${l.appJojicName}" th:value="${l.appJojicCode}" th:name="appJojicCode"></td>
 				                    	</tr>
 				                    	<tr>
-				                       		<td class='text-center' th:text="${l.appStaffName}"></td>
+				                       		<td class='text-center' th:text="${l.appStaffName}" th:value="${l.appStaffNum}" th:name="appStaffNum"></td>
 				                    	</tr>                     				
 				                     	<tr>
 				                        	<td class='text-center app-sign' th:text="${l.appStateName}" th:title="${l.appStaffComent}"></td>
@@ -419,7 +419,16 @@
              }
              
              if(confirm("결재를 올리시겠습니까?")== true){
-                $('#addAppDoc').submit(); //전체 문서 db에 있는 um_document 테이블에 놓고 결재라인정보는 um_app_line에 넣기                                    
+            	 var request2 = $.ajax({
+						url: "/modifyStorage", //컨트롤러 맵핑
+						method: "POST",
+						data: $("form[name='addAppDocForm']").serialize(), 
+						dataType: "json" // json방식으로 값 전달				
+					});   
+					
+					alert("상신함으로 이동합니다.");
+					window.location.href="/myAppList";  
+				                                            
              }else{
                 return ;
              }
