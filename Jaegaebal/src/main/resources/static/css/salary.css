@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+.table {
+	border-collapse:separate;
+	border-spacing:unset;
+}
+
 .table .form_date{
 	width:44%;
 	display:inline;
@@ -29,42 +34,49 @@
 	background:#f9f9f9;
 }
 
-/*테이블 스크롤 시 tleft(head)고정*/
-.table .fixed_left{
-	position: sticky;
-	left: 0;
-	border-left:none;
-	background:#f9f9f9;
-	padding:20px 5px;
-	z-index:9;
-	word-break:keep-all;
-}
-
 /*테이블 스크롤 시 thead고정*/
 .app-main .table .fixed_top{
 	position: sticky;
 	top: 0;
 	border-top:none;
 	background:#e9ecef;
+	border-bottom:2px solid #aaa;
 	padding:20px 5px;
 	z-index:10;
+}
+
+/* thead에서 left 고정 */
+.app-main .table .fixed_top_left{
+	left:0;
+	z-index:20;
+}
+
+/*테이블 스크롤 시 left고정*/
+.table .fixed_left{
+	position: sticky;
+	left: 0;
+	border-left:none;
+	background:#f9f9f9;
+	/* padding:20px 5px; */
+	z-index:9;
+	word-break:keep-all;
 }
 
 /*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
 .month-table tbody tr:nth-last-child( 3 ) td {
 	position: sticky;
-	bottom: 120px;
+	bottom: 118px;
 	background:#e1ffe8;
-	padding:20px 5px;
+	/* padding:20px 5px; */
 	z-index:20;
 }
 
 /*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
 .month-table tbody tr:nth-last-child( 2 ) td {
 	position: sticky;
-	bottom: 60px;
+	bottom: 59px;
 	background:#e1ffe8;
-	padding:20px 5px;
+	/* padding:20px 5px; */
 	z-index:20;
 }
 
@@ -73,13 +85,18 @@
 	position: sticky;
 	bottom: 0;
 	background:#e1ffe8;
-	padding:20px 5px;
+	/* padding:20px 5px; */
 	z-index:20;
 }
 
 /*(월별 테이블 전용) 고정 bottom중 값이 뜨는 부분 정렬 뒤로 보내기*/
 .month-table tbody tr:nth-last-child( 3 ) td:nth-child( n+2 ), .month-table tbody tr:nth-last-child( 2 ) td:nth-child( n+2 ), .month-table tbody tr:nth-last-child( 1 ) td:nth-child( n+2 ) {
 	z-index:5;
+}
+
+.record-td-head{
+	font-size:17px;
+	font-weight:bold;
 }
 
 /*사원정보 테이블 스크롤 생성(style:none은 처음에 웹 스크롤이 보였다가 사라지는것을 방지하기 위해 애초에 안보이도록 함임)*/
@@ -89,7 +106,6 @@
 	scrollbar-width: none;
 	-ms-overflow-style: none;
 }
-
 
 .scroll-div-month{
 	width:100%;
@@ -111,7 +127,7 @@
 
 .search-input{
 	width:100px;
-	margin: 0 5px 15px 0;
+	margin: 0 9px 15px 0;
 	padding:4px;
 }
 

@@ -110,7 +110,7 @@
 					<form action="/salary/salary_record" onsubmit="return updateCheck(this);" method="POST">
 						<table class="mb-0 table table-bordered table-detail">
 							<tr>
-								<td colspan="4">지급</td>
+								<td colspan="4" class="record-td-head">지급</td>
 							</tr>
 							<tr>
 								<td>기본급</td>
@@ -172,7 +172,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="4">공제</td>
+								<td colspan="4" class="record-td-head">공제</td>
 							</tr>
 							<tr>
 								<td>국민연금</td>
@@ -226,8 +226,8 @@
 						</table>
 						<input type="hidden" name="sqlKey" th:value="${salaryRecord.sqlKey}">
 						<span class="deadline-btn">
-						<th:block th:if="${salaryRecord.sqlKey eq 'upd' and salaryRecord.dataPay eq 0}">
-							<input type="submit" class="mt-2 btn btn-primary date_right" value="저장 후 마감">
+						<th:block th:if="${salaryRecord.dataPay eq 0}">
+							<button type="button" class="mt-2 ml-2 btn btn-primary date_right">저장 후 마감</button>
 						</th:block>
 						</span>
 						<input type="submit" class="mt-2 btn btn-primary date_right" value="저장">

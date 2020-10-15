@@ -76,7 +76,7 @@
 								<tbody>
 									<tr th:each="IL : ${staffInfoList}">
 										<th:block>
-											<input type="hidden" name="dataNum" th:value="${IL.dataNum}">
+											<input type="hidden" name="monthNum" th:value="${IL.dataNum}">
 										</th:block>
 										<td th:text="${IL.staffNum}"></td>
 										<td th:text="${IL.staffName}"></td>
@@ -96,7 +96,7 @@
 					<h5 class="mt-2 card-title mb-4">지급내역</h5>
 					<div class="scroll-div-month date_left">
 						<div class="scrollbar-container table-overflow">
-							<table class="table month-table table-hover text-center">
+							<table class="mb-0 table month-table table-hover text-center">
 								<colgroup>
 									<col width="8%"/>
 									<col width="8%"/>
@@ -116,7 +116,7 @@
 								<thead>
 									<tr>
 										<!-- <th class="fixed_top">순번</th> -->
-										<th class="fixed_top">항목명</th>
+										<th class="fixed_top fixed_top_left">항목명</th>
 										<th class="fixed_top">계</th>
 										<th class="fixed_top">1월</th>
 										<th class="fixed_top">2월</th>

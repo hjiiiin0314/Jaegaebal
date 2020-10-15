@@ -31,8 +31,7 @@ $(function(){
 			$('.emp-table').children('tbody').children('tr').remove();
 			$('.emp-table').children('tbody').children('input').remove();
 			for(var i=0;i<data.length;i++){
-				$('.emp-table').children('tbody').append('<input type="hidden" name="dataNum" value="'+data[i].dataNum+'">');
-				$('.emp-table').children('tbody').append('<tr><td>'+data[i].staffNum+'</td><td>'+data[i].staffName+'</td><td>'+data[i].levelName+'</td><td>'+data[i].jojicName+'</td></tr>');
+				$('.emp-table').children('tbody').append('<tr><input type="hidden" name="monthNum" value="'+data[i].dataNum+'"><td>'+data[i].staffNum+'</td><td>'+data[i].staffName+'</td><td>'+data[i].levelName+'</td><td>'+data[i].jojicName+'</td></tr>');
 			}
 		});
 		
@@ -79,7 +78,7 @@ $(function(){
 	});
 	
 	//사원 정보 클릭시 ajax통신을 통한 급여정보 조회
-	$('.emp-info-table').children('tbody').children('tr').click(function(){
+	$(document).on('click', '.emp-info-table tbody tr', function(){
 		$('.emp-info-table').children('tbody').children('tr').removeClass('emp-table-on');
 		$(this).addClass('emp-table-on');
 		var dataEmp = $(this).children('td').eq(0).text();
@@ -297,10 +296,10 @@ $(function(){
 	$('.emp-month-table').children('tbody').children('tr').eq(0).addClass('emp-table-on');
 	
 	//월별급여화면에서 사원 정보 클릭시 ajax통신을 통한 월별급여 조회
-	$('.emp-month-table').children('tbody').children('tr').click(function(){
+	$(document).on('click', '.emp-month-table tbody tr', function(){
 		$('.emp-month-table').children('tbody').children('tr').removeClass('emp-table-on');
 		$(this).addClass('emp-table-on');
-		var dataNum = $(this).children('input[name=dataNum]').val();
+		var dataNum = $(this).children('input[name=monthNum]').val();
 		$('input[name=searchNum]').val(dataNum);
 		var searchYear = $('select[name=searchYear]').val();
 		var request = $.ajax({
@@ -535,7 +534,7 @@ $(function(){
 		});
 	}
 	//급상여입력화면에서 사원 정보 클릭시 ajax통신을 통한 사원급여 존재여부 조회
-	$('.emp-record-table').children('tbody').children('tr').click(function(){
+	$(document).on('click', '.emp-record-table tbody tr', function(){
 		//클릭한 사원 파란색 유지
 		$('.emp-record-table').children('tbody').children('tr').removeClass('emp-table-on');
 		$(this).addClass('emp-table-on');
