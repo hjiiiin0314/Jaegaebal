@@ -30,7 +30,6 @@ public class ApprovalController {
 	private static final Logger  log = LoggerFactory.getLogger(ApprovalController.class);
 	
 	
-	
 	//문서 수정 - 임시저장ajax
 	@PostMapping(value="/modifyStorage",produces = "application/json")
 	@ResponseBody
@@ -38,6 +37,7 @@ public class ApprovalController {
 							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
 							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
+		
 		int result = approvalService.modifyStorage(modifyStorage, jojicCode, staffLevelCode, staffNum);		
 		return result;
 	}
@@ -197,7 +197,7 @@ public class ApprovalController {
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
 		
 		approvalService.appWrite(upmuDocument,jojicCode,staffLevelCode,staffNum);
-		
+		log.info("ApprovalController appWrite upmuDocument ::::: {}",upmuDocument);
 		return "redirect:/myAppList";
 	}
 	

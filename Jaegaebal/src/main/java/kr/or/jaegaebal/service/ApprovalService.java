@@ -29,8 +29,9 @@ public class ApprovalService {
 		approvalmapper.modifyStorage(modifyStorage);
 		
 		String getDocCode = modifyStorage.getDocCode();
+		approvalmapper.delAppLine(getDocCode);
 		
-		List<Map<String, Object>> modifyAppLine = new ArrayList<>();
+		List<Map<String, Object>> choiceStaff = new ArrayList<>();
 		for(int i=0; i<jojicCode.length; i++) {
 			Map<String, Object> beforInfo = new HashMap<String, Object>();
 			beforInfo.put("jojicCode", jojicCode[i]);
@@ -38,9 +39,10 @@ public class ApprovalService {
 			beforInfo.put("staffNum", staffNum[i]);
 			beforInfo.put("getDocCode", getDocCode);
 			
-			modifyAppLine.add(beforInfo);
+			choiceStaff.add(beforInfo);
 		}
-		int result = approvalmapper.modifyAppLine(modifyAppLine);
+		
+		int result = approvalmapper.choiceStaff(choiceStaff);
 		return result;
 	}
 	
@@ -144,6 +146,7 @@ public class ApprovalService {
 		public int appWrite(UpmuDocument upmuDocument, String[] jojicCode, String[] staffLevelCode, String[] staffNum) {
 			approvalmapper.appWrite(upmuDocument);
 			
+			log.info("UpmuService appWrite upmuDocument ::::: {}",upmuDocument);
 			String getDocCode = upmuDocument.getDocCode();
 			
 			List<Map<String, Object>> choiceStaff = new ArrayList<>();
@@ -157,7 +160,6 @@ public class ApprovalService {
 				choiceStaff.add(beforInfo);
 			}
 			
-			log.info("UpmuService appWrite upmuDocument ::::: {}",choiceStaff);
 			int result = approvalmapper.choiceStaff(choiceStaff);
 			
 			return result;

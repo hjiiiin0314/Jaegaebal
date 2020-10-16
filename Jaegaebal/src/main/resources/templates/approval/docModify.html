@@ -389,8 +389,8 @@
        });
        
        //결재올리기 버튼 클릭 시 유효성 검사진행
-        $('#appSubmitBtn').click(function(){
-             
+        $('#appSubmitBtn').bind('click',function(){
+              
              var appLine = $('#appLine').find('.app-StaffLevel').length; //결재란 생성된 값
              var docType = $('#docType option:selected').val(); // 선택된 옵션 값 -문서유형
              var deadline = $('input[name= "deadline"]').val(); // 마감요청일
@@ -425,9 +425,11 @@
 						data: $("form[name='addAppDocForm']").serialize(), 
 						dataType: "json" // json방식으로 값 전달				
 					});   
-					
+					request2.done(function(data){
+						console.log(data + "<==data");
 					alert("상신함으로 이동합니다.");
 					window.location.href="/myAppList";  
+					});
 				                                            
              }else{
                 return ;
