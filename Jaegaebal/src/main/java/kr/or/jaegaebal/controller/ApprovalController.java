@@ -31,12 +31,16 @@ public class ApprovalController {
 	
 	
 	//문서 수정 - 임시저장ajax
-	@PostMapping(value="/modifyStorage",produces = "application/json")
+	@PostMapping(value="/modifyStorage",produces ="application/json")
 	@ResponseBody
 	public int modifyStorage(UpmuDocument modifyStorage
 							,@RequestParam(value = "jojicCode",required = false)String[] jojicCode
 							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
+		
+		System.out.println(jojicCode[0]+"<--jojicCode");
+		System.out.println(staffLevelCode[0]+"<--staffLevelCode");
+		System.out.println(staffNum[0]+"<--staffNum");
 		
 		int result = approvalService.modifyStorage(modifyStorage, jojicCode, staffLevelCode, staffNum);		
 		return result;
