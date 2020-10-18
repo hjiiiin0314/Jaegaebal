@@ -34,14 +34,14 @@
 	$(document).on('click', '.addFamilyInfoBtn', function(){
 		var addFamilyInfoBtnTr 		= $('.addFamilyInfoBtnTr').clone();
 		$('.addFamilyInfoBtnTr').remove();
-		var is_staff_family_info 	= $(".is_staff_family_info").eq(0).clone();
-		is_staff_family_info.find('input').val("");
-		is_staff_family_info.find('textarea').val("");
-		$('#isStaffFamilyInfo').append(is_staff_family_info);
+		var familyInfoForm 	= $(".familyInfoForm").eq(0).clone();
+		familyInfoForm.find('input').val("");
+		familyInfoForm.find('textarea').val("");
+		$('#isStaffFamilyInfo').append(familyInfoForm);
 		$('#isStaffFamilyInfo').append(addFamilyInfoBtnTr);
 	});
 	
-	//사내경력등록 화면에서 가족정보-'경력추가' 버튼 클릭시 / 입력칸 추가 생성
+	//사내경력등록 화면에서 사내경력정보-'경력추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addCareerInfoBtn', function(){
 		var addCareerInfoBtnTr 		= $('.addCareerInfoBtnTr').clone();
 		$('.addCareerInfoBtnTr').remove();
@@ -52,40 +52,40 @@
 		$('#isCareerInfoFromIn').append(addCareerInfoBtnTr);
 	});
 	
-	//사외경력등록 화면에서 가족정보-'경력추가' 버튼 클릭시 / 입력칸 추가 생성
+	//사외경력등록 화면에서 -'경력추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addCareerInfoFromOutBtn', function(){
 		var addCareerInfoFromOutBtnTr 		= $('.addCareerInfoFromOutBtnTr').clone();
 		$('.addCareerInfoFromOutBtnTr').remove();
-		var is_career_info_from_out 	= $(".is_career_info_from_out").eq(0).clone();
+		var is_career_info_from_out 		= $(".is_career_info_from_out").eq(0).clone();
 		is_career_info_from_out.find('input').val("");
 		is_career_info_from_out.find('textarea').val("");
 		$('#isCareerInfoFromOut').append(is_career_info_from_out);
 		$('#isCareerInfoFromOut').append(addCareerInfoFromOutBtnTr);
 	});
 	
-	//자격정보등록 화면에서 가족정보-'자격추가' 버튼 클릭시 / 입력칸 추가 생성
+	//자격정보등록 화면에서-'자격추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addCertificateInfoBtn', function(){
 		var addCertificateInfoBtnTr 		= $('.addCertificateInfoBtnTr').clone();
 		$('.addCertificateInfoBtnTr').remove();
-		var is_certificate_info 	= $(".is_certificate_info").eq(0).clone();
+		var is_certificate_info 			= $(".is_certificate_info").eq(0).clone();
 		is_certificate_info.find('input').val("");
 		is_certificate_info.find('textarea').val("");
 		$('#isCertificateInfo').append(is_certificate_info);
 		$('#isCertificateInfo').append(addCertificateInfoBtnTr);
 	});
 	
-	//학력등록 화면에서 가족정보-'학력추가' 버튼 클릭시 / 입력칸 추가 생성
+	//학력등록 화면에서 -'학력추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addEducationInfoBtn', function(){
 		var addEducationInfoBtnTr 		= $('.addEducationInfoBtnTr').clone();
 		$('.addEducationInfoBtnTr').remove();
-		var is_education_info 	= $(".is_education_info").eq(0).clone();
+		var is_education_info 			= $(".is_education_info").eq(0).clone();
 		is_education_info.find('input').val("");
 		is_education_info.find('textarea').val("");
 		$('#isEducationInfo').append(is_education_info);
 		$('#isEducationInfo').append(addEducationInfoBtnTr);
 	});
 	
-	//발령정보등록 화면에서 가족정보-'내용추가' 버튼 클릭시 / 입력칸 추가 생성
+	//발령정보등록 화면에서 -'내용추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addBalryoungInfoBtn', function(){
 		var addBalryoungInfoBtnTr 		= $('.addBalryoungInfoBtnTr').clone();
 		$('.addBalryoungInfoBtnTr').remove();
@@ -96,7 +96,7 @@
 		$('#isBalryoungInfo').append(addBalryoungInfoBtnTr);
 	});
 	
-	//병역정보등록 화면에서 가족정보-'내용추가' 버튼 클릭시 / 입력칸 추가 생성
+	//병역정보등록 화면에서 -'내용추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addMilitaryInfoBtn', function(){
 		var addMilitaryInfoBtnTr 		= $('.addMilitaryInfoBtnTr').clone();
 		$('.addMilitaryInfoBtnTr').remove();
@@ -742,7 +742,7 @@
     		}
     	});
 		
-		/* 부서 옵션 클릭시 ajax 호출 */
+		//부서 옵션 클릭시 ajax 호출  - 조직도 
 		$('#SelectBuseo').change(function(){
 			var buseoName = $(this).val();
 			console.log(buseoName, "<---클릭한 부서명");
@@ -758,13 +758,12 @@
 				$('#t-body').children("tr").remove();
 				$('#SelectTeam').children("option").remove();
 				$('#SelectTeam').append("<option selected='selected' disabled='disabled'>팀</option>");
-				
-					for(var i=0; i<data.jojicTeamName.length; i++){
-						if(data.jojicTeamName[i].jojicName != null){
-							$('#SelectTeam').append("<option value="+ data.jojicTeamName[i].jojicName + " id='teamName'>" + data.jojicTeamName[i].jojicName + "</option>");
-						}else{
-							$('#SelectTeam').append("<option value='자료가 없습니다.'" + " id='teamName'>" + data[i].jojicName + "</option>");
-						} 
+				for(var i=0; i<data.jojicTeamName.length; i++){
+					if(data.jojicTeamName[i].jojicName != null){
+						$('#SelectTeam').append("<option value="+ data.jojicTeamName[i].jojicName + " id='teamName'>" + data.jojicTeamName[i].jojicName + "</option>");
+					}else{
+						$('#SelectTeam').append("<option value='자료가 없습니다.'" + " id='teamName'>" + data[i].jojicName + "</option>");
+					} 
 				};
 				for(var i=0; i<data.staffInfoByParentJojicName.getStaffInfoList.length; i++){
 					var insertVal = data.staffInfoByParentJojicName.getStaffInfoList[i];
@@ -797,11 +796,9 @@
 			request.fail(function( jqXHR, textStatus ) {
 			  alert( "Request failed: " + textStatus );
 			});
-
-			
 		});  
 		
-		//클릭한 팀명으로 리스트 가지고 오기
+		//조직도 - 클릭한 팀명으로 리스트 가지고 오기
 		$('.input-jojicStatus').click(function(){
 			var teamName = $(this).val();
 			console.log(teamName, "<---클릭한 팀명");
@@ -823,7 +820,7 @@
 						var appendStr = "";
 						for(var n=0; n<infoName.length; n++){
 							if(infoName[n] != null){
-									if(infoName[n] == '재직중'){
+								if(infoName[n] == '재직중'){
 									appendStr += '<td><div class="mb-2 mr-2 badge badge-success">재직중</div></td>';
 								}else if(infoName[n] == '개발'){
 									appendStr += '<td><div class="mb-2 mr-2 badge badge-danger">개발</div></td>';
@@ -898,7 +895,7 @@
 			request.fail(function( jqXHR, textStatus ) {
 			  alert( "Request failed: " + textStatus );
 			});
-		});    	
+		});   	
     	
 		/* 검색어 sk클릭시 버튼의 value변경하기 */
 		$('#BtnStaffnum').click(function(){
@@ -1044,7 +1041,65 @@
 			$('#humanNum').attr("value", humanNum);
 			console.log($('#humanNum').attr("name"));
 			
-			$('#insertform').submit();
+/*			var familyInfoForm = $('.familyInfoForm').eq(0).serialize();
+			console.log(familyInfoForm, "<<familyInfoForm0");*/
+		
+			//사원번호당 추가될 가족정보 테이블 - 한 사람
+			var table= $('.familyInfoForm table');
+			
+			//사원번호당 추가될 가족정보
+			var familyInfoArray = [];
+			
+			for(var i = 0; i<table.length; i++){
+				//사원번호당 추가될 가족정보 - 한 사람
+				var familySubInfoArray = {};
+				//가족정보 입력정보 객체에 담기
+				$(table[i]).find('input').each(function(){					
+					var attrName = $(this).attr('name');
+					var thisValue = $(this).val();
+					if($(this).attr('name') == 'staffNum'){
+						var staffNum = $('#staffNum').val();
+						familySubInfoArray[attrName] = staffNum;
+						console.log("$('#staffNum').val() 반복문>>", staffNum);
+					}else{
+						familySubInfoArray[attrName] = thisValue;
+					}
+					
+				});
+				//한사람 단위로 객체화하여 가족정보 배열에 넣기
+				familyInfoArray.push(familySubInfoArray);
+			}
+			/*
+			var familyInfoFormLength = $('.familyInfoForm').length;
+			//console.log(familyInfoFormLength, "<<familyInfoFormLength");
+			var familyInfoArray = new Array(familyInfoFormLength);
+			var staffNum = $('#staffNum').val();
+			for(var i=0; i<familyInfoFormLength; i++){
+				familyInfoArray[i] = $('.familyInfoForm').eq(i).serializeArray();
+			}
+			*/
+			console.log('result>>'+JSON.stringify(familyInfoArray));
+    		
+			var request = $.ajax({
+    			url: "/staffFamilyInfo",
+    			method: "POST",
+    			traditional : true,
+    			data: JSON.stringify(familyInfoArray),
+				contentType:'application/json; charset=UTF-8',
+				dataType: "json"
+    		});
+    		request.done(function( data ) {
+    			if(data == 1){
+    				alert("추가 되었습니다.");
+    				window.location.href = "/";
+    			}else{
+    				alert("다시 시도해주세요.");
+    			}
+    		});
+    		request.fail(function( jqXHR, textStatus ) {
+    			alert("insertBuseoModalBtn 응답 실패");
+    		});
+
     	});
     	
     	//직원 등록 - 등록하기 클릭시 - 필수입력값 유효성 검사
@@ -1078,6 +1133,112 @@
     		}
     	});
     	
+		//직원리스트 - 부서 클릭시 리스트 변경하기
+		$('#StaffListSelectBuseo').change(function(){
+			var buseoName = $(this).val();
+			console.log(buseoName, "<---클릭한 부서명");
+				var request = $.ajax({
+			  url: "/getStaffInfoByParentJojicName",
+			  method: "POST",
+			  data: { buseoName : buseoName },
+			  dataType: "json"
+			});
+				
+			request.done(function( data ) {
+				$('.pagination').empty();
+				$('#StaffList-t-body').children("tr").remove();
+				$('#StaffListSelectTeam').children("option").remove();
+				$('#StaffListSelectTeam').append("<option selected='selected' disabled='disabled'>팀</option>");
+				for(var i=0; i<data.jojicTeamName.length; i++){
+					if(data.jojicTeamName[i].jojicName != null){
+						$('#StaffListSelectTeam').append("<option value="+ data.jojicTeamName[i].jojicName + " id='teamName'>" + data.jojicTeamName[i].jojicName + "</option>");
+					}else{
+						$('#StaffListSelectTeam').append("<option value='자료가 없습니다.'" + " id='teamName'>" + data[i].jojicName + "</option>");
+					} 
+				};
+				for(var i=0; i<data.staffInfoByParentJojicName.getStaffInfoList.length; i++){
+					var insertVal = data.staffInfoByParentJojicName.getStaffInfoList[i];
+					var infoName = [insertVal.staffNum, insertVal.staffName, insertVal.jojicName, insertVal.accessName, insertVal.levelName, insertVal.positionName, insertVal.hobong, insertVal.staffBasicSalary, insertVal.jaejicStatusName, insertVal.employmentStatus, insertVal.companyInDate, insertVal.staffNotes, insertVal.totalPnsmtPoint, insertVal.totalWorkMonths];
+					var appendStr = "";
+					for(var n=0; n<infoName.length; n++){
+						if(infoName[n] != null){
+								if(infoName[n] == '재직중'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-success">재직중</div></td>';
+							}else if(infoName[n] == '개발'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-danger">개발</div></td>';
+							}else if(infoName[n] == '출장중'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>';
+							}else if(infoName[n] == '휴가중'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>';
+							}else if(infoName[n] == '퇴사'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>';
+							}else if(infoName[n] == '기타'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-focus">기타</div></td>';
+							}else{
+								appendStr += '<td>' + infoName[n] + '</td>';
+							}
+						}else{
+							appendStr += '<td>' + "''" + '</td>';
+						}
+					}
+					$('#StaffList-t-body').append("<tr><td>" + [i+1] + " </td>" + appendStr + "</tr>");
+				}
+			});
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+			});
+		});
+		
+		//직원리스트 - 클릭한 팀명으로 리스트 가지고 오기
+		$('#StaffListSelectTeam').change(function(){
+			var teamName = $(this).val();
+			console.log(teamName, "<---클릭한 팀명");
+			var request = $.ajax({
+			  url: "/getStaffInfoByTeamName",
+			  method: "POST",
+			  data: { teamName : teamName },
+			  dataType: "json"
+			});
+			request.done(function( data ) {
+			console.log(data);
+				//console.log(data.staffInfoByteamName.getStaffInfoList[0].staffNum);
+				$('.pagination').empty();
+				$('#StaffList-t-body').children("tr").remove();
+				if(data.staffInfoByteamName != null){
+					for(var i=0; i<data.staffInfoByteamName.getStaffInfoList.length; i++){
+					var insertVal = data.staffInfoByteamName.getStaffInfoList[i];
+					var infoName = [insertVal.staffNum, insertVal.staffName, insertVal.jojicName, insertVal.accessName, insertVal.levelName, insertVal.positionName, insertVal.hobong, insertVal.staffBasicSalary, insertVal.jaejicStatusName, insertVal.employmentStatus, insertVal.companyInDate, insertVal.staffNotes, insertVal.totalPnsmtPoint, insertVal.totalWorkMonths];
+					var appendStr = "";
+					for(var n=0; n<infoName.length; n++){
+						if(infoName[n] != null){
+							if(infoName[n] == '재직중'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-success">재직중</div></td>';
+							}else if(infoName[n] == '개발'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-danger">개발</div></td>';
+							}else if(infoName[n] == '출장중'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-primary">출장중</div></td>';
+							}else if(infoName[n] == '휴가중'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-alternate">휴가중</div></td>';
+							}else if(infoName[n] == '퇴사'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-secondary">퇴사</div></td>';
+							}else if(infoName[n] == '기타'){
+								appendStr += '<td><div class="mb-2 mr-2 badge badge-focus">기타</div></td>';
+							}else{
+								appendStr += '<td>' + infoName[n] + '</td>';
+							}
+						}else{
+							appendStr += '<td>' + "''" + '</td>';
+						}
+					}
+						$('#StaffList-t-body').append("<tr><td>" + [i+1] + " </td>" + appendStr + "</tr>");
+					}
+				}
+			});
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+			});			
+		});
+    	
     	//조직도관리 - 부서, 팀 추가 생성하기
     	$('#insertBuseo').click(function(){
     		$('#insertBuseoModal').modal();
@@ -1104,6 +1265,7 @@
     			alert("insertBuseoModalBtn 응답 실패");
     		});
     	});
+    	
     	$('#insertTeamModalBtn').click(function(){
     		var modalSosocVal 	= $('#modalSosoc').val();
     		var insertTeamName 	= $('#insertTeamName').val();
@@ -1136,7 +1298,6 @@
     		}
     	});
     	
-    	//$('.test').click(function() {
     	$(document).ready('load', '.test', function(){
     		var test = $(this).text();
     		console.log(test);
@@ -1154,61 +1315,7 @@
     		
     	})	
 
-
     		
-    		
-    	//})		
     });
 
 
-	//value값 유효성 검사
-/*    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-            	for(var i=0; i<form.length; i++){
-            			console.log(form[i], "공백");
-            	}
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-    
-	$(function(){
-		
-		//직원 등록하기 버튼 클릭시
-		$('#insertStaff').click(function(){
-			alert("d11adfa");
-			var staffPhone = $('.staff_phone_val').addHyphen();
-			$('#staff_phone_val').attr("name", staffPhone);
-			console.log($('#staff_phone_val').attr("name"));
-			
-			var familyPhone = $('.family_phone_val').addHyphen();
-			$('#family_phone_val').attr("name", familyPhone);
-			
-			var familyPhone = $('.human_num').addHyphen();
-			$('#human_num_val').attr("name", familyPhone);
-			
-			var formsNum = $('.forms').length;
-			var formsVal = $('.forms').val();
-			var str = $('[name=project_start_date]').val();
-			var val = $('[name=project_start_date]').val();
-			
-		
-
-		});
-		
-		
-		
-		
-		
-		
-		
-	});*/

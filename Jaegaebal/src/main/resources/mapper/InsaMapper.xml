@@ -293,17 +293,21 @@
 				pl.punishment_code = pn.punishment_code	
 				JOIN 
 				(SELECT @rownum := 0) AS r
-				GROUP BY sf.staff_num
-				ORDER BY @rownum
-		]]>	
-<!-- 				<where>
-					<if test="map.searchObj neq null and map.searchObj neq ''.toString() and map.searchVal neq null and map.searchVal neq ''.toString()">
-						AND ${map.searchObj} LIKE CONCAT('%',#{map.searchVal},'%')
-			 		</if>
-				</where> -->	
+			]]>	
+			<where>
+				<if test="map.sk neq null and map.sk neq ''.toString() and map.sv neq null and map.sv neq ''.toString() and map.sk neq 'staff_num'.toString()">
+					${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+		 		</if>
+				<if test="map.sk neq null and map.sk eq 'staff_num'.toString() and map.sv neq ''.toString()">
+					AND sf.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
+		 		</if>
+			</where>				
+				  GROUP BY sf.staff_num
+		<![CDATA[ ORDER BY @rownum ASC]]>
 				
-				LIMIT 	#{startRow}, #{rowPerPage};
+		LIMIT 	#{startRow}, #{rowPerPage};
 	</select>
+	
 	<!-- 직원 리스트 & 검색조건 & 페이징 의 전체 행 갯수-->
 	<select id="getStaffInfoAllCount" parameterType="Map" resultType="int">
 		SELECT	COUNT(*)
@@ -406,7 +410,58 @@
 	
 	<!-- 부서별 직원 목록 리스트 가져오기 -->
 	<select id="getStaffInfoByParentJojicName" parameterType="HashMap" resultMap="StaffInfoResultMap">
-		SELECT 
+			<![CDATA[
+	  	
+		SELECT
+				@rownum:=@rownum+1 AS rowNum
+				,sf.*,lv.*,ps.*,jj.*,sbif.*,ac.*,jc.*,pl.*,pn.*
+				,SUM(pn.punishment_point) AS totalPnsmtPoint
+				,CONCAT(DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%y'),'년',DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%c')-1,'개월') as totalWorkMonths
+				
+		FROM 
+
+				is_staff 				 	AS sf
+				INNER JOIN 	
+				is_level 				 	AS lv
+				ON 
+				sf.staff_level_code = lv.level_code
+				LEFT JOIN 
+				is_position 			 	AS ps
+				ON 
+				sf.staff_position_code = ps.position_code
+				LEFT JOIN 
+				is_jojic 				 	AS jj
+				ON
+				sf.jojic_code = jj.jojic_code
+				LEFT JOIN
+				is_staff_basic_info  		AS sbif
+				ON
+				sf.staff_num = sbif.staff_num
+				LEFT JOIN
+				is_access			 		AS ac
+				ON
+				sf.access_num = ac.access_num
+				LEFT JOIN
+				is_jaejic					AS jc
+				ON
+				sf.staff_status_code = jc.jaejic_status_code
+				LEFT JOIN
+				is_punishment_list			AS pl
+				on
+				sf.staff_num = pl.staff_num
+				LEFT JOIN
+				is_punishment				AS pn
+				on
+				pl.punishment_code = pn.punishment_code	
+				JOIN 
+				(SELECT @rownum := 0) AS r
+				
+		WHERE parent_jojic_name = #{buseoName}
+				
+			GROUP BY sf.staff_num
+			ORDER BY @rownum ASC
+		]]>
+<!-- 		SELECT 
 				 sf.staff_num
 				,jojic_name
 				,level_name
@@ -433,9 +488,9 @@
 		
 		WHERE parent_jojic_name = #{buseoName}
 
-		ORDER BY sf.staff_num
+		ORDER BY sf.staff_num -->
 		
-		LIMIT #{startRow}, #{rowPerPage};
+		<!-- LIMIT #{startRow}, #{rowPerPage}; -->
 	</select>
 	
 	<!-- 부서별 직원 목록 리스트의 전체 행 갯수-->
@@ -461,7 +516,57 @@
 	
 	<!-- 팀별 부서 리스트 가져오기 -->
 	<select id="getStaffInfoByTeamName" parameterType="HashMap" resultMap="StaffInfoResultMap">
-		SELECT 
+		<![CDATA[
+		SELECT
+				@rownum:=@rownum+1 AS rowNum
+				,sf.*,lv.*,ps.*,jj.*,sbif.*,ac.*,jc.*,pl.*,pn.*
+				,SUM(pn.punishment_point) AS totalPnsmtPoint
+				,CONCAT(DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%y'),'년',DATE_FORMAT(FROM_DAYS(TIMESTAMPDIFF(DAY,sf.company_in_date,NOW())),'%c')-1,'개월') as totalWorkMonths
+				
+		FROM 
+
+				is_staff 				 	AS sf
+				INNER JOIN 	
+				is_level 				 	AS lv
+				ON 
+				sf.staff_level_code = lv.level_code
+				LEFT JOIN 
+				is_position 			 	AS ps
+				ON 
+				sf.staff_position_code = ps.position_code
+				LEFT JOIN 
+				is_jojic 				 	AS jj
+				ON
+				sf.jojic_code = jj.jojic_code
+				LEFT JOIN
+				is_staff_basic_info  		AS sbif
+				ON
+				sf.staff_num = sbif.staff_num
+				LEFT JOIN
+				is_access			 		AS ac
+				ON
+				sf.access_num = ac.access_num
+				LEFT JOIN
+				is_jaejic					AS jc
+				ON
+				sf.staff_status_code = jc.jaejic_status_code
+				LEFT JOIN
+				is_punishment_list			AS pl
+				on
+				sf.staff_num = pl.staff_num
+				LEFT JOIN
+				is_punishment				AS pn
+				on
+				pl.punishment_code = pn.punishment_code	
+				JOIN 
+				(SELECT @rownum := 0) AS r
+				
+		WHERE	jojic_name = #{teamName}
+				
+				GROUP BY sf.staff_num
+				ORDER BY @rownum ASC	
+			]]>
+<!-- 		SELECT 
 				 sf.staff_num
 				,jojic_name
 				,level_name
@@ -490,7 +595,7 @@
 
 		ORDER 	BY sf.staff_num
 		
-		LIMIT 	#{startRow}, #{rowPerPage};
+		LIMIT 	#{startRow}, #{rowPerPage}; -->
 	</select>	
 	
 	<!-- 팀별 부서 리스트 전체 행 갯수 -->
@@ -691,12 +796,13 @@
 	
 	<!-- 직원 가족정보 등록하기 -->
 	<insert id="insertStaffFamilyInfo" parameterType="StaffFamilyInfo">
-		<selectKey keyProperty="familyInfoCode" resultType="String" order="BEFORE" >
+<!-- 		<selectKey keyProperty="familyInfoCode" resultType="String" order="BEFORE" >
 			select CONCAT('FMLIF',(SELECT MAX(cast(SUBSTRING(family_info_code,6)AS DECIMAL)) + 1  FROM is_staff_family_info AS FMLIF))
-		</selectKey>
+		</selectKey> -->
+			<foreach collection="staffFamilyInfo" item="item"  separator=";">
 		INSERT INTO 
 			is_staff_family_info
-				(	family_info_code
+				(  family_info_code
 				 , staff_num
 				 , relation
 				 , family_name
@@ -707,23 +813,25 @@
 				 , staff_family_info_notes
 				 , reg_staff_name
 				 , reg_date)
+				 
 			VALUES 
-				(  #{familyInfoCode}
-				 , #{staffNum}
-				 , #{relation}
-				 , #{familyName}
-				 	<if test="familyBirthday != null and familyBirthday != ''.toString()">			
-						, #{familyBirthday}
+				(  (SELECT CONCAT('FMLIF',(SELECT MAX(cast(SUBSTRING(family_info_code,6)AS DECIMAL)) + 1  FROM is_staff_family_info AS FMLIF)))
+				 , #{item.staffNum}
+				 , #{item.relation}
+				 , #{item.familyName}
+				 	<if test="item.familyBirthday != null and item.familyBirthday != ''.toString()">			
+						, #{item.familyBirthday}
 					</if> 
-			 		<if test="familyBirthday == null || familyBirthday == ''.toString()">			
+			 		<if test="item.familyBirthday == null || item.familyBirthday == ''.toString()">			
 						, null
 					</if>
-				 , #{familyJob}
-				 , #{familyAddr}
-				 , #{familyPhone}
-				 , #{staffFamilyInfoNotes}
+				 , #{item.familyJob}
+				 , #{item.familyAddr}
+				 , #{item.familyPhone}
+				 , #{item.staffFamilyInfoNotes}
 				 , '이은혜'
-				 , NOW())	
+				 , NOW())
+			</foreach>
 	</insert>
 	
 	<!-- 직원 사내경력 정보 등록하기 -->

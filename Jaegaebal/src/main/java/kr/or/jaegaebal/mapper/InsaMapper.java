@@ -93,7 +93,7 @@ public interface InsaMapper {
 	//직원 등록 - 인적사항 insert
 	public int insertStaffBasicInfo(StaffBasicInfo staffBasicInfo);
 	//직원 등록 - 가족정보 insert
-	public int insertStaffFamilyInfo(StaffFamilyInfo staffFamilyInfo);
+	public int insertStaffFamilyInfo(List<StaffFamilyInfo> staffFamilyInfo);
 	//직원 등록 - 사내 경력 정보 insert
 	public int insertStaffCareerInfoFromIn(CareerInfoFromIn careerInfoFromIn);
 	//직원 등록 - 사외 경력 정보 insert

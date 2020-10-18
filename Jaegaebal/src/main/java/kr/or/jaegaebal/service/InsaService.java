@@ -69,7 +69,7 @@ public class InsaService {
 		
 		List<StaffInfo> getStaffInfoList = insaMapper.getStaffInfo(parameterMap);
 
-		if (currentPage >= (lastPage - 4)) {
+		if (currentPage >= (lastPage-4)) {
 			lastPageNum = lastPage;
 		}
 
@@ -103,7 +103,7 @@ public class InsaService {
 		
 		List<Map<String, Object>> getStaffInfoAllList = insaMapper.getStaffInfoAll(parameterMap);
 		
-		if (currentPage >= (lastPage - 4)) {
+		if (currentPage >= (lastPage-4)) {
 			lastPageNum = lastPage;
 		}
 		
@@ -287,8 +287,15 @@ public class InsaService {
 		return result;
 	};
 	//직원 등록 - 가족정보 insert
-	public int insertStaffFamilyInfo(StaffFamilyInfo staffFamilyInfo) {
-		int result = insaMapper.insertStaffFamilyInfo(staffFamilyInfo);
+	public int insertStaffFamilyInfo(List<StaffFamilyInfo> familyInfoTableId) {
+		
+		/*
+		 * List<StaffFamilyInfo> staffFamilyInfoList = new ArrayList<StaffFamilyInfo>();
+		 * 
+		 * staffFamilyInfo.getFa
+		 */
+		
+		int result = insaMapper.insertStaffFamilyInfo(familyInfoTableId);
 		return result;
 	};
 	//직원 등록 - 사내 경력 정보 insert

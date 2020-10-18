@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -69,17 +70,43 @@ public class InsaController {
 		
 		 log.info("map>>>>>>>>>>>> - {}", map);
 		 
-		 Map<String, Object> resultMap = insaService.getStaffInfoAll(currentPage, map);
-		 
-		 model.addAttribute("lastPage", resultMap.get("lastPage")); 
-		 model.addAttribute("getStaffInfoAllList", resultMap.get("getStaffInfoAllList")); 
-		 model.addAttribute("startPageNum", resultMap.get("startPageNum")); 
-		 model.addAttribute("lastPageNum", resultMap.get("lastPageNum")); 
-		 model.addAttribute("currentPage", currentPage);
-		 model.addAttribute("title", "직원 목록");
+		Map<String, Object> resultMap 	= insaService.getStaffInfoAll(currentPage, map);
+		List<Jojic> jojicInfo			= insaService.getJojicInfoAll();
+		List<Jojic> jojicInfo2 			= insaService.getJojicInfoAll();
+		model.addAttribute("lastPage", resultMap.get("lastPage"));
+		model.addAttribute("getStaffInfoAllList", resultMap.get("getStaffInfoAllList")); 
+		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("jojicInfo", jojicInfo);
+		model.addAttribute("jojicInfo2", jojicInfo2);
+		model.addAttribute("title", "직원 목록");
 
 		log.info("staffInfoList---> {}", resultMap.get("getStaffInfoAllList"));
 
+		return "insa/staff_list";
+	}
+	
+	//직원리스트
+	@PostMapping("/insa/staffInfoList")
+	public String getStaffList(  Model model
+								,@RequestParam(value = "sk", required = false) String sk
+								,@RequestParam(value = "sv", required = false) String sv
+								,@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		log.info("sksksksksksk::::::{}",sk);
+		log.info("svsvsvsvsvsv::::::{}",sv);
+		
+		Map<String, Object> map 		= new HashMap<String, Object>();
+		map.put("sk", sk);
+		map.put("sv", sv);
+		Map<String, Object> resultMap 	= insaService.getStaffInfoAll(currentPage, map);
+		model.addAttribute("lastPage", resultMap.get("lastPage"));
+		model.addAttribute("getStaffInfoAllList", resultMap.get("getStaffInfoAllList")); 
+		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
+		model.addAttribute("currentPage", currentPage);			
+		model.addAttribute("title", "직원 목록");
+		
 		return "insa/staff_list";
 	}
 
@@ -113,8 +140,8 @@ public class InsaController {
 
 	// 직원 등록 - 추가 입력 사항
 	@GetMapping("/insertStaffDetaillInfo")
-	public String insertStaffDetaillInfo(Model model,
-			@RequestParam(value = "staffNum", required = false) String staffNum) {
+	public String insertStaffDetaillInfo(	Model model,
+											@RequestParam(value = "staffNum", required = false) String staffNum) {
 		StaffInfo list = insaService.getInsertStaffInfo(staffNum);
 		Map<String, Object> codeAndName = insaService.getCodeAndName();
 		model.addAttribute("codeAndName", codeAndName);
@@ -127,22 +154,22 @@ public class InsaController {
 
 	// 직원 등록 - 추가 입력 사항
 	@PostMapping("/insertStaffDetaillInfo")
-	public String insertStaffDetaillInfo(	  StaffInfo insertStaffInfo
+	public String insertStaffDetaillInfo(	  String insertStaffInfo
 											, Model model
 											, RedirectAttributes redirectAttr
 											, StaffBasicInfo staffBasicInfo
+											, StaffFamilyInfo staffFamilyInfo
 											, CareerInfoFromIn careerInfoFromIn
 											, CareerInfoFromOut careerInfoFromOut
 											, CertificateInfo certificateInfo
 											, EducationInfo educationInfo
 											, MilitaryInfo militaryInfo
 											, StaffBalryoungInfo staffBalryoungInfo
-											, StaffInfo staffInfo
-											, StaffFamilyInfo staffFamilyInfo) {
-		log.info("insertStaffInfo>>>>>>>>>{}", insertStaffInfo);
+											, StaffInfo staffInfo	) {
 		log.info("staffFamilyInfo>>>>>>>>>{}", staffFamilyInfo);
+		
 		int resultBSIF = insaService.insertStaffDetaillInfo(staffBasicInfo);
-		int resultFMLIF = insaService.insertStaffFamilyInfo(staffFamilyInfo);
+		//int resultFMLIF = insaService.insertStaffFamilyInfo(staffFamilyInfo);
 		int resultCINIF = insaService.insertStaffCareerInfoFromIn(careerInfoFromIn);
 		int resultCOUTIF = insaService.insertStaffCareerInfoFromOut(careerInfoFromOut);
 		int resultCTIF = insaService.insertStaffCertificateInfo(certificateInfo);
@@ -150,15 +177,48 @@ public class InsaController {
 		int resultMLIF = insaService.insertStaffMilitaryInfo(militaryInfo);
 
 		log.info("resultBSIF:::::{}", resultBSIF, "<<<<<<<<<<<<");
-		log.info("resultFMLIF:::::{}", resultFMLIF, "<<<<<<<<<<<<");
+		//log.info("resultFMLIF:::::{}", resultFMLIF, "<<<<<<<<<<<<");
 		log.info("resultCINIF:::::{}", resultCINIF, "<<<<<<<<<<<<");
 		log.info("resultCOUTIF:::::{}", resultCOUTIF, "<<<<<<<<<<<<");
 		log.info("resultCTIF:::::{}", resultCTIF, "<<<<<<<<<<<<");
 		log.info("resultEDIF:::::{}", resultEDIF, "<<<<<<<<<<<<");
 		log.info("resultMLIF:::::{}", resultMLIF, "<<<<<<<<<<<<");
 		return "redirect:/insa/staffInfoList";
-
 	}
+	
+	// 직원 등록 - 추가 입력 사항 -staffBasicInfo
+	@PostMapping("/staffBasicInfo")
+	public String staffBasicInfo(String[] staffBasicInfo) {
+		log.info("staffBasicInfo>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", staffBasicInfo.toString());
+		return "redirect:/insa/staffInfoList";
+	}
+	// 직원 등록 - 추가 입력 사항 -staffFamilyInfo
+	@PostMapping(value = "/staffFamilyInfo", produces = "application/json")
+	@ResponseBody
+	public int staffFamilyInfo(@RequestBody List<StaffFamilyInfo> staffFamilyInfo) {
+		log.info("familyInfoTableId>>>{}", staffFamilyInfo.toString());
+		int resultFMLIF = insaService.insertStaffFamilyInfo(staffFamilyInfo);
+		return resultFMLIF;
+	}
+	// 직원 등록 - 추가 입력 사항 -careerInfoFromIn
+	@PostMapping("/careerInfoFromIn")
+	public String careerInfoFromIn(CareerInfoFromIn careerInfoFromIn) {
+		log.info("careerInfoFromIn>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", careerInfoFromIn);
+		return "redirect:/insa/staffInfoList";
+	}
+	// 직원 등록 - 추가 입력 사항 -careerInfoFromOut
+	@PostMapping("/careerInfoFromOut")
+	public String careerInfoFromOut(CareerInfoFromOut careerInfoFromOut) {
+		log.info("careerInfoFromOut>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", careerInfoFromOut);
+		return "redirect:/insa/staffInfoList";
+	}
+	// 직원 등록 - 추가 입력 사항 -educationInfo
+	@PostMapping("/educationInfo")
+	public String educationInfo(EducationInfo educationInfo) {
+		log.info("educationInfo>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", educationInfo);
+		return "redirect:/insa/staffInfoList";
+	}
+	
 
 	// 부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
 	@PostMapping(value = "/getStaffInfoByParentJojicName", produces = "application/json")
@@ -264,11 +324,12 @@ public class InsaController {
 	public String getJojicdoList(	Model model,
 									@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 									@RequestParam Map<String, Object> map) {
-		Map<String, Object> resultMap = insaService.getStaffInfoList(currentPage, map);
-		List<Jojic> jojicInfo = insaService.getJojicInfoAll();
-		List<Jojic> jojicInfo2 = insaService.getJojicInfoAll();
+		//Map<String, Object> resultMap 	= insaService.getStaffInfoList(currentPage, map);
+		Map<String, Object> resultMap 	= insaService.getStaffInfoAll(currentPage, map);
+		List<Jojic> jojicInfo			= insaService.getJojicInfoAll();
+		List<Jojic> jojicInfo2 			= insaService.getJojicInfoAll();
 		model.addAttribute("lastPage", resultMap.get("lastPage"));
-		model.addAttribute("staffInfoList", resultMap.get("getStaffInfoList"));
+		model.addAttribute("getStaffInfoAllList", resultMap.get("getStaffInfoAllList")); 
 		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 		model.addAttribute("lastPageNum", resultMap.get("lastPageNum"));
 		model.addAttribute("currentPage", currentPage);
