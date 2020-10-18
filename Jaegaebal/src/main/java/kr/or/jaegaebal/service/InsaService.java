@@ -287,41 +287,77 @@ public class InsaService {
 		return result;
 	};
 	//직원 등록 - 가족정보 insert
-	public int insertStaffFamilyInfo(List<StaffFamilyInfo> familyInfoTableId) {
-		
-		/*
-		 * List<StaffFamilyInfo> staffFamilyInfoList = new ArrayList<StaffFamilyInfo>();
-		 * 
-		 * staffFamilyInfo.getFa
-		 */
-		
-		int result = insaMapper.insertStaffFamilyInfo(familyInfoTableId);
-		return result;
+	public int insertStaffFamilyInfo(List<StaffFamilyInfo> staffFamilyInfo) {
+		int resultVal = 0;
+		for(int i=0; i<staffFamilyInfo.size(); i++) {
+			log.info("staffFamilyInfo.get(i):::{}", staffFamilyInfo.get(i));
+			StaffFamilyInfo info = staffFamilyInfo.get(i);
+			int result = insaMapper.insertStaffFamilyInfo(info);
+			if(result != 0) {
+				resultVal = 1;
+			}
+		}
+		return resultVal;
 	};
 	//직원 등록 - 사내 경력 정보 insert
-	public int insertStaffCareerInfoFromIn(CareerInfoFromIn careerInfoFromIn) {
-		int result = insaMapper.insertStaffCareerInfoFromIn(careerInfoFromIn);
-		return result;
+	public int insertStaffCareerInfoFromIn(List<CareerInfoFromIn> careerInfoFromIn) {
+		int resultVal = 0;
+		for(int i=0; i<careerInfoFromIn.size(); i++) {
+			CareerInfoFromIn info = careerInfoFromIn.get(i);
+			int result = insaMapper.insertStaffCareerInfoFromIn(info);
+			if(result != 0) {
+				resultVal = 1;
+			}
+		}
+		return resultVal;
 	};
 	//직원 등록 - 사외 경력 정보 insert
-	public int insertStaffCareerInfoFromOut(CareerInfoFromOut careerInfoFromOut) {
-		int result = insaMapper.insertStaffCareerInfoFromOut(careerInfoFromOut);
-		return result;
+	public int insertStaffCareerInfoFromOut(List<CareerInfoFromOut> careerInfoFromOut) {
+		int resultVal = 0;
+		for(int i=0; i<careerInfoFromOut.size(); i++) {
+			CareerInfoFromOut info = careerInfoFromOut.get(i);
+			int result = insaMapper.insertStaffCareerInfoFromOut(info);
+			if(result != 0) {
+				resultVal = 1;
+			}
+		}
+		return resultVal;
 	};
 	//직원 등록 - 자격증 경력 정보 insert
-	public int insertStaffCertificateInfo(CertificateInfo certificateInfo) {
-		int result = insaMapper.insertStaffCertificateInfo(certificateInfo);
-		return result;
+	public int insertStaffCertificateInfo(List<CertificateInfo> certificateInfo) {
+		int resultVal = 0;
+		for(int i=0; i<certificateInfo.size(); i++) {
+			CertificateInfo info = certificateInfo.get(i);
+			int result = insaMapper.insertStaffCertificateInfo(info);
+			if(result != 0) {
+				resultVal = 1;
+			}
+		}
+		return resultVal;
 	};
 	//직원 등록 - 학력 정보 insert
-	public int insertStaffEducationInfo(EducationInfo educationInfo) {
-		int result = insaMapper.insertStaffEducationInfo(educationInfo);
-		return result;
+	public int insertStaffEducationInfo(List<EducationInfo> educationInfo) {
+		int resultVal = 0;
+		for(int i=0; i<educationInfo.size(); i++) {
+			EducationInfo info = educationInfo.get(i);
+			int result = insaMapper.insertStaffEducationInfo(info);
+			if(result != 0) {
+				resultVal = 1;
+			}
+		}
+		return resultVal;
 	};
 	//직원 등록 - 병역 정보 insert
-	public int insertStaffMilitaryInfo(MilitaryInfo militaryInfo) {
-		int result = insaMapper.insertStaffMilitaryInfo(militaryInfo);
-		return result;
+	public int insertStaffMilitaryInfo(List<MilitaryInfo> militaryInfo) {
+		int resultVal = 0;
+		for(int i=0; i<militaryInfo.size(); i++) {
+			MilitaryInfo info = militaryInfo.get(i);
+			int result = insaMapper.insertStaffMilitaryInfo(info);
+			if(result != 0) {
+				resultVal = 1;
+			}
+		}
+		return resultVal;
 	};
 	
 	//징계 리스트 & 검색조건 & 페이징

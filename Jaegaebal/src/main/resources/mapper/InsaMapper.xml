@@ -796,10 +796,9 @@
 	
 	<!-- 직원 가족정보 등록하기 -->
 	<insert id="insertStaffFamilyInfo" parameterType="StaffFamilyInfo">
-<!-- 		<selectKey keyProperty="familyInfoCode" resultType="String" order="BEFORE" >
+ 		<selectKey keyProperty="familyInfoCode" resultType="String" order="BEFORE" >
 			select CONCAT('FMLIF',(SELECT MAX(cast(SUBSTRING(family_info_code,6)AS DECIMAL)) + 1  FROM is_staff_family_info AS FMLIF))
-		</selectKey> -->
-			<foreach collection="staffFamilyInfo" item="item"  separator=";">
+		</selectKey>
 		INSERT INTO 
 			is_staff_family_info
 				(  family_info_code
@@ -815,23 +814,22 @@
 				 , reg_date)
 				 
 			VALUES 
-				(  (SELECT CONCAT('FMLIF',(SELECT MAX(cast(SUBSTRING(family_info_code,6)AS DECIMAL)) + 1  FROM is_staff_family_info AS FMLIF)))
-				 , #{item.staffNum}
-				 , #{item.relation}
-				 , #{item.familyName}
-				 	<if test="item.familyBirthday != null and item.familyBirthday != ''.toString()">			
-						, #{item.familyBirthday}
+				(  #{familyInfoCode}
+				 , #{staffNum}
+				 , #{relation}
+				 , #{familyName}
+				 	<if test="familyBirthday != null and familyBirthday != ''.toString()">			
+						, #{familyBirthday}
 					</if> 
-			 		<if test="item.familyBirthday == null || item.familyBirthday == ''.toString()">			
+			 		<if test="familyBirthday == null || familyBirthday == ''.toString()">			
 						, null
 					</if>
-				 , #{item.familyJob}
-				 , #{item.familyAddr}
-				 , #{item.familyPhone}
-				 , #{item.staffFamilyInfoNotes}
+				 , #{familyJob}
+				 , #{familyAddr}
+				 , #{familyPhone}
+				 , #{staffFamilyInfoNotes}
 				 , '이은혜'
 				 , NOW())
-			</foreach>
 	</insert>
 	
 	<!-- 직원 사내경력 정보 등록하기 -->

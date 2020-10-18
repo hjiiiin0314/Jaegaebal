@@ -45,10 +45,10 @@
 	$(document).on('click', '.addCareerInfoBtn', function(){
 		var addCareerInfoBtnTr 		= $('.addCareerInfoBtnTr').clone();
 		$('.addCareerInfoBtnTr').remove();
-		var is_career_info_from_in 	= $(".is_career_info_from_in").eq(0).clone();
-		is_career_info_from_in.find('input').val("");
-		is_career_info_from_in.find('textarea').val("");
-		$('#isCareerInfoFromIn').append(is_career_info_from_in);
+		var careerInfoFromInForm 	= $(".careerInfoFromInForm").eq(0).clone();
+		careerInfoFromInForm.find('input').val("");
+		careerInfoFromInForm.find('textarea').val("");
+		$('#isCareerInfoFromIn').append(careerInfoFromInForm);
 		$('#isCareerInfoFromIn').append(addCareerInfoBtnTr);
 	});
 	
@@ -56,10 +56,10 @@
 	$(document).on('click', '.addCareerInfoFromOutBtn', function(){
 		var addCareerInfoFromOutBtnTr 		= $('.addCareerInfoFromOutBtnTr').clone();
 		$('.addCareerInfoFromOutBtnTr').remove();
-		var is_career_info_from_out 		= $(".is_career_info_from_out").eq(0).clone();
-		is_career_info_from_out.find('input').val("");
-		is_career_info_from_out.find('textarea').val("");
-		$('#isCareerInfoFromOut').append(is_career_info_from_out);
+		var careerInfoFromOutForm 		= $(".careerInfoFromOutForm").eq(0).clone();
+		careerInfoFromOutForm.find('input').val("");
+		careerInfoFromOutForm.find('textarea').val("");
+		$('#isCareerInfoFromOut').append(careerInfoFromOutForm);
 		$('#isCareerInfoFromOut').append(addCareerInfoFromOutBtnTr);
 	});
 	
@@ -67,10 +67,10 @@
 	$(document).on('click', '.addCertificateInfoBtn', function(){
 		var addCertificateInfoBtnTr 		= $('.addCertificateInfoBtnTr').clone();
 		$('.addCertificateInfoBtnTr').remove();
-		var is_certificate_info 			= $(".is_certificate_info").eq(0).clone();
-		is_certificate_info.find('input').val("");
-		is_certificate_info.find('textarea').val("");
-		$('#isCertificateInfo').append(is_certificate_info);
+		var certificateInfoForm 			= $(".certificateInfoForm").eq(0).clone();
+		certificateInfoForm.find('input').val("");
+		certificateInfoForm.find('textarea').val("");
+		$('#isCertificateInfo').append(certificateInfoForm);
 		$('#isCertificateInfo').append(addCertificateInfoBtnTr);
 	});
 	
@@ -78,10 +78,10 @@
 	$(document).on('click', '.addEducationInfoBtn', function(){
 		var addEducationInfoBtnTr 		= $('.addEducationInfoBtnTr').clone();
 		$('.addEducationInfoBtnTr').remove();
-		var is_education_info 			= $(".is_education_info").eq(0).clone();
-		is_education_info.find('input').val("");
-		is_education_info.find('textarea').val("");
-		$('#isEducationInfo').append(is_education_info);
+		var isEducationInfo 			= $(".isEducationInfo").eq(0).clone();
+		isEducationInfo.find('input').val("");
+		isEducationInfo.find('textarea').val("");
+		$('#isEducationInfo').append(isEducationInfo);
 		$('#isEducationInfo').append(addEducationInfoBtnTr);
 	});
 	
@@ -100,9 +100,10 @@
 	$(document).on('click', '.addMilitaryInfoBtn', function(){
 		var addMilitaryInfoBtnTr 		= $('.addMilitaryInfoBtnTr').clone();
 		$('.addMilitaryInfoBtnTr').remove();
-		is_military_info.find('input').val("");
-		is_military_info.find('textarea').val("");
-		$('#isMilitaryInfo').append(is_military_info);
+		var staffMilitaryInfoForm 		= $(".staffMilitaryInfoForm").eq(0).clone();
+		staffMilitaryInfoForm.find('input').val("");
+		staffMilitaryInfoForm.find('textarea').val("");
+		$('#isMilitaryInfo').append(staffMilitaryInfoForm);
 		$('#isMilitaryInfo').append(addMilitaryInfoBtnTr);
 	});
 	
@@ -1040,21 +1041,21 @@
 			var humanNum = $('.human_num').addHyphen();
 			$('#humanNum').attr("value", humanNum);
 			console.log($('#humanNum').attr("name"));
-			
-/*			var familyInfoForm = $('.familyInfoForm').eq(0).serialize();
-			console.log(familyInfoForm, "<<familyInfoForm0");*/
 		
 			//사원번호당 추가될 가족정보 테이블 - 한 사람
-			var table= $('.familyInfoForm table');
+			var familyInfoTB = $('.familyInfoForm table');
+			var careerInfoFromInTB = $('.careerInfoFromInForm table');
 			
 			//사원번호당 추가될 가족정보
 			var familyInfoArray = [];
+			var careerInfoFromInArray = [];
 			
-			for(var i = 0; i<table.length; i++){
+			//가족정보 추가하기
+			for(var i = 0; i<familyInfoTB.length; i++){
 				//사원번호당 추가될 가족정보 - 한 사람
 				var familySubInfoArray = {};
 				//가족정보 입력정보 객체에 담기
-				$(table[i]).find('input').each(function(){					
+				$(familyInfoTB[i]).find('input').each(function(){					
 					var attrName = $(this).attr('name');
 					var thisValue = $(this).val();
 					if($(this).attr('name') == 'staffNum'){
@@ -1064,20 +1065,10 @@
 					}else{
 						familySubInfoArray[attrName] = thisValue;
 					}
-					
 				});
 				//한사람 단위로 객체화하여 가족정보 배열에 넣기
 				familyInfoArray.push(familySubInfoArray);
 			}
-			/*
-			var familyInfoFormLength = $('.familyInfoForm').length;
-			//console.log(familyInfoFormLength, "<<familyInfoFormLength");
-			var familyInfoArray = new Array(familyInfoFormLength);
-			var staffNum = $('#staffNum').val();
-			for(var i=0; i<familyInfoFormLength; i++){
-				familyInfoArray[i] = $('.familyInfoForm').eq(i).serializeArray();
-			}
-			*/
 			console.log('result>>'+JSON.stringify(familyInfoArray));
     		
 			var request = $.ajax({
@@ -1097,7 +1088,45 @@
     			}
     		});
     		request.fail(function( jqXHR, textStatus ) {
-    			alert("insertBuseoModalBtn 응답 실패");
+    			alert("가족정보 추가 응답 실패");
+    		});
+    		//사내경력 추가하기
+    		for(var i = 0; i<careerInfoFromInTB.length; i++){
+    			//사원번호당 추가될 가족정보 - 한 사람
+    			var careerInfoFromInSubArray = {};
+    			//가족정보 입력정보 객체에 담기
+    			$(careerInfoFromInTB[i]).find('input').each(function(){					
+    				var attrName = $(this).attr('name');
+    				var thisValue = $(this).val();
+    				if($(this).attr('name') == 'staffNum'){
+    					var staffNum = $('#staffNum').val();
+    					careerInfoFromInSubArray[attrName] = staffNum;
+    				}else{
+    					careerInfoFromInSubArray[attrName] = thisValue;
+    				}
+    				
+    			});
+    			//한사람 단위로 객체화하여 가족정보 배열에 넣기
+    			careerInfoFromInArray.push(careerInfoFromInSubArray);
+    		}
+    		var request = $.ajax({
+    			url: "/careerInfoFromIn",
+    			method: "POST",
+    			traditional : true,
+    			data: JSON.stringify(careerInfoFromInArray),
+    			contentType:'application/json; charset=UTF-8',
+    			dataType: "json"
+    		});
+    		request.done(function( data ) {
+    			if(data == 1){
+    				//alert("추가 되었습니다.");
+    				//window.location.href = "/";
+    			}else{
+    				alert("다시 시도해주세요.");
+    			}
+    		});
+    		request.fail(function( jqXHR, textStatus ) {
+    			alert("사내경력 추가 응답 실패");
     		});
 
     	});

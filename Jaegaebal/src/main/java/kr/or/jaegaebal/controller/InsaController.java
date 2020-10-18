@@ -168,21 +168,9 @@ public class InsaController {
 											, StaffInfo staffInfo	) {
 		log.info("staffFamilyInfo>>>>>>>>>{}", staffFamilyInfo);
 		
-		int resultBSIF = insaService.insertStaffDetaillInfo(staffBasicInfo);
-		//int resultFMLIF = insaService.insertStaffFamilyInfo(staffFamilyInfo);
-		int resultCINIF = insaService.insertStaffCareerInfoFromIn(careerInfoFromIn);
-		int resultCOUTIF = insaService.insertStaffCareerInfoFromOut(careerInfoFromOut);
-		int resultCTIF = insaService.insertStaffCertificateInfo(certificateInfo);
-		int resultEDIF = insaService.insertStaffEducationInfo(educationInfo);
-		int resultMLIF = insaService.insertStaffMilitaryInfo(militaryInfo);
+		//int resultBSIF = insaService.insertStaffDetaillInfo(staffBasicInfo);
+		
 
-		log.info("resultBSIF:::::{}", resultBSIF, "<<<<<<<<<<<<");
-		//log.info("resultFMLIF:::::{}", resultFMLIF, "<<<<<<<<<<<<");
-		log.info("resultCINIF:::::{}", resultCINIF, "<<<<<<<<<<<<");
-		log.info("resultCOUTIF:::::{}", resultCOUTIF, "<<<<<<<<<<<<");
-		log.info("resultCTIF:::::{}", resultCTIF, "<<<<<<<<<<<<");
-		log.info("resultEDIF:::::{}", resultEDIF, "<<<<<<<<<<<<");
-		log.info("resultMLIF:::::{}", resultMLIF, "<<<<<<<<<<<<");
 		return "redirect:/insa/staffInfoList";
 	}
 	
@@ -201,23 +189,46 @@ public class InsaController {
 		return resultFMLIF;
 	}
 	// 직원 등록 - 추가 입력 사항 -careerInfoFromIn
-	@PostMapping("/careerInfoFromIn")
-	public String careerInfoFromIn(CareerInfoFromIn careerInfoFromIn) {
-		log.info("careerInfoFromIn>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", careerInfoFromIn);
-		return "redirect:/insa/staffInfoList";
+	@PostMapping(value = "/careerInfoFromIn", produces = "application/json")
+	@ResponseBody
+	public int careerInfoFromIn(@RequestBody List<CareerInfoFromIn> careerInfoFromIn) {
+		log.info("careerInfoFromIn>>>{}", careerInfoFromIn.toString());
+		int resultCINIF = insaService.insertStaffCareerInfoFromIn(careerInfoFromIn);
+		return resultCINIF;
 	}
 	// 직원 등록 - 추가 입력 사항 -careerInfoFromOut
-	@PostMapping("/careerInfoFromOut")
-	public String careerInfoFromOut(CareerInfoFromOut careerInfoFromOut) {
-		log.info("careerInfoFromOut>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", careerInfoFromOut);
-		return "redirect:/insa/staffInfoList";
+	@PostMapping(value = "/careerInfoFromOut", produces = "application/json")
+	@ResponseBody	
+	public int careerInfoFromOut(@RequestBody List<CareerInfoFromOut> careerInfoFromOut) {
+		log.info("careerInfoFromOut>>>{}", careerInfoFromOut.toString());
+		int resultCOUTIF = insaService.insertStaffCareerInfoFromOut(careerInfoFromOut);
+		return resultCOUTIF;
+	}
+	// 직원 등록 - 추가 입력 사항 -certificateInfo
+	@PostMapping(value = "/certificateInfo", produces = "application/json")
+	@ResponseBody	
+	public int certificateInfo(@RequestBody List<CertificateInfo> certificateInfo) {
+		log.info("certificateInfo>>>{}", certificateInfo.toString());
+		int resultCTIF = insaService.insertStaffCertificateInfo(certificateInfo);
+		return resultCTIF;
 	}
 	// 직원 등록 - 추가 입력 사항 -educationInfo
-	@PostMapping("/educationInfo")
-	public String educationInfo(EducationInfo educationInfo) {
-		log.info("educationInfo>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", educationInfo);
-		return "redirect:/insa/staffInfoList";
+	@PostMapping(value = "/educationInfo", produces = "application/json")
+	@ResponseBody
+	public int educationInfo(@RequestBody List<EducationInfo> educationInfo) {
+		log.info("careerInfoFromOut>>>{}", educationInfo.toString());
+		int resultEDIF = insaService.insertStaffEducationInfo(educationInfo);
+		return resultEDIF;
 	}
+	// 직원 등록 - 추가 입력 사항 -militaryInfo
+	@PostMapping(value = "/militaryInfo", produces = "application/json")
+	@ResponseBody
+	public int militaryInfo(@RequestBody List<MilitaryInfo> militaryInfo) {
+		log.info("militaryInfo>>>{}", militaryInfo.toString());
+		int resultMLIF = insaService.insertStaffMilitaryInfo(militaryInfo);
+		return resultMLIF;
+	}
+
 	
 
 	// 부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
