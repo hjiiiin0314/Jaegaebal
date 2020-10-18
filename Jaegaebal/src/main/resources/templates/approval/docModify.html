@@ -50,14 +50,20 @@
 					<table id="appLine" class="mb-2 table table-bordered">
 						<tr>
 							<th:block th:each="l : ${getAppLine}">							
-	                        	<td class='text-center app-StaffLevel' th:text="${l.appLevelName}" th:value="${l.staffLevelCode}" th:name="${staffLevelCode}"></td>
+	                        	<td class='text-center app-StaffLevel' th:text="${l.appLevelName}" th:value="${l.staffLevelCode}" >
+	                        		<input type="hidden" th:value="${l.staffLevelCode}" name="staffLevelCode">
+	                        	</td>
 	                        	<td class='appLine-form'>
 				                     <table id="appLine">
 				                     	<tr>
-				                        	<td class='text-center' th:text="${l.appJojicName}" th:value="${l.appJojicCode}" th:name="${jojicCode}"></td>
+				                        	<td class='text-center' th:text="${l.appJojicName}" th:value="${l.appJojicCode}" >
+				                        		<input type="hidden" th:value="${l.appJojicCode}" name="jojicCode">
+				                        	</td>
 				                    	</tr>
 				                    	<tr>
-				                       		<td class='text-center' th:text="${l.appStaffName}" th:value="${l.appStaffNum}" th:name="${staffNum}"></td>
+				                       		<td class='text-center' th:text="${l.appStaffName}" th:value="${l.appStaffNum}">
+				                       			<input type="hidden" th:value="${l.appStaffNum}" name="staffNum">
+				                       		</td>
 				                    	</tr>                     				
 				                     	<tr>
 				                        	<td class='text-center app-sign' th:text="${l.appStateName}" th:title="${l.appStaffComent}"></td>
