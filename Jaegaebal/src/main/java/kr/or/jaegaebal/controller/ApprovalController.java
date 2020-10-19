@@ -38,11 +38,17 @@ public class ApprovalController {
 							,@RequestParam(value = "staffLevelCode",required = false)String[] staffLevelCode
 							,@RequestParam(value = "staffNum",required = false)String[] staffNum) {
 		
-		System.out.println(jojicCode[0]+"<--jojicCode");
-		System.out.println(staffLevelCode[0]+"<--staffLevelCode");
-		System.out.println(staffNum[0]+"<--staffNum");
+		int result = 0;	
+		 
+		if(jojicCode !=null && staffLevelCode != null && staffNum != null) {
+			System.out.println(jojicCode[0]+"<--jojicCode");
+			System.out.println(staffLevelCode[0]+"<--staffLevelCode");
+			System.out.println(staffNum[0]+"<--staffNum");
+		   result = approvalService.modifyStorage(modifyStorage, jojicCode, staffLevelCode, staffNum);				
+		}else {
+			result = approvalService.modifyStorage(modifyStorage);	
+		}
 		
-		int result = approvalService.modifyStorage(modifyStorage, jojicCode, staffLevelCode, staffNum);		
 		return result;
 	}
 	

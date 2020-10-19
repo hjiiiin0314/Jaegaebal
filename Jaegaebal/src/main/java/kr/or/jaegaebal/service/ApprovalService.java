@@ -30,10 +30,11 @@ public class ApprovalService {
 		
 		String getDocCode = modifyStorage.getDocCode();
 		approvalmapper.delAppLine(getDocCode);
-		
+		int result = 0;
 		List<Map<String, Object>> choiceStaff = new ArrayList<>();
 		for(int i=0; i<jojicCode.length; i++) {
 			Map<String, Object> beforInfo = new HashMap<String, Object>();
+
 			beforInfo.put("jojicCode", jojicCode[i]);
 			beforInfo.put("levelCode", staffLevelCode[i]);
 			beforInfo.put("staffNum", staffNum[i]);
@@ -41,8 +42,17 @@ public class ApprovalService {
 			
 			choiceStaff.add(beforInfo);
 		}
+		if(choiceStaff != null) {
+			
+			result = approvalmapper.choiceStaff(choiceStaff);
+		}
+		return result;
+	}
+	//문서수정 - 임시저장 오버로딩
+	public int modifyStorage(UpmuDocument modifyStorage) {
 		
-		int result = approvalmapper.choiceStaff(choiceStaff);
+		int result = approvalmapper.modifyStorage(modifyStorage);
+
 		return result;
 	}
 	
