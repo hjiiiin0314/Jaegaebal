@@ -13,6 +13,9 @@
 	.emp-table{
 		height:600px;
 	}
+	.scroll-area-lg{
+	height: 400px;
+}
 </style>
 
 </th:block>
@@ -99,6 +102,8 @@
                                 </div>
                           	</div>
                             <div class="card-body">
+                            	<div class="scroll-area-lg">
+                            	<div class="scrollbar-container ps--active-y ps">
                                 <div class="tab-content formCheck">
                                     <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
 										<form action="/addInfo" method="post" name="basicInfo" class="basicInfo">
@@ -175,7 +180,7 @@
 				                   	    </form>    
                                     </div>
                                   
-            						<div class="tab-pane scroll-area-lg scrollbar-container" id="isCareerInfoFromOut" role="tabpanel">
+            						<div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
 										
 											<div class="position-relative form-group">
                                                 <div>
@@ -224,7 +229,7 @@
 												</tr> 												
 												<tr>
 													<td colspan="8">
-														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoFromOutBtn"><i class="pe-7s-add-user"></i>미구현</button></div>
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoFromOutBtn"><i class="pe-7s-add-user"></i>경력추가</button></div>
 													</td>
 												</tr>
 											</table>
@@ -336,7 +341,7 @@
 												<tr>
 													<td class="t_head2">병역구분</td>
 													<td colspan="5">
-														<select id="militaryclassidx" class="form-control textValue" name="militaryClassidx">
+														<select id="militaryclassidx" class="form-control textValue" name="militaryClassidx" >
                                								 <option value="">병역구분 선택</option>
                                								 <option value="병역필">병역필</option>
                                								 <option value="장교제대">장교제대</option>
@@ -350,8 +355,8 @@
 												<tr>
 													<td class="t_head2">군별</td>
 													<td colspan="5">
-														<select name="militaryServiceType" class="form-control staffDetailInfo textValue">
-															<option value="" selected="selected" disabled="disabled"></option>
+														<select name="militaryServiceType" class="form-control staffDetailInfo textValue" >
+															<option value="" selected="selected" disabled="disabled">선택</option>
 							                                <option value="육군">육군</option>
 							                                <option value="해군">해군</option>
 							                                <option value="공군">공군</option>
@@ -359,7 +364,7 @@
 							                                <option value="공익">공익</option>
 							                                <option value="전문연구요원">전문연구요원</option>
 							                                <option value="산업기능요원">산업기능요원</option>
-							                                <option value="해당없음">해당없음(여성)</option>
+							                                <option value="해당없음"hidden="hidden">해당없음</option>
 							                            </select>
 													</td>
 												</tr> 
@@ -367,16 +372,17 @@
 													<td class="t_head2">전역상태</td>
 													<td >
 														<select id="militaryState" class="form-control textValue" name="militaryState">
-                                							<option value="">선택</option>
+                                							<option value="" selected="selected" disabled="disabled">선택</option>
                                 							<option value="만기제대">만기제대</option>
                                 							<option value="의가사제대">의가사제대</option>
                                 							<option value="기타">기타</option>
+                                							<option value="해당없음" hidden="hidden">해당없음</option>
                             							</select>
 													</td>
 													<td class="t_head2">계급</td>
 													<td>
 														<select name="militaryLevel" class="form-control staffDetailInfo textValue">
-							                                <option value="" selected="selected" disabled="disabled"></option>
+							                                <option value="" selected="selected" disabled="disabled">선택</option>
 							                                <option value="이병">이병</option>
 							                                <option value="일병">일병</option>
 							                                <option value="상병">상병</option>
@@ -395,26 +401,38 @@
 							                                <option value="소장">소장</option>
 							                                <option value="중장">중장</option>
 							                                <option value="대장">대장</option>
+							                                <option value="해당없음" hidden="hidden">해당없음</option>
 							                            </select>
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">입대일자</td>
 													<td >
-														<input type="date" name="militaryInDay" class="form-control textValue" value="2020-09-09">
+														<input type="date" name="militaryInDay" class="form-control textValue">
 													</td>
 													<td class="t_head2">전역일자</td>
 													<td>
-														<input type="date" name="militaryOutDay" class="form-control textValue" value="2020-09-09">
+														<input type="date" name="militaryOutDay" class="form-control textValue">
 													</td>
-												</tr> 												
+												</tr> 
+												<tr>
+													<td class="t_head2">면제사유</td>
+													<td colspan="3">
+														<textarea name="companyOutReason" class="form-control textValue"></textarea>
+													</td>
+												</tr>												
 											</table>
 										</form>
 		                              <div class="d-block card-footer addDiv">
 		                                 <button class="mb-2 mr-2 btn btn-primary btn-sm btn-block" type="button" id="InfoStorage">등록하기</button>
 		                              </div>
                                     </div>                                                                                                            
-                                </div>                                             
+                                </div> 
+                                                                            
+                             </div>
+                             <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+                             <div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 65px;"></div></div>
+                             </div>
                              </div>
                          </div>
 					</div>

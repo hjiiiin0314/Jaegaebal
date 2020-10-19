@@ -143,9 +143,6 @@
 			tr.remove();
 		})
 		
-		$('.addTest').on("click",function() {
-
-		});
 		//입력된 첫번째 문자를 대문자로 변경함수
 		function capitalize(str) {
 			return str.charAt(0).toUpperCase() + str.slice(1);
@@ -163,6 +160,24 @@
 			$('#isCareerInfoFromOut').append(is_career_info_from_out);
 			$('#isCareerInfoFromOut').append(addCareerInfoFromOutBtnTr);
 		});*/
+		
+		//병역구분 면제/여성 일 시
+		$(document).on("change","#militaryclassidx",function() {
+			var idx = $(this).val();
+			if(idx == '여성' || idx == '면제') {
+				$('.militaryInfo input').attr('disabled', true);
+				$('select[name=militaryServiceType]').val('해당없음').attr('disabled', true);
+				$('select[name=militaryState]').val('해당없음').attr('disabled', true);
+				$('select[name=militaryLevel]').val('해당없음').attr('disabled', true);
+				
+				
+			}else {
+				$('.militaryInfo input').attr('disabled', false);
+				$('select[name=militaryServiceType]').val('').attr('disabled', false);
+				$('select[name=militaryState]').val('').attr('disabled', false);
+				$('select[name=militaryLevel]').val('').attr('disabled', false);
+			}
+		})
 		
 		//지원서 작성 등록
 		$('#InfoStorage').click(function() {
@@ -259,7 +274,6 @@
 				var request = $.ajax({
   				  url: "/addInfo", //컨트롤러 맵핑
   				  method: "POST",
-  				  traditional : true,
   				  data: $(classStr).serialize(),
   				  dataType: "json" // json방식으로 값 전달
   				});

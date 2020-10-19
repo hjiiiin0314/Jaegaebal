@@ -1,13 +1,11 @@
 package kr.or.jaegaebal.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import groovy.util.logging.Log4j;
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
 import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
@@ -100,7 +98,7 @@ public class ChaeYoungService {
 			
 			result += chaeYoungMapper.addBasicInfo(chaeYoungInfo);
 			if(chaeYoungInfo.getCompanyName().length > 0) {
-				List<ChaeYoungCareerInfo> chaeYoungCareerInfoList = new ArrayList<ChaeYoungCareerInfo>();				
+				//List<ChaeYoungCareerInfo> chaeYoungCareerInfoList = new ArrayList<ChaeYoungCareerInfo>();				
 				for(int i=0; i<chaeYoungInfo.getCompanyName().length; i++) {
 					ChaeYoungCareerInfo chaeYoungCareerInfo = new ChaeYoungCareerInfo();
 					//지원자 동일정보
@@ -118,9 +116,9 @@ public class ChaeYoungService {
 					chaeYoungCareerInfo.setCompanyOutDateFromOut(chaeYoungInfo.getCompanyOutDateFromOut()[i]); //퇴사일자
 					chaeYoungCareerInfo.setCompanyOutReason(chaeYoungInfo.getCompanyOutReason()[i]); //퇴직사유
 					
-					chaeYoungCareerInfoList.add(chaeYoungCareerInfo);
+					//chaeYoungCareerInfoList.add(chaeYoungCareerInfo);
+					result += chaeYoungMapper.addCareerInfo(chaeYoungCareerInfo);
 				}
-				result += chaeYoungMapper.addCareerInfo(chaeYoungCareerInfoList);
 			}
 		}
 		//지원이 완료 되면 지원상태 지원완료 로 변경 
