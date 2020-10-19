@@ -403,13 +403,7 @@ $(function(){
 		}
 	});
 	
-	//급여상세정보 저장 전 재확인 메세지
-	function updateCheck(form){
-		var result = confirm('급여상세정보를 저장하시겠습니까?');
-		if(!result){
-			return false;
-		}
-	}
+	
 	
 	//salary_record.html
 	//사원 가장 첫 데이터가 자동으로 선택되므로 파란색 처리
@@ -476,6 +470,13 @@ $(function(){
 			$('input[name=dataIncome]').val(data.dataIncome);
 			$('input[name=dataLoincome]').val(data.dataLoincome);
 			$('input[name=sqlKey]').val(data.sqlKey);
+			if(data.dataPay == 0){
+				if($('.deadline-btn').children('button').length == 0){
+					$('.deadline-btn').append('<button type="button" class="mt-2 ml-2 btn btn-primary date_right" id="pay-button">저장 후 마감</button>')
+				}
+			} else {
+				$('.deadline-btn').children('button').remove();
+			}
 			//데이터가 있어서 upd처리 시 월별 데이터에 저장된 항목과 값들이 저장됨 ins면 항목테이블의 항목들을 물러오는 ajax를 실행하여 값을 출력
 			if(data.sqlKey == "upd"){
 				if(data.dataAddpay != null){
@@ -570,6 +571,13 @@ $(function(){
 			$('input[name=dataIncome]').val(data.dataIncome);
 			$('input[name=dataLoincome]').val(data.dataLoincome);
 			$('input[name=sqlKey]').val(data.sqlKey);
+			if(data.dataPay == 0){
+				if($('.deadline-btn').children('button').length == 0){
+					$('.deadline-btn').append('<button type="button" class="mt-2 ml-2 btn btn-primary date_right" id="pay-button">저장 후 마감</button>')
+				}
+			} else {
+				$('.deadline-btn').children('button').remove();
+			}
 			//데이터가 있어서 upd처리 시 월별 데이터에 저장된 항목과 값들이 저장됨 ins면 항목테이블의 항목들을 물러오는 ajax를 실행하여 값을 출력
 			if(data.sqlKey == "upd"){
 				if(data.dataAddpay != null){
@@ -601,6 +609,12 @@ $(function(){
 		request.fail(function( jqXHR, textStatus ) {
 			alert( "Request failed: " + textStatus );
 		});
+	});
+	
+	//마감 후 저장 시 마감
+	$(document).on('click', '#pay-button', function(){
+		$('input[name=payKey]').val('payon');
+		$('#detail-form').submit();
 	});
 	
 	//월 1자리 일 시 앞에 0 붙임

@@ -49,7 +49,7 @@ public class SalaryController {
 	
 	//급상여입력 insert, update 처리
 	@PostMapping("/salary/salary_record")
-	public String salaryRecord(RedirectAttributes reAttr, SalaryRecord salaryRecord, String dateValue, String[] payName, String[] payPrice, String[] deductName, String[] deductPrice) {
+	public String salaryRecord(RedirectAttributes reAttr, SalaryRecord salaryRecord, String dateValue, String payKey, String[] payName, String[] payPrice, String[] deductName, String[] deductPrice) {
 		String sqlKey = salaryRecord.getSqlKey();
 		//항목과 금액을 &로 묶어 저장 (ex) 항목1&항목2&항목3
 		//지급항목
@@ -126,9 +126,15 @@ public class SalaryController {
 		salaryRecord.setDataDate(dateValue);
 		int result = 0;
 		if(sqlKey.equals("ins")) {
+			if(payKey.equals("payon")) {
+				salaryRecord.setDataPay(1);
+			}
 			System.out.println(salaryRecord);
 			result = salaryService.addSalMonth(salaryRecord);
 		} else if (sqlKey.equals("upd")) {
+			if(payKey.equals("payon")) {
+				salaryRecord.setDataPay(1);
+			}
 			System.out.println(salaryRecord);
 			result = salaryService.updateSalMonth(salaryRecord);
 		}

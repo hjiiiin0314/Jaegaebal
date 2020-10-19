@@ -13,6 +13,15 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}">
 </th:block>
 <th:block layout:fragment="customJs">
+	<script>
+	//급여상세정보 저장 전 재확인 메세지
+	function updateCheck(form){
+		var result = confirm('급여상세정보를 저장하시겠습니까?');
+		if(!result){
+			return false;
+		}
+	}
+	</script>
 	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
 </th:block>

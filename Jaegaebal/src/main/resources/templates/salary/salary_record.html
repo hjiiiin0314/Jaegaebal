@@ -26,7 +26,16 @@
 		$(function(){
 			//귀속년월 넣음(첫 화면은 현재날짜)
 			$('#datepicker').val(searchDate);
+			
 		});
+		
+		//급상여입력 저장 전 재확인 메세지
+		function updateCheck(form){
+			var result = confirm('급상여정보를 저장하시겠습니까?');
+			if(!result){
+				return false;
+			}
+		}
 	</script>
 	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
@@ -107,7 +116,7 @@
 			<div class="main-card mb-3 card">
 				<div class="card-body">
 					<h5 class="mt-2 card-title mb-4">급상여입력</h5>
-					<form action="/salary/salary_record" onsubmit="return updateCheck(this);" method="POST">
+					<form id="detail-form" action="/salary/salary_record" onsubmit="return updateCheck(this);" method="POST">
 						<table class="mb-0 table table-bordered table-detail">
 							<tr>
 								<td colspan="4" class="record-td-head">지급</td>
@@ -176,27 +185,27 @@
 							</tr>
 							<tr>
 								<td>국민연금</td>
-								<td><input type="number" name="dataGukmin" class="form-control" th:value="${salaryRecord.dataGukmin}"></td>
+								<td><input type="number" name="dataGukmin" class="form-control" th:value="${salaryRecord.dataGukmin}" readonly></td>
 								<td>건강보험</td>
-								<td><input type="number" name="dataGeongang" class="form-control" th:value="${salaryRecord.dataGeongang}"></td>
+								<td><input type="number" name="dataGeongang" class="form-control" th:value="${salaryRecord.dataGeongang}" readonly></td>
 							</tr>
 							<tr>
 								<td>고용보험</td>
-								<td><input type="number" name="dataKhoyong" class="form-control" th:value="${salaryRecord.dataKhoyong}"></td>
+								<td><input type="number" name="dataKhoyong" class="form-control" th:value="${salaryRecord.dataKhoyong}" readonly></td>
 								<td>장기요양보험</td>
-								<td><input type="number" name="dataJanggi" class="form-control" th:value="${salaryRecord.dataJanggi}"></td>
+								<td><input type="number" name="dataJanggi" class="form-control" th:value="${salaryRecord.dataJanggi}" readonly></td>
 							</tr>
 							<tr>
 								<td>산재보험</td>
-								<td><input type="number" name="dataSanjae" class="form-control" th:value="${salaryRecord.dataSanjae}"></td>
+								<td><input type="number" name="dataSanjae" class="form-control" th:value="${salaryRecord.dataSanjae}" readonly></td>
 								<td>학자금공제</td>
-								<td><input type="number" name="dataSchexpan" class="form-control" th:value="${salaryRecord.dataSchexpan}"></td>
+								<td><input type="number" name="dataSchexpan" class="form-control" th:value="${salaryRecord.dataSchexpan}" readonly></td>
 							</tr>
 							<tr>
 								<td>소득세</td>
-								<td><input type="number" name="dataIncome" class="form-control" th:value="${salaryRecord.dataIncome}"></td>
+								<td><input type="number" name="dataIncome" class="form-control" th:value="${salaryRecord.dataIncome}" readonly></td>
 								<td>지방소득세</td>
-								<td><input type="number" name="dataLoincome" class="form-control" th:value="${salaryRecord.dataLoincome}"></td>
+								<td><input type="number" name="dataLoincome" class="form-control" th:value="${salaryRecord.dataLoincome}" readonly></td>
 							</tr>
 							<tr>
 								<td>부가공제항목</td>
@@ -225,9 +234,10 @@
 							</tr>
 						</table>
 						<input type="hidden" name="sqlKey" th:value="${salaryRecord.sqlKey}">
+						<input type="hidden" name="payKey" value="payoff">
 						<span class="deadline-btn">
 						<th:block th:if="${salaryRecord.dataPay eq 0}">
-							<button type="button" class="mt-2 ml-2 btn btn-primary date_right">저장 후 마감</button>
+							<button type="button" class="mt-2 ml-2 btn btn-primary date_right" id="pay-button">저장 후 마감</button>
 						</th:block>
 						</span>
 						<input type="submit" class="mt-2 btn btn-primary date_right" value="저장">
