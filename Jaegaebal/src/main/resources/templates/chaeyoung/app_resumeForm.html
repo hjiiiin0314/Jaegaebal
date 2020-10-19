@@ -13,6 +13,9 @@
 	.emp-table{
 		height:600px;
 	}
+	.scroll-area-lg{
+	height: 400px;
+}
 </style>
 
 </th:block>
@@ -99,6 +102,8 @@
                                 </div>
                           	</div>
                             <div class="card-body">
+                            	<div class="scroll-area-lg">
+                            	<div class="scrollbar-container ps--active-y ps">
                                 <div class="tab-content formCheck">
                                     <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">
 										<form action="/addInfo" method="post" name="basicInfo" class="basicInfo">
@@ -175,7 +180,7 @@
 				                   	    </form>    
                                     </div>
                                   
-            						<div class="tab-pane scroll-area-lg scrollbar-container" id="isCareerInfoFromOut" role="tabpanel">
+            						<div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
 										
 											<div class="position-relative form-group">
                                                 <div>
@@ -224,7 +229,7 @@
 												</tr> 												
 												<tr>
 													<td colspan="8">
-														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoFromOutBtn"><i class="pe-7s-add-user"></i>미구현</button></div>
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoFromOutBtn"><i class="pe-7s-add-user"></i>경력추가</button></div>
 													</td>
 												</tr>
 											</table>
@@ -414,7 +419,12 @@
 		                                 <button class="mb-2 mr-2 btn btn-primary btn-sm btn-block" type="button" id="InfoStorage">등록하기</button>
 		                              </div>
                                     </div>                                                                                                            
-                                </div>                                             
+                                </div> 
+                                                                            
+                             </div>
+                             <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+                             <div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 65px;"></div></div>
+                             </div>
                              </div>
                          </div>
 					</div>
