@@ -172,8 +172,8 @@ public class ChaeYoungController {
 		System.out.println(chaeYoungInfo + "<--- dfdfadf");
 
 		
-		int result = chaeYoungService.addAppInfo(chaeYoungInfo);
+		//int result = chaeYoungService.addAppInfo(chaeYoungInfo);
 
-		return result;
+		return 0;
 	}
 }
