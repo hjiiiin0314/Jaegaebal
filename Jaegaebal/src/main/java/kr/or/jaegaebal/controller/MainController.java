@@ -30,22 +30,24 @@ public class MainController {
 
 	@Autowired LoginService loginService;
 	
-	//index.html
-	@GetMapping("/")
-	public String main(Model model) {
-		model.addAttribute("title", "로그인화면");
-		return "main/login";
-	}
+	/*
+	 * //index.html
+	 * 
+	 * @GetMapping("/") public String main(Model model) {
+	 * model.addAttribute("title", "로그인화면"); 
+	 * return "main/login"; 
+	 * }
+	 */
 	
 	//index2.html --> 원본 부트스트랩 화면
-	@GetMapping("/index2")
-	public String main2() {
+	@GetMapping("/index")
+	public String main() {
 		
-		return "main/index2";
+		return "main/index";
 	}
 	
 	//로그인 화면
-	@GetMapping("/login")
+	@GetMapping("/")
 	public String login(Model model) {
 		model.addAttribute("title", "로그인화면");
 		return "main/login";
