@@ -206,7 +206,7 @@
 			 1
 	</select>	
 	
-	<!-- 일반 직원일때 직원 목록 -->
+ 	<!-- 일반 직원일때 직원 목록 -->
 	<select id="getStaffInfo" parameterType="Map" resultMap="StaffInfoResultMap">
 		SELECT 
 				 sf.staff_num
@@ -1193,7 +1193,7 @@
 				AND pl.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
 	 		</if>
 		</where>
-		LIMIT 	0, 15;	
+		LIMIT 	#{startRow}, #{rowPerPage};
 	</select>
 	
 	<!-- 징계리스트 & 페이징 & 검색어의 전체 행 갯수 -->
@@ -1332,7 +1332,7 @@
 				AND pl.${map.sk} LIKE CONCAT('%',#{map.sv},'%')
 	 		</if>
 		</where>
-		LIMIT 	0, 15;	
+		LIMIT 	#{startRow}, #{rowPerPage};
 	</select>
 	
 	<!-- 포상 리스트 & 페이징 & 검색어의 전체 행 갯수 -->
