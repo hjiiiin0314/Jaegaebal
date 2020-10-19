@@ -25,7 +25,7 @@ public class CommonInterceptor implements HandlerInterceptor{
 			throws Exception {
 		// controller 진행 전
 		HttpSession session = request.getSession();
-		if(session.getAttribute("FIRSTMENU") == null && session.getAttribute("SECONDMENU") == null && session.getAttribute("THIRDMENU") == null && session.getAttribute("FOURTHMENU") == null) {
+		//if(session.getAttribute("FIRSTMENU") == null && session.getAttribute("SECONDMENU") == null && session.getAttribute("THIRDMENU") == null && session.getAttribute("FOURTHMENU") == null) {
 			List<Map<Menu, Object>> menuList = menuService.menuFirstList();
 			session.setAttribute("FIRSTMENU", menuList);
 			menuList = menuService.menuSecondList();
@@ -34,7 +34,7 @@ public class CommonInterceptor implements HandlerInterceptor{
 			session.setAttribute("THIRDMENU", menuList);
 			menuList = menuService.menuFourthList();
 			session.setAttribute("FOURTHMENU", menuList);
-		}
+		//}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	
