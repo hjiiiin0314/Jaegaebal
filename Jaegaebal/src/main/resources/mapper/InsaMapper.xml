@@ -351,7 +351,8 @@
 				LEFT JOIN
 				is_prize						AS pz
 				on
-				pz.prize_code = pzl.prize_code				
+				pz.prize_code = pzl.prize_code	
+				<!-- LIMIT 	#{startRow}, #{rowPerPage};			 -->
 <!-- 				<where>
 					<if test="map.searchObj neq null and map.searchObj neq ''.toString() and map.searchVal neq null and map.searchVal neq ''.toString()">
 						AND ${map.searchObj} LIKE CONCAT('%',#{map.searchVal},'%')

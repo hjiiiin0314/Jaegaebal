@@ -49,7 +49,7 @@ public class InsaService {
 
 	// 일반 직원일때 직원 목록 - 조직도
 	public Map<String, Object> getStaffInfoList(int currentPage, Map<String, Object> map) {
-		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
+		final int ROW_PER_PAGE 			= 20; 				// 보여줄 행의 갯수
 		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
 		int startPageNum 				= 1; 				// 시작페이지번호
 		int lastPageNum 				= ROW_PER_PAGE; 	// 끝페이지번호
@@ -59,13 +59,13 @@ public class InsaService {
 			lastPageNum 			   += (startPageNum - 1);
 		}
 		startRow = (currentPage - 1) * ROW_PER_PAGE;		// 페이징 알고리즘
-		double totalRowCount = insaMapper.getStaffInfoListCount(map);
-		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
 		
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("startRow", startRow);
 		parameterMap.put("rowPerPage", ROW_PER_PAGE);
 		parameterMap.put("map", map);
+		double totalRowCount = insaMapper.getStaffInfoListCount(map);
+		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
 		
 		List<StaffInfo> getStaffInfoList = insaMapper.getStaffInfo(parameterMap);
 
@@ -83,7 +83,7 @@ public class InsaService {
 	}
 	//직원 리스트 & 검색조건 & 페이징
 	public Map<String, Object> getStaffInfoAll(int currentPage, Map<String, Object> map) {
-		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
+		final int ROW_PER_PAGE 			= 20; 				// 보여줄 행의 갯수
 		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
 		int startPageNum 				= 1; 				// 시작페이지번호
 		int lastPageNum 				= ROW_PER_PAGE; 	// 끝페이지번호
@@ -93,13 +93,13 @@ public class InsaService {
 			lastPageNum 			   += (startPageNum - 1);
 		}
 		startRow = (currentPage - 1) * ROW_PER_PAGE;		// 페이징 알고리즘
-		double totalRowCount = insaMapper.getStaffInfoAllCount(map);
-		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
 		
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("startRow", startRow);
 		parameterMap.put("rowPerPage", ROW_PER_PAGE);
 		parameterMap.put("map", map);
+		double totalRowCount = insaMapper.getStaffInfoAllCount(map);
+		int lastPage = (int) Math.ceil((totalRowCount / ROW_PER_PAGE));
 		
 		List<Map<String, Object>> getStaffInfoAllList = insaMapper.getStaffInfoAll(parameterMap);
 		
@@ -135,7 +135,7 @@ public class InsaService {
 	// 부서별 직원 목록 리스트 가져오기
 	public Map<String, Object> getStaffInfoByParentJojicName(String buseoName, int currentPage) {
 
-		final int ROW_PER_PAGE			= 15; 					// 보여줄 행의 갯수
+		final int ROW_PER_PAGE			= 20; 					// 보여줄 행의 갯수
 		int startRow					= 0;					// 보여줄 행의 시작점 초기화
 		int startPageNum 				= 1; 					// 시작페이지번호
 		int lastPageNum 				= ROW_PER_PAGE;			// 끝페이지번호
@@ -362,7 +362,7 @@ public class InsaService {
 	
 	//징계 리스트 & 검색조건 & 페이징
 	public Map<String, Object> getPunishmentList(int currentPage, Map<String, Object> map) {
-		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
+		final int ROW_PER_PAGE 			= 10; 				// 보여줄 행의 갯수
 		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
 		int startPageNum 				= 1; 				// 시작페이지번호
 		int lastPageNum 				= ROW_PER_PAGE; 	// 끝페이지번호
@@ -424,7 +424,7 @@ public class InsaService {
 	
 	//포상 리스트 & 검색조건 & 페이징
 	public Map<String, Object> getPrizeList(int currentPage, Map<String, Object> map) {
-		final int ROW_PER_PAGE 			= 15; 				// 보여줄 행의 갯수
+		final int ROW_PER_PAGE 			= 10; 				// 보여줄 행의 갯수
 		int startRow 					= 0;				// 보여줄 행의 시작점 초기화
 		int startPageNum 				= 1; 				// 시작페이지번호
 		int lastPageNum 				= ROW_PER_PAGE; 	// 끝페이지번호
