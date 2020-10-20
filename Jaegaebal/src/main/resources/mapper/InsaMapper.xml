@@ -183,6 +183,97 @@
 		<result column="staff_name" 				property="staffName"/>
 	</resultMap>
 	
+	<resultMap type="StaffBasicInfo" id="StaffBasicInfoMap">
+		<result column="basic_info_code" 			property="basicInfoCode"/>
+		<result column="staff_eng_name" 			property="staffEngName"/>
+		<result column="human_num" 					property="humanNum"/>
+		<result column="staff_gender" 				property="staffGender"/>
+		<result column="staff_nationality" 			property="staffNationality"/>
+		<result column="staff_country" 				property="staffCountry"/>
+		<result column="staff_phone" 				property="staffPhone"/>
+		<result column="staff_email" 				property="staffEmail"/>
+		<result column="staff_marriged" 			property="staffMarriged"/>
+		<result column="staff_addr" 				property="staffAddr"/>	
+		<result column="staff_basic_info_notes" 	property="staffBasicInfoNotes"/>
+	</resultMap>
+	
+	<resultMap type="StaffFamilyInfo" id="StaffFamilyInfoMap">
+		<result column="family_info_code" 			property="familyInfoCode"/>
+		<result column="relation" 					property="relation"/>
+		<result column="family_name" 				property="familyName"/>
+		<result column="family_birthday" 			property="familyBirthday"/>
+		<result column="family_job" 				property="familyJob"/>
+		<result column="family_addr" 				property="familyAddr"/>
+		<result column="family_phone" 				property="familyPhone"/>
+		<result column="staff_family_info_notes" 	property="staffFamilyInfoNotes"/>	
+	</resultMap>
+	
+	<resultMap type="CareerInfoFromIn" id="CareerInfoFromInMap">
+		<result column="career_info_from_in_code" 	property="careerInfoFromInCode"/>
+		<result column="project_name" 				property="projectName"/>
+		<result column="project_start_date" 		property="projectStartDate"/>
+		<result column="project_end_date" 			property="projectEndDate"/>
+		<result column="project_access" 			property="projectAccess"/>
+		<result column="project_level_name" 		property="projectLevelName"/>
+		<result column="project_work" 				property="projectWork"/>
+		<result column="project_position" 			property="projectPosition"/>
+		<result column="career_info_from_in_notes" 	property="careerInfoFromInNotes"/>
+		
+	</resultMap>
+	
+	<resultMap type="CareerInfoFromOut" id="CareerInfoFromOutMap">
+		<result column="career_info_from_out_code" 	property="careerInfoFromOutCode"/>
+		<result column="company_name" 				property="companyName"/>
+		<result column="company_access" 			property="companyAccess"/>
+		<result column="company_position_from_out" 	property="companyPositionFromOut"/>
+		<result column="company_work_form_out" 		property="companyWorkFormOut"/>
+		<result column="company_in_date_from_out" 	property="companyInDateFromOut"/>
+		<result column="company_out_date_from_out" 	property="companyOutDateFromOut"/>
+		<result column="company_out_reason" 		property="companyOutReason"/>
+		<result column="career_info_from_out_notes" property="careerInfoFromOutNotes"/>
+	</resultMap>
+
+	<resultMap type="CertificateInfo" id="CertificateInfoMap">
+		<result column="certificate_info_code" 		property="certificateInfoCode"/>
+		<result column="certificate_name" 			property="certificateName"/>
+		<result column="issuing_agency" 			property="issuingAgency"/>
+		<result column="certificate_num" 			property="certificateNum"/>
+		<result column="get_date" 					property="getDate"/>
+		<result column="finished_date" 				property="finishedDate"/>
+	</resultMap>
+
+	<resultMap type="EducationInfo" id="EducationInfoMap">
+		<result column="education_info_code" 		property="educationInfoCode"/>
+		<result column="school_name" 				property="schoolName"/>
+		<result column="gakryuck_status" 			property="gakryuckStatus"/>
+		<result column="major_name" 				property="majorName"/>
+		<result column="minor_name" 				property="minorName"/>
+		<result column="entrance_date" 				property="entranceDate"/>
+		<result column="graduat_date" 				property="graduatDate"/>
+		<result column="degree" 					property="degree"/>
+		<result column="certificate_info_notes" 	property="certificateInfoNotes"/>
+	</resultMap>
+	
+	<resultMap type="StaffBalryoungInfo" id="StaffBalryoungInfoMap">
+		<result column="balryoung_info_code" 		property="balryoungInfoCode"/>
+		<result column="balryoung_staff_num" 		property="balryoungStaffNum"/>
+		<result column="balryoung_code" 			property="balryoungCode"/>
+		<result column="balryoung_date" 			property="balryoungDate"/>
+		<result column="balryoung_stage" 			property="balryoungStage"/>
+		<result column="balryoung_info_notes" 		property="balryoungInfoNotes"/>
+	</resultMap>
+	
+	<resultMap type="MilitaryInfo" id="MilitaryInfoMap">
+		<result column="military_info_code" 		property="militaryInfoCode"/>
+		<result column="military_service_type" 		property="militaryServiceType"/>
+		<result column="military_state" 			property="militaryState"/>
+		<result column="jaejic_status_name" 		property="jaejicStatusName"/>
+		<result column="military_in_day" 			property="militaryInDay"/>
+		<result column="military_out_day" 			property="militaryOutDay"/>
+		<result column="military_level" 			property="militaryLevel"/>
+		<result column="military_info_notes" 		property="militaryInfoNotes"/>
+	</resultMap>
+	
 	<!-- 회사 정보 목록 -->
 	<select id="getCompanyInfo" resultMap="CompanyResultMap">
 		SELECT 
@@ -1427,5 +1518,153 @@
 			<if test="prizeNum != null and prizeNum != ''.toString()">			
 				prize_num = #{prizeNum}
 			</if> 
-	</delete>	
+	</delete>
+	
+	<!-- 직원 기본 정보 가져오기 with 소속명,직책명,권한명,직급명,재직상태  -->	
+	<select id="getStaffInfoWithOther" parameterType="String" resultMap="StaffInfoResultMap">
+		SELECT
+			 si.*
+			,j.jaejic_status_name
+			,jj.jojic_name
+			,ps.position_name
+			,lv.level_name
+			,ac.access_name
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_jaejic AS j
+			ON 
+			si.staff_status_code = j.jaejic_status_code
+			LEFT JOIN
+			is_jojic AS jj
+			ON
+			si.jojic_code = jj.jojic_code
+			LEFT JOIN
+			is_position 			 	AS ps
+			ON 
+			si.staff_position_code = ps.position_code
+			LEFT JOIN
+			is_level 				 	AS lv
+			ON 
+			si.staff_level_code = lv.level_code
+			LEFT JOIN
+			is_access			 		AS ac
+			ON
+			si.access_num = ac.access_num	
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 인적사항 가져오기 -->
+	<select id="getStaffBasicInfo" parameterType="String" resultMap="StaffBasicInfoMap">
+		SELECT
+			bi.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_staff_basic_info AS bi
+			ON 
+			si.staff_num = bi.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 가족정보 가져오기 -->
+	<select id="getStaffFamilyInfo" parameterType="String" resultMap="StaffFamilyInfoMap">
+		SELECT
+			fi.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_staff_family_info AS fi
+			ON 
+			si.staff_num = fi.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 사내경력 가져오기 -->
+	<select id="getCareerInfoFromIn" parameterType="String" resultMap="CareerInfoFromInMap">
+		SELECT
+			cii.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_career_info_from_in	AS cii
+			ON 
+			si.staff_num = cii.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 사외경력 가져오기 -->
+	<select id="getCareerInfoFromOut" parameterType="String" resultMap="CareerInfoFromOutMap">
+		SELECT
+			coi.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_career_info_from_out AS coi
+			ON 
+			si.staff_num = coi.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 자격정보 가져오기 -->
+	<select id="getCertificateInfo" parameterType="String" resultMap="CertificateInfoMap">
+		SELECT
+			cci.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_certificate_info AS cci
+			ON 
+			si.staff_num = cci.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 학력정보 가져오기 -->
+	<select id="getEducationInfo" parameterType="String" resultMap="EducationInfoMap">
+		SELECT
+			ei.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_education_info AS ei
+			ON 
+			si.staff_num = ei.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 발령정보 가져오기 -->
+	<select id="getBalryoungInfo" parameterType="String" resultMap="StaffBalryoungInfoMap">
+		SELECT
+			bri.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_balryoung_info AS bri
+			ON 
+			si.staff_num = bri.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
+	<!-- 직원 병역정보 가져오기 -->
+	<select id="getMilitaryInfo" parameterType="String" resultMap="MilitaryInfoMap">
+		SELECT
+			mi.*
+		FROM
+			is_staff AS si
+			INNER JOIN
+			is_military_info AS mi
+			ON 
+			si.staff_num = mi.staff_num
+		WHERE
+			si.staff_num = #{staffNum}
+	</select>
+	
 </mapper>	
