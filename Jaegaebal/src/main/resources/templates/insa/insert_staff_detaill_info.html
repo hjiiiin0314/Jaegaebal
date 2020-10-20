@@ -128,81 +128,80 @@
 	                            <div class="card-body">
 	                                <div class="tab-content">
 	                                    <div class="tab-pane active isStaffBasicInfo" id="isStaffBasicInfo" role="tabpanel">
-	                                    
-	                                    <form class="insertDetailInfoForm staffBasicInfoForm" action="/staffBasicInfo" method="post" >
-											<table class="mb-12 table table-bordered forms is_staff_basic_info" >
-												<colgroup>
-													<col width = "12%">
-													<col width = "30%">
-													<col width = "15%">
-													<col width = "43%">
-												</colgroup>
-												<tr>
-													<td class="t_head2">영문이름
-														<input type="hidden" th:value="${staffNum}" class="form-control" name="staffNum"/>
-													</td>
-													<td colspan="3">
-														<input type="text" name="staffEngName" class="form-control staffDetailInfo ">
-													</td>
-												</tr> 
-												<tr>													
-													<td class="t_head2">성별</td>
-													<td>
-														<label><input type="radio" name="staffGender" value="여" checked="checked"> 여</label>
-														<label><input type="radio" name="staffGender" value="남"> 남</label>													
-													</td>
-													<td class="t_head2">주민등록번호</td>
-													<td class="inputmaineus" >
-														<input type="hidden" name="humanNum" id="humanNum"/>
-														<input type="text" class=" input-width21 human_num form-control staffDetailInfo" maxlength="6">
-														<span class="span-font">-</span>
-														<input type="text" class=" input-width22 human_num form-control staffDetailInfo" maxlength="7">
-													</td>
-												</tr> 
-												<tr>
-													<td class="t_head2">내외국인</td>
-													<td>
-														<label><input type="radio" name="staffNationality" value="내국인" checked="checked" class="staff-nationality-input staffDetailInfo"> 내국인</label>
-														<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input staffDetailInfo"> 외국인</label>
-													<td class="t_head2">국적</td>
-													<td>
-														<input type="text" name="staffCountry" class="form-control staffDetailInfo" >
-													</td>
-												</tr> 
-												<tr>													
-													<td class="t_head2">결혼여부</td>
-													<td>
-														<label><input type="radio" name="staffMarriged" value="미혼" checked="checked" class="staffDetailInfo"> 미혼 </label>
-														<label><input type="radio" name="staffMarriged" value="기혼" class="staffDetailInfo"> 기혼</label>
-													</td>
-													<td class="t_head2">연락처</td>
-													<td class="inputmaineus">
-														<input type="hidden" name="staffPhone"  id="staff_phone_val"/>
-														<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo"  maxlength="3">
-														<span class="span-font span-1">-</span>
-														<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo"  maxlength="4">
-														<span class="span-font span-2">-</span>
-														<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo"  maxlength="4">
-													</td>
-												</tr> 
-												<tr>													
-													<td class="t_head2">이메일</td>
-													<td>
-														<input type="text" name="staffEmail" class="form-control staffDetailInfo">
-													</td>
-													<td class="t_head2">주소</td>
-													<td>
-														<input type="text" name="staffAddr"  class="form-control staffDetailInfo">
-													</td>
-												</tr> 
-												<tr>
-													<td class="t_head2">비고</td>
-													<td colspan="5">
-														<textarea name="staffBasicInfoNotes" class="form-control staffDetailInfo"></textarea>
-													</td>
-												</tr> 
-											</table>
-										</form>	
+		                                    <form class="insertDetailInfoForm staffBasicInfoForm" action="/staffBasicInfo" method="post" >
+												<table class="mb-12 table table-bordered forms is_staff_basic_info" >
+													<colgroup>
+														<col width = "12%">
+														<col width = "30%">
+														<col width = "15%">
+														<col width = "43%">
+													</colgroup>
+													<tr>
+														<td class="t_head2">영문이름
+															<input type="hidden" th:value="${staffNum}" class="form-control" name="staffNum"/>
+														</td>
+														<td colspan="3">
+															<input type="text" name="staffEngName" class="form-control staffDetailInfo ">
+														</td>
+													</tr> 
+													<tr>													
+														<td class="t_head2">성별</td>
+														<td>
+															<label><input type="radio" name="staffGender" value="여" checked="checked"> 여</label>
+															<label><input type="radio" name="staffGender" value="남"> 남</label>													
+														</td>
+														<td class="t_head2">주민등록번호</td>
+														<td class="inputmaineus" >
+															<input type="hidden" name="humanNum" id="humanNum"/>
+															<input type="text" class=" input-width21 human_num form-control staffDetailInfo" maxlength="6">
+															<span class="span-font">-</span>
+															<input type="text" class=" input-width22 human_num form-control staffDetailInfo" maxlength="7">
+														</td>
+													</tr> 
+													<tr>
+														<td class="t_head2">내외국인</td>
+														<td>
+															<label><input type="radio" name="staffNationality" value="내국인" checked="checked" class="staff-nationality-input staffDetailInfo"> 내국인</label>
+															<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input staffDetailInfo"> 외국인</label>
+														<td class="t_head2">국적</td>
+														<td>
+															<input type="text" name="staffCountry" class="form-control staffDetailInfo" >
+														</td>
+													</tr> 
+													<tr>													
+														<td class="t_head2">결혼여부</td>
+														<td>
+															<label><input type="radio" name="staffMarriged" value="미혼" checked="checked" class="staffDetailInfo"> 미혼 </label>
+															<label><input type="radio" name="staffMarriged" value="기혼" class="staffDetailInfo"> 기혼</label>
+														</td>
+														<td class="t_head2">연락처</td>
+														<td class="inputmaineus">
+															<input type="hidden" name="staffPhone"  id="staff_phone_val"/>
+															<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo"  maxlength="3">
+															<span class="span-font span-1">-</span>
+															<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo"  maxlength="4">
+															<span class="span-font span-2">-</span>
+															<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo"  maxlength="4">
+														</td>
+													</tr> 
+													<tr>													
+														<td class="t_head2">이메일</td>
+														<td>
+															<input type="text" name="staffEmail" class="form-control staffDetailInfo">
+														</td>
+														<td class="t_head2">주소</td>
+														<td>
+															<input type="text" name="staffAddr"  class="form-control staffDetailInfo">
+														</td>
+													</tr> 
+													<tr>
+														<td class="t_head2">비고</td>
+														<td colspan="5">
+															<textarea name="staffBasicInfoNotes" class="form-control staffDetailInfo"></textarea>
+														</td>
+													</tr> 
+												</table>
+											</form>	
 	                                    </div>
 	                                    <div class="tab-pane " id="isStaffFamilyInfo" role="tabpanel">
 		                                    <form class="insertDetailInfoForm familyInfoForm" action="/staffFamilyInfo" method="post">
@@ -333,7 +332,7 @@
 														<td class="t_head2">직장명
 															<input type="hidden" th:value="${staffNum}" class="form-control" name="staffNum"/>
 														</td>
-														<td >
+														<td>
 															<input type="text" name="companyName" class="form-control staffDetailInfo">
 														</td>
 														<td class="t_head2">직위</td>
