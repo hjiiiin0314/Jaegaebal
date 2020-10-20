@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.jaegaebal.dto.NoticeBoard;
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.Upmu;
 import kr.or.jaegaebal.service.UpmuService;
@@ -91,6 +92,7 @@ public class UpmuController {
 		return "upmu/upmuList";
 	}
 
+	
 	//업무공유게시판화면이동
 	@GetMapping("/upmuShare")
 	public String upmuShare() {
@@ -98,10 +100,12 @@ public class UpmuController {
 		return "upmu/upmuShare";
 	}
 	
+	
 	//공지게시판화면이동
 	@GetMapping("/noticeBoard")
-	public String noticeBoard() {
-		
+	public String noticeBoard(Model model) {
+		List<NoticeBoard> noticeBoard = upmuService.noticeBoard();
+		model.addAttribute("noticeBoard", noticeBoard);
 		return "upmu/noticeBoard";
 	}
 

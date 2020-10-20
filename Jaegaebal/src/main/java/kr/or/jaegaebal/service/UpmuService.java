@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.Upmu;
+import kr.or.jaegaebal.dto.NoticeBoard;
 import kr.or.jaegaebal.mapper.UpmuMapper;
 
 /**
@@ -17,6 +18,12 @@ import kr.or.jaegaebal.mapper.UpmuMapper;
 @Service
 public class UpmuService {
 	@Autowired UpmuMapper upmumapper;
+	
+	//공지게시판 - 전체리스트
+	public List<NoticeBoard> noticeBoard(){
+		List<NoticeBoard> noticeBoard = upmumapper.noticeBoard();
+		return noticeBoard;
+	}
 	
 	//업무삭제
 	public int delTask(int taskNum) {

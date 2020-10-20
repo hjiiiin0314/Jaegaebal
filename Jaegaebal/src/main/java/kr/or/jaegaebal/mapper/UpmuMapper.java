@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.jaegaebal.dto.StaffInfo;
 import kr.or.jaegaebal.dto.Upmu;
+import kr.or.jaegaebal.dto.NoticeBoard;
 
 /**
  * 담당자 : 장현지
@@ -15,6 +16,8 @@ import kr.or.jaegaebal.dto.Upmu;
 @Mapper
 public interface UpmuMapper {
 	
+	//공지게시판 - 전체검색
+	public List<NoticeBoard> noticeBoard();
 	
 	//업무삭제
 	public int delTask(int taskNum);
