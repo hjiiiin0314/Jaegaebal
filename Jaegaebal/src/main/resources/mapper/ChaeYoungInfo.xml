@@ -179,7 +179,47 @@
 	
 	<!-- 병역사항 -->
 	<insert id="addMilitaryInfo" parameterType="ChaeYoungInfo">
-	
+		<selectKey resultType="String" keyProperty="militaryInfoCode" order="BEFORE">		
+			SELECT 
+				CONCAT('mili',LPAD(max(cast(SUBSTRING(military_info_code,5)AS DECIMAL))+1,5,0))
+			FROM
+				cy_applicant_military_info
+		</selectKey>
+		INSERT INTO cy_applicant_military_info
+			(military_info_code, job_number, app_email, app_num_code,
+			 military_classidx, military_service_type, military_state, military_in_day, military_out_day, military_level, military_info_notes, reg_date)
+		VALUES (
+			#{militaryInfoCode},
+			#{jobNumber},
+			#{appEmail},
+			#{appNumCode},	
+			#{militaryClassidx},
+			<choose>
+				<when test="militaryClassidx != '여성' and militaryClassidx != '면제'">				
+									
+					#{militaryServiceType},
+					#{militaryState},
+					#{militaryInDay},				
+					#{militaryOutDay},									
+					#{militaryLevel},							
+					'',
+				</when>
+				<otherwise>					
+					'',
+					'',
+					'0000-00-00',
+					'0000-00-00',
+					'',
+					<if test="militaryInfoNotes != null and militaryInfoNotes neq ''.toString()">
+					#{militaryInfoNotes},
+					</if>
+					<if test="militaryInfoNotes == null or militaryInfoNotes eq ''.toString()">
+					'',
+					</if>
+
+				</otherwise>
+			</choose>
+					NOW())
 
 	</insert>
 

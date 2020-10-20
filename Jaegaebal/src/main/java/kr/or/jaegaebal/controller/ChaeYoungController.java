@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -169,11 +170,13 @@ public class ChaeYoungController {
 	@ResponseBody
 	public int addInfo(ChaeYoungInfo chaeYoungInfo) {
 		
-		System.out.println(chaeYoungInfo + "<--- dfdfadf");
-
+		System.out.println("chaeYoungInfo -->" +chaeYoungInfo);
 		
-		//int result = chaeYoungService.addAppInfo(chaeYoungInfo);
+		int result = 0;
+			if(chaeYoungInfo != null) {				
+				result = chaeYoungService.addAppInfo(chaeYoungInfo);
+			}
 
-		return 0;
+		return result;
 	}
 }

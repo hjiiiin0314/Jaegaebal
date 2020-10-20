@@ -127,7 +127,7 @@
 			var companyOutDateFromOut = $('.careerInfoTable input[name=companyOutDateFromOut]').val();
 			var companyOutReason = $('.careerInfoTable textarea[name=companyOutReason]').val();
 
-			$('.aa').append('<tr><td class="textValue"><input type="hidden" name="companyName" value="'+companyName+'"/>'+ companyName +'</td>'+
+			$('.careerValue').append('<tr><td class="textValue"><input type="hidden" name="companyName" value="'+companyName+'"/>'+ companyName +'</td>'+
 							'<td class="textValue" ><input type="hidden" name="companyAccess" value="'+companyAccess+'"/>' + companyAccess +'</td>'+
 							'<td class="textValue" ><input type="hidden" name="companyPositionFromOut" value="'+companyPositionFromOut+'"/>'+ companyPositionFromOut +'</td>'+
 							'<td class="textValue" ><input type="hidden" name="companyWorkFormOut" value="'+companyWorkFormOut+'"/>'+ companyWorkFormOut +'</td>'+
@@ -169,13 +169,15 @@
 				$('select[name=militaryServiceType]').val('해당없음').attr('disabled', true);
 				$('select[name=militaryState]').val('해당없음').attr('disabled', true);
 				$('select[name=militaryLevel]').val('해당없음').attr('disabled', true);
-				
-				
+				if(idx == '면제') $('textarea[name=militaryInfoNotes]').attr('disabled', false);
+				if(idx == '여성')	 $('textarea[name=militaryInfoNotes]').val('').attr('disabled', true);		
 			}else {
 				$('.militaryInfo input').attr('disabled', false);
 				$('select[name=militaryServiceType]').val('').attr('disabled', false);
 				$('select[name=militaryState]').val('').attr('disabled', false);
 				$('select[name=militaryLevel]').val('').attr('disabled', false);
+				$('textarea[name=militaryInfoNotes]').val('').attr('disabled', true);
+
 			}
 		})
 		
@@ -229,9 +231,9 @@
 					return false;
 				}
 				for(var i=0; i<$('.'+className+' .textValue').length; i++) {
-					var Info = $('.'+className+' .textValue').eq(i).val();
+					var Info = $('.'+className+' .textValue').eq(i);
 					var InfoText = $('.'+className+' .textValue').eq(i).text();
-					if((className != 'careerInfo' && Info == '') || Info == undefined) {
+					if((className != 'careerInfo' && Info.val() == '') || Info.val() == undefined) {
 							
 						if(className == 'basicInfo') {
 							alert('인적사항을 입력해 주세요');
@@ -248,13 +250,22 @@
 							alert('학력정보를 입력해 주세요');
 							return false;
 						}else if(className == 'militaryInfo') {
-							alert('병역정보를 입력해 주세요');
-							return false;
+							var idx = $('#militaryclassidx').val();
+							if(idx == '여성') continue; // 선택된 값이 여성이면 건너뛴다.
+							if(idx == '면제' && Info.attr('disabled') != undefined) continue;
+							if(idx == '면제') {
+								alert('면제사유를 입력해 주세요');
+								return false;
+							}else {
+								if(Info.attr('disabled') != undefined) continue;
+								alert('병역정보를 입력해 주세요');
+								return false;								
+							}
 						}
 					}else {
 						if(className == 'careerInfo' && InfoText == '') {
 							if($('.careerInfoCheck').is(":checked") == true) continue;
-							alert('경력정보 : ' + $('.aa td').eq(i).text() + '(을/를) 작성하여 입력버튼을 눌러주세요.');
+							alert('경력정보 : ' + $('.careerValue td').eq(i).text() + '(을/를) 작성하여 입력버튼을 눌러주세요.');
 							return false;
 						}
 					}
@@ -270,7 +281,6 @@
 				return false;
 			}else {		
 				console.log($(classStr).serialize());
-				console.log($('.careerInfo').serializeArray());
 				var request = $.ajax({
   				  url: "/addInfo", //컨트롤러 맵핑
   				  method: "POST",
