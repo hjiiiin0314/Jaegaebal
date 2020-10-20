@@ -202,19 +202,19 @@
 					#{militaryInDay},				
 					#{militaryOutDay},									
 					#{militaryLevel},							
-					'',
+					NULL,
 				</when>
 				<otherwise>					
-					'',
-					'',
-					'0000-00-00',
-					'0000-00-00',
-					'',
+					NULL,
+					NULL,
+					NULL,
+					NULL,
+					NULL,
 					<if test="militaryInfoNotes != null and militaryInfoNotes neq ''.toString()">
 					#{militaryInfoNotes},
 					</if>
 					<if test="militaryInfoNotes == null or militaryInfoNotes eq ''.toString()">
-					'',
+					NULL,
 					</if>
 
 				</otherwise>
