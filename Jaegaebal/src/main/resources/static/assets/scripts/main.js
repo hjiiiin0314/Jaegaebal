@@ -19872,52 +19872,24 @@
                         }
                     },
                     defaultView: "listWeek",
-                    defaultDate: "2018-03-12",
                     navLinks: !0,
                     editable: !0,
                     eventLimit: !0,
                     events: [{
-                        title: "All Day Event",
-                        start: "2018-03-01"
+                        title: "몰라",
+                        start: "2020-10-02"
                     }, {
-                        title: "Long Event",
-                        start: "2018-03-07",
-                        end: "2018-03-10"
+                        title: "모른다고 인마",
+                        start: "2020-10-20",
+                        end: "2020-10-23"
+                    
                     }, {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: "2018-03-09T16:00:00"
+                        title: "Meeting같은 소리하네",
+                        start: "2020-10-25T14:30:00"
                     }, {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: "2018-03-16T16:00:00"
-                    }, {
-                        title: "Conference",
-                        start: "2018-03-11",
-                        end: "2018-03-13"
-                    }, {
-                        title: "Meeting",
-                        start: "2018-03-12T10:30:00",
-                        end: "2018-03-12T12:30:00"
-                    }, {
-                        title: "Lunch",
-                        start: "2018-03-12T12:00:00"
-                    }, {
-                        title: "Meeting",
-                        start: "2018-03-12T14:30:00"
-                    }, {
-                        title: "Happy Hour",
-                        start: "2018-03-12T17:30:00"
-                    }, {
-                        title: "Dinner",
-                        start: "2018-03-12T20:00:00"
-                    }, {
-                        title: "Birthday Party",
-                        start: "2018-03-13T07:00:00"
-                    }, {
-                        title: "Click for Google",
+                        title: "모른다고 자식아",
                         url: "http://google.com/",
-                        start: "2018-03-28"
+                        start: "2020-10-16"
                     }]
                 }), e("#calendar").fullCalendar({
                     header: {
@@ -19927,52 +19899,24 @@
                     },
                     themeSystem: "bootstrap4",
                     bootstrapFontAwesome: !0,
-                    defaultDate: "2018-03-12",
                     navLinks: !0,
                     editable: !0,
                     eventLimit: !0,
-                    events: [{
-                        title: "All Day Event",
-                        start: "2018-03-01"
+                   events: [{
+                        title: "몰라",
+                        start: "2020-10-02"
                     }, {
-                        title: "Long Event",
-                        start: "2018-03-07",
-                        end: "2018-03-10"
+                        title: "모른다고 자식아",
+                        start: "2020-10-20",
+                        end: "2020-10-23"
+                    
                     }, {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: "2018-03-09T16:00:00"
+                        title: "Meeting같은소리하네",
+                        start: "2020-10-25T14:30:00"
                     }, {
-                        id: 999,
-                        title: "Repeating Event",
-                        start: "2018-03-16T16:00:00"
-                    }, {
-                        title: "Conference",
-                        start: "2018-03-11",
-                        end: "2018-03-13"
-                    }, {
-                        title: "Meeting",
-                        start: "2018-03-12T10:30:00",
-                        end: "2018-03-12T12:30:00"
-                    }, {
-                        title: "Lunch",
-                        start: "2018-03-12T12:00:00"
-                    }, {
-                        title: "Meeting",
-                        start: "2018-03-12T14:30:00"
-                    }, {
-                        title: "Happy Hour",
-                        start: "2018-03-12T17:30:00"
-                    }, {
-                        title: "Dinner",
-                        start: "2018-03-12T20:00:00"
-                    }, {
-                        title: "Birthday Party",
-                        start: "2018-03-13T07:00:00"
-                    }, {
-                        title: "Click for Google",
+                        title: "누르면 구글뜸",
                         url: "http://google.com/",
-                        start: "2018-03-28"
+                        start: "2020-10-16"
                     }]
                 }), e("#calendar-bg-events").fullCalendar({
                     header: {
@@ -19982,11 +19926,10 @@
                     },
                     themeSystem: "bootstrap4",
                     bootstrapFontAwesome: !0,
-                    defaultDate: "2018-03-12",
                     navLinks: !0,
                     businessHours: !0,
                     editable: !0,
-                    events: [{
+                   /* events: [{
                         title: "Business Lunch",
                         start: "2018-03-03T13:00:00",
                         constraint: "businessHours"
@@ -20024,7 +19967,7 @@
                         overlap: !1,
                         rendering: "background",
                         color: "var(--success)"
-                    }]
+                    }]*/
                 })
             })
         }.call(this, n(1))
@@ -21270,11 +21213,11 @@
                 });
                 var o = i.datepicker;
                 o && (o.regional[n] = o.regional[e] = r, o.regional.en = o.regional[""], o.setDefaults(r))
-            }, t.locale = c, t.getMomentLocaleData = h, c("en", o.englishDefaults)
+            }, t.locale = c, t.getMomentLocaleData = h, c("ko", o.englishDefaults)
         }, function(e, t, n) {
             Object.defineProperty(t, "__esModule", {
                 value: !0
-            });
+            });	
             var i = n(4);
             t.globalDefaults = {
                 titleRangeSeparator: " – ",
@@ -21314,10 +21257,10 @@
                     prevYear: "prev year",
                     nextYear: "next year",
                     year: "year",
-                    today: "today",
-                    month: "month",
-                    week: "week",
-                    day: "day"
+                    today: "오늘",
+                    month: "월간",
+                    week: "주간",
+                    day: "일간"
                 },
                 allDayText: "all-day",
                 agendaEventMinHeight: 0,

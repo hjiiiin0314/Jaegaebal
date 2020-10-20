@@ -27,7 +27,6 @@ public class GeunTaeController {
 	public String getHdCodeList(Model model) {
 		
 		 List<Holiday> holiCodeList = geunTaeService.getHolidayList();
-		 System.out.println("holiCodeList -> " + holiCodeList);
 		 model.addAttribute("holiCodeList",holiCodeList);
 		
 		model.addAttribute("title","휴일리스트");

@@ -10,8 +10,13 @@
 	<th:block layout:fragment="customContent">
 	
 	
+	<script>
+		
 	
+
 	
+	</script>
+		
 	
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 <!-- 메뉴설명 -->
@@ -51,16 +56,17 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
-                                    <span>일정 추가</span>
+                                <a role="tab" class="nav-link" id="tab-2" data-toggle="modal" data-target="#myModal">                                
+                                    <span>휴일 추가</span>
                                 </a>
                             </li>
+                            
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
-                                        <div id='calendar'></div>                                        
+                                        <div id="calendar"></div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -86,11 +92,94 @@
     
     </div>
    
+   <!-- Modal -->
+   <div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body">
+	        <p>
+	        	<label for="hdName">휴일명</label>
+				<input class="form-control input-lg" name="hdName" placeholder="휴일명">
+			</p>
+	      </div>
+	      <div class="modal-body">
+	        <p>
+	        	<label for="hdStartDay">시작일</label>
+				<input class="form-control input-lg" name="hdStartDay" type="date" >
+			</p>
+	      </div>
+	      <div class="modal-body">
+	        <p>
+	        	<label for="hdEndDay">종료일</label>
+				<input class="form-control input-lg" name="hdEndDay" type="date" >
+			</p>
+	      </div>
+	      <div class="modal-body">
+	        <p>
+	        	<label for="hdEndDay">등록자</label>
+				<input class="form-control input-lg" name="regStaffName" th:value="${session.SSTAFFNAME}" readonly />
+			</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	        
+	        	<button type="button" class="btn btn-primary" id="submitBtn">추가하기</button>
+	      
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+   
     
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
 
 
 	</th:block>
-    
+	
+	<th:block layout:fragment="customJsScript">
+	<script>
+	//유효성검사
+	
+	$(function(){
+		$('#submitBtn').click(function(){
+			
+			
+			
+			var hdName = $('input[name="hdName"]');
+			var hdStartDay = $('input[name="hdStartDay"]');
+			var hdEndDay = $('input[name="hdEndDay"]');
+
+			
+			
+			if(hdName.val() == ''){
+				alert('휴일명을 입력해주세요.');
+				hdName.focus();
+				return false;
+			
+			}else if(hdStartDay.val() == ''){
+				alert('시작일을 설정해주세요.');
+				return false;
+			
+			}else if(hdEndDay.val() == ''){
+				alert('종료일을 설정해주세요.');
+				return false;
+			
+			
+			}
+			$('#myModal').submit();
+			alert('코드등록 완료.');
+		})
+	});
+	
+	
+	
+	
+	</script>
+	</th:block>
+	
+
 </html>
 
