@@ -1082,7 +1082,7 @@
     		request.done(function( data ) {
     			if(data == 1){
     				alert("추가 되었습니다.");
-    				window.location.href = "/";
+    				window.location.href = "/insa/staffInfoList";
     			}else{
     				alert("다시 시도해주세요.");
     			}
@@ -1344,9 +1344,121 @@
     		
     	})	
     	
+    	//직원리스트  - tr 클릭시 모달창 뜨기
     	$('.staffInfoTr').click(function(){
-    		alert("staffInfoTr클릭");
     		$(this).attr("data-target", "#staffInfoTrModal");
+    		var staffNum = $(this).find('#TrStaffNum').text();
+    		$('#staffNum').attr("value", staffNum);
+    		var request = $.ajax({
+    			url: "/getStaffInfoAll",
+    			method: "POST",
+    			data: {  staffNum : staffNum },
+    			dataType: "json"
+    		});
+    		request.done(function( data ) {
+    			if(data != null){
+    				alert("불러왔어요.");
+    				
+    				for(var key in data){
+    					console.log(key)
+						var getList = data[key];	
+    					
+    					if(key == 'staffInfoWithOther' || key == 'staffBasicInfo'){
+							
+    						if(getList != undefined && getList.length > 0){								
+    							var getFormInput;
+    							if(key == 'staffInfoWithOther'){
+    								getFormInput = $('#isStaffInfoDetail');
+    							}else{
+    								getFormInput = $('#isStaffBasicInfoDetail');
+    							}    							
+								for(var i=0; i < getList.length; i ++){								
+									for(var colName in getList[i]){										
+										getFormInput.find('input[name="'+colName+'"]').val(getList[i][colName]);
+									}								
+								}
+							}    						
+						}
+    					
+    					else{
+							
+							if(getList != undefined && getList.length > 0){
+								
+								for(var i=0; i < getList.length; i ++){								
+									for(var colName in getList[i]){
+										
+									}								
+								}
+							}
+						}
+    					
+					}
+    				
+    				var staffInfoWithOther	= data.staffInfoWithOther;
+    				var staffBasicInfo 		= data.staffBasicInfo;
+    				var staffFamilyInfo 	= data.staffFamilyInfo;
+    				var careerInfoFromIn	= data.careerInfoFromIn;
+    				var careerInfoFromOut 	= data.careerInfoFromOut;
+    				var certificateInfo 	= data.certificateInfo;
+    				var educationInfo 		= data.educationInfo;
+    				var balryoungInfo 		= data.balryoungInfo;
+    				var militaryInfo		= data.militaryInfo;
+    				//console.log("data::::>>", data.staffBasicInfo);
+    				var key = '';
+    				
+    				
+					if(staffInfoWithOther.length != 0){
+						/*var name = $('.isStaffInfoDetailForm table').find('input').attr("name");
+						for(var i=0; i<staffInfoWithOther.length; i++){
+
+							//console.log("staffInfoWithOther[i].staffNum::::",staffInfoWithOther[i].staffNum);
+							//console.log("맵 키값", Object.keys(staffInfoWithOther[i]));
+						}
+						$('.isStaffInfoDetailForm table').find('input').each(function(){
+							for(n=0; n<Object.keys(staffInfoWithOther[i]).length; n++){
+								var mapKey = Object.keys(staffInfoWithOther[i])[n];
+								console.log("mapKey>>>", mapKey);
+								if($(this).attr('name') == mapKey){
+									$(this).val();
+									staffInfoWithOther[i]
+								}
+							}
+							
+						});*/
+					}
+/*					if(staffBasicInfo.length != 0){
+						alert("staffBasicInfo");
+					}
+					if(staffFamilyInfo.length != 0){
+						alert("staffFamilyInfo");
+					}
+					if(careerInfoFromIn.length != 0){
+						alert("careerInfoFromIn");
+					}
+					if(careerInfoFromOut.length != 0){
+						alert("careerInfoFromOut");
+					}
+					if(staffBasicInfo.length != 0){
+						alert("certificateInfo");
+					}
+					if(educationInfo.length != 0){
+						alert("educationInfo");
+					}
+					if(balryoungInfo.length != 0){
+						alert("balryoungInfo");
+					}
+					if(militaryInfo.length != 0){
+						alert("militaryInfo");
+					}*/
+    					
+    				
+    			}else{
+    				alert("검색결과가 없습니다.");
+    			}
+    		});
+    		request.fail(function( jqXHR, textStatus ) {
+    			alert("직원정보 가져오기 응답 실패");
+    		});
     	});
     		
     });

@@ -573,6 +573,14 @@ public class InsaController {
 		return result;
 	}
 	
+	//직원 리스트 - tr 클릭시 직원 정보 가져오기
+	@PostMapping(value = "/getStaffInfoAll", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getStaffInfoAllByTr(String staffNum){
+		Map<String, Object> info = insaService.getStaffInfoByTr(staffNum);
+		log.info("info.toString()>>>>>>>>>>>>>>>{}", info.toString());
+		return info;
+	}
 
 	
 }

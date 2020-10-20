@@ -15,6 +15,7 @@ import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.dto.MilitaryInfo;
 import kr.or.jaegaebal.dto.Prize;
 import kr.or.jaegaebal.dto.Punishment;
+import kr.or.jaegaebal.dto.StaffBalryoungInfo;
 import kr.or.jaegaebal.dto.StaffBasicInfo;
 import kr.or.jaegaebal.dto.StaffFamilyInfo;
 import kr.or.jaegaebal.dto.StaffInfo;
@@ -41,9 +42,27 @@ public interface InsaMapper {
 	//직원 리스트 & 검색조건 & 페이징 의 전체 행 갯수
 	public int getStaffInfoAllCount(Map<String, Object> map);
 	
+	//직원 기본 정보 가져오기 with 소속명,직책명,권한명,직급명,재직상태
+	public List<StaffInfo> getStaffInfoWithOther(String staffNum);
+	//직원 인적사항 가져오기
+	public List<StaffBasicInfo> getStaffBasicInfo(String staffNum);
+	//직원 가족정보 가져오기
+	public List<StaffFamilyInfo> getStaffFamilyInfo(String staffNum);
+	//직원 사내경력 가져오기
+	public List<CareerInfoFromIn> getCareerInfoFromIn(String staffNum);
+	//직원 사외경력 가져오기
+	public List<CareerInfoFromOut> getCareerInfoFromOut(String staffNum);
+	//직원 자격정보 가져오기
+	public List<CertificateInfo> getCertificateInfo(String staffNum);
+	//직원 학력정보 가져오기
+	public List<EducationInfo> getEducationInfo(String staffNum);
+	//직원 발령정보 가져오기
+	public List<StaffBalryoungInfo> getBalryoungInfo(String staffNum);
+	//직원 병역정보 가져오기
+	public List<MilitaryInfo> getMilitaryInfo(String staffNum);
+	
 	//부서명 가지고 오기
 	public List<Map<Jojic, Object>> getJojicInfo();
-	
 	//팀명 가지고 오기
 	public List<Jojic> getTeamName(String buseoName);
 	
@@ -71,13 +90,10 @@ public interface InsaMapper {
 	
 	//권한 레벨, 명 가져오기 
 	public List<Code> getAccessInfo();
-	
 	//직급 코드, 명 가져오기
 	public List<Code> getLevelInfo();
-	
 	//직책 코드, 명 가져오기
 	public List<Code> getPositionInfo();
-	
 	//소속 코드, 명 가져오기
 	public List<Code> getJojicInfo1();
 	

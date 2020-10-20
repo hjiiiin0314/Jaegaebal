@@ -1,5 +1,6 @@
 package kr.or.jaegaebal.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -482,4 +483,20 @@ public class InsaService {
 		int result = insaMapper.deletePrizeInfo(prizeNum);
 		return result;
 	};
+	
+	//직원리스트 - tr 클릭시 직원정보 가져오기
+	public Map<String, Object> getStaffInfoByTr(String staffNum){
+		Map<String, Object> info = new HashMap<String, Object>();
+		info.put("staffBasicInfo", insaMapper.getStaffBasicInfo(staffNum));
+		info.put("staffInfoWithOther", insaMapper.getStaffInfoWithOther(staffNum));
+		info.put("staffFamilyInfo", insaMapper.getStaffFamilyInfo(staffNum));
+		info.put("careerInfoFromIn", insaMapper.getCareerInfoFromIn(staffNum));
+		info.put("careerInfoFromOut", insaMapper.getCareerInfoFromOut(staffNum));
+		info.put("certificateInfo", insaMapper.getCertificateInfo(staffNum));
+		info.put("educationInfo", insaMapper.getEducationInfo(staffNum));
+		info.put("balryoungInfo", insaMapper.getBalryoungInfo(staffNum));
+		info.put("militaryInfo", insaMapper.getMilitaryInfo(staffNum));
+		return info;
+		
+	}
 }

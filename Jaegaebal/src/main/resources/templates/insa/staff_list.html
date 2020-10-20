@@ -139,7 +139,7 @@
 												<tr th:each="l, index : ${getStaffInfoAllList}"  data-toggle="modal"  class="staffInfoTr">	
 												<!-- data-target="staffInfoTrModal"	 -->
 													<th scope="row" th:text="${l.rowNum}"></th>
-													<td><a th:text="${l.staffNum}" ></a></td>
+													<td><a th:text="${l.staffNum}" id="TrStaffNum"></a></td>
 													<td><a th:text="${l.staffName}" ></a></td>
 													<td><a th:text="${l.jojicName}" ></a></td>
 													<td><a th:text="${l.accessName}" ></a></td>
@@ -231,12 +231,12 @@
 				                          	<div class="card-body">
 				                                <div class="tab-content">
 				                                    <div class="tab-pane active isStaffInfo" id="isStaffInfoDetail" role="tabpanel">
-					                                    <form class="staffInfoForm" action="" method="post" >
+					                                    <form class="isStaffInfoDetail" action="" method="post">
 															<table class="mb-12 table table-bordered forms" >
 																<tr>
-																	<td class="t_head" >사번</td>
+																	<td class="t_head">사번</td>
 																	<td>
-																		<input type="text" name="staffNum" class="form-control" readonly>
+																		<input type="text" name="staffNum" class="form-control" id="staffNum" readonly>
 																	</td>
 																	<td class="t_head" >이름</td>
 																	<td>
@@ -276,21 +276,25 @@
 																</tr>	
 																<tr>
 																	<td class="t_head">입사일</td>
-																	<td colspan="3">
-																		<input type="date" name="companyInDate" class="form-control" readonly value="2020-01-01">
+																	<td>
+																		<input type="date" name="companyInDate" class="form-control" readonly>
+																	</td>
+																	<td class="t_head">재직상태</td>
+																	<td>
+																		<input type="text" name="jaejicStatusName" class="form-control" readonly>
 																	</td>
 																</tr>
 																<tr>
 																	<td class="t_head">비고</td>
 																	<td colspan="3">
-																		<textarea name="staffNotes" class="form-control staffInfoNotes" readonly></textarea>
+																		<textarea name="staffNotes" class="form-control" readonly></textarea>
 																	</td>
 																</tr>															
 															</table>															
 														</form>	
 				                                    </div>
 				                                    <div class="tab-pane isStaffBasicInfo" id="isStaffBasicInfoDetail" role="tabpanel">
-					                                    <form class="insertDetailInfoForm staffBasicInfoForm" action="" method="post" >
+					                                    <form class="" action="" method="post" >
 															<table class="mb-12 table table-bordered forms is_staff_basic_info" >
 																<colgroup>
 																	<col width = "12%">
@@ -499,13 +503,6 @@
 				                                    <div class="tab-pane " id="isCertificateInfoDetail" role="tabpanel">
 					                                    <form class="insertDetailInfoForm" action="" method="post">
 															<table class="mb-12 table table-bordered forms">
-																
-															</table>
-														</form>
-				                                    </div>				                                    
-				                                    <div class="tab-pane " id="isCertificateInfoDetail" role="tabpanel">
-					                                    <form class="insertDetailInfoForm" action="" method="post">
-															<table class="mb-12 table table-bordered forms">
 																<tr>
 																	<td class="t_head2">자격증명</td>
 																	<td colspan="5">
@@ -529,7 +526,7 @@
 																	</td>
 																	<td class="t_head2">만료일</td>
 																	<td>
-																		<input type="date" name="finishedDate" class="form-contro" readonly>
+																		<input type="date" name="finishedDate" class="form-control" readonly>
 																	</td>
 																</tr> 
 																<tr>
@@ -541,24 +538,120 @@
 															</table>
 														</form>
 				                                    </div>				                                    
-				                                    <div class="tab-pane " id="isCareerInfoFromIn" role="tabpanel">
+				                                    <div class="tab-pane " id="isEducationInfoDetail" role="tabpanel">
 					                                    <form class="insertDetailInfoForm familyInfoForm" action="/staffFamilyInfo" method="post">
 															<table class="mb-12 table table-bordered forms is_staff_family_info staffDetailInfo">
-																
+																<tr>
+																	<td class="t_head2">학교명</td>
+																	<td colspan="5">
+																		<input type="text" name="schoolName" class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>
+																	<td class="t_head2">전공</td>
+																	<td >
+																		<input type="text" name="majorName" class="form-control" readonly>
+																	</td>
+																	<td class="t_head2">부전공</td>
+																	<td>
+																		<input type="text" name="minorName"  class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>												
+																	<td class="t_head2">학위</td>
+																	<td>
+																		<input type="text" name="degree" class="form-control" readonly>
+																	</td>
+																	<td class="t_head2">상태</td>
+																	<td>
+																		<input type="text" name="hakryuckStatus" class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>
+																	<td class="t_head2">입학일</td>
+																	<td>
+																		<input type="date" name="entranceDate" class="form-control" readonly>
+																	</td>
+																	<td class="t_head2">졸업일</td>
+																	<td>
+																		<input type="date" name="graduatDate" class="form-control" readonly>
+																	</td>												
+																</tr>
+																<tr>
+																	<td class="t_head2">비고</td>
+																	<td colspan="5">
+																		<textarea name="educationInfoNotes" class="form-control" readonly></textarea>
+																	</td>
+																</tr>																
 															</table>
 														</form>
 				                                    </div>				                                    
-				                                    <div class="tab-pane " id="isCareerInfoFromIn" role="tabpanel">
-					                                    <form class="insertDetailInfoForm familyInfoForm" action="/staffFamilyInfo" method="post">
-															<table class="mb-12 table table-bordered forms is_staff_family_info staffDetailInfo">
-																
+				                                    <div class="tab-pane " id="isBalryoungInfoDetail" role="tabpanel">
+					                                    <form class="insertDetailInfoForm" action="" method="post">
+															<table class="mb-12 table table-bordered forms">
+																<tr>
+																	<td class="t_head2">발령내용</td>
+																	<td colspan="5">
+																		<input type="text" name="balryoungInfoName" class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>
+																	<td class="t_head2">발령일</td>
+																	<td > 
+																		<input type="date" name="balryoungDate" class="form-control" readonly>
+																	</td>
+																	<td class="t_head2">발령지</td>
+																	<td>
+																		<input type="text" name="balryoungStage" class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>
+																	<td class="t_head2">비고</td>
+																	<td colspan="5">
+																		<textarea name="balryoungInfoNotes" class="form-control" readonly></textarea>
+																	</td>
+																</tr>
 															</table>
 														</form>
 				                                    </div>				                                    
-				                                    
-				                                    
-				                                    
-				                                    
+				                                    <div class="tab-pane " id="isMilitaryInfoDetail" role="tabpanel">
+					                                    <form class="insertDetailInfoForm" action="" method="post">
+															<table class="mb-12 table table-bordered forms">
+																<tr>
+																	<td class="t_head2">군별 선택</td>
+																	<td colspan="5">
+																		<input type="text" name="militaryServiceType" class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>
+																	<td class="t_head2">상태</td>
+																	<td >
+																		<input type="text" name="militaryState" class="form-control" readonly>
+																	</td>
+																	<td class="t_head2">계급</td>
+																	<td>
+																		<input type="text" name="militaryLevel" class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>
+																	<td class="t_head2">입대일자</td>
+																	<td >
+																		<input type="date" name="militaryInDay" class="form-control" readonly>
+																	</td>
+																	<td class="t_head2">전역일자</td>
+																	<td>
+																		<input type="date" name="militaryOutDay" class="form-control" readonly>
+																	</td>
+																</tr> 
+																<tr>
+																	<td class="t_head2">비고</td>
+																	<td colspan="5">
+																		<textarea name="militaryInfoNotes" class="form-control" readonly></textarea>
+																	</td>
+																</tr> 
+															</table>
+														</form>
+				                                    </div>					                                    
 				                                </div> 				                          	
 				                          	</div>
 				                          	<div class="card-footer p-b-none p-t-lg">
