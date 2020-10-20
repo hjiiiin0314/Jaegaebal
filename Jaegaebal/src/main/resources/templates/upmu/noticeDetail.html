@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+
+	
+	<th:block layout:fragment="customCss">
+	      <!-- include summernote css/js -->
+      <link rel="stylesheet" href="summernote/summernote-lite.css">
+		
+		<!-- upmu.css  -->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">	
+		
+	</th:block>
+	
+	
+	<th:block layout:fragment="customContent">
+
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->		
+
+
+  	<div class="col-md-10">
+		<div class="app-page-title">
+			<div class="page-title-wrapper">
+				<div class="page-title-heading">
+				    <div class="page-title-icon">
+				        <i class="pe-7s-culture icon-gradient bg-mean-fruit">
+				        </i>
+				    </div>
+				    <div>
+				    	<h2>공지사항(상세보기)</h2>
+				       <div class="page-title-subheading"></div>
+				    </div>
+				</div>
+			</div>
+		</div>                
+		
+	<div class="col-md-12">
+		<div class="main-card mb-3 card"> 
+			<div class="card-body">
+				<th:block th:each="n : ${ntDetail}">
+				<input type="hidden" th:value="${n.ntCode}">
+				<div class="position-relative form-group index-front">
+		          	<div class="position-relative form-group document-form"><label>등록자</label>
+		             		<input type="text" class="form-control" th:value="${n.regStaffName}"  readonly="readonly">
+		              </div>
+		              <div class="position-relative form-group deadline-form"><label>등록일</label>
+		              	<input type="text" class="form-control" th:value="${n.regDate}" readonly="readonly">   
+		              </div>
+		        </div>       
+		             <div class="position-relative form-group"><label>제목</label>
+		            		<input type="text" class="form-control" th:value="${n.ntTitle}" readonly="readonly" >
+		             </div>                  
+		     		<textarea id="summernote" name="ntContents" th:text="${n.ntContents}" readonly="readonly"></textarea>
+		                                    
+		             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
+		              	<input  id="docFile" type="file" class="form-control-file" th:value="${n.ntFile}">
+		             </div>
+		             
+		           </th:block> 
+  
+     			</div>
+     		</div>
+     	</div>
+     </div>
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+
+
+
+
+	</th:block>
+
+	<!-- 사용자 지정 script -->
+	<th:block layout:fragment="customJsScript">		
+	 <script src="/summernote/summernote-lite.js"></script>
+     <script src="/summernote/lang/summernote-ko-KR.js"></script>
+
+		
+
+		<script type="text/javascript">
+		$(document).ready(function() {
+			 $('#summernote').summernote({
+                 height: 300,                 // 에디터 높이
+                 minHeight: null,             // 최소 높이
+                 maxHeight: null,             // 최대 높이
+                 lang: "ko-KR",               // 한글 설정
+                
+                      
+               });
+			});				
+		</script>
+		
+	
+	</th:block>
+
+</html>

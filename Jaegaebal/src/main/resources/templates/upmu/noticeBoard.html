@@ -53,8 +53,8 @@
 	                         </tr>
 	                    </thead>
                         <tbody>                       
-	                        <tr th:each="n : ${noticeBoard}">
-	                            <td th:text="${n.ntCode}" th:value="${n.ntCode}" class='text-center'></td>	                            
+	                        <tr th:each="n : ${noticeBoard}" class='noticeList'>
+	                            <td th:text="${n.ntCode}" class='text-center ntCode'></td>	                            
 	                            <td th:text="${n.ntTitle}" class='text-center'></td>	                            
 	                            <td th:text="${n.regStaffName}" class='text-center' ></td>
 	                            <td th:text="${n.regDate}" class='text-center'></td>                        		                                                  	
@@ -72,7 +72,22 @@
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+</th:block>
 
+<th:block layout:fragment="customJsScript"> 
 
+	<script type="text/javascript" >
+	
+		$(document).ready(function() {
+			
+			$('.noticeList').click(function(){
+				var ntCode = $(this).find('.ntCode').text();
+				console.log("ntCode:" + ntCode);
+				
+				location.href="/ntDetail?ntCode="+ntCode;
+			});
+		});
+	
+	</script>
 
 </html>

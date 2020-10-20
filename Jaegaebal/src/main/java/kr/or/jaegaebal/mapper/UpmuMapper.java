@@ -16,6 +16,9 @@ import kr.or.jaegaebal.dto.NoticeBoard;
 @Mapper
 public interface UpmuMapper {
 	
+	//공지사항- 상세보기
+	public List<NoticeBoard> ntDetail(String ntDoc);
+	
 	//공지게시판 - 조건검색
 	public List<NoticeBoard> searchNotice(String sk, String sv);
 	

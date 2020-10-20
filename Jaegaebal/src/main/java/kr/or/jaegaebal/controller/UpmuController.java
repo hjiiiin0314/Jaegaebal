@@ -100,6 +100,16 @@ public class UpmuController {
 		return "upmu/upmuShare";
 	}
 	
+	//공지게시판- 상세보기
+	@GetMapping("/ntDetail")
+	public String ntDetail(Model model
+							,@RequestParam(value = "ntCode",required = false)String ntCode) {
+		List<NoticeBoard> ntDetail = upmuService.ntDetail(ntCode);
+		model.addAttribute("ntDetail", ntDetail);
+		return "upmu/noticeDetail";
+	}
+	
+	
 	//공지게시판 -조건검색
 	@PostMapping("/searchNotice")
 	public String searchNotice(Model model,
