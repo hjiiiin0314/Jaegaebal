@@ -100,6 +100,22 @@ public class UpmuController {
 		return "upmu/upmuShare";
 	}
 	
+	//공지게시판 -조건검색
+	@PostMapping("/searchNotice")
+	public String searchNotice(Model model,
+							@RequestParam(value = "sk", required = false)String sk
+							,@RequestParam(value = "sv",required = false)String sv) {
+		
+		if(sk != null && !"".equals(sk) && sv != null && !"".equals(sv)){
+			List<NoticeBoard>noticeBoard = upmuService.searchNotice(sk, sv);
+			model.addAttribute("noticeBoard", noticeBoard);
+		}else {
+			List<NoticeBoard> noticeBoard = upmuService.noticeBoard();
+			model.addAttribute("noticeBoard", noticeBoard);
+		}
+		return "upmu/noticeBoard";
+	}
+	
 	
 	//공지게시판화면이동
 	@GetMapping("/noticeBoard")

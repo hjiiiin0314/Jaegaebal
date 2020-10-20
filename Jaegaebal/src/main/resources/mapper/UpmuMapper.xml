@@ -4,6 +4,29 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
 
+<!--공지게시판 - 검색 리스트  -->
+<select id="searchNotice" parameterType="String" resultType="NoticeBoard">
+	SELECT 
+		nt_code			as ntCode
+		, nt_title		as ntTitle
+		, nt_contents	as ntContents
+		, nt_file		as ntFile
+		, reg_staff_num	as regStaffNum
+		, n.reg_date	as regDate
+		,s.staff_name	as regStaffName
+	FROM 
+			um_notice_board AS n
+		LEFT JOIN
+			is_staff	AS s
+		ON
+			n.reg_staff_num = s.staff_num
+	<if test="sk neq ''.toString">
+	WHERE
+		${sk} LIKE CONCAT('%',#{sv},'%')
+	</if>
+		
+</select>
+
 <!--공지게시판 -전체리스트  -->
 <select id="noticeBoard" resultType="NoticeBoard">
 	SELECT 

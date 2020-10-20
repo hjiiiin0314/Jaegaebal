@@ -32,16 +32,16 @@
              <div class="main-card mb-12 card">
                   <div class="card-body">  
                   	<h4><i class="pe-7s-info"></i> 공지사항 </h4><br>
-                  	<!-- <form action="/searchNotice" method="post">
+                  	<form action="/searchNotice" method="post">
 						<select name="sk" class="form-control select-form" >
 							<option value="" selected="selected" disabled="disabled">::검색조건::</option>
-							<option value="nt_code">공지코드</option>
-							<option value="nt_title">제목</option>							
-							<option value="reg_staff_name">작성자</option>							
+							<option value="n.nt_code">공지코드</option>
+							<option value="n.nt_title">제목</option>							
+							<option value="s.staff_name">작성자</option>							
 						</select>
 						<input type="text" name="sv" class="form-control select-form">	
 							<button type="submit" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
-					</form> -->
+					</form>
 					<br>
 					<table class="mb-0 table table-hover ">
                     	<thead>
@@ -52,7 +52,7 @@
 	                             <th class="text-center">등록일</th>	                          
 	                         </tr>
 	                    </thead>
-                        <tbody id="noticeBoard">                       
+                        <tbody>                       
 	                        <tr th:each="n : ${noticeBoard}">
 	                            <td th:text="${n.ntCode}" th:value="${n.ntCode}" class='text-center'></td>	                            
 	                            <td th:text="${n.ntTitle}" class='text-center'></td>	                            

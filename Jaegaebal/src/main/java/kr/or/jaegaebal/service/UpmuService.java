@@ -19,6 +19,12 @@ import kr.or.jaegaebal.mapper.UpmuMapper;
 public class UpmuService {
 	@Autowired UpmuMapper upmumapper;
 	
+	//공지게시판 - 조건검색
+	public List<NoticeBoard> searchNotice(String sk, String sv){
+		List<NoticeBoard> searchNotice = upmumapper.searchNotice(sk, sv);
+		return searchNotice;
+	}
+	
 	//공지게시판 - 전체리스트
 	public List<NoticeBoard> noticeBoard(){
 		List<NoticeBoard> noticeBoard = upmumapper.noticeBoard();
