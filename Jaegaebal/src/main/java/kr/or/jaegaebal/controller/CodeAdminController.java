@@ -193,7 +193,7 @@ public class CodeAdminController {
 	@GetMapping("/addInsaCode")
 	public String addInsaCode(Model model) {
 		model.addAttribute("title","근무형태코드 추가");
-		return "CodeAdmin/addInsaCode";
+		return "codeAdmin/addInsaCode";
 	}
 	
 	@PostMapping("/addInsaCode")
