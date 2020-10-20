@@ -91,12 +91,6 @@ public class UpmuController {
 		return "upmu/upmuList";
 	}
 
-	//출퇴근화면이동
-	@GetMapping("/checkInOut")
-	public String checkInOut() {
-		return "upmu/checkInOut";
-	}
-	
 	//업무공유게시판화면이동
 	@GetMapping("/upmuShare")
 	public String upmuShare() {

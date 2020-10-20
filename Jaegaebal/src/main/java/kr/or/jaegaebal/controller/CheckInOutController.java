@@ -73,7 +73,11 @@ public class CheckInOutController {
 			
 		}
 		
-		
+	//출퇴근화면이동
+		@GetMapping("/checkInOut")
+		public String checkInOut() {
+			return "upmu/checkInOut";
+		}	
 	
 		
 	
