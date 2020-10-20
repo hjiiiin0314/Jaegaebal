@@ -1343,7 +1343,11 @@
     		$('.test').parent('td').nextAll('.gae').text(gae);
     		
     	})	
-
+    	
+    	$('.staffInfoTr').click(function(){
+    		alert("staffInfoTr클릭");
+    		$(this).attr("data-target", "#staffInfoTrModal");
+    	});
     		
     });
 
