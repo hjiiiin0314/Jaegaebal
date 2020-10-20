@@ -83,7 +83,7 @@ public class MainController {
 	public String logout(HttpSession session,Model model) {
 		session.invalidate();
 		model.addAttribute("title", "로그인화면");
-		return "redirect:/login";
+		return "redirect:/";
 	}
 	
 }
