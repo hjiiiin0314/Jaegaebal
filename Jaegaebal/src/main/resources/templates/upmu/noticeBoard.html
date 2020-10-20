@@ -40,7 +40,8 @@
 							<option value="s.staff_name">작성자</option>							
 						</select>
 						<input type="text" name="sv" class="form-control select-form">	
-							<button type="submit" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
+							<button type="submit" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search"></i>  검색</button>
+							<a href="/addNotice" class="btn btn-outline-warning btn-right"><i class="pe-7s-note"></i> 공지사항등록하기</a>
 					</form>
 					<br>
 					<table class="mb-0 table table-hover ">
@@ -80,12 +81,16 @@
 	
 		$(document).ready(function() {
 			
+			//상세보기
 			$('.noticeList').click(function(){
 				var ntCode = $(this).find('.ntCode').text();
 				console.log("ntCode:" + ntCode);
 				
 				location.href="/ntDetail?ntCode="+ntCode;
 			});
+			
+		
+			
 		});
 	
 	</script>

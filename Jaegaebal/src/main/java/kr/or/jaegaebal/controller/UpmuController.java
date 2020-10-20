@@ -100,6 +100,12 @@ public class UpmuController {
 		return "upmu/upmuShare";
 	}
 	
+	//공지글쓰기
+	@GetMapping("/addNotice")
+	public String addNotice() {
+		return "upmu/addNotice";
+	}
+	
 	//공지게시판- 상세보기
 	@GetMapping("/ntDetail")
 	public String ntDetail(Model model
