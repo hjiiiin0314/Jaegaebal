@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	<th:block layout:fragment="customCss">
+		<!-- upmu.css  -->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">
+	</th:block>
+	
+    
+	<th:block layout:fragment="customContent">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+ 		<div class="col-md-12">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-culture icon-gradient bg-mean-fruit"></i>
+					    </div>
+					    <div>
+					    	<h3>공지게시판</h3>					    		
+					       	<div class="page-title-subheading">
+					       	</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+             <div class="main-card mb-12 card">
+                  <div class="card-body">  
+                  	<h4><i class="pe-7s-info"></i> 공지사항 </h4><br>
+                  	<!-- <form action="/searchNotice" method="post">
+						<select name="sk" class="form-control select-form" >
+							<option value="" selected="selected" disabled="disabled">::검색조건::</option>
+							<option value="nt_code">공지코드</option>
+							<option value="nt_title">제목</option>							
+							<option value="reg_staff_name">작성자</option>							
+						</select>
+						<input type="text" name="sv" class="form-control select-form">	
+							<button type="submit" class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-search">    검색</i></button>
+					</form> -->
+					<br>
+					<table class="mb-0 table table-hover ">
+                    	<thead>
+	                         <tr>
+	                             <th class="text-center">공지코드</th>	                           
+	                             <th class="text-center">제목</th>
+	                             <th class="text-center">등록자</th>
+	                             <th class="text-center">등록일</th>	                          
+	                         </tr>
+	                    </thead>
+                        <tbody id="noticBoard">                       
+	                        <tr th:each="n : ${noticBoard}">
+	                            <td th:text="${n.ntCode}" th:value="${n.ntCode}" class='text-center'></td>	                            
+	                            <td th:text="${n.ntTitle}" class='text-center'></td>	                            
+	                            <td th:text="${n.regStaffName}" class='text-center' ></td>
+	                            <td th:text="${n.regDate}" class='text-center'></td>                        		                                                  	
+	                        </tr>	                       
+                        </tbody>
+                    </table>
+                  </div>
+             </div> 
+       </div>          
 
-</body>
+
+
+
+
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+
+
+
 </html>

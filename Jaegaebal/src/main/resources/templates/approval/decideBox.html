@@ -137,7 +137,7 @@
     			 console.log("SSTAFFNUM-->"+ SSTAFFNUM); //세션값 잘 넘어오는 지 확인
     			
     			var security = $(this).parent('td').nextAll('.security').text();    			
-    			if(security == '보안'){    		
+    			if(security != ''){    		
     				var request = $.ajax({
 					      				  url: "/securityPW", //컨트롤러 맵핑
 					      				  method: "POST",
