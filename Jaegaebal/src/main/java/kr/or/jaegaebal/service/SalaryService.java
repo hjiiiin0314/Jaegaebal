@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.jaegaebal.dto.SalaryInfo;
 import kr.or.jaegaebal.dto.SalaryRecord;
 import kr.or.jaegaebal.dto.StaffInfo;
+import kr.or.jaegaebal.dto.YoulPyo;
 import kr.or.jaegaebal.mapper.SalaryMapper;
 
 /**
@@ -39,6 +40,11 @@ public class SalaryService {
 	public int addSalMonth(SalaryRecord salaryRecord) {
 		int result = salaryMapper.addSalMonth(salaryRecord);
 		return result;
+	}
+	
+	public YoulPyo getYoulList() {
+		YoulPyo youlPyo = salaryMapper.getYoulList();
+		return youlPyo;
 	}
 	
 	public int getStaffNormal(String dataNum) {

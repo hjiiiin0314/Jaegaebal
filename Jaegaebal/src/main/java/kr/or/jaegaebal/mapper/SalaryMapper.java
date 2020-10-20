@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.or.jaegaebal.dto.SalaryInfo;
 import kr.or.jaegaebal.dto.SalaryRecord;
 import kr.or.jaegaebal.dto.StaffInfo;
+import kr.or.jaegaebal.dto.YoulPyo;
 
 /**
  * 담당자 : 이요셉
@@ -29,6 +30,9 @@ public interface SalaryMapper {
 	
 	//급상여입력 사원 연월데이터 존재여부 조회
 	public SalaryRecord getSelMonthData(String dataNum, String searchDate);
+	
+	//4대보험 요율표 조회
+	public YoulPyo getYoulList();
 	
 	//해당사원의 기본급 조회
 	public int getStaffNormal(String dataNum);

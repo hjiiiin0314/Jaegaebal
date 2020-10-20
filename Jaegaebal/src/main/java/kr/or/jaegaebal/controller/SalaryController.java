@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.or.jaegaebal.dto.SalaryInfo;
 import kr.or.jaegaebal.dto.SalaryRecord;
 import kr.or.jaegaebal.dto.StaffInfo;
+import kr.or.jaegaebal.dto.YoulPyo;
 import kr.or.jaegaebal.service.SalaryService;
 
 
@@ -27,6 +28,25 @@ import kr.or.jaegaebal.service.SalaryService;
 public class SalaryController {
 	@Autowired
 	private SalaryService salaryService;
+	
+	//급여기준정보화면
+	@GetMapping("/salary/salary_config")
+	public String salaryConfig(Model model) {
+		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
+		List<Map<String, Object>> levelList = salaryService.getLevelList();
+		List<Map<String, Object>> jojicList = salaryService.getJojicList();
+		List<Map<String, Object>> yearList = salaryService.getFilterYear();
+		String searchYear = (String) yearList.get(0).get("getYear");
+		String dataNum = (String) staffInfoList.get(0).get("dataNum");
+		List<Map<String,Object>> monthSalList = salaryService.getMonthSalList(searchYear, dataNum);
+		model.addAttribute("dataNum", dataNum);
+		model.addAttribute("yearList", yearList);
+		model.addAttribute("levelList", levelList);
+		model.addAttribute("jojicList", jojicList);
+		model.addAttribute("staffInfoList", staffInfoList);
+		model.addAttribute("monthSalList", monthSalList);
+		return "salary/salary_config";
+	}
 	
 	//월별급여현황화면
 	@GetMapping("/salary/salary_month")
@@ -173,9 +193,69 @@ public class SalaryController {
 			salaryRecord = new SalaryRecord();
 			//insert일때 사원의 기본급 조회
 			int staffBasicSalary = salaryService.getStaffNormal(dataNum);
+			//요율표를 조회하여 기본급에 요율표를 적용하여 공제값을 결정
+			YoulPyo youlPyo = salaryService.getYoulList();
+			
+			//국민연금 결정
+			int gukmin = (int)(staffBasicSalary*youlPyo.getGukminStaffPercent());
+			//국민연금 상한 하한가
+			if(gukmin < youlPyo.getGukminUpperLimitAmount()) {
+				gukmin = (int)(youlPyo.getGukminUpperLimitAmount()*youlPyo.getGukminStaffPercent());
+			} else if(gukmin > youlPyo.getGukminLowerLimitAmount()) {
+				gukmin = (int)(youlPyo.getGukminLowerLimitAmount()*youlPyo.getGukminStaffPercent());
+			}
+			
+			//건강보험 결정
+			int geongang = (int)(staffBasicSalary*youlPyo.getGunkangStaffPercent());
+			//건강보험 상한 하한가
+			if(geongang < youlPyo.getGunkangUpperLimitAmount()) {
+				geongang = (int)(youlPyo.getGunkangUpperLimitAmount()*youlPyo.getGunkangStaffPercent());
+			} else if(geongang > youlPyo.getGunkangLowerLimitAmount()) {
+				geongang = (int)(youlPyo.getGunkangLowerLimitAmount()*youlPyo.getGunkangStaffPercent());
+			}
+			
+			//장기요양보험 결정
+			int janggi = (int)(staffBasicSalary*youlPyo.getJangkiStaffPercent());
+			//장기요양보험 상한 하한가
+			if(janggi < youlPyo.getJangkiUpperLimitAmount()) {
+				janggi = (int)(youlPyo.getJangkiUpperLimitAmount()*youlPyo.getJangkiStaffPercent());
+			} else if(janggi > youlPyo.getJangkiLowerLimitAmount()) {
+				janggi = (int)(youlPyo.getJangkiLowerLimitAmount()*youlPyo.getJangkiStaffPercent());
+			}
+			
+			//고용보험 결정
+			int khoyong = (int)(staffBasicSalary*youlPyo.getGoyongStaffPercent());
+			
+			//산재보험 결정
+			int sanjae = (int)(staffBasicSalary*youlPyo.getSanjaeStaffPercent());
+			
+			//소득세 결정
+			int tax = 0;
+			if(staffBasicSalary<=12000000) {
+				tax = (int)(staffBasicSalary * 0.06);
+			} else if(staffBasicSalary<=46000000) {
+				tax = (int)(720000 + (staffBasicSalary-12000000) * 0.15);
+			} else if(staffBasicSalary<=88000000) {
+				tax = (int)(5820000 + (staffBasicSalary-46000000) * 0.24);
+			} else if(staffBasicSalary<=300000000) {
+				tax = (int)(15900000 + (staffBasicSalary-88000000) * 0.35);
+			} else {
+				tax = (int)(90100000 + (staffBasicSalary-300000000) * 0.38);
+			}
+			//지방소득세 결정
+			int lotax = tax/10;
+			//상여금 가져오기
 			int prizeSum = salaryService.getPrizeList(dataNum, searchDate);
+			//징계금 가져오기
 			int punishmentSum = salaryService.getPunishmentList(dataNum, searchDate);
 			salaryRecord.setDataNormal(staffBasicSalary);
+			salaryRecord.setDataGukmin(gukmin/100);
+			salaryRecord.setDataGeongang(geongang/100);
+			salaryRecord.setDataJanggi(janggi/100);
+			salaryRecord.setDataKhoyong(khoyong/100);
+			salaryRecord.setDataSanjae(sanjae/100);
+			salaryRecord.setDataIncome(tax);
+			salaryRecord.setDataLoincome(lotax);
 			salaryRecord.setDataBonus(prizeSum);
 			salaryRecord.setDataMalus(punishmentSum);
 			sqlKey = "ins";
@@ -297,9 +377,69 @@ public class SalaryController {
 			salaryRecord = new SalaryRecord();
 			//insert일때 사원의 기본급 조회
 			int staffBasicSalary = salaryService.getStaffNormal(dataNum);
+			//요율표를 조회하여 기본급에 요율표를 적용하여 공제값을 결정
+			YoulPyo youlPyo = salaryService.getYoulList();
+			
+			//국민연금 결정
+			int gukmin = (int)(staffBasicSalary*youlPyo.getGukminStaffPercent());
+			//국민연금 상한 하한가
+			if(gukmin < youlPyo.getGukminUpperLimitAmount()) {
+				gukmin = (int)(youlPyo.getGukminUpperLimitAmount()*youlPyo.getGukminStaffPercent());
+			} else if(gukmin > youlPyo.getGukminLowerLimitAmount()) {
+				gukmin = (int)(youlPyo.getGukminLowerLimitAmount()*youlPyo.getGukminStaffPercent());
+			}
+			
+			//건강보험 결정
+			int geongang = (int)(staffBasicSalary*youlPyo.getGunkangStaffPercent());
+			//건강보험 상한 하한가
+			if(geongang < youlPyo.getGunkangUpperLimitAmount()) {
+				geongang = (int)(youlPyo.getGunkangUpperLimitAmount()*youlPyo.getGunkangStaffPercent());
+			} else if(geongang > youlPyo.getGunkangLowerLimitAmount()) {
+				geongang = (int)(youlPyo.getGunkangLowerLimitAmount()*youlPyo.getGunkangStaffPercent());
+			}
+			
+			//장기요양보험 결정
+			int janggi = (int)(staffBasicSalary*youlPyo.getJangkiStaffPercent());
+			//장기요양보험 상한 하한가
+			if(janggi < youlPyo.getJangkiUpperLimitAmount()) {
+				janggi = (int)(youlPyo.getJangkiUpperLimitAmount()*youlPyo.getJangkiStaffPercent());
+			} else if(janggi > youlPyo.getJangkiLowerLimitAmount()) {
+				janggi = (int)(youlPyo.getJangkiLowerLimitAmount()*youlPyo.getJangkiStaffPercent());
+			}
+			
+			//고용보험 결정
+			int khoyong = (int)(staffBasicSalary*youlPyo.getGoyongStaffPercent());
+			
+			//산재보험 결정
+			int sanjae = (int)(staffBasicSalary*youlPyo.getSanjaeStaffPercent());
+			
+			//소득세 결정
+			int tax = 0;
+			if(staffBasicSalary<=12000000) {
+				tax = (int)(staffBasicSalary * 0.06);
+			} else if(staffBasicSalary<=46000000) {
+				tax = (int)(720000 + (staffBasicSalary-12000000) * 0.15);
+			} else if(staffBasicSalary<=88000000) {
+				tax = (int)(5820000 + (staffBasicSalary-46000000) * 0.24);
+			} else if(staffBasicSalary<=300000000) {
+				tax = (int)(15900000 + (staffBasicSalary-88000000) * 0.35);
+			} else {
+				tax = (int)(90100000 + (staffBasicSalary-300000000) * 0.38);
+			}
+			//지방소득세 결정
+			int lotax = tax/10;
+			//상여금 가져오기
 			int prizeSum = salaryService.getPrizeList(dataNum, searchDate);
+			//징계금 가져오기
 			int punishmentSum = salaryService.getPunishmentList(dataNum, searchDate);
 			salaryRecord.setDataNormal(staffBasicSalary);
+			salaryRecord.setDataGukmin(gukmin/100);
+			salaryRecord.setDataGeongang(geongang/100);
+			salaryRecord.setDataJanggi(janggi/100);
+			salaryRecord.setDataKhoyong(khoyong/100);
+			salaryRecord.setDataSanjae(sanjae/100);
+			salaryRecord.setDataIncome(tax);
+			salaryRecord.setDataLoincome(lotax);
 			salaryRecord.setDataBonus(prizeSum);
 			salaryRecord.setDataMalus(punishmentSum);
 			sqlKey = "ins";

@@ -258,6 +258,35 @@
 	data_emp = #{dataEmp}
 	</select>
 	
+	<!-- 4대보험 요율표 조회 -->
+	<select id="getYoulList" parameterType="String" resultType="YoulPyo">
+		<![CDATA[ 
+		SELECT 
+			insurance_youlpyo_code		AS	insuranceYoulpyoCode, 
+			gukmin_staff_percent		AS	gukminStaffPercent, 
+			gukmin_lower_limit_amount	AS	gukminLowerLimitAmount, 
+			gukmin_upper_limit_amount	AS	gukminUpperLimitAmount, 
+			gunkang_staff_percent		AS	gunkangStaffPercent, 
+			gunkang_lower_limit_amount	AS	gunkangLowerLimitAmount, 
+			gunkang_upper_limit_amount	AS	gunkangUpperLimitAmount, 
+			jangki_staff_percent		AS	jangkiStaffPercent, 
+			jangki_lower_limit_amount	AS	jangkiLowerLimitAmount, 
+			jangki_upper_limit_amount	AS	jangkiUpperLimitAmount, 
+			goyong_staff_percent		AS	goyongStaffPercent,
+			sanjae_staff_percent		AS	sanjaeStaffPercent, 
+			application_month			AS	applicationMonth, 
+			application_end_month		AS	applicationEndMonth, 
+			reg_date					AS	regDate
+		FROM 
+			is_insurance_youlpyo
+		WHERE
+			application_month < NOW()
+		AND
+			application_end_month > NOW()
+		limit 1
+		]]>
+	</select>
+	
 	<!-- 해당사원의 기본급 조회 -->
 	<select id="getStaffNormal" parameterType="String" resultType="int">
 		SELECT
