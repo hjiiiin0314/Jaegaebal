@@ -47,7 +47,7 @@ public class CodeAdminController {
 		@GetMapping("/addEmpCode")
 		public String addEmpCode(Model model) {
 			model.addAttribute("title","근무형태코드 추가");
-			return "CodeAdmin/addEmpCode";
+			return "codeAdmin/addEmpCode";
 		}
 		
 		@PostMapping("/addEmpCode")
@@ -124,7 +124,7 @@ public class CodeAdminController {
 	@GetMapping("/addDocCode")
 	public String addDocCode(Model model) {
 		model.addAttribute("title","근무형태코드 추가");
-		return "CodeAdmin/addDocCode";
+		return "codeAdmin/addDocCode";
 	}
 	
 	@PostMapping("/addDocCode")
