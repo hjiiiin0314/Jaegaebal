@@ -42,6 +42,16 @@ public class SalaryService {
 		return result;
 	}
 	
+	public List<Map<String, Object>> getDeductList(){
+		List<Map<String, Object>> deductList = salaryMapper.getDeductList();
+		return deductList;
+	}
+	
+	public List<Map<String, Object>> getPayList(){
+		List<Map<String, Object>> payList = salaryMapper.getPayList();
+		return payList;
+	}
+	
 	public YoulPyo getYoulList() {
 		YoulPyo youlPyo = salaryMapper.getYoulList();
 		return youlPyo;

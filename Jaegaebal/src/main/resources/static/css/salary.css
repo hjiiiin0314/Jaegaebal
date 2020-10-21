@@ -3,6 +3,12 @@
 .table {
 	border-collapse:separate;
 	border-spacing:unset;
+	white-space:nowrap;
+	table-layout:fixed;
+}
+
+.table th, .table td {
+	overflow:hidden;
 }
 
 .table .form_date{
@@ -218,6 +224,10 @@ table.ui-datepicker-calendar {
 	}
 	.table-overflow .table{
 		width:250%;
+	}
+	.checkbox-width{
+		width:15px;
+		height:15px;
 	}
 }
 

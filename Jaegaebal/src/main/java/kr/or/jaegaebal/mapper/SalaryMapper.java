@@ -31,6 +31,12 @@ public interface SalaryMapper {
 	//급상여입력 사원 연월데이터 존재여부 조회
 	public SalaryRecord getSelMonthData(String dataNum, String searchDate);
 	
+	//공제항목 조회
+	public List<Map<String, Object>> getDeductList();
+	
+	//지급항목 조회
+	public List<Map<String, Object>> getPayList();
+	
 	//4대보험 요율표 조회
 	public YoulPyo getYoulList();
 	

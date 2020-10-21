@@ -32,19 +32,10 @@ public class SalaryController {
 	//급여기준정보화면
 	@GetMapping("/salary/salary_config")
 	public String salaryConfig(Model model) {
-		List<Map<StaffInfo,Object>> staffInfoList = salaryService.getSalaryStaffList();
-		List<Map<String, Object>> levelList = salaryService.getLevelList();
-		List<Map<String, Object>> jojicList = salaryService.getJojicList();
-		List<Map<String, Object>> yearList = salaryService.getFilterYear();
-		String searchYear = (String) yearList.get(0).get("getYear");
-		String dataNum = (String) staffInfoList.get(0).get("dataNum");
-		List<Map<String,Object>> monthSalList = salaryService.getMonthSalList(searchYear, dataNum);
-		model.addAttribute("dataNum", dataNum);
-		model.addAttribute("yearList", yearList);
-		model.addAttribute("levelList", levelList);
-		model.addAttribute("jojicList", jojicList);
-		model.addAttribute("staffInfoList", staffInfoList);
-		model.addAttribute("monthSalList", monthSalList);
+		List<Map<String, Object>> deductList = salaryService.getDeductList();
+		List<Map<String, Object>> payList = salaryService.getPayList();
+		model.addAttribute("deductList", deductList);
+		model.addAttribute("payList", payList);
 		return "salary/salary_config";
 	}
 	

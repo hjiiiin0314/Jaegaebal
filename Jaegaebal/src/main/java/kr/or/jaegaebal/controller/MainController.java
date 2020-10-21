@@ -41,16 +41,24 @@ public class MainController {
 	
 	//index2.html --> 원본 부트스트랩 화면
 	@GetMapping("/index")
-	public String main() {
-		
-		return "main/index";
+	public String main(HttpSession httpsession) {
+		String setUrl = "main/index";
+		if(httpsession.getAttribute("SSTAFFNUM") == null) {
+			setUrl = "main/login";
+		}
+		return setUrl;
 	}
 	
 	//로그인 화면
 	@GetMapping("/")
-	public String login(Model model) {
+	public String login(HttpSession httpsession
+					,Model model) {
 		model.addAttribute("title", "로그인화면");
-		return "main/login";
+		String setUrl = "main/login";
+		if(httpsession.getAttribute("SSTAFFNUM") != null) {
+			setUrl = "main/index";
+		}
+		return setUrl;
 	}
 	
 	@PostMapping(value = "/staffLogin", produces = "application/json")
