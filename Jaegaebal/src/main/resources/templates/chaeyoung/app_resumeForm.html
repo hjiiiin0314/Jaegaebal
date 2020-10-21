@@ -94,9 +94,9 @@
                                 <div class="btn-actions-pane-right">
                                     <div class="nav">
                                         <a data-toggle="tab" href="#isStaffBasicInfo" class="btn-pill btn-wide mr-1 m-b-xs active btn btn-outline-alternate btn-sm testa">인적사항</a>                   
-                                        <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">사외경력</a>
-                                        <a data-toggle="tab" href="#isCertificateInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">자격정보</a>
-                                        <a data-toggle="tab" href="#isEducationInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">학력정보</a>
+                                        <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">경력정보</a>
+                                        <a data-toggle="tab" href="#isCertificateInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">자격증정보</a>
+                                        <a data-toggle="tab" href="#isEducationInfo" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">최종학력</a>
                                         <a data-toggle="tab" href="#isMilitaryInfo" class="btn-pill btn-wide btn m-b-xs btn-outline-alternate btn-sm">병역정보</a>
                                     </div>
                                 </div>
@@ -234,7 +234,7 @@
 												</tr>
 											</table>
 										<form class="careerInfo" action="/addInfo" method="post">
-											<table class="aa mb-0 table table-borderless">
+											<table class="careerValue mb-0 table table-borderless">
 												<tr>
 													<td> 직장명 </td>
 													<td> 직위 </td>
@@ -249,7 +249,7 @@
 				                         </form>                              
                                      </div>
                                      <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
-										<form class="certificateInfo">
+										<form class="certificateInfo" action="/addInfo" method="post">
 										    <div class="position-relative form-group">
                                                 <div class="custom-checkbox custom-control">
                                                 	<input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input certificateInfoCheck">
@@ -314,11 +314,30 @@
 												<tr>												
 													<td class="t_head2">학위</td>
 													<td>
-														<input type="text" name="degree" class="form-control textValue" value="2020-09-09">
+														<select id="degree" class="form-control textValue" name="degree">
+										                    <option value="">구분</option>
+										                    <option value="검정고시">검정고시</option>
+										                    <option value="고등학교">고등학교</option>
+										                    <option value="전문대학">전문대학</option>
+										                    <option value="대학교(편입)">대학교(편입)</option>
+										                    <option value="대학교">대학교</option>
+										                    <option value="석사">석사</option>
+										                    <option value="박사">박사</option>
+										                </select>
 													</td>
 													<td class="t_head2">상태</td>
-													<td>
-														<input type="text" name="hakryuckStatus" class="form-control textValue" value="2020-09-09">
+													<td>	
+														<select class="form-control textValue"name="hakryuckStatus">
+									                        <option value="">선택</option>
+									                        <option value="재학">재학</option>
+									                        <option value="휴학">휴학</option>
+									                        <option value="중퇴">중퇴</option>
+									                        <option value="수료">수료</option>
+									                        <option value="졸업예정">졸업예정</option>
+									                        <option value="졸업">졸업</option>
+									                        <option value="합격">합격</option>
+									                        <option value="검정고시">검정고시</option>
+									                    </select>
 													</td>
 												</tr> 
 												<tr>
@@ -418,7 +437,7 @@
 												<tr>
 													<td class="t_head2">면제사유</td>
 													<td colspan="3">
-														<textarea name="companyOutReason" class="form-control textValue"></textarea>
+														<textarea name="militaryInfoNotes" class="form-control textValue"></textarea>
 													</td>
 												</tr>												
 											</table>

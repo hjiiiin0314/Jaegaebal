@@ -63,7 +63,7 @@
     	            var appNumber = td.eq(0).text(); //공고번호
     	            var jobJojicName = td.eq(1).text(); //지원부서
     	            var jobTitle = td.eq(2).text(); //공고제목
-    	            var deadLine = td.eq(3).text(); //마감일
+    	            var deadLine = td.eq(4).text(); //마감일
     	            
 					$("#login input[name='jobNumber']").val(appNumber); //지원하기 작성할 때 컨트롤러로 보낼 값
 					

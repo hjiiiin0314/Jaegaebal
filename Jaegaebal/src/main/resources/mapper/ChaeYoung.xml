@@ -10,6 +10,7 @@
 		<result column="job_title" 			property="jobTitle"/>
 		<result column="job_content" 		property="jobContent"/>
 		<result column="job_career" 		property="jobCareer"/>
+		<result column="job_stage" 			property="jobStage"/>
 		<result column="job_deadline"		property="jobDeadLine"/>
 		<result column="job_reg_date" 		property="jobRegDate"/>
 		<result column="job_reg_staff"		property="jobRegStaff"/>
@@ -75,6 +76,7 @@
 			,job_title
 			,job_content
 			,job_career
+			,job_stage
 			,job_deadline
 			,job_reg_date
 			,job_reg_staff
@@ -86,6 +88,7 @@
 			,#{jobTitle}
 			,#{jobContent}
 			,#{jobCareer}
+			,#{jobStage}
 			,#{jobDeadLine}
 			,NOW()
 			,'개발자' <!-- seesion 아이디 값으로 변경해야 함. -->
@@ -110,6 +113,9 @@
 				</if>
 				<if test="jobCareer != null and jobCareer neq ''.toString()">
 					job_career = #{jobCareer},
+				</if>
+				<if test="jobStage != null and jobStage neq ''.toString()">
+					job_stage = #{jobStage},
 				</if>
 				<if test="jobDeadLine != null and jobDeadLine neq ''.toString()">
 					job_deadline = #{jobDeadLine}
@@ -137,7 +143,7 @@
 	</delete>
 	<!-- 채용공고 게시글 가져오기 -->
 	<select id="cyBoardList" parameterType="String" resultMap="ChaeYoungBoardResultMap">
-		SELECT job_number, job_jojic_code, job_jojic_name, job_title, job_content, job_career, job_deadline, job_reg_date, job_reg_staff
+		SELECT job_number, job_jojic_code, job_jojic_name, job_title, job_content, job_career, job_stage, job_deadline, job_reg_date, job_reg_staff
 		FROM cy_job_board
 		<!-- 구인공고리스트에서 공고 클릭시 -->
 		<if test="jobNumber != null and jobNumber neq ''.toString()">
