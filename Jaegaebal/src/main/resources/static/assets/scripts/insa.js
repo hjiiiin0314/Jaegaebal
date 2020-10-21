@@ -34,7 +34,7 @@
 	$(document).on('click', '.addFamilyInfoBtn', function(){
 		var addFamilyInfoBtnTr 		= $('.addFamilyInfoBtnTr').clone();
 		$('.addFamilyInfoBtnTr').remove();
-		var familyInfoForm 	= $(".familyInfoForm").eq(0).clone();
+		var familyInfoForm 			= $(".familyInfoForm").eq(0).clone();
 		familyInfoForm.find('input').val("");
 		familyInfoForm.find('textarea').val("");
 		$('#isStaffFamilyInfo').append(familyInfoForm);
@@ -54,7 +54,7 @@
 	
 	//사외경력등록 화면에서 -'경력추가' 버튼 클릭시 / 입력칸 추가 생성
 	$(document).on('click', '.addCareerInfoFromOutBtn', function(){
-		var addCareerInfoFromOutBtnTr 		= $('.addCareerInfoFromOutBtnTr').clone();
+		var addCareerInfoFromOutBtnTr 	= $('.addCareerInfoFromOutBtnTr').clone();
 		$('.addCareerInfoFromOutBtnTr').remove();
 		var careerInfoFromOutForm 		= $(".careerInfoFromOutForm").eq(0).clone();
 		careerInfoFromOutForm.find('input').val("");
@@ -1357,101 +1357,152 @@
     		});
     		request.done(function( data ) {
     			if(data != null){
-    				alert("불러왔어요.");
-    				
-    				for(var key in data){
-    					console.log(key)
-						var getList = data[key];	
-    					
-    					if(key == 'staffInfoWithOther' || key == 'staffBasicInfo'){
-							
+    				for(var infoType in data){
+    					console.log("infoType:::",infoType)
+						var getList = data[infoType];	
+    					if(infoType == 'staffInfoWithOther' || infoType == 'staffBasicInfo'){
     						if(getList != undefined && getList.length > 0){								
-    							var getFormInput;
-    							if(key == 'staffInfoWithOther'){
-    								getFormInput = $('#isStaffInfoDetail');
+    							var getForm;
+    							if(infoType == 'staffInfoWithOther'){
+    								getForm = $('#isStaffInfoDetail');
     							}else{
-    								getFormInput = $('#isStaffBasicInfoDetail');
+    								getForm = $('#isStaffBasicInfoDetail');
     							}    							
 								for(var i=0; i < getList.length; i ++){								
-									for(var colName in getList[i]){										
-										getFormInput.find('input[name="'+colName+'"]').val(getList[i][colName]);
+									for(var key in getList[i]){										
+										getForm.find('input[name="'+key+'"]').val(getList[i][key]);
 									}								
 								}
-							}    						
-						}
-    					
-    					else{
-							
+							} 
+						}else if(infoType == 'staffFamilyInfo'){
 							if(getList != undefined && getList.length > 0){
-								
-								for(var i=0; i < getList.length; i ++){								
-									for(var colName in getList[i]){
-										
-									}								
+								var getForm;
+								getForm = $('#isStaffFamilyInfoDetail');
+								for(var i=0; i < getList.length; i ++){
+									if(i == 0){
+										for(var key in getList[i]){		
+											$('.staffFamilyInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+										}
+										continue;
+									}else{
+										var staffFamilyInfoForm 	= $(".staffFamilyInfoForm").eq(0).clone();
+										$('#isStaffFamilyInfoDetail').append(staffFamilyInfoForm);
+										for(var key in getList[i]){		
+											$('.staffFamilyInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+										}
+									}
+								}
+							}
+						}else if(infoType == 'careerInfoFromIn'){
+							getForm = $('#isCareerInfoFromInDetail');
+							for(var i=0; i < getList.length; i ++){
+								if(i == 0){
+									console.log("i == 0");
+									for(var key in getList[i]){		
+										$('.isCareerInfoFromInForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+									continue;
+								}else{
+									console.log("i == 0 else");
+									var isCareerInfoFromInForm 	= $(".isCareerInfoFromInForm").eq(0).clone();
+									$('#isCareerInfoFromInDetail').append(isCareerInfoFromInForm);
+									for(var key in getList[i]){		
+										$('.isCareerInfoFromInForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+								}
+							}
+						}else if(infoType == 'careerInfoFromOut'){
+							getForm = $('#isCareerInfoFromOutDetail');
+							for(var i=0; i < getList.length; i ++){
+								if(i == 0){
+									console.log("i == 0");
+									for(var key in getList[i]){		
+										$('.isCareerInfoFromOutForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+									continue;
+								}else{
+									console.log("i == 0 else");
+									var isCareerInfoFromOutForm 	= $(".isCareerInfoFromOutForm").eq(0).clone();
+									$('#isCareerInfoFromOutDetail').append(isCareerInfoFromOutForm);
+									for(var key in getList[i]){		
+										$('.isCareerInfoFromOutForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+								}
+							}
+						}else if(infoType == 'certificateInfo'){
+							getForm = $('#isCertificateInfoDetail');
+							for(var i=0; i < getList.length; i ++){
+								if(i == 0){
+									console.log("i == 0");
+									for(var key in getList[i]){		
+										$('.isCertificateInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+									continue;
+								}else{
+									console.log("i == 0 else");
+									var isCertificateInfoForm 	= $(".isCertificateInfoForm").eq(0).clone();
+									$('#isCertificateInfoDetail').append(isCertificateInfoForm);
+									for(var key in getList[i]){		
+										$('.isCertificateInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+								}
+							}
+						}else if(infoType == 'educationInfo'){
+							getForm = $('#isEducationInfoDetail');
+							for(var i=0; i < getList.length; i ++){
+								if(i == 0){
+									console.log("i == 0");
+									for(var key in getList[i]){		
+										$('.isEducationInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+									continue;
+								}else{
+									console.log("i == 0 else");
+									var isEducationInfoForm 	= $(".isEducationInfoForm").eq(0).clone();
+									$('#isEducationInfoDetail').append(isEducationInfoForm);
+									for(var key in getList[i]){		
+										$('.isEducationInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+								}
+							}
+						}else if(infoType == 'balryoungInfo'){
+							getForm = $('#isBalryoungInfoDetail');
+							for(var i=0; i < getList.length; i ++){
+								if(i == 0){
+									console.log("i == 0");
+									for(var key in getList[i]){		
+										$('.isBalryoungInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+									continue;
+								}else{
+									console.log("i == 0 else");
+									var isBalryoungInfoForm 	= $(".isBalryoungInfoForm").eq(0).clone();
+									$('#isBalryoungInfoDetail').append(isBalryoungInfoForm);
+									for(var key in getList[i]){		
+										$('.isBalryoungInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+								}
+							}
+						}else if(infoType == 'militaryInfo'){
+							getForm = $('#isMilitaryInfoDetail');
+							for(var i=0; i < getList.length; i ++){
+								if(i == 0){
+									console.log("i == 0");
+									for(var key in getList[i]){		
+										$('.isMilitaryInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
+									continue;
+								}else{
+									console.log("i == 0 else");
+									var isMilitaryInfoForm 	= $(".isMilitaryInfoForm").eq(0).clone();
+									$('#isMilitaryInfoDetail').append(isMilitaryInfoForm);
+									for(var key in getList[i]){		
+										$('.isMilitaryInfoForm').eq(i).find('input[name="'+key+'"]').val(getList[i][key]);
+									}
 								}
 							}
 						}
-    					
 					}
-    				
-    				var staffInfoWithOther	= data.staffInfoWithOther;
-    				var staffBasicInfo 		= data.staffBasicInfo;
-    				var staffFamilyInfo 	= data.staffFamilyInfo;
-    				var careerInfoFromIn	= data.careerInfoFromIn;
-    				var careerInfoFromOut 	= data.careerInfoFromOut;
-    				var certificateInfo 	= data.certificateInfo;
-    				var educationInfo 		= data.educationInfo;
-    				var balryoungInfo 		= data.balryoungInfo;
-    				var militaryInfo		= data.militaryInfo;
-    				//console.log("data::::>>", data.staffBasicInfo);
-    				var key = '';
-    				
-    				
-					if(staffInfoWithOther.length != 0){
-						/*var name = $('.isStaffInfoDetailForm table').find('input').attr("name");
-						for(var i=0; i<staffInfoWithOther.length; i++){
-
-							//console.log("staffInfoWithOther[i].staffNum::::",staffInfoWithOther[i].staffNum);
-							//console.log("맵 키값", Object.keys(staffInfoWithOther[i]));
-						}
-						$('.isStaffInfoDetailForm table').find('input').each(function(){
-							for(n=0; n<Object.keys(staffInfoWithOther[i]).length; n++){
-								var mapKey = Object.keys(staffInfoWithOther[i])[n];
-								console.log("mapKey>>>", mapKey);
-								if($(this).attr('name') == mapKey){
-									$(this).val();
-									staffInfoWithOther[i]
-								}
-							}
-							
-						});*/
-					}
-/*					if(staffBasicInfo.length != 0){
-						alert("staffBasicInfo");
-					}
-					if(staffFamilyInfo.length != 0){
-						alert("staffFamilyInfo");
-					}
-					if(careerInfoFromIn.length != 0){
-						alert("careerInfoFromIn");
-					}
-					if(careerInfoFromOut.length != 0){
-						alert("careerInfoFromOut");
-					}
-					if(staffBasicInfo.length != 0){
-						alert("certificateInfo");
-					}
-					if(educationInfo.length != 0){
-						alert("educationInfo");
-					}
-					if(balryoungInfo.length != 0){
-						alert("balryoungInfo");
-					}
-					if(militaryInfo.length != 0){
-						alert("militaryInfo");
-					}*/
-    					
-    				
     			}else{
     				alert("검색결과가 없습니다.");
     			}
@@ -1459,6 +1510,13 @@
     		request.fail(function( jqXHR, textStatus ) {
     			alert("직원정보 가져오기 응답 실패");
     		});
+    	});
+    	
+    	//직원리스트 - 상세보기 모달 - 수정버튼 클릭시
+    	$('#modifyStaffInfoDetail').click(function(){
+    	});
+    	//직원리스트 - 상세보기 모달 - 삭제버튼 클릭시
+    	$('#deleteStaffInfoBtnDetail').click(function(){
     	});
     		
     });
