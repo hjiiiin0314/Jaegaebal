@@ -39,6 +39,25 @@
    	
    	<!-- ==========고용형태코드관리========== -->
    	
+   	<!-- 고용형태코드 검색 -->
+   	<select id="getSearchEmpCodeList" parameterType="String" resultMap="empCodeResultMap">
+	   	SELECT
+		   	  emp_code
+	   		 , emp_type
+	   		 , emp_salary_type
+	   		 , emp_attribution
+	   		 , emp_start_date
+	   		 , reg_staff_name
+	   		 , reg_date
+		FROM
+		 	gt_emp_code
+		WHERE
+			${sk} LIKE CONCAT('%',#{sv},'%')
+			
+		 
+   	</select>
+   	
+   	
    	<!-- 고용형태코드목록 -->
    	<select id="getEmpCodeList" resultMap="empCodeResultMap">
 	   	SELECT
@@ -124,6 +143,21 @@
    	
    	<!-- ==========문서코드관리========== -->
    	
+   	<!-- 문서코드 검색 -->
+   	<select id="getSearchDocCodeList" parameterType="String" resultMap="docCodeResultMap">
+	   	SELECT
+		   	 doc_code
+	   	 	, doc_type
+	   	 	, reg_staff_name
+	   	 	, reg_date
+		FROM
+		 	um_doctype
+		WHERE
+			${sk} LIKE CONCAT('%',#{sv},'%')
+			
+		 
+   	</select>
+   	
    	<!-- 문서코드목록 -->
    	<select id="getDocCodeList" resultMap="docCodeResultMap">
 	   	SELECT
@@ -198,7 +232,24 @@
    		WHERE
    			 doc_code=#{docCode}
    	</delete>
+   	
    	<!-- ==========인사코드관리========== -->
+   	
+   	<!-- 인사코드 검색 -->
+   	<select id="getSearchInsaCodeList" parameterType="String" resultMap="insaCodeResultMap">
+	   	SELECT
+		   	  code
+	   		, code_name
+	   		, reg_staff_name
+	   		, reg_date
+		FROM
+		 	is_code
+		WHERE
+			${sk} LIKE CONCAT('%',#{sv},'%')
+			
+		 
+   	</select>
+   	
    	
    	<!-- 인사코드목록 -->
    	<select id="getInsaCodeList" resultMap="insaCodeResultMap">
@@ -272,20 +323,20 @@
    	</delete>
    	
    	<!-- ==========근무형태코드관리========== -->
+   	
    	<!-- 근무코드 검색 -->
-   	<select id="getSearchWorkCodeList" parameterType="String" resultMap="insaCodeResultMap">
+   	<select id="getSearchWorkCodeList" parameterType="String" resultMap="codeResultMap">
 	   	SELECT
 		   	  w_code
-		   	, w_name
-		   	, w_use
-		   	, w_staff_name
-		   	, w_reg_date
+   			, w_name
+   			, w_use
+   			, w_staff_name
+   			, w_reg_date
 		FROM
-		 	gt_work_code
+			  gt_work_code
 		WHERE
-			${sk} LIKE CONCAT {'%',#{sv},'%'}
-		 
-   	</select>
+			${sk} LIKE CONCAT('%',#{sv},'%')
+	</select>
    	
    	<!-- 근무코드삭제 -->
    	<delete id="deleteWorkCode" parameterType="String">

@@ -16,6 +16,10 @@ import kr.or.jaegaebal.dto.InsaCodeAdmin;
 public interface CodeAdminMapper {
 	
 	/* ==========고용형태코드관리========== */
+	
+	//고용형태코드 검색
+	public List<CodeAdmin> getSearchEmpCodeList(String sk, String sv);
+	
 	//고용형태코드리스트
 	public List<EmpCodeAdmin> getEmpCodeList();
 	
@@ -37,6 +41,10 @@ public interface CodeAdminMapper {
 	
 	
 	/* ==========문서코드관리========== */
+	
+	//문서코드 검색
+		public List<CodeAdmin> getSearchDocCodeList(String sk, String sv);
+	
 	//문서코드리스트
 	public List<DocCodeAdmin> getDocCodeList();
 	
@@ -56,6 +64,10 @@ public interface CodeAdminMapper {
 	public int deleteDocCode(String docCode);
 	
 	/* ==========인사코드관리========== */
+	//인사형태코드 검색
+		public List<CodeAdmin> getSearchInsaCodeList(String sk, String sv);
+		
+	
 	//인사코드리스트
 	public List<InsaCodeAdmin> getInsaCodeList();
 	
