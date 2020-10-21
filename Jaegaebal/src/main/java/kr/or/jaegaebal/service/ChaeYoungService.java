@@ -121,8 +121,12 @@ public class ChaeYoungService {
 					result += chaeYoungMapper.addCareerInfo(chaeYoungCareerInfo);
 				}
 			}
+			//학력정보 
+			if(chaeYoungInfo.getDegree() != null) {
+				result += chaeYoungMapper.addEducationInfo(chaeYoungInfo);
+			}
+			//병역정보
 			if(chaeYoungInfo.getMilitaryClassidx() != null) {
-				System.out.println("들어옴?");
 				result += chaeYoungMapper.addMilitaryInfo(chaeYoungInfo);
 			}
 		}

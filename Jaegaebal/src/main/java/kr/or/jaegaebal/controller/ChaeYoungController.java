@@ -8,13 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
-import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
 import kr.or.jaegaebal.dto.ChaeYoungInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.mapper.ChaeYoungMapper;
@@ -60,16 +58,17 @@ public class ChaeYoungController {
 	//채용공고 등록
 	@PostMapping("/addCYPost")
 	public String addCYPost(ChaeYoungBoard ChaeYoungBoard) {
-	
+		
 		chaeYoungService.addCYBoardPost(ChaeYoungBoard);
+		
 		return "redirect:/cyboardList";
 	}
 	//채용공고 수정
 	@PostMapping("/updateCYPost")
 	public String updateCYPost(ChaeYoungBoard ChaeYoungBoard) {
-		
-
-		chaeYoungService.updateCYPost(ChaeYoungBoard);
+		System.out.println("ChaeYoungBoard :" + ChaeYoungBoard);
+		int result = chaeYoungService.updateCYPost(ChaeYoungBoard);
+		System.out.println(result);
 		return "redirect:/cyboardList";
 	}
 	//채용공고 삭제
@@ -173,10 +172,23 @@ public class ChaeYoungController {
 		System.out.println("chaeYoungInfo -->" +chaeYoungInfo);
 		
 		int result = 0;
-			if(chaeYoungInfo != null) {				
-				result = chaeYoungService.addAppInfo(chaeYoungInfo);
-			}
-
+		
+		  if(chaeYoungInfo != null) { result =
+		  chaeYoungService.addAppInfo(chaeYoungInfo); }
+		 
 		return result;
 	}
+	
+	/****************************************합격자 start*************************************************/
+	@GetMapping("/cyResult")
+	public String cyResult(Model model) {
+		
+		List<ChaeYoungBoard> cyBoardList = chaeYoungService.cyBoardList();
+		List<ChaeYoungApplicant> appList = chaeYoungService.appManagement();
+		model.addAttribute("cyBoardList", cyBoardList);
+		model.addAttribute("appList", appList);
+		
+		return "chaeyoung/cyResult";
+	}
+	
 }

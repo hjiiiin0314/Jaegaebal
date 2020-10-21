@@ -173,8 +173,57 @@
 	
 	<!-- 학력사항 -->
 	<insert id="addEducationInfo" parameterType="ChaeYoungInfo">
-	
-
+		<selectKey resultType="String" keyProperty="educationInfoCode" order="BEFORE">		
+			SELECT 
+				CONCAT('edu',LPAD(max(cast(SUBSTRING(education_info_code,4)AS DECIMAL))+1,5,0))
+			FROM
+				cy_applicant_education_info
+		</selectKey>
+		INSERT INTO cy_applicant_education_info
+			(education_info_code, job_number, app_email, app_num_code, school_name, hakryuck_status, major_name, minor_name, entrance_date, graduat_date, degree, reg_date)
+		VALUES (
+			#{educationInfoCode},
+			#{jobNumber}, 
+			#{appEmail}, 
+			#{appNumCode},
+		<if test="schoolName != null and schoolName neq ''.toString()">
+			#{schoolName},
+		</if>
+		<if test="schoolName == null or schoolName eq ''.toString()">
+			NULL, 		
+		</if> 
+		<if test="hakryuckStatus != null and hakryuckStatus neq ''.toString()">
+			#{hakryuckStatus},
+		</if>
+		<if test="hakryuckStatus == null or hakryuckStatus eq ''.toString()">
+			'검정고시', 		
+		</if> 
+		<if test="majorName != null and majorName neq ''.toString()">
+			#{majorName},
+		</if>
+		<if test="majorName == null or majorName eq ''.toString()">
+			NULL, 		
+		</if>
+		<if test="minorName != null and minorName neq ''.toString()">
+			#{minorName},
+		</if>
+		<if test="minorName == null or minorName eq ''.toString()">
+			NULL, 		
+		</if>
+		<if test="entranceDate != null and entranceDate neq ''.toString()">
+			#{entranceDate},
+		</if>
+		<if test="entranceDate == null or entranceDate eq ''.toString()">
+			NULL, 		
+		</if>
+		<if test="graduatDate != null and graduatDate neq ''.toString()">
+			#{graduatDate},
+		</if>
+		<if test="graduatDate == null or graduatDate eq ''.toString()">
+			NULL, 		
+		</if>
+			#{degree},
+			NOW())
 	</insert>
 	
 	<!-- 병역사항 -->

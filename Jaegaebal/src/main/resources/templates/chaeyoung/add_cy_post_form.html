@@ -13,11 +13,11 @@
 
 
 .center-form{
-   width:49%;
+   width:30%;
    float:left;
 }
 .right-form{
-   width:49%;
+   width:30%;
    float:right;
 }
 	 	</style>
@@ -53,20 +53,41 @@
 		                      <div class="position-relative form-group"><label>채용부서</label><select name="jobJojicCode" id="jobFieldCode" class="form-control">
                     			<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}" th:selected="${cyboard.jobJojicCode eq j.jojicCode}"></option>
 		                      </select></div>
-		                      <div class="position-relative form-group index-front">
-		                	      <input type="hidden" name="jobJojicName" th:value="${cyboard.jobJojicName}">	   
-		                	      <input type="hidden" name="jobNumber" th:value="${cyboard.jobNumber}" class="hiddenJobNumber">	   
-		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
-		                          <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
-		                          <option value="경력" th:selected="${cyboard.jobCareer eq '경력'}">경력</option>
-		                          <option value="신입/경력" th:selected="${cyboard.jobCareer eq '신입/경력'}">신입/경력</option>
-		                      </select></div>
-		                      <div class="position-relative form-group right-form"><label>지원마감일</label><input name="jobDeadLine" id="jobDeadLine" type="date" class="form-control" th:value="${cyboard.jobDeadLine}"></div>
-		                      </div>
+		                             <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                        	<input type="hidden" name="jobJojicName" id="jobJojicName">	
+                                        	<input type="hidden" name="jobNumber" th:value="${cyboard.jobNumber}">	
+                                            <label for="validationTooltip01">경력구분</label>
+	                                          <select name="jobCareer" id="jobCareer" class="form-control">
+						                        <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
+		                         				<option value="경력" th:selected="${cyboard.jobCareer eq '경력'}">경력</option>
+		                          				<option value="신입/경력" th:selected="${cyboard.jobCareer eq '신입/경력'}">신입/경력</option>
+						                      </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationTooltip02">심사단계</label>
+                                            	<select name="jobStage" class="form-control">
+						                          <option value="1" th:selected="${cyboard.jobStage eq '1'}">1단계</option>
+						                          <option value="2" th:selected="${cyboard.jobStage eq '2'}">2단계</option>
+						                          <option value="3" th:selected="${cyboard.jobStage eq '3'}">3단계</option>
+						                          <option value="4" th:selected="${cyboard.jobStage eq '4'}">4단계</option>
+						                          <option value="5" th:selected="${cyboard.jobStage eq '5'}">5단계</option>
+						                          <option value="6" th:selected="${cyboard.jobStage eq '6'}">6단계</option>
+						                          <option value="7" th:selected="${cyboard.jobStage eq '7'}">7단계</option>
+						                          <option value="8" th:selected="${cyboard.jobStage eq '8'}">8단계</option>
+						                        </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationTooltipUsername">지원마감일</label>
+                                            <div class="input-group">
+                                             
+                                                <input name="jobDeadLine" id="jobDeadLine" type="date" class="form-control" th:value="${cyboard.jobDeadLine}">                               
+                                            </div>
+                                        </div>
+                                    </div>
 		                      <div class="position-relative form-group"><label>제목</label><input name="jobTitle" id="jobTitle" placeholder="제목" type="text" class="form-control"  th:value="${cyboard.jobTitle}"></div>
 		                      <textarea id="summernote" name="jobContent" th:text=${cyboard.jobContent}></textarea>
-		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
-		                      </div>             
+		                                  
 		                     	<div class="d-block text-center">
 		                            <button class="mb-2 mr-2 btn btn-info" type="submit">수정하기</button>
 		                            <button class="mb-2 mr-2 btn btn-danger" type="button" id="cyPostDelete"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기</button>
@@ -87,19 +108,41 @@
 		                      	<div class="position-relative form-group"><label>채용부서</label><select name="jobJojicCode" id="jojicCode" class="form-control">
                     				<option th:each="j : ${jojicCode}" th:value="${j.jojicCode}" th:text="${j.jojicName}"></option>
 		                     	 </select></div>
-		                      <div class="position-relative form-group index-front">
-									<input type="hidden" name="jobJojicName" id="jobJojicName">	                      
-		                      <div class="position-relative form-group center-form"><label>경력구분</label><select name="jobCareer" id="jobCareer" class="form-control">
-		                          <option value="신입">신입</option>
-		                          <option value="경력">경력</option>
-		                          <option value="신입/경력">신입/경력</option>
-		                      </select></div>
-		                      <div class="position-relative form-group right-form"><label>지원마감일</label><input name="jobDeadLine" id="jobDeadLine" type="date" class="form-control"></div>
-		                      </div>
+		                     	 	<div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                        	<input type="hidden" name="jobJojicName" id="jobJojicName">	
+                                            <label for="validationTooltip01">경력구분</label>
+	                                           <select name="jobCareer" id="jobCareer" class="form-control">
+						                          <option value="신입">신입</option>
+						                          <option value="경력">경력</option>
+						                          <option value="신입/경력">신입/경력</option>
+						                       </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationTooltip02">심사단계</label>
+                                            	<select name="jobStage" class="form-control">
+						                          <option value="1">1단계</option>
+						                          <option value="2">2단계</option>
+						                          <option value="3">3단계</option>
+						                          <option value="4">4단계</option>
+						                          <option value="5">5단계</option>
+						                          <option value="6">6단계</option>
+						                          <option value="7">7단계</option>
+						                          <option value="8">8단계</option>
+						                        </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationTooltipUsername">지원마감일</label>
+                                            <div class="input-group">
+                                             
+                                                <input name="jobDeadLine" id="jobDeadLine" type="date" class="form-control">                               
+                                            </div>
+                                        </div>
+                                    </div>
+		            
 		                      <div class="position-relative form-group"><label>제목</label><input name="jobTitle" id="jobTitle" placeholder="제목" type="text" class="form-control"></div>
 		                      <textarea id="summernote" name="jobContent"></textarea>
-		                      <div class="position-relative form-group"><label for="exampleFile" class="">첨부파일</label><input name="docFile" id="docFile" type="file" class="form-control-file">
-		                      </div>             
+		                              
 		                      <div align="center"><button class="mt-1 btn btn-primary" type="button" id="addcyPostBtn">등록하기</button></div>               
 							</form>
 		                  </div>

@@ -137,11 +137,21 @@
 							'<td><button type="button" class="mb-2 mr-2 btn btn-link abtn"><i class="pe-7s-trash"> </i></button></td></tr>');
 			
 		});
-		//추가 입력사항 삭제
+		//경력추가 입력사항 삭제
 		$(document).on("click",'.abtn',function() {
 			var tr = $(this).parent().parent();
 			tr.remove();
-		})
+		});
+		//학력사항 검정고시 일 시 
+		$(document).on("change","#degree", function() {
+			if($(this).val() == '검정고시') {
+				$('.educationInfo input').attr('disabled', true);
+				$('select[name=hakryuckStatus]').val('검정고시').attr('disabled', true);
+			}else {
+				$('.educationInfo input').attr('disabled', false);
+				$('select[name=hakryuckStatus]').val('').attr('disabled', false);
+			}
+		});
 		
 		//입력된 첫번째 문자를 대문자로 변경함수
 		function capitalize(str) {
@@ -247,6 +257,7 @@
 							alert('자격증정보를 입력해 주세요');
 							return false;
 						}else if(className == 'educationInfo') {
+							if($('select[name=degree]').val() == '검정고시') continue;
 							alert('학력정보를 입력해 주세요');
 							return false;
 						}else if(className == 'militaryInfo') {
@@ -280,24 +291,26 @@
 				alert('올바른 핸드폰번호를 입력해 주세요');
 				return false;
 			}else {		
-				console.log($(classStr).serialize());
-				var request = $.ajax({
-  				  url: "/addInfo", //컨트롤러 맵핑
-  				  method: "POST",
-  				  data: $(classStr).serialize(),
-  				  dataType: "json" // json방식으로 값 전달
-  				});
-  				 
-  				request.done(function( data ) {
-  					if(data != 0) {
-  						alert('정상적으로 지원이 완료되었습니다.');
-  						location.href="/cyboardList"
-  					}
-  				});
-  				 
-  				request.fail(function( jqXHR, textStatus ) {
-  				  alert( "Request failed: " + textStatus );
-  				});
+				if(confirm('위 사항은 모두 본인이 직접 작성하였으며, 사실과 다름없습니까?')) {				
+				
+					var request = $.ajax({
+	  				  url: "/addInfo", //컨트롤러 맵핑
+	  				  method: "POST",
+	  				  data: $(classStr).serialize(),
+	  				  dataType: "json" // json방식으로 값 전달
+	  				});
+	  				 
+	  				request.done(function( data ) {
+	  					if(data != 0) {
+	  						alert('정상적으로 지원이 완료되었습니다.');
+	  						location.href="/cyboardList"
+	  					}
+	  				});
+	  				 
+	  				request.fail(function( jqXHR, textStatus ) {
+	  				  alert( "Request failed: " + textStatus );
+	  				});
+				}
 			}
 
 			
