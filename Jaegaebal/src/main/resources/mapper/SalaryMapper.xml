@@ -258,6 +258,36 @@
 	data_emp = #{dataEmp}
 	</select>
 	
+	<!-- 공제항목조회 -->
+	<select id="getDeductList" resultType="Map">
+		SELECT 
+			deduct_num			AS	deductNum, 
+			deduct_name			AS	deductName, 
+			deduct_account		AS	deductAccount, 
+			deduct_sal			AS	deductSal, 
+			deduct_perdepart	AS	deductPerdepart, 
+			deduct_per			AS	deductPer, 
+			deduct_upper		AS	deductUpper, 
+			deduct_lower		AS	deductLower
+		FROM 
+			sal_deduct
+	</select>
+	
+	<!-- 지급항목조회 -->
+	<select id="getPayList" resultType="Map">
+		SELECT 
+			pay_num			AS	payNum, 
+			pay_name		AS	payName, 
+			pay_tax			AS	payTax, 
+			pay_sal			AS	paySal, 
+			pay_perdepart	AS	payPerdepart, 
+			pay_per			AS	payPer, 
+			pay_upper		AS	payUpper, 
+			pay_lower		AS	payLower
+		FROM 
+			sal_pay
+	</select>
+	
 	<!-- 4대보험 요율표 조회 -->
 	<select id="getYoulList" parameterType="String" resultType="YoulPyo">
 		<![CDATA[ 

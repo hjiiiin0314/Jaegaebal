@@ -95,9 +95,10 @@ public class ChaeYoungService {
 		int result = 0;
 		
 		if(chaeYoungInfo.getAppNumCode() != null) {
-			
+			//지원자 기본 인적사항
 			result += chaeYoungMapper.addBasicInfo(chaeYoungInfo);
-			if(chaeYoungInfo.getCompanyName().length > 0) {
+			
+			if(chaeYoungInfo.getCompanyName() != null) {
 				//List<ChaeYoungCareerInfo> chaeYoungCareerInfoList = new ArrayList<ChaeYoungCareerInfo>();				
 				for(int i=0; i<chaeYoungInfo.getCompanyName().length; i++) {
 					ChaeYoungCareerInfo chaeYoungCareerInfo = new ChaeYoungCareerInfo();
@@ -119,6 +120,14 @@ public class ChaeYoungService {
 					//chaeYoungCareerInfoList.add(chaeYoungCareerInfo);
 					result += chaeYoungMapper.addCareerInfo(chaeYoungCareerInfo);
 				}
+			}
+			//학력정보 
+			if(chaeYoungInfo.getDegree() != null) {
+				result += chaeYoungMapper.addEducationInfo(chaeYoungInfo);
+			}
+			//병역정보
+			if(chaeYoungInfo.getMilitaryClassidx() != null) {
+				result += chaeYoungMapper.addMilitaryInfo(chaeYoungInfo);
 			}
 		}
 		//지원이 완료 되면 지원상태 지원완료 로 변경 

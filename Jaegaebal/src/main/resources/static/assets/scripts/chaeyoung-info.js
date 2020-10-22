@@ -127,7 +127,7 @@
 			var companyOutDateFromOut = $('.careerInfoTable input[name=companyOutDateFromOut]').val();
 			var companyOutReason = $('.careerInfoTable textarea[name=companyOutReason]').val();
 
-			$('.aa').append('<tr><td class="textValue"><input type="hidden" name="companyName" value="'+companyName+'"/>'+ companyName +'</td>'+
+			$('.careerValue').append('<tr><td class="textValue"><input type="hidden" name="companyName" value="'+companyName+'"/>'+ companyName +'</td>'+
 							'<td class="textValue" ><input type="hidden" name="companyAccess" value="'+companyAccess+'"/>' + companyAccess +'</td>'+
 							'<td class="textValue" ><input type="hidden" name="companyPositionFromOut" value="'+companyPositionFromOut+'"/>'+ companyPositionFromOut +'</td>'+
 							'<td class="textValue" ><input type="hidden" name="companyWorkFormOut" value="'+companyWorkFormOut+'"/>'+ companyWorkFormOut +'</td>'+
@@ -137,11 +137,21 @@
 							'<td><button type="button" class="mb-2 mr-2 btn btn-link abtn"><i class="pe-7s-trash"> </i></button></td></tr>');
 			
 		});
-		//추가 입력사항 삭제
+		//경력추가 입력사항 삭제
 		$(document).on("click",'.abtn',function() {
 			var tr = $(this).parent().parent();
 			tr.remove();
-		})
+		});
+		//학력사항 검정고시 일 시 
+		$(document).on("change","#degree", function() {
+			if($(this).val() == '검정고시') {
+				$('.educationInfo input').attr('disabled', true);
+				$('select[name=hakryuckStatus]').val('검정고시').attr('disabled', true);
+			}else {
+				$('.educationInfo input').attr('disabled', false);
+				$('select[name=hakryuckStatus]').val('').attr('disabled', false);
+			}
+		});
 		
 		//입력된 첫번째 문자를 대문자로 변경함수
 		function capitalize(str) {
@@ -169,13 +179,15 @@
 				$('select[name=militaryServiceType]').val('해당없음').attr('disabled', true);
 				$('select[name=militaryState]').val('해당없음').attr('disabled', true);
 				$('select[name=militaryLevel]').val('해당없음').attr('disabled', true);
-				
-				
+				if(idx == '면제') $('textarea[name=militaryInfoNotes]').attr('disabled', false);
+				if(idx == '여성')	 $('textarea[name=militaryInfoNotes]').val('').attr('disabled', true);		
 			}else {
 				$('.militaryInfo input').attr('disabled', false);
 				$('select[name=militaryServiceType]').val('').attr('disabled', false);
 				$('select[name=militaryState]').val('').attr('disabled', false);
 				$('select[name=militaryLevel]').val('').attr('disabled', false);
+				$('textarea[name=militaryInfoNotes]').val('').attr('disabled', true);
+
 			}
 		})
 		
@@ -229,9 +241,9 @@
 					return false;
 				}
 				for(var i=0; i<$('.'+className+' .textValue').length; i++) {
-					var Info = $('.'+className+' .textValue').eq(i).val();
+					var Info = $('.'+className+' .textValue').eq(i);
 					var InfoText = $('.'+className+' .textValue').eq(i).text();
-					if((className != 'careerInfo' && Info == '') || Info == undefined) {
+					if((className != 'careerInfo' && Info.val() == '') || Info.val() == undefined) {
 							
 						if(className == 'basicInfo') {
 							alert('인적사항을 입력해 주세요');
@@ -245,16 +257,26 @@
 							alert('자격증정보를 입력해 주세요');
 							return false;
 						}else if(className == 'educationInfo') {
+							if($('select[name=degree]').val() == '검정고시') continue;
 							alert('학력정보를 입력해 주세요');
 							return false;
 						}else if(className == 'militaryInfo') {
-							alert('병역정보를 입력해 주세요');
-							return false;
+							var idx = $('#militaryclassidx').val();
+							if(idx == '여성') continue; // 선택된 값이 여성이면 건너뛴다.
+							if(idx == '면제' && Info.attr('disabled') != undefined) continue;
+							if(idx == '면제') {
+								alert('면제사유를 입력해 주세요');
+								return false;
+							}else {
+								if(Info.attr('disabled') != undefined) continue;
+								alert('병역정보를 입력해 주세요');
+								return false;								
+							}
 						}
 					}else {
 						if(className == 'careerInfo' && InfoText == '') {
 							if($('.careerInfoCheck').is(":checked") == true) continue;
-							alert('경력정보 : ' + $('.aa td').eq(i).text() + '(을/를) 작성하여 입력버튼을 눌러주세요.');
+							alert('경력정보 : ' + $('.careerValue td').eq(i).text() + '(을/를) 작성하여 입력버튼을 눌러주세요.');
 							return false;
 						}
 					}
@@ -269,25 +291,26 @@
 				alert('올바른 핸드폰번호를 입력해 주세요');
 				return false;
 			}else {		
-				console.log($(classStr).serialize());
-				console.log($('.careerInfo').serializeArray());
-				var request = $.ajax({
-  				  url: "/addInfo", //컨트롤러 맵핑
-  				  method: "POST",
-  				  data: $(classStr).serialize(),
-  				  dataType: "json" // json방식으로 값 전달
-  				});
-  				 
-  				request.done(function( data ) {
-  					if(data != 0) {
-  						alert('정상적으로 지원이 완료되었습니다.');
-  						location.href="/cyboardList"
-  					}
-  				});
-  				 
-  				request.fail(function( jqXHR, textStatus ) {
-  				  alert( "Request failed: " + textStatus );
-  				});
+				if(confirm('위 사항은 모두 본인이 직접 작성하였으며, 사실과 다름없습니까?')) {				
+				
+					var request = $.ajax({
+	  				  url: "/addInfo", //컨트롤러 맵핑
+	  				  method: "POST",
+	  				  data: $(classStr).serialize(),
+	  				  dataType: "json" // json방식으로 값 전달
+	  				});
+	  				 
+	  				request.done(function( data ) {
+	  					if(data != 0) {
+	  						alert('정상적으로 지원이 완료되었습니다.');
+	  						location.href="/cyboardList"
+	  					}
+	  				});
+	  				 
+	  				request.fail(function( jqXHR, textStatus ) {
+	  				  alert( "Request failed: " + textStatus );
+	  				});
+				}
 			}
 
 			

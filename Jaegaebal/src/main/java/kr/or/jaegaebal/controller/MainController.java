@@ -41,16 +41,31 @@ public class MainController {
 	
 	//index2.html --> 원본 부트스트랩 화면
 	@GetMapping("/index")
-	public String main() {
-		
-		return "main/index";
+	public String main(HttpSession httpsession
+			,Model model) {
+		String setUrl = "main/index";
+		if(httpsession.getAttribute("SSTAFFNUM") == null) {
+			setUrl = "main/login";
+			model.addAttribute("title", "로그인화면");
+		} else {
+			model.addAttribute("title", "메인화면");
+		}
+		return setUrl;
 	}
 	
 	//로그인 화면
 	@GetMapping("/")
-	public String login(Model model) {
+	public String login(HttpSession httpsession
+					,Model model) {
 		model.addAttribute("title", "로그인화면");
-		return "main/login";
+		String setUrl = "main/login";
+		if(httpsession.getAttribute("SSTAFFNUM") != null) {
+			setUrl = "main/index";
+			model.addAttribute("title", "메인화면");
+		} else {
+			model.addAttribute("title", "로그인화면");
+		}
+		return setUrl;
 	}
 	
 	@PostMapping(value = "/staffLogin", produces = "application/json")
@@ -86,4 +101,10 @@ public class MainController {
 		return "redirect:/";
 	}
 	
+	//익스플로러로 접근 시 화면
+	@GetMapping("/error/ie_block")
+	public String ieBlock(Model model) {
+		model.addAttribute("title", "Chrome 최적화 페이지입니다.");
+		return "/error/ie_block";
+	}
 }

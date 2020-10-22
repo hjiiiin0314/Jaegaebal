@@ -14,6 +14,7 @@ public class ChaeYoungBoard {
 	private String jobTitle; //구인공고제목
 	private String jobContent; //구인공고내용
 	private String jobCareer; //경력사항 
+	private String jobStage; //채용단계
 	private String jobDeadLine; //채용마감일
 	private String jobRegDate; //공고등록일
 	private String jobRegStaff; //공고등록자
@@ -73,11 +74,19 @@ public class ChaeYoungBoard {
 	public void setJobRegStaff(String jobRegStaff) {
 		this.jobRegStaff = jobRegStaff;
 	}
+	
+	public String getJobStage() {
+		return jobStage;
+	}
+	public void setJobStage(String jobStage) {
+		this.jobStage = jobStage;
+	}
 	@Override
 	public String toString() {
 		return "ChaeYoungBoard [jobNumber=" + jobNumber + ", jobJojicCode=" + jobJojicCode + ", jobJojicName="
-				+ jobJojicName + ", jobTitle=" + jobTitle + ", jobContent=" + jobContent + ", jobRegDate=" + jobRegDate
-				+ ", jobDeadLine=" + jobDeadLine + ", jobRegStaff=" + jobRegStaff + "]";
+				+ jobJojicName + ", jobTitle=" + jobTitle + ", jobContent=" + jobContent + ", jobCareer=" + jobCareer
+				+ ", jobStage=" + jobStage + ", jobDeadLine=" + jobDeadLine + ", jobRegDate=" + jobRegDate
+				+ ", jobRegStaff=" + jobRegStaff + "]";
 	}
 	
 	

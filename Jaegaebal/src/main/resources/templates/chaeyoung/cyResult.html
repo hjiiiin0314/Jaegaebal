@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+	<th:block layout:fragment="customContent">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+		<div class="app-main__inner">
+			<div class="app-page-title">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+					    <div class="page-title-icon">
+					        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+					        </i>
+					    </div>
+					    <div>합격자 목록
+					       <div class="page-title-subheading">구인공고별 합격자 목록</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="main-card mb-3 card ">
+							<div class="card-body">
+								<h5 class="card-title">합격자목록</h5>								
+									<select class="custom-select">
+										<th:block th:each="cy : ${cyBoardList}">
+											<option th:text="${cy.jobTitle}" th:value=${cy.jobNumber}></option>
+										</th:block>
+									</select>
+									<div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationTooltip01">First name</label>
+                                            	<select class="custom-select">
+													<option></option>
+												</select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationTooltip02">Last name</label>
+                                            <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required="">
+                                            <div class="valid-tooltip">
+                                                Looks good!
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationTooltipUsername">Username</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend" required="">
+                                                <div class="invalid-tooltip">
+                                                    Please choose a unique and valid username.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+								<div class="scroll-div">
+									<div class="scrollbar-container scroll-area-lg ps">
+										<table class="mb-0 table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>사번</th>
+													<th>이름</th>
+													<th>소속</th>
+													<th>권한</th>
+													<th>직급</th>
+													<th>직책</th>
+													<th>호봉</th>
+													<th>기본급</th>
+													<th>재직상태</th>
+													<th>고용형태</th>
+													<th>입사일</th>
+													<th>비고</th>
+													<th>징계누적점수</th>
+													<th>근속연수</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>		
+													<th>1</th>
+													<td><a>20100705</a></td>
+													<td><a>김형진</a></td>
+													<td><a>개발2팀</a></td>
+													<td><a>조직관리자</a></td>
+													<td><a>개발자</a></td>
+													<td><a>개발자</a></td>
+													<td><a></a></td>
+													<td><a>1000000000</a></td>
+													<td><a>재직중</a></td>
+													<td><a>인턴</a></td>
+													<td><a>2020-10-07</a></td>
+													<td><a>헤헤</a></td>
+													<td><a></a></td>
+													<td><a>00년-1개월</a></td>
+												</tr>
+											</tbody>
+										</table>
+									<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 m-t-none offset">
+						
+					</div>					
+				</div>
+			</div>
+
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+	<script>
+		$(function() {
+			$('.aa').click(function() {
+				alert('d');
+			});
+		});
+	</script>
+	</th:block>
+</html>

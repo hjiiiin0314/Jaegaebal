@@ -20,6 +20,13 @@ public class CodeAdminService {
 	@Autowired private CodeAdminMapper codeAdminMapper;
 	
 	/* ==========고용코드관리========== */
+	
+	//고용형태코드 검색
+	public List<CodeAdmin> getSearchEmpCodeList(String sk, String sv){
+		List<CodeAdmin> empCodeList = codeAdminMapper.getSearchEmpCodeList(sk, sv);
+		return empCodeList;
+		
+	}
 	//고용코드 리스트
 	
 	 public List<EmpCodeAdmin> getEmpCodeList(){
@@ -57,6 +64,14 @@ public class CodeAdminService {
 	
 	
 	/* ==========문서코드관리========== */
+	
+	//고용형태코드 검색
+		public List<CodeAdmin> getSearchDocCodeList(String sk, String sv){
+			List<CodeAdmin> docCodeList = codeAdminMapper.getSearchDocCodeList(sk, sv);
+			return docCodeList;
+			
+		}
+	
 	//문서리스트
 	public List<DocCodeAdmin> getDocCodeList(){
 		return codeAdminMapper.getDocCodeList();
@@ -94,7 +109,13 @@ public class CodeAdminService {
 	
 	
 	/* ==========인사코드관리========== */
-	
+	//인사코드 검색
+		public List<CodeAdmin> getSearchInsaCodeList(String sk, String sv){
+			List<CodeAdmin> insaCodeList = codeAdminMapper.getSearchInsaCodeList(sk, sv);
+			return insaCodeList;
+			
+		}
+		
 	//인사코드 리스트
 		public List<InsaCodeAdmin> getInsaCodeList(){
 			

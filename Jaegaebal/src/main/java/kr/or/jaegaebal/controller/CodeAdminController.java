@@ -29,13 +29,22 @@ public class CodeAdminController {
 	
 /* ==========고용형태코드관리========== */
 	
+	//고용형태코드검색
+			@PostMapping("/searchEmpCode")
+			public String searchEmpCode(@RequestParam(value="sk",required = false) String sk,
+									   @RequestParam(value="sv",required = false) String sv,Model model) {
+				List<CodeAdmin> empCodeList = codeAdminService.getSearchEmpCodeList(sk, sv);
+						
+				model.addAttribute("empCodeList", empCodeList);
+				return "codeAdmin/empCodeList";
+			}
+	
 	//고용형태코드리스트
 	/* @GetMapping("/getInsaCodeList") */
 	@RequestMapping(value="/getEmpCodeList", method=RequestMethod.GET)
 	public String getEmpCodeList(Model model) {
 		
 		 List<EmpCodeAdmin> empCodeList = codeAdminService.getEmpCodeList();
-		 System.out.println("empCodeList -> " + empCodeList);
 		 model.addAttribute("empCodeList",empCodeList);
 		
 		model.addAttribute("title","코드리스트");
@@ -47,7 +56,7 @@ public class CodeAdminController {
 		@GetMapping("/addEmpCode")
 		public String addEmpCode(Model model) {
 			model.addAttribute("title","근무형태코드 추가");
-			return "CodeAdmin/addEmpCode";
+			return "codeAdmin/addEmpCode";
 		}
 		
 		@PostMapping("/addEmpCode")
@@ -58,11 +67,7 @@ public class CodeAdminController {
 				,@RequestParam(value="empAttri",required = false) String empAttri
 				,@RequestParam(value="empStartDate",required = false) String empStartDate
 				) {
-			System.out.println("고용코드 -> "+empCode);
-			System.out.println("고용형태 -> "+empType);
-			System.out.println("사원구분 -> "+empSalaryType);
-			System.out.println("귀속구분 -> "+empAttri);
-			System.out.println("시작일 -> "+empStartDate);
+			
 			
 			codeAdminService.addEmpCode(empCodeAdmin);
 			return "redirect:/getEmpCodeList";
@@ -105,13 +110,22 @@ public class CodeAdminController {
 		}
 	
 /* ==========문서코드관리========== */
+		
+	//문서코드검색
+	@PostMapping("/searchDocCode")
+	public String searchDocCode(@RequestParam(value="sk",required = false) String sk,
+							   @RequestParam(value="sv",required = false) String sv,Model model) {
+		List<CodeAdmin> docCodeList = codeAdminService.getSearchDocCodeList(sk, sv);							
+		model.addAttribute("docCodeList", docCodeList);
+		
+		return "codeAdmin/docCodeList";
+				}	
 	
 	//문서코드리스트
 	/* @GetMapping("/getDocCodeList") */
 	@RequestMapping(value="/getDocCodeList", method=RequestMethod.GET)
 	public String getDocCodeList(Model model) {
-		List<DocCodeAdmin> docCodeList = codeAdminService.getDocCodeList();
-		System.out.println("docCodeList -> " + docCodeList);
+		List<DocCodeAdmin> docCodeList = codeAdminService.getDocCodeList();	
 		model.addAttribute("docCodeList",docCodeList);
 		model.addAttribute("title","코드리스트");
 		
@@ -124,7 +138,7 @@ public class CodeAdminController {
 	@GetMapping("/addDocCode")
 	public String addDocCode(Model model) {
 		model.addAttribute("title","근무형태코드 추가");
-		return "CodeAdmin/addDocCode";
+		return "codeAdmin/addDocCode";
 	}
 	
 	@PostMapping("/addDocCode")
@@ -132,8 +146,6 @@ public class CodeAdminController {
 			,@RequestParam(value="docCode",required = false) String docCode
 			,@RequestParam(value="docType",required = false) String docType
 			) {
-		System.out.println("문서코드 -> "+docCode);
-		System.out.println("문서명 -> "+docType);
 		
 		codeAdminService.addDocCode(docCodeAdmin);
 		return "redirect:/getDocCodeList";
@@ -176,13 +188,23 @@ public class CodeAdminController {
 	}
 	
 	/* ==========인사코드관리========== */
+	//인사코드검색
+		@PostMapping("/searchInsaCode")
+		public String searchInsaCode(@RequestParam(value="sk",required = false) String sk,
+								   @RequestParam(value="sv",required = false) String sv,Model model) {
+			
+			List<CodeAdmin> insaCodeList = codeAdminService.getSearchInsaCodeList(sk, sv);
+					
+			model.addAttribute("insaCodeList", insaCodeList);
+			return "codeAdmin/insaCodeList";
+		}
+	
 	
 	//인사코드리스트
 	/* @GetMapping("/getInsaCodeList") */
 	@RequestMapping(value="/getInsaCodeList", method=RequestMethod.GET)
 	public String getInsaCodeList(Model model) {
-		List<InsaCodeAdmin> insaCodeList = codeAdminService.getInsaCodeList();
-		System.out.println("insaCodeList -> " + insaCodeList);
+		List<InsaCodeAdmin> insaCodeList = codeAdminService.getInsaCodeList();		
 		model.addAttribute("insaCodeList",insaCodeList);
 		model.addAttribute("title","코드리스트");
 		
@@ -201,8 +223,6 @@ public class CodeAdminController {
 			,@RequestParam(value="insaCode",required = false) String insaCode
 			,@RequestParam(value="insaName",required = false) String insaName
 			) {
-		System.out.println("근무형태코드 -> "+insaCode);
-		System.out.println("근무명 -> "+insaName);
 		
 		codeAdminService.addInsaCode(insaCodeAdmin);
 		return "redirect:/getInsaCodeList";
@@ -250,12 +270,10 @@ public class CodeAdminController {
 	@PostMapping("/searchWorkCode")
 	public String searchWorkCode(@RequestParam(value="sk",required = false) String sk,
 							   @RequestParam(value="sv",required = false) String sv,Model model) {
-		System.out.println(sk);
-		System.out.println(sv);
 		List<CodeAdmin> workCodeList = codeAdminService.getSearchWorkCodeList(sk, sv);
 				
 		model.addAttribute("workCodeList", workCodeList);
-		return "codeAdmin/getWorkCodeList";
+		return "codeAdmin/workCodeList";
 	}
 	
 	//근무코드 삭제
@@ -270,8 +288,7 @@ public class CodeAdminController {
 	/* @GetMapping("/getWorkCodeList") */
 	@RequestMapping(value="/getWorkCodeList", method=RequestMethod.GET)
 	public String getWorkCodeList(Model model) {
-		List<CodeAdmin> workCodeList = codeAdminService.getWorkCodeList();
-		System.out.println("workCodeList -> " + workCodeList);
+		List<CodeAdmin> workCodeList = codeAdminService.getWorkCodeList();		
 		model.addAttribute("workCodeList",workCodeList);
 		model.addAttribute("title","코드리스트");
 		return "codeAdmin/workCodeList";
@@ -290,9 +307,6 @@ public class CodeAdminController {
 			,@RequestParam(value="workName",required = false) String workName
 			,@RequestParam(value="workUseOrNot",required = false) String workUseOrNot
 			) {
-		System.out.println("근무형태코드 -> "+workCode);
-		System.out.println("근무명 -> "+workName);
-		System.out.println("사용유무 -> "+workUseOrNot);
 		codeAdminService.addWorkCode(codeAdmin);
 		return "redirect:/getWorkCodeList";
 	}

@@ -12,11 +12,12 @@
 	
 	<script>
 		
-	
-
-	
-	</script>
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		  initialView: 'dayGridMonth',
+		  selectable: true
+		});
 		
+	</script>
 	
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 <!-- 메뉴설명 -->
@@ -173,6 +174,7 @@
 			alert('코드등록 완료.');
 		})
 	});
+	
 	
 	
 	

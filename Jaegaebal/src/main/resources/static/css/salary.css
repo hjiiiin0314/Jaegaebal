@@ -3,6 +3,11 @@
 .table {
 	border-collapse:separate;
 	border-spacing:unset;
+	table-layout:fixed;
+}
+
+.table th, .table td {
+	overflow:hidden;
 }
 
 .table .form_date{
@@ -48,7 +53,7 @@
 /* thead에서 left 고정 */
 .app-main .table .fixed_top_left{
 	left:0;
-	z-index:20;
+	z-index:12;
 }
 
 /*테이블 스크롤 시 left고정*/
@@ -68,7 +73,7 @@
 	bottom: 118px;
 	background:#e1ffe8;
 	/* padding:20px 5px; */
-	z-index:20;
+	z-index:12;
 }
 
 /*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
@@ -77,7 +82,7 @@
 	bottom: 59px;
 	background:#e1ffe8;
 	/* padding:20px 5px; */
-	z-index:20;
+	z-index:12;
 }
 
 /*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
@@ -86,7 +91,7 @@
 	bottom: 0;
 	background:#e1ffe8;
 	/* padding:20px 5px; */
-	z-index:20;
+	z-index:12;
 }
 
 /*(월별 테이블 전용) 고정 bottom중 값이 뜨는 부분 정렬 뒤로 보내기*/
@@ -191,6 +196,14 @@ table.ui-datepicker-calendar {
 	background:#e0f3ff;
 }
 
+.pay-con-table, .deduct-con-table{
+	text-align:center;
+}
+
+.pay-con-table input[type="checkbox"], .deduct-con-table input[type="checkbox"]{
+	margin:auto;
+}
+
 @media(min-width:992px){
 	.scroll-div{
 		height:809px;
@@ -210,6 +223,9 @@ table.ui-datepicker-calendar {
 }
 
 @media(max-width:992px){
+	.table{
+		white-space:nowrap;
+	}
 	.scroll-div{
 		height:468px;
 	}
@@ -218,6 +234,18 @@ table.ui-datepicker-calendar {
 	}
 	.table-overflow .table{
 		width:250%;
+	}
+	/*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
+	.month-table tbody tr:nth-last-child( 3 ) td {
+		bottom: 76px;
+	}
+	/*(월별 테이블 전용)테이블 스크롤 시 tbottom고정*/
+	.month-table tbody tr:nth-last-child( 2 ) td {
+		bottom: 38px;
+	}
+	.checkbox-width{
+		width:15px;
+		height:15px;
 	}
 }
 

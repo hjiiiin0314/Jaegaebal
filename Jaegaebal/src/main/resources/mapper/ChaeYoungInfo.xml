@@ -173,13 +173,102 @@
 	
 	<!-- 학력사항 -->
 	<insert id="addEducationInfo" parameterType="ChaeYoungInfo">
-	
-
+		<selectKey resultType="String" keyProperty="educationInfoCode" order="BEFORE">		
+			SELECT 
+				CONCAT('edu',LPAD(max(cast(SUBSTRING(education_info_code,4)AS DECIMAL))+1,5,0))
+			FROM
+				cy_applicant_education_info
+		</selectKey>
+		INSERT INTO cy_applicant_education_info
+			(education_info_code, job_number, app_email, app_num_code, school_name, hakryuck_status, major_name, minor_name, entrance_date, graduat_date, degree, reg_date)
+		VALUES (
+			#{educationInfoCode},
+			#{jobNumber}, 
+			#{appEmail}, 
+			#{appNumCode},
+		<if test="schoolName != null and schoolName neq ''.toString()">
+			#{schoolName},
+		</if>
+		<if test="schoolName == null or schoolName eq ''.toString()">
+			NULL, 		
+		</if> 
+		<if test="hakryuckStatus != null and hakryuckStatus neq ''.toString()">
+			#{hakryuckStatus},
+		</if>
+		<if test="hakryuckStatus == null or hakryuckStatus eq ''.toString()">
+			'검정고시', 		
+		</if> 
+		<if test="majorName != null and majorName neq ''.toString()">
+			#{majorName},
+		</if>
+		<if test="majorName == null or majorName eq ''.toString()">
+			NULL, 		
+		</if>
+		<if test="minorName != null and minorName neq ''.toString()">
+			#{minorName},
+		</if>
+		<if test="minorName == null or minorName eq ''.toString()">
+			NULL, 		
+		</if>
+		<if test="entranceDate != null and entranceDate neq ''.toString()">
+			#{entranceDate},
+		</if>
+		<if test="entranceDate == null or entranceDate eq ''.toString()">
+			NULL, 		
+		</if>
+		<if test="graduatDate != null and graduatDate neq ''.toString()">
+			#{graduatDate},
+		</if>
+		<if test="graduatDate == null or graduatDate eq ''.toString()">
+			NULL, 		
+		</if>
+			#{degree},
+			NOW())
 	</insert>
 	
 	<!-- 병역사항 -->
 	<insert id="addMilitaryInfo" parameterType="ChaeYoungInfo">
-	
+		<selectKey resultType="String" keyProperty="militaryInfoCode" order="BEFORE">		
+			SELECT 
+				CONCAT('mili',LPAD(max(cast(SUBSTRING(military_info_code,5)AS DECIMAL))+1,5,0))
+			FROM
+				cy_applicant_military_info
+		</selectKey>
+		INSERT INTO cy_applicant_military_info
+			(military_info_code, job_number, app_email, app_num_code,
+			 military_classidx, military_service_type, military_state, military_in_day, military_out_day, military_level, military_info_notes, reg_date)
+		VALUES (
+			#{militaryInfoCode},
+			#{jobNumber},
+			#{appEmail},
+			#{appNumCode},	
+			#{militaryClassidx},
+			<choose>
+				<when test="militaryClassidx != '여성' and militaryClassidx != '면제'">				
+									
+					#{militaryServiceType},
+					#{militaryState},
+					#{militaryInDay},				
+					#{militaryOutDay},									
+					#{militaryLevel},							
+					NULL,
+				</when>
+				<otherwise>					
+					NULL,
+					NULL,
+					NULL,
+					NULL,
+					NULL,
+					<if test="militaryInfoNotes != null and militaryInfoNotes neq ''.toString()">
+					#{militaryInfoNotes},
+					</if>
+					<if test="militaryInfoNotes == null or militaryInfoNotes eq ''.toString()">
+					NULL,
+					</if>
+
+				</otherwise>
+			</choose>
+					NOW())
 
 	</insert>
 

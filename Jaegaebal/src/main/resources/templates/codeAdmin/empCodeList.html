@@ -46,25 +46,21 @@
    		</div>
     
     	<!-- 검색기능 -->
-    		<div class="input-group col-md-4 p-l-none p-r-none p-b-xs">
-		           <div class="input-group-prepend">
-		               <button class="btn btn-outline-secondary" id="list">목록</button>
-		               <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
-		             	 	<span class="sr-only"></span>
-		            	 </button>
-		                     <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-		                         <button type="button" tabindex="0" class="dropdown-item" id="empCodeBtn">문서유형</button>
-		                      <div tabindex="-1" class="dropdown-divider"></div>
-		                         <button type="button" tabindex="0" class="dropdown-item" id="empNameBtn">문서명</button>		                    
-		                      <div tabindex="-1" class="dropdown-divider"></div>
-		                         <button type="button" tabindex="0" class="dropdown-item" id="empStaffNameBtn">등록자</button>
-		                      </div>
-		    		 </div>
-		                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
-		                     <div class="input-group-append">
-		                         <button class="btn btn-secondary" id="empCodeSearchBtn">검색</button>
-		                     </div>
-			</div>     
+    	  
+    	  <form action="/searchEmpCode" method="post">
+    	  	<div class="input-group col-md-4 p-l-none p-r-none p-b-xs">
+						<select id = "sk" name="sk" class="form-control select-form" >
+							<option value="" selected="selected" disabled="disabled">:: 카테고리 ::</option>
+							<option value="emp_code">고용코드</option>
+							<option value="emp_type">고용형태</option>
+							<option value="emp_salary_type">사원구분</option>
+							<option value="emp_attribution">귀속구분</option>
+							<option value="reg_staff_name">등록자</option>
+						</select>
+						<input type="text" name="sv" class="form-control select-form">	
+							<button type="submit" id="searchBtn" class="mb-6 mr-2 btn btn-primary"><i class="pe-7s-search">검색</i></button>
+							</div>
+					</form>	
     
     	
     
@@ -161,6 +157,22 @@
 
 		     });
 			
+			$(function(){
+				
+				/* 카테고리 미선택시, 검색어 미입력시 알람  */
+					$('#searchBtn').click(function(){
+						var sk = $('#sk option:selected').val();
+						var sv = $('input[name="sv"]').val();
+						if(sk == ''){
+							alert('카테고리를 선택하세요');
+							return false;
+						}
+						if(sv == ''){
+							alert('검색어를 입력하세요')
+							return false;
+						}
+					});
+				});
 			
 			
 			

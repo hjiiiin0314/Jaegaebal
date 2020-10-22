@@ -33,19 +33,89 @@
          </div>
     </div> 
     <div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-12">
 			<div class="main-card mb-3 card">
 				<div class="card-body">
 					<h5 class="mt-2 card-title search-left">기본정보</h5>
-					
+					<table class="mb-0 table pay-con-table table-striped">
+						<colgroup>
+							<col width="10%"/>
+							<col width="15%"/>
+							<col width="10%"/>
+							<col width="10%"/>
+							<col width="10%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th><input type="checkbox" class="form-control checkbox-width" id="allChk"></th>
+								<th>항목명</th>
+								<th>과세구분</th>
+								<th>사용여부</th>
+								<th>기본급 백분율 적용여부</th>
+								<th>기본급 백분율</th>
+								<th>지급 상한가</th>
+								<th>지급 하한가</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="p : ${payList}">
+								<td><input type="checkbox" class="form-control checkbox-width chk"></td>
+								<td><input type="text" name="payName" class="form-control" th:value="${p.payName}"></td>
+								<td><input type="checkbox" name="payTax" class="form-control checkbox-width" th:checked="${p.payTax eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="paySal" class="form-control checkbox-width" th:checked="${p.paySal eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="payPerdepart" class="form-control checkbox-width" th:checked="${p.payPerdepart eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="number" name="payPer" class="form-control" th:value="${p.payPer}" step="0.01"></td>
+								<td><input type="number" name="payUpper" class="form-control" th:value="${p.payUpper}"></td>
+								<td><input type="number" name="payLower" class="form-control" th:value="${p.payLower}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-8">
+		<div class="col-lg-12">
 			<div class="main-card mb-3 card">
 				<div class="card-body">
 					<h5 class="mt-2 card-title mb-4">상세정보</h5>
-					
+					<table class="mb-0 table deduct-con-table table-striped">
+						<colgroup>
+							<col width="8%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+							<col width="8.5%"/>
+							<col width="8.5%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th><input type="checkbox" class="form-control checkbox-width" id="allChk"></th>
+								<th>항목명</th>
+								<th>거래처명</th>
+								<th>사용여부</th>
+								<th>기본급 백분율 적용여부</th>
+								<th>기본급 백분율</th>
+								<th>공제 상한가</th>
+								<th>공제 하한가</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="d : ${deductList}">
+								<td><input type="checkbox" class="form-control checkbox-width chk"></td>
+								<td><input type="text" name="deductName" class="form-control" th:value="${d.deductName}"></td>
+								<td><input type="text" name="deductAccount" class="form-control" th:value="${d.deductAccount}"></td>
+								<td><input type="checkbox" name="deductSal" class="form-control checkbox-width" th:checked="${d.deductSal eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="checkbox" name="deductPerdepart" class="form-control checkbox-width" th:checked="${d.deductPerdepart eq 1 ? 'true' : 'false'}"></td>
+								<td><input type="number" name="deductPer" class="form-control" th:value="${d.deductPer}" step="0.01"></td>
+								<td><input type="number" name="deductUpper" class="form-control" th:value="${d.deductUpper}"></td>
+								<td><input type="number" name="deductLower" class="form-control" th:value="${d.deductLower}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
