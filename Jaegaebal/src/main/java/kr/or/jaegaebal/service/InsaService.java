@@ -116,6 +116,20 @@ public class InsaService {
 		
 		return resultMap;
 	}
+	
+	//직원 삭제하기 - 관련 테이블 정보 일괄 삭제
+	public int deleteStaffInfo(String staffNum) {
+		insaMapper.deleteMilitaryInfoByStaffNum(staffNum);
+		insaMapper.deleteBalryoungInfoByStaffNum(staffNum);
+		insaMapper.deleteEducationInfoByStaffNum(staffNum);
+		insaMapper.deleteCertificateInfoByStaffNum(staffNum);
+		insaMapper.deleteCareerInfoFromOutByStaffNum(staffNum);
+		insaMapper.deleteCareerInfoFromInByStaffNum(staffNum);
+		insaMapper.deleteStaffFamilyInfoByStaffNum(staffNum);
+		insaMapper.deleteStaffBasicInfoByStaffNum(staffNum);
+		int result = insaMapper.deleteStaffInfoByStaffNum(staffNum);
+		return result;
+	}
 
 	// 부서명 가지고 오기
 	public List<Map<Jojic, Object>> getJojicInfo() {

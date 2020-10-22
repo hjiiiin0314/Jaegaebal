@@ -997,7 +997,7 @@
     			}
     		});
     		request.fail(function( jqXHR, textStatus ) {
-    			alert("이동시킬 부서를 체크해주세요.");
+    			alert("이동시킬 팀명을 체크해주세요.");
     		});
     	});
     	
@@ -1020,7 +1020,7 @@
     			}
     		});
     		request.fail(function( jqXHR, textStatus ) {
-    			alert("이동시킬 부서를 체크해주세요.");
+    			alert("이동시킬 팀명을 체크해주세요.");
     		});
     	});
     	
@@ -1519,6 +1519,25 @@
     	});
     	//직원리스트 - 상세보기 모달 - 삭제버튼 클릭시
     	$('#deleteStaffInfoBtnDetail').click(function(){
+    		var deleteAnswer = confirm("정말로 삭제하시겠습니까? 복구할 수 없습니다.");
+    		var staffNum = $('#staffNum').val();
+    		if(deleteAnswer){
+    			var request = $.ajax({
+    				url: "/deleteStaffInfoByStaffNum",
+    				method: "POST",
+    				data: {  staffNum  : staffNum	 },
+    				dataType: "json"
+    			});
+    			request.done(function( data ) {
+    				if(data != 0){
+    					alert("삭제되었습니다.");
+    					window.location.href = "/insa/staffInfoList";
+    				}
+    			});
+    			request.fail(function( jqXHR, textStatus ) {
+    				alert("다시 시도해주세요.");
+    			});
+    		}
     	});
     		
     });

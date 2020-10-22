@@ -1668,4 +1668,41 @@
 			si.staff_num = #{staffNum}
 	</select>
 	
+	<!-- 직원 병역정보 삭제하기 By staffNum -->
+	<delete id="deleteMilitaryInfoByStaffNum" parameterType="String">
+		DELETE FROM is_military_info WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 발령정보 삭제하기 By staffNum -->
+	<delete id="deleteBalryoungInfoByStaffNum" parameterType="String">
+		DELETE FROM is_balryoung_info WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 학력정보 삭제하기 By staffNum -->
+	<delete id="deleteEducationInfoByStaffNum" parameterType="String">
+		DELETE FROM is_education_info WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 자격정보 삭제하기 By staffNum -->
+	<delete id="deleteCertificateInfoByStaffNum" parameterType="String">
+		DELETE FROM is_certificate_info WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 사외경력 삭제하기 By staffNum -->
+	<delete id="deleteCareerInfoFromOutByStaffNum" parameterType="String">
+		DELETE FROM is_career_info_from_out WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 사내경력 삭제하기 By staffNum -->
+	<delete id="deleteCareerInfoFromInByStaffNum" parameterType="String">
+		DELETE FROM is_career_info_from_in WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 가족정보 삭제하기 By staffNum -->
+	<delete id="deleteStaffFamilyInfoByStaffNum" parameterType="String">
+		DELETE FROM is_staff_family_info WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 인적사항 삭제하기 By staffNum -->
+	<delete id="deleteStaffBasicInfoByStaffNum" parameterType="String">
+		DELETE FROM is_staff_basic_info WHERE staff_num=#{staffNum};
+	</delete>
+	<!-- 직원 삭제하기 By staffNum -->
+	<delete id="deleteStaffInfoByStaffNum" parameterType="String">
+		DELETE FROM is_staff WHERE staff_num=#{staffNum};
+	</delete>
+	
 </mapper>	

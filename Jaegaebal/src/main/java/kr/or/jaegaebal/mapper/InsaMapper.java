@@ -61,6 +61,25 @@ public interface InsaMapper {
 	//직원 병역정보 가져오기
 	public List<MilitaryInfo> getMilitaryInfo(String staffNum);
 	
+	//직원 병역정보 삭제하기 
+	public int deleteMilitaryInfoByStaffNum(String staffNum);
+	//직원 발령정보 삭제하기 
+	public int deleteBalryoungInfoByStaffNum(String staffNum);
+	//직원 학력정보 삭제하기 
+	public int deleteEducationInfoByStaffNum(String staffNum);
+	//직원 자격정보 삭제하기 
+	public int deleteCertificateInfoByStaffNum(String staffNum);
+	//직원 사외경력 삭제하기 
+	public int deleteCareerInfoFromOutByStaffNum(String staffNum);
+	//직원 사내경력 삭제하기 
+	public int deleteCareerInfoFromInByStaffNum(String staffNum);
+	//직원 가족정보 삭제하기 
+	public int deleteStaffFamilyInfoByStaffNum(String staffNum);
+	//직원 인적사항 삭제하기 
+	public int deleteStaffBasicInfoByStaffNum(String staffNum);
+	//직원 삭제하기 
+	public int deleteStaffInfoByStaffNum(String staffNum);
+	
 	//부서명 가지고 오기
 	public List<Map<Jojic, Object>> getJojicInfo();
 	//팀명 가지고 오기

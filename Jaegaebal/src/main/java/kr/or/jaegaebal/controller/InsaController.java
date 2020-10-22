@@ -251,6 +251,13 @@ public class InsaController {
 		return "/insa/modify_insert_staff_detaill_info";
 	}
 	
+	//직원 삭제시 - 일괄 처리
+	@PostMapping(value = "/deleteStaffInfoByStaffNum", produces = "application/json")
+	@ResponseBody
+	public int deleteStaffInfoByStaffNum(@RequestParam(value = "staffNum") String staffNum) {
+		int result = insaService.deleteStaffInfo(staffNum);
+		return result;
+	}
 
 	// 부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
 	@PostMapping(value = "/getStaffInfoByParentJojicName", produces = "application/json")
