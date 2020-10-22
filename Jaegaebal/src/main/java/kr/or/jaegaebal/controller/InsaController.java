@@ -228,7 +228,28 @@ public class InsaController {
 		int resultMLIF = insaService.insertStaffMilitaryInfo(militaryInfo);
 		return resultMLIF;
 	}
-
+	
+	//직원 리스트 - tr 클릭시 직원 정보 가져오기
+	@PostMapping(value = "/getStaffInfoAll", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getStaffInfoAllByTr(String staffNum){
+		Map<String, Object> info = insaService.getStaffInfoByTr(staffNum);
+		log.info("info.toString()>>>>>>>>>>>>>>>{}", info.toString());
+		return info;
+	}
+	
+	//직원리스트 - 상세보기 - 수정하기
+	@GetMapping("/modifyStaffInfo")
+	public String modifyStaffInfo(	 Model model
+									,@RequestParam(value = "staffNum", required = false) String staffNum) {
+		log.info("staffNum::::::::::::::::>>>>>>>>>{}", staffNum);
+		
+		Map<String, Object> info = insaService.getStaffInfoByTr(staffNum);
+		log.info("info::::::::::::::::>>>>>>>>>{}", info);
+		model.addAttribute("list", info);
+		model.addAttribute("title", "직원 정보 수정");
+		return "/insa/modify_insert_staff_detaill_info";
+	}
 	
 
 	// 부서별 직원 목록 리스트 가져오기, 팀명가지고 오기
@@ -573,14 +594,7 @@ public class InsaController {
 		return result;
 	}
 	
-	//직원 리스트 - tr 클릭시 직원 정보 가져오기
-	@PostMapping(value = "/getStaffInfoAll", produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getStaffInfoAllByTr(String staffNum){
-		Map<String, Object> info = insaService.getStaffInfoByTr(staffNum);
-		log.info("info.toString()>>>>>>>>>>>>>>>{}", info.toString());
-		return info;
-	}
+
 
 	
 }

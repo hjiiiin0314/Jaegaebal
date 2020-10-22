@@ -235,7 +235,7 @@
 															<table class="mb-12 table table-bordered forms" >
 																<tr>
 																	<td class="t_head">사번</td>
-																	<td>
+																	<td id="staffNumTd">
 																		<input type="text" name="staffNum" class="form-control" id="staffNum" readonly>
 																	</td>
 																	<td class="t_head" >이름</td>
@@ -311,7 +311,7 @@
 																<tr>													
 																	<td class="t_head2">성별</td>
 																	<td>
-																		<input type="text" name="staffEngName" class="form-control" value="" readonly>
+																		<input type="text" name="staffGender" class="form-control" value="" readonly>
 																	</td>
 																	<td class="t_head2">주민등록번호</td>
 																	<td>
@@ -655,8 +655,7 @@
 				                          	</div>
 				                          	<div class="card-footer p-b-none p-t-lg">
 								            	<div class="centerDiv m-r-none">							            	
-								            		<button type="button" class="mb-2 mr-2 btn btn-alternate" id="modifyStaffInfoDetail" data-toggle="modal" >수정하기</button>
-								            		<!-- data-target="#insertPnshListModal3" -->
+								            		<button type="button" class="mb-2 mr-2 btn btn-alternate" id="modifyStaffInfoDetail">수정하기</button>
 								            	</div>	
 								            	<div class="centerDiv m-l-xs">							            	
 								            		<button type="button" class="mb-2 mr-2 btn btn-alternate" id="deleteStaffInfoBtnDetail">삭제하기</button>
@@ -673,7 +672,7 @@
 		            </div>
 		        </div>
 		    </div>
-		</div>		
+		</div>	
 		<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
    </th:block>
     

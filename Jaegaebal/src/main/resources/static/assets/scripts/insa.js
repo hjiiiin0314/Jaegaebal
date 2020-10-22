@@ -1514,6 +1514,8 @@
     	
     	//직원리스트 - 상세보기 모달 - 수정버튼 클릭시
     	$('#modifyStaffInfoDetail').click(function(){
+    		var staffNum = $('#staffNum').attr("value");
+    		location.href='/modifyStaffInfo?staffNum='+staffNum;
     	});
     	//직원리스트 - 상세보기 모달 - 삭제버튼 클릭시
     	$('#deleteStaffInfoBtnDetail').click(function(){

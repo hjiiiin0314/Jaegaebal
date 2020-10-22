@@ -1529,6 +1529,7 @@
 			,ps.position_name
 			,lv.level_name
 			,ac.access_name
+			,ac.access_num
 		FROM
 			is_staff AS si
 			INNER JOIN
