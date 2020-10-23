@@ -10,9 +10,6 @@
 
 	
 	<th:block layout:fragment="customCss">
-	      <!-- include summernote css/js -->
-      <link rel="stylesheet" href="summernote/summernote-lite.css">
-		
 		<!-- upmu.css  -->
 		<link rel="stylesheet" type="text/css" th:href="@{/css/upmu.css}">	
 		
@@ -55,9 +52,10 @@
 		        </div>       
 		             <div class="position-relative form-group"><label>제목</label>
 		            		<input type="text" class="form-control" th:value="${n.ntTitle}" readonly="readonly" >
-		             </div>                  
-		     		<textarea id="summernote" name="ntContents" th:text="${n.ntContents}" readonly="readonly"></textarea>
-		                                    
+		             </div> 
+		             <div class="position-relative form-group"><label>내용</label>                 
+		     			<textarea class="form-control nt-contents" th:text="${n.ntContents}" readonly="readonly"></textarea>
+		             </div>                   
 		             <div class="position-relative form-group" ><label for="docFile" class="">첨부파일</label>
 		              	<input  id="docFile" type="file" class="form-control-file" th:value="${n.ntFile}">
 		             </div>
@@ -78,24 +76,7 @@
 
 	<!-- 사용자 지정 script -->
 	<th:block layout:fragment="customJsScript">		
-	 <script src="/summernote/summernote-lite.js"></script>
-     <script src="/summernote/lang/summernote-ko-KR.js"></script>
 
-		
-
-		<script type="text/javascript">
-		$(document).ready(function() {
-			 $('#summernote').summernote({
-                 height: 300,                 // 에디터 높이
-                 minHeight: null,             // 최소 높이
-                 maxHeight: null,             // 최대 높이
-                 lang: "ko-KR",               // 한글 설정
-                
-                      
-               });
-			});				
-		</script>
-		
 	
 	</th:block>
 

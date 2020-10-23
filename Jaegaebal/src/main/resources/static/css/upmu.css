@@ -165,3 +165,9 @@
 .task-card{
 	margin-top: 50px;
 }
+.nt-contents{
+	margin-top: 0px;
+    margin-bottom: 0px;
+    height: 380px !important;
+    overflow-y: scroll;
+}
