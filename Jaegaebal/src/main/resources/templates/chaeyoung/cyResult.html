@@ -28,16 +28,16 @@
 						<div class="main-card mb-3 card ">
 							<div class="card-body">
 								<h5 class="card-title">합격자목록</h5>								
-									<select class="custom-select">
+									<select id="jobTitleName" class="custom-select">
 										<th:block th:each="cy : ${cyBoardList}">
 											<option th:text="${cy.jobTitle}" th:value=${cy.jobNumber}></option>
 										</th:block>
 									</select>
 									<div class="form-row">
                                         <div class="col-md-4 mb-3">
-                                            <label for="validationTooltip01">First name</label>
-                                            	<select class="custom-select">
-													<option></option>
+                                            <label for="validationTooltip01">단계</label>
+                                        		<select id="jobStage" class="custom-select">
+														<option></option>
 												</select>
                                         </div>
                                         <div class="col-md-4 mb-3">
@@ -121,9 +121,24 @@
 	<th:block layout:fragment="customJsScript">
 	<script>
 		$(function() {
-			$('.aa').click(function() {
-				alert('d');
-			});
+			
+			//공고제목 변경시마다
+			$(document).on("change","#jobTitleName",function() {
+				var jobTitleName = $('#jobTitleName').val();
+				var request = $.ajax({
+					  url: "/cyResultValue",
+					  method: "POST",
+					  data: { jobTitleName : jobTitleName },
+					  dataType: "json"
+					});
+					 
+					request.done(function( data ) {
+
+					});					 
+			/* 		request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					}); */
+			})
 		});
 	</script>
 	</th:block>
