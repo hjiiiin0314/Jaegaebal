@@ -24,6 +24,7 @@ import kr.or.jaegaebal.service.UpmuService;
 public class UpmuController {
 	@Autowired private UpmuService upmuService;
 	
+	
 	//업무삭제처리
 	@GetMapping("/delTask")
 	public String delTask(int taskNum) {
