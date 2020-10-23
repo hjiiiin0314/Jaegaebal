@@ -173,8 +173,9 @@ public class ChaeYoungController {
 		
 		int result = 0;
 		
-		  if(chaeYoungInfo != null) { result =
-		  chaeYoungService.addAppInfo(chaeYoungInfo); }
+		  if(chaeYoungInfo != null) { 
+			  result = chaeYoungService.addAppInfo(chaeYoungInfo); 
+		  }
 		 
 		return result;
 	}
