@@ -56,7 +56,7 @@
 		                             <div class="form-row">
                                         <div class="col-md-4 mb-3">
                                         	<input type="hidden" name="jobJojicName" id="jobJojicName">	
-                                        	<input type="hidden" name="jobNumber" th:value="${cyboard.jobNumber}">	
+                                        	<input type="hidden" name="jobNumber" th:value="${cyboard.jobNumber}" class="hiddenJobNumber">	
                                             <label for="validationTooltip01">경력구분</label>
 	                                          <select name="jobCareer" id="jobCareer" class="form-control">
 						                        <option value="신입" th:selected="${cyboard.jobCareer eq '신입'}">신입</option>
