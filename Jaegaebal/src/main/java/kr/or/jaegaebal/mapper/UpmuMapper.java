@@ -18,6 +18,9 @@ public interface UpmuMapper {
 	//공지사항 - 삭제
 	public int ntDel(String ntDoc);
 	
+	//공지등록
+	public int addNotice(NoticeBoard addNotice);
+	
 	//공지사항- 상세보기
 	public List<NoticeBoard> ntDetail(String ntDoc);
 	

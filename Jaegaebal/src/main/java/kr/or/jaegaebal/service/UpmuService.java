@@ -19,6 +19,12 @@ import kr.or.jaegaebal.mapper.UpmuMapper;
 public class UpmuService {
 	@Autowired UpmuMapper upmumapper;
 	
+	//공지등록
+	public int addNotice(NoticeBoard addNotice) {
+		int result = upmumapper.addNotice(addNotice);
+		return result;
+	}
+	
 	//공지 삭제하기 
 	public int ntDel(String ntDoc) {
 		int result = upmumapper.ntDel(ntDoc);

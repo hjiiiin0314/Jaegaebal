@@ -43,7 +43,8 @@
 			<div class="main-card mb-3 card"> 
 				<div class="card-body">
 					<h4><i class="pe-7s-note"></i> 공지등록 </h4><br>	
-					<form action="/addNotice" method="post">
+					<form  id="addNtForm" action="/addNotice" method="post">
+					<input type="hidden" th:value="${session.SSTAFFNUM}" name="regStaffNum">
 			             <div class="position-relative form-group"><label>제목</label>
 			            		<input type="text" class="form-control" name="ntTitle">
 			             </div>                  
@@ -83,7 +84,30 @@
 			 
 			 //등록하기 버튼 클릭 이벤트
 			 $('#addNoticeBtn').click(function(){
-				 alert('아직 개발 중입니다.')
+				 var regStaffNum =  $('input[name="regStaffNum"]').val(); //공지등록사원
+				 var ntTitle = $('input[name="ntTitle"]').val(); //공지제목
+				 var ntContents = $('#summernote').val(); //공지내용
+				
+				 
+				 console.log(regStaffNum + "<--regStaffNum");
+				 console.log(ntTitle + "<--ntTitle");
+				 console.log(ntContents + "<--ntContents");
+				 
+				 if(ntTitle == ''){
+					 alert('제목을 입력하세요');
+					 return false;
+				 }
+				 if(ntContents == ''){
+					 alert('내용을 입력하세요');
+					 return false;
+				 }
+				 if(confirm("공지를 등록하시겠습니까?")== true){
+					 $('#addNtForm').submit();
+				 }else{
+					 return ;
+				 }
+				 
+				 
 			 });
 			});				
 		</script>

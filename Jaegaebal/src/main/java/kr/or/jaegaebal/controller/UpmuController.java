@@ -108,6 +108,13 @@ public class UpmuController {
 		return result;
 	}
 	
+	//공지등록하기
+	@PostMapping("/addNotice")
+	public String addNotice(NoticeBoard addNotice) {
+		upmuService.addNotice(addNotice);
+		return "redirect:/noticeBoard";
+	}
+	
 	//공지글쓰기
 	@GetMapping("/addNotice")
 	public String addNotice() {

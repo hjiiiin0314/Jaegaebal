@@ -4,6 +4,31 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
 
+<!-- 공지등록 -->
+<insert id="addNotice" parameterType="NoticeBoard">
+	<selectKey resultType="String" keyProperty="ntCode" order="BEFORE">
+		select 
+			CONCAT('nt-',max(CAST(substring(nt_code,4) AS DECIMAL))+1) 
+		FROM 
+			um_notice_board
+	</selectKey>
+	INSERT INTO 
+		um_notice_board
+		(nt_code
+		, nt_title
+		, nt_contents
+		, nt_file
+		, reg_staff_num
+		, reg_date)
+	VALUES
+	 (#{ntCode}
+	 , #{ntTitle}
+	 , #{ntContents}
+	 , #{ntFile}
+	 , #{regStaffNum}
+	 , NOW())
+</insert>
+
 <!--공지사항- 삭제  -->
 <delete id="ntDel" parameterType="String">
 	DELETE FROM 
