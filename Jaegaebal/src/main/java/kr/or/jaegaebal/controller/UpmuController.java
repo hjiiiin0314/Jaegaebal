@@ -100,6 +100,14 @@ public class UpmuController {
 		return "upmu/upmuShare";
 	}
 	
+	//공지글 삭제
+	@PostMapping(value = "/ntDel",produces = "application/json")
+	@ResponseBody
+	public int ntDel(@RequestParam(value = "ntCode", required = false)String ntCode) {
+		int result = upmuService.ntDel(ntCode);
+		return result;
+	}
+	
 	//공지글쓰기
 	@GetMapping("/addNotice")
 	public String addNotice() {

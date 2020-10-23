@@ -4,6 +4,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.jaegaebal.mapper.UpmuMapper">
 
+<!--공지사항- 삭제  -->
+<delete id="ntDel" parameterType="String">
+	DELETE FROM 
+				um_notice_board 	
+		WHERE
+			 nt_code= #{ntDocs}
+</delete>
+
 <!--공지사항 - 상세보기  -->
 <select id="ntDetail" parameterType="String" resultType="NoticeBoard">
 	SELECT 

@@ -171,3 +171,6 @@
     height: 380px !important;
     overflow-y: scroll;
 }
+.text-red{
+	    color: red;
+}

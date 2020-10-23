@@ -51,6 +51,7 @@
 	                             <th class="text-center">제목</th>
 	                             <th class="text-center">등록자</th>
 	                             <th class="text-center">등록일</th>	                          
+	                             <th class="text-center">비고</th>	                          
 	                         </tr>
 	                    </thead>
                         <tbody>                       
@@ -59,6 +60,9 @@
 	                            <td th:text="${n.ntTitle}" class='text-center'></td>	                            
 	                            <td th:text="${n.regStaffName}" class='text-center' ></td>
 	                            <td th:text="${n.regDate}" class='text-center'></td>                        		                                                  	
+	                            <td th:if="${n.regStaffNum == session.SSTAFFNUM}" class='text-center'>
+	                            	<span class="ntDel"><i class="pe-7s-trash text-red">삭제</i></span>
+	                            </td>                        		                                                  	
 	                        </tr>	                       
                         </tbody>
                     </table>
@@ -89,7 +93,26 @@
 				location.href="/ntDetail?ntCode="+ntCode;
 			});
 			
-		
+			//삭제클릭 시 
+			$('.ntDel').click(function(){
+				var ntCode = $(this).parent("td").parent("tr").find('.ntCode').text();
+				console.log("ntCode:" + ntCode);
+				
+				if(confirm('삭제하시겠습니까?')==true){
+					var request = $.ajax({
+						url: "/ntDel", //컨트롤러 맵핑
+		  				method: "POST",
+		 				data: { ntCode : ntCode }, 
+		  				dataType: "json" // json방식으로 값 전달
+					});
+					request.done(function(data){
+						location.href="/noticeBoard";
+					});
+					
+				}else{
+					return false;
+				}
+			});
 			
 		});
 	
