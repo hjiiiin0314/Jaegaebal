@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.jaegaebal.mapper.ChaeYoungMapper">
+	<resultMap type="ChaeYoungDocumentResult" id="docResultMap">
+		<result column="app_num_code" 		property="appNumCode"/>
+		<result column="job_number" 		property="jobNumber"/>
+		<result column="app_email" 			property="appEmail"/>
+		<result column="doc_result_score" 	property="docResultScore"/>
+		<result column="doc_result" 		property="docResult"/>
+		<result column="reg_staff_name" 	property="regStaffName"/>
+		<result column="doc_reg_date" 		property="docRegDate"/>
+	</resultMap>
+	
+	<select id="appResultSearch" parameterType="String" resultMap="docResultMap">
+		
+	</select>
+</mapper>

@@ -73,7 +73,7 @@ public class ChaeYoungController {
 	}
 	//채용공고 삭제
 	@GetMapping("/deleteCYPost")
-	public String deleteCYPost(@RequestParam(value="jobNumber") String jobNumber) {
+	public String deleteCYPost(@RequestParam(value="jobNumber",required = false) String jobNumber) {
 		
 		chaeYoungService.deleteCYPost(jobNumber);
 		return "redirect:/cyboardList";
@@ -81,7 +81,7 @@ public class ChaeYoungController {
 	//지원할 시 이메일 체크
 	@PostMapping(value = "/emailCheck", produces = "application/json")
 	@ResponseBody
-	public ChaeYoungApplicant emailCheck(@RequestParam(value="appEmail") String appEmail) {
+	public ChaeYoungApplicant emailCheck(@RequestParam(value="appEmail",required = false) String appEmail) {
 		ChaeYoungApplicant app = chaeYoungService.emailCheck(appEmail);
 		if(app == null) {
 			//값이 없을 경우 임의적으로 값을 셋팅한다 (파서에러 방지)
@@ -147,7 +147,7 @@ public class ChaeYoungController {
 	
 	//지원자 삭제
 	@GetMapping("/deleteApplicant")
-	public String deleteApplicant(@RequestParam(value="appEmail") String appEmail) {
+	public String deleteApplicant(@RequestParam(value="appEmail",required = false) String appEmail) {
 		
 		chaeYoungService.deleteApplicant(appEmail);
 		
@@ -181,6 +181,7 @@ public class ChaeYoungController {
 	}
 	
 	/****************************************합격자 start*************************************************/
+	//합격자목록 화면
 	@GetMapping("/cyResult")
 	public String cyResult(Model model) {
 		
@@ -191,5 +192,12 @@ public class ChaeYoungController {
 		
 		return "chaeyoung/cyResult";
 	}
-	
+	//공고별 합격자 ajax
+	@PostMapping(value= "/cyResultValue" , produces = "application/json")
+	@ResponseBody
+	public String cyResultValue(@RequestParam(value="jobTitleName",required = false) String jobTitleName) {
+		
+		System.out.println(jobTitleName + "jobTitleName");
+		return jobTitleName;
+	}
 }
