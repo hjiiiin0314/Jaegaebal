@@ -1,5 +1,7 @@
 package kr.or.jaegaebal.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -131,6 +133,51 @@ public class ChaeYoungController {
 		
 		model.addAttribute("title", "이력서 작성 form");
 		return "chaeyoung/app_resumeForm";
+	}
+	//지원자 이력서 조회
+	@GetMapping("/appResumeFormValue")
+	public String appResumeFormValue(@RequestParam(value="appNumCode" , required=false) String appNumCode,ChaeYoungApplicant chaeYoungApplicant,Model model) {
+		if(appNumCode != null && chaeYoungApplicant != null) {
+			//지원자 한명의 정보 가져오기
+			System.out.println(appNumCode);
+			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+			ChaeYoungInfo chaeYoungInfo = chaeYoungService.SearchAppInfo(appNumCode);
+			System.out.println(chaeYoungInfo);
+			model.addAttribute("chaeYoungApplicant", applicant);
+			if(chaeYoungInfo != null) {
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+				String today = formatter.format(new Date());
+				String birth = chaeYoungInfo.getHumanNum().substring(0,6);
+				String gender = chaeYoungInfo.getHumanNum().substring(7,8);
+		        int todayYear = Integer.parseInt(today.substring(0, 4));
+		        int todayMonth = Integer.parseInt(today.substring(4, 6));
+		        int todayDay = Integer.parseInt(today.substring(6, 8));
+		        
+		        if(gender.equals("1") || gender.equals("2")) {
+		        	birth = "19"+birth;
+		        }else {
+		        	birth = "20"+birth;
+		        }
+		        int appYear = Integer.parseInt(birth.substring(0, 4));
+		        int appMonth = Integer.parseInt(birth.substring(4, 6));
+		        int appDay = Integer.parseInt(birth.substring(6, 8));
+	   
+		        int age = todayYear - appYear;
+
+		        if (todayMonth < appMonth) { // 생년월일 "월"이 지났는지 체크
+		            age--;
+		        } else if (todayMonth == appMonth) { // 생년월일 "일"이 지났는지 체크
+		            if (todayDay < appDay) {
+		                age--; // 생일 안지났으면 (만나이 - 1)
+		            }
+		        }
+				model.addAttribute("chaeYoungInfo", chaeYoungInfo);
+				model.addAttribute("age", age);
+			}
+		}
+		
+		model.addAttribute("title", "이력서 작성 form");
+		return "chaeyoung/app_resumeFormValue";
 	}
 	//지원하기 버튼 누른 후 지원
 	@PostMapping("/addApplicant")
