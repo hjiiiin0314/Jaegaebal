@@ -7,11 +7,11 @@
    
   	<resultMap type="Holiday" id="holiCodeResultMap">
    		<result column="hd_code" property="hdCode"/>
+   		<result column="reg_staff_name" property="regStaffName"/>
    		<result column="hd_name" property="hdName"/>
-   		<result column="company_code" property="companyCode"/>
    		<result column="hd_start_day" property="hdStartDay"/>
    		<result column="hd_end_day" property="hdEndDay"/>
-   		<result column="reg_staff_name" property="regStaffName"/>
+   		<result column="hd_contents" property="hdContents"/>   		
    		<result column="hd_reg_date" property="hdRegDate"/>
    		
    	
@@ -21,53 +21,48 @@
    		<select id="holidayList" resultMap="holiCodeResultMap">
    			SELECT
    			 	  hd_code
-   			 	, company_code
-   			 	, hd_start_day
-   			 	, hd_name
-   			 	, hd_end_day
    			 	, reg_staff_name
+   			 	, hd_name
+   			 	, hd_start_day
+   			 	, hd_end_day
+   			 	, hd_contents
    			 	, hd_reg_date
-			FROM 
-				gt_holiday_code
+			FROM
+				 gt_holiday_code
    	   		
 	   	</select>
 	   	
       <!-- 휴일등록 -->
    <insert id="addHdCode" parameterType="Holiday">
-   	INSERT INTO
-   		 gt_holiday_code(
-   		 		  hd_code
-   		 		, company_code
-   		 		, hd_name
-   		 		, hd_start_day
-   		 		, hd_end_day
-   		 		, reg_staff_name
-   		 		, hd_reg_date
-   		 		)
-		VALUES (
-				  #{hdCode}
-				, #{companyCode}
-				, #{hdName}
-				, #{hdStartDay}
-				, #{hdEndDay}
-				, #{regStaffName}
-				, NOW()
-				)
+   <selectKey resultType="String" keyProperty="hdCode" order="BEFORE">
+			select 
+				CONCAT('hd_',max(CAST(substring(hd_code,4) AS DECIMAL))+1) 
+			FROM 
+				gt_holiday_code
+		</selectKey>
+   			INSERT INTO
+   			 gt_holiday_code(
+   			 		  hd_code
+   			 		, reg_staff_name
+   			 		, hd_name
+   			 		, hd_start_day
+   			 		, hd_end_day
+   			 		, hd_contents
+   			 		, hd_reg_date
+   			 		)
+			VALUES (
+					  #{hdCode}
+					, #{regStaffName}
+					, #{hdName}
+					, #{hdStartDay}
+					, #{hdEndDay}
+					, #{hdContents}
+					, NOW()
+					)
    
    </insert>
    
-   <!-- 휴일코드 중복검사 -->
-   	<select id="hdCodeCheck" parameterType="String" resultType="String">
-   	
-		SELECT
-			 hd_code
-		FROM
-			 gt_holiday_code
-		WHERE
-			hd_code = #{hdCode}
-		
-		
-	</select>
+   
 	
 	<!-- 휴일코드 수정 -->
 		<update id="updateHdCode" parameterType="Holiday">

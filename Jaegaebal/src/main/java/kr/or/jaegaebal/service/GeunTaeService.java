@@ -1,6 +1,7 @@
 package kr.or.jaegaebal.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,27 +16,20 @@ public class GeunTaeService {
 	
 @Autowired private GeunTaeMapper geunTaeMapper;
 	
-	/* ==========고용코드관리========== */
-	//고용코드 리스트
+
+	//휴일관리
 	
 	 public List<Holiday> getHolidayList(){
 		 
 		 return geunTaeMapper.holidayList(); 
 	 }
-
-	 public int addHdCode(Holiday holiday) {
-		 return geunTaeMapper.addHdCode(holiday);
-	 }
 	 
-	//휴일코드 중복확인
-		 public int hdCodeCheck(String hdCode) {
-			 int result=0;
-			 String hCode = geunTaeMapper.hdCodeCheck(hdCode);
-			 if(hCode != null && !"".equals(hCode.trim())) {
-			 result = 1;
-			 }
-			 return result;	
-		 }
+	 //휴일 등록
+	 
+	 public List<Map<String, Object>> addHdCode() {
+			List<Map<String, Object>> addHdCode = geunTaeMapper.addHdCode();
+			return addHdCode;
+		}
 		 
 	// 휴일코드 수정
 		 public int updateHdCode(Holiday holiday) {
