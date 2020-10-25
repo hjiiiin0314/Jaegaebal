@@ -70,9 +70,9 @@ public class ChaeYoungService {
 	};
 	
 	//지원자 특정인원 가져오기
-	public ChaeYoungApplicant appManagement(ChaeYoungApplicant appNumCode) {
+	public ChaeYoungApplicant appManagement(ChaeYoungApplicant chaeYoungApplicant) {
 		
-		return chaeYoungMapper.appManagement(appNumCode);
+		return chaeYoungMapper.appManagement(chaeYoungApplicant);
 	};
 	
 	//지원자 이메일 등록
@@ -136,6 +136,12 @@ public class ChaeYoungService {
 		}
 		return result;
 	}
+	
+	//지원자 이력서 조회 (인적,학력,병역)
+	public ChaeYoungInfo SearchAppInfo(String appNumCode) {
+		
+		return chaeYoungMapper.SearchAppInfo(appNumCode);
+	};
 	
 	// *********************** 지원자 이력서 등록 End ***************************** //
 	//지원자 정보 삭제

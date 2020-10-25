@@ -53,7 +53,6 @@
                                      <tr>
                                          <th class="text-center">지원자접수번호</th>
                                          <th class="text-center">이름</th>
-                                         <th class="text-center">나이</th>
                                          <th class="text-center">지원날짜</th>
                                          <th class="text-center">Status</th>
                                          <th class="text-center">이력서조회</th>
@@ -65,7 +64,6 @@
                                          <td id="test" class="text-center text-muted" th:text="${app.appNumCode}"></td>
                                          <td class="text-center" th:text="${app.appName}">
                                          </td>
-                                         <td class="text-center">20</td>
                                          <td class="text-center" th:text="${app.appRegDate}"></td>
                                          <td class="text-center">
                                          	<th:block th:switch="${app.appFinalState}">
@@ -106,10 +104,15 @@
 			$(function() {
 				$('.app_resume').click(function() {
 					var appNum = $(this).parent().parent().children().eq(0).text();
-					var appNum1 = $(this).parent().parent().children().eq(1).text().trim();
-
-					if(confirm(appNum1 + '님 이력서를 보시겠습니까?')) {
-						location.href="/appResumeForm?appNumCode="+appNum;
+					var appName = $(this).parent().parent().children().eq(1).text().trim();
+					var state = $(this).parent().parent().children().eq(3).text().trim();
+					
+					if(state != '지원완료') {
+						alert('지원이 완료된 이력서만 열람할 수 있습니다.');
+						return false;
+					}
+					if(confirm(appName + '님 이력서를 보시겠습니까?')) {
+						location.href="/appResumeFormValue?appNumCode="+appNum;
 					}
 				});
 			});

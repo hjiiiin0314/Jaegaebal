@@ -272,4 +272,24 @@
 
 	</insert>
 
+	<select id="SearchAppInfo" parameterType="String" resultMap="ChaeYoungInfoResultMap">
+		SELECT 
+			*
+		FROM 
+			cy_applicant_basic_info AS basic 
+			INNER JOIN 
+			cy_applicant_education_info AS edu
+			ON 
+			basic.app_num_code=edu.app_num_code 
+			INNER JOIN 
+			cy_applicant_military_info AS mili	
+			ON 
+			edu.app_num_code=mili.app_num_code
+			inner join 
+			cy_applicant_number AS app
+			ON 
+			mili.app_num_code=app.app_num_code	
+		WHERE 
+			app.app_num_code=#{appNumCode}
+	</select>
 </mapper>

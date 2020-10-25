@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+	  
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title> 
+	</th:block>
+	
+<th:block layout:fragment="customCss">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/insa.css}">
+<style>
+	.emp-table{
+		height:600px;
+	}
+	.scroll-area-lg{
+	height: 400px;
+}
+</style>
+
+</th:block>
+	<th:block layout:fragment="customJs">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	</th:block>
+<th:block layout:fragment="customContent">
+<!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
+<div class="app-main__inner">
+	<div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-map icon-gradient bg-premium-dark">
+                    </i>
+                </div>
+                <div>지원자 이력서 등록
+                    <div class="page-title-subheading">지원자 이력서 작성/수정/지원취소
+                    </div>
+                </div>
+            </div>   
+         </div>
+    </div> 
+    
+    <div class="row">
+		<div class="col-lg-4">
+			<div class="main-card mb-3 card emp-table">
+				<div class="card-body">
+					<h5 class="card-title ">기본정보</h5>
+						<div th:with="cy = ${chaeYoungApplicant}">
+							<table class="mb-0 table table-bordered " >
+						
+									<tr>
+										<td>지원자 접수번호 : </td>
+										<td class="appNumCode" th:text=${cy.appNumCode}></td>
+									</tr>
+									<tr>
+										<td>지원자 이메일 : </td>
+										<td class="appEmail" th:text=${cy.appEmail}></td>
+									</tr>
+									<tr>
+										<td>지원자 이름 : </td>
+										<td th:text=${cy.appName}></td>
+									</tr>
+									<tr>
+										<td>지원자 핸드폰번호 : </td>
+										<td th:text="${cy.appPhone}"></td>
+									</tr>
+									<tr>
+										<td>지원상태 : </td>
+										<td th:text="${cy.appFinalState}"></td>
+									</tr>
+
+							</table>
+							<input type="hidden" th:value="${cy.appPassward}" class="hiddenPw">
+						</div>
+				<div class="d-block text-center card-footer">
+                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger appDelete"><i class="pe-7s-trash btn-icon-wrapper deleteApp"> </i>지원취소하기</button>
+                </div>
+                <!-- 관리자 권한일 경우 이 div가 노출 -->
+                <div class="text-center">                                                 
+                 	<button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">합격</button>
+                    <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-danger">불합격</button>                            
+                </div>
+					
+			
+				</div>
+			</div>
+		</div>
+				<div class="col-lg-8 col-lg-4">
+					<div class="main-card card">
+						<div class="card-body p-b-xs emp-table">
+							<h5 class="card-title">추가 기입 정보</h5>
+						
+                            <div class="card-header">
+                                <div class="btn-actions-pane-right">
+                                    <div class="nav">
+                                        <a data-toggle="tab" href="#isStaffBasicInfo" class="btn-pill btn-wide mr-1 m-b-xs active btn btn-outline-alternate btn-sm testa">인적사항</a>                   
+                                        <a data-toggle="tab" href="#isCareerInfoFromOut" class="btn-pill btn-wide mr-1 m-b-xs btn btn-outline-alternate btn-sm">경력정보</a>
+                                    </div>
+                                </div>
+                          	</div>
+                            <div class="card-body" th:with= "info =${chaeYoungInfo}">
+                            	<div class="scroll-area-lg">
+                            	<div class="scrollbar-container ps--active-y ps">
+                                <div class="tab-content formCheck">
+                                    <div class="tab-pane active" id="isStaffBasicInfo" role="tabpanel">					
+										<table class="mb-12 table table-bordered">
+											<colgroup>
+												<col width = "12%">
+												<col width = "30%">
+												<col width = "15%">
+												<col width = "43%">
+											</colgroup>
+								
+												<tr>
+													<th>나이</th>
+													<td th:text=${age}></td>
+													<th>성별</th>
+													<td th:text=${info.staffGender}></td>
+												</tr>
+												<tr>
+													<th>휴대폰번호</th>
+													<td th:text=${info.staffPhone}></td>
+													<th>병역정보</th>
+													<td >
+														<div th:text=${info.militaryClassidx}></div>
+														<div th:text="${info.militaryLevel} ? ${info.militaryLevel} + ' ' +${info.militaryState}"></div>
+												
+
+												</tr>
+												<tr>
+													<th>이메일</th>
+													<td th:text=${info.staffEmail}></td>
+													<th>국적</th>
+													<td th:text=${info.staffCountry}></td>
+
+												</tr>
+												<tr>
+													<th>학력</th>
+													<td><div><strong><span th:text=${info.schoolName}></span></strong></div><div th:text=${info.hakryuckStatus}></div>
+													<div th:text="${#strings.substring(info.graduatDate,0, 4)}"></div></td>
+													<th>주소</th>
+													<td th:text=${info.staffAddr}></td>
+												</tr>
+												<tr>
+													<th>경력</th>
+													<td></td>
+												</tr>
+											<tr>
+											</tr>
+
+										</table>
+				                  
+                                    </div>
+                                  
+            						<div class="tab-pane" id="isCareerInfoFromOut" role="tabpanel">
+										
+											<div class="position-relative form-group">
+                                                <div>
+                                                    <div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox" id="exampleCustomInline" class="custom-control-input careerInfoCheck">
+                                                    	<label class="custom-control-label" for="exampleCustomInline">경력사항없음</label>
+                                      				</div>                                              
+                                                </div>
+                                            </div>
+                                           
+											<table class="mb-12 table table-bordered careerInfoTable ">
+												<tr>
+													<td class="t_head2">직장명</td>
+													<td >
+														<input type="text" name="companyName" class="form-control textValue">
+													</td>
+													<td class="t_head2">직위</td>
+													<td >
+														<input type="text" name="companyAccess" class="form-control textValue">
+													</td>
+												</tr>
+												<tr>
+													<td class="t_head2">직책</td>
+													<td>
+														<input type="text" name="companyPositionFromOut" class="form-control textValue">
+													</td>
+													<td class="t_head2">담당업무</td>
+													<td>
+														<input type="text" name="companyWorkFormOut" class="form-control textValue">
+													</td>
+												</tr>
+												<tr>
+													<td class="t_head2">입사일자</td>
+													<td>
+														<input type="date" name="companyInDateFromOut" class="form-control textValue">
+													</td>
+													<td class="t_head2">퇴사일자</td>
+													<td>
+														<input type="date" name="companyOutDateFromOut" class="form-control textValue">
+													</td>
+												</tr>	
+												<tr>
+													<td class="t_head2">퇴직사유</td>
+													<td colspan="3">
+														<textarea name="companyOutReason" class="form-control textValue"></textarea>
+													</td>
+												</tr> 												
+												<tr>
+													<td colspan="8">
+														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoFromOutBtn"><i class="pe-7s-add-user"></i>경력추가</button></div>
+													</td>
+												</tr>
+											</table>
+										<form class="careerInfo" action="/addInfo" method="post">
+											<table class="careerValue mb-0 table table-borderless">
+												<tr>
+													<td> 직장명 </td>
+													<td> 직위 </td>
+													<td> 직책 </td>
+													<td> 담당업무 </td>
+													<td> 입사일자 </td>
+													<td> 퇴사일자 </td>
+													<td> 퇴직사유 </td>
+												</tr>
+											</table>
+									
+				                         </form>                              
+                                     </div>
+                                     
+                                                                            
+                             </div>
+                             <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+                             <div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 65px;"></div></div>
+                             </div>
+                             </div>
+                         </div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
+	</th:block>
+		
+	<th:block layout:fragment="customJsScript">
+	<script src="/assets/scripts/chaeyoungBoard.js"></script>
+	<script src="/assets/scripts/chaeyoung-info.js"></script>
+  	
+	</th:block>
+
+
+</html>
