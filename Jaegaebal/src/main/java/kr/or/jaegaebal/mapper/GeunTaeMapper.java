@@ -1,6 +1,7 @@
 package kr.or.jaegaebal.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +16,7 @@ public interface GeunTaeMapper {
 		public List<Holiday> holidayList();
 		
 	//휴일 등록
-		public int addHdCode(Holiday holiday);
+		public List<Map<String, Object>> addHdCode();
 		
 	// 코드 중복검사
 		public String hdCodeCheck(String hdCode);

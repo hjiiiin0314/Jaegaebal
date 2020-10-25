@@ -1,6 +1,7 @@
 package kr.or.jaegaebal.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,35 +36,14 @@ public class GeunTaeController {
 	}
 	
 	//휴일등록
-	@GetMapping("/addHdCode")
-	public String addHdCode(Model model) {
-		model.addAttribute("title","휴일코드 추가");
-		return "GeunTae/addHdCode";
-	}
+	@PostMapping(value="/addHdCode",produces = "application/json")
+	   @ResponseBody
+	   public List<Map<String, Object>> addHdCode(){
+	      List<Map<String, Object>> addHdCode = geunTaeService.addHdCode();
+	      return addHdCode;
+	   }
 	
-	@PostMapping("/addHdCode")
-	public String addHdCode(Holiday holiday
-			,@RequestParam(value="hdCode",required = false) String hdCode
-			,@RequestParam(value="companyCode",required = false) String companyCode
-			,@RequestParam(value="hdName",required = false) String hdName
-			,@RequestParam(value="hdStartDay",required = false) String hdStartDay
-			,@RequestParam(value="hdEndDay",required = false) String hdEndDay
-			) {
-		
-		geunTaeService.addHdCode(holiday);
-		
-		return "redirect:/holidayList";
-	}
 	
-	//휴일코드 중복확인
-			@PostMapping(value = "/hdCodeCheck", produces = "application/json")
-			@ResponseBody
-			public int hdCodeCheck(@RequestParam(value="hdCode") String hdCode) {
-				
-				int result = geunTaeService.hdCodeCheck(hdCode);
-				
-				return result;
-			}
 			
 	
 			//휴일코드 수정
