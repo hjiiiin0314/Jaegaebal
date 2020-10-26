@@ -244,11 +244,13 @@ public class InsaService {
 		List<Code> jojicInfo 					= insaMapper.getJojicInfo1();
 		List<Code> levelInfo 					= insaMapper.getLevelInfo();
 		List<Code> positionInfo 				= insaMapper.getPositionInfo();
+		List<Code> balryoungInfo				= insaMapper.getBalryoungInfo1();
 		
 		codeAndName.put("accessInfo", accessInfo);
 		codeAndName.put("jojicInfo", jojicInfo);
 		codeAndName.put("levelInfo", levelInfo);
 		codeAndName.put("positionInfo", positionInfo);
+		codeAndName.put("balryoungInfo", balryoungInfo);
 		
 		return codeAndName;
 	}

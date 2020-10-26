@@ -136,9 +136,9 @@
 												</tr>
 											</thead>
 											<tbody id="StaffList-t-body">
-												<tr th:each="l, index : ${getStaffInfoAllList}"  data-toggle="modal"  class="staffInfoTr">	
+												<tr th:each="l : ${getStaffInfoAllList}"  data-toggle="modal"  class="staffInfoTr">	
 												<!-- data-target="staffInfoTrModal"	 -->
-													<th scope="row" th:text="${l.rowNum}"></th>
+													<th th:text="${l.rowNum}"></th>
 													<td><a th:text="${l.staffNum}" id="TrStaffNum"></a></td>
 													<td><a th:text="${l.staffName}" ></a></td>
 													<td><a th:text="${l.jojicName}" ></a></td>
@@ -293,9 +293,9 @@
 															</table>															
 														</form>	
 				                                    </div>
-				                                    <div class="tab-pane isStaffBasicInfo" id="isStaffBasicInfoDetail" role="tabpanel">
-					                                    <form class="" action="" method="post" >
-															<table class="mb-12 table table-bordered forms is_staff_basic_info" >
+													<div class="tab-pane isStaffBasicInfo" id="isStaffBasicInfoDetail" role="tabpanel">
+					                                    <form class="" action="" method="post">
+															<table class="mb-12 table table-bordered forms" >
 																<colgroup>
 																	<col width = "12%">
 																	<col width = "30%">

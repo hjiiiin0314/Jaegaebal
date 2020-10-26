@@ -62,10 +62,10 @@
 										                             <ul class="children nav-child unstyled small collapse show" id="sub-item-2">
 										                             <th:block  th:each="l2 : ${jojicInfo2}">
 										                                <li class="item-4" th:if="${l2.parentJojicName eq l.jojicName && l2.jojicStatus eq '활성'}">
-											                                	<label>
-											                                    	<input type="checkbox" class="input-jojicStatus" th:value="${l2.jojicName}" name="input-checked">
-											                                        <span class="lbl">[[${l2.jojicName}]]</span>
-											                                	</label>
+										                                	<label>
+										                                    	<input type="checkbox" class="input-jojicStatus" th:value="${l2.jojicName}" name="input-checked">
+										                                        <span class="lbl">[[${l2.jojicName}]]</span>
+										                                	</label>
 										                                </li>
 										                             </th:block>
 										                            </ul>

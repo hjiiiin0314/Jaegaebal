@@ -13,7 +13,14 @@ public class Code {
 	private String levelName;		//직급명
 	private String positionCode;	//직책코드
 	private String positionName;	//직책명
+	private String balryoungName;	//발령명
 	
+	public String getBalryoungName() {
+		return balryoungName;
+	}
+	public void setBalryoungName(String balryoungName) {
+		this.balryoungName = balryoungName;
+	}
 	public String getAccessNum() {
 		return accessNum;
 	}
@@ -64,9 +71,27 @@ public class Code {
 	}
 	@Override
 	public String toString() {
-		return "Code [accessNum=" + accessNum + ", accessName=" + accessName + ", jojicCode=" + jojicCode
-				+ ", jojicName=" + jojicName + ", levelCode=" + levelCode + ", levelName=" + levelName
-				+ ", positionCode=" + positionCode + ", positionName=" + positionName + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Code [accessNum=");
+		builder.append(accessNum);
+		builder.append(", accessName=");
+		builder.append(accessName);
+		builder.append(", jojicCode=");
+		builder.append(jojicCode);
+		builder.append(", jojicName=");
+		builder.append(jojicName);
+		builder.append(", levelCode=");
+		builder.append(levelCode);
+		builder.append(", levelName=");
+		builder.append(levelName);
+		builder.append(", positionCode=");
+		builder.append(positionCode);
+		builder.append(", positionName=");
+		builder.append(positionName);
+		builder.append(", balryoungName=");
+		builder.append(balryoungName);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	
