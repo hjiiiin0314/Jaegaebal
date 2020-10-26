@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,11 +133,19 @@ public class ChaeYoungController {
 	}
 	//지원자 이력서 작성form
 	@GetMapping("/appResumeForm")
-	public String appResumeForm(ChaeYoungApplicant chaeYoungApplicant,Model model) {
+	public String appResumeForm(ChaeYoungApplicant chaeYoungApplicant,Model model,HttpSession session) {
 		if(chaeYoungApplicant != null) {
 			//지원자 한명의 정보 가져오기
 			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+			
+			if(chaeYoungApplicant.getAppNumCode() != null) {
+				//지원자 이력서(인적,학력,병역)
+				ChaeYoungInfo chaeYoungInfo = chaeYoungService.SearchAppInfo(chaeYoungApplicant.getAppNumCode());
+				model.addAttribute("chaeYoungInfo", chaeYoungInfo);
+			}
 			model.addAttribute("chaeYoungApplicant", applicant);
+
+			session.setAttribute("SAPP", applicant.getAppNumCode());
 		}
 		
 		model.addAttribute("title", "이력서 작성 form");

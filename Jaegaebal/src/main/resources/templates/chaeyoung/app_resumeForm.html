@@ -115,7 +115,7 @@
 												<tr>
 													<td class="t_head2">영문 이름</td>
 													<td>
-														<input type="text" class="form-control last-name textValue">
+														<input type="text" class="form-control last-name textValue" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffEngName} : ''">
 													</td>
 													<td class="t_head2">영문 성</td>
 													<td>
@@ -125,12 +125,14 @@
 												</tr> 
 												<tr>													
 													<td class="t_head2">성별</td>
-													<td>
+													<td th:if="${chaeYoungInfo}" th:text="${chaeYoungInfo.staffGender}"></td>
+													<td th:unless="${chaeYoungInfo}">
 														<label><input type="radio" name="staffGender" value="여" checked="checked"> 여</label>
 														<label><input type="radio" name="staffGender" value="남"> 남</label>													
 													</td>
 													<td class="t_head2">주민등록번호</td>
-													<td class="inputmaineus">
+													<td th:if="${chaeYoungInfo}" th:text="${#strings.substring(chaeYoungInfo.humanNum,0, 7)} + '*******'"></td>
+													<td class="inputmaineus" th:unless="${chaeYoungInfo}">
 														<input type="text" name="humanNum1" class="form-control input-width21 textValue">
 														<span class="span-font">-</span>
 														<input type="password" name="humanNum2" class="form-control input-width22 textValue">
@@ -155,17 +157,17 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus">
-														<input type="text" name="staffPhone" class="form-control phoneNumber textValue" maxlength="13">
+														<input type="text" name="staffPhone" class="form-control phoneNumber textValue" maxlength="13" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffPhone} : ''">
 													</td>
 												</tr> 
 												<tr>													
 													<td class="t_head2">이메일</td>
 													<td>
-														<input type="text" name="staffEmail" class="form-control textValue">
+														<input type="text" name="staffEmail" class="form-control textValue" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffEmail} : ''">
 													</td>
 													<td class="t_head2">주소</td>
 													<td>
-														<input type="text" name="staffAddr" class="form-control textValue">
+														<input type="text" name="staffAddr" class="form-control textValue" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffAddr} : ''">
 													</td>
 												</tr> 
 
