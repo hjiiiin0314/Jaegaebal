@@ -74,14 +74,7 @@
 						</div>
 				<div class="d-block text-center card-footer">
                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger appDelete"><i class="pe-7s-trash btn-icon-wrapper deleteApp"> </i>지원취소하기</button>
-                </div>
-                <!-- 관리자 권한일 경우 이 div가 노출 -->
-                <div class="text-center">                                                 
-                 	<button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-success">합격</button>
-                    <button type="button" id="PopoverCustomT-1" class="mb-2 mr-2 btn-transition btn btn-outline-danger">불합격</button>                            
-                </div>
-					
-			
+                </div>		
 				</div>
 			</div>
 		</div>
@@ -122,7 +115,7 @@
 												<tr>
 													<td class="t_head2">영문 이름</td>
 													<td>
-														<input type="text" class="form-control last-name textValue">
+														<input type="text" class="form-control last-name textValue" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffEngName} : ''">
 													</td>
 													<td class="t_head2">영문 성</td>
 													<td>
@@ -132,12 +125,14 @@
 												</tr> 
 												<tr>													
 													<td class="t_head2">성별</td>
-													<td>
+													<td th:if="${chaeYoungInfo}" th:text="${chaeYoungInfo.staffGender}"></td>
+													<td th:unless="${chaeYoungInfo}">
 														<label><input type="radio" name="staffGender" value="여" checked="checked"> 여</label>
 														<label><input type="radio" name="staffGender" value="남"> 남</label>													
 													</td>
 													<td class="t_head2">주민등록번호</td>
-													<td class="inputmaineus">
+													<td th:if="${chaeYoungInfo}" th:text="${#strings.substring(chaeYoungInfo.humanNum,0, 7)} + '*******'"></td>
+													<td class="inputmaineus" th:unless="${chaeYoungInfo}">
 														<input type="text" name="humanNum1" class="form-control input-width21 textValue">
 														<span class="span-font">-</span>
 														<input type="password" name="humanNum2" class="form-control input-width22 textValue">
@@ -162,17 +157,17 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus">
-														<input type="text" name="staffPhone" class="form-control phoneNumber textValue" maxlength="13">
+														<input type="text" name="staffPhone" class="form-control phoneNumber textValue" maxlength="13" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffPhone} : ''">
 													</td>
 												</tr> 
 												<tr>													
 													<td class="t_head2">이메일</td>
 													<td>
-														<input type="text" name="staffEmail" class="form-control textValue">
+														<input type="text" name="staffEmail" class="form-control textValue" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffEmail} : ''">
 													</td>
 													<td class="t_head2">주소</td>
 													<td>
-														<input type="text" name="staffAddr" class="form-control textValue">
+														<input type="text" name="staffAddr" class="form-control textValue" th:value="${chaeYoungInfo} ? ${chaeYoungInfo.staffAddr} : ''">
 													</td>
 												</tr> 
 
@@ -225,6 +220,15 @@
 													<td class="t_head2">퇴직사유</td>
 													<td colspan="3">
 														<textarea name="companyOutReason" class="form-control textValue"></textarea>
+										<!-- 				<select id="retireidx" name="companyOutReason" class="form-control textValue">
+								                            <option value="">선택</option>
+								                            <option value="이직">이직</option>
+								                            <option value="학업">학업</option>
+								                            <option value="건강">건강</option>
+								                            <option value="해고">해고</option>
+								                            <option value="명퇴">명퇴</option>
+								                            <option value="기타">기타</option>
+								                        </select> -->
 													</td>
 												</tr> 												
 												<tr>

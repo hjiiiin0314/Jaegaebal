@@ -159,13 +159,18 @@
 	</select>
 	<!-- 지원자 이메일 중복검사 -->
 	<select id="emailCheck" parameterType="String" resultMap="ChaeYoungApplicantResultMap">
-		SELECT 
-			app_email
-			,app_passward
+			SELECT 
+			reg.app_email
+			,reg.app_passward
+			,num.app_num_code
 		FROM 
-			cy_applicant_register
+			cy_applicant_register AS reg
+			INNER join
+			cy_applicant_number AS num
+			on
+			reg.app_email=num.app_email
 		WHERE
-			app_email = #{appEmail} 
+			reg.app_email = #{appEmail} 
 	</select>
 	<!-- 지원자 정보 가져오기 -->
 	<select id="appManagement" parameterType="String" resultMap="ChaeYoungApplicantResultMap">

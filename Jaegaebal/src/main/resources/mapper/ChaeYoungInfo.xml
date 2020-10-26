@@ -289,7 +289,15 @@
 			cy_applicant_number AS app
 			ON 
 			mili.app_num_code=app.app_num_code	
+		<if test="appNumCode != null and appNumCode neq ''.toString()">
+			WHERE 
+				app.app_num_code=#{appNumCode}		
+		</if>
+	</select>
+	<select id="SearchAppCareerInfo" parameterType="String" resultMap="ChaeYoungCareerInfoResultMap">
+		SELECT career_info_code, job_number, app_email, app_num_code, company_name, company_access, company_position_from_out, company_work_form_out, company_in_date_from_out, company_out_date_from_out, company_out_reason, reg_date
+		FROM cy_applicant_career_info
 		WHERE 
-			app.app_num_code=#{appNumCode}
+			app_num_code=#{appNumCode}
 	</select>
 </mapper>

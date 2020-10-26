@@ -136,14 +136,21 @@ public class ChaeYoungService {
 		}
 		return result;
 	}
+	/************************* 지원자 이력서 등록 End *****************************/
 	
+	/************************* 지원자 이력서 조회 Start ****************************/
 	//지원자 이력서 조회 (인적,학력,병역)
 	public ChaeYoungInfo SearchAppInfo(String appNumCode) {
 		
 		return chaeYoungMapper.SearchAppInfo(appNumCode);
 	};
 	
-	// *********************** 지원자 이력서 등록 End ***************************** //
+	//지원자 이력서 조회 (경력)
+	public List<ChaeYoungCareerInfo> SearchAppCareerInfo(String appNumCode) {
+		
+		return chaeYoungMapper.SearchAppCareerInfo(appNumCode);
+	};
+	/************************* 지원자 이력서 조회 Start ****************************/
 	//지원자 정보 삭제
 	public int deleteApplicant(String appEmail) {
 		
