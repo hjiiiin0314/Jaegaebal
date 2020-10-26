@@ -17,6 +17,7 @@ public class StaffFamilyInfo {
 	private String staffFamilyInfoNotes;	//비고
 	private String regStaffName;			//등록자
 	private String regDate;					//등록일
+	
 	public String getFamilyInfoCode() {
 		return familyInfoCode;
 	}

@@ -245,9 +245,11 @@ public class InsaController {
 		log.info("staffNum::::::::::::::::>>>>>>>>>{}", staffNum);
 		
 		Map<String, Object> info = insaService.getStaffInfoByTr(staffNum);
-		log.info("info::::::::::::::::>>>>>>>>>{}", info);
+		Map<String, Object> codeAndName = insaService.getCodeAndName();
+		model.addAttribute("codeAndName", codeAndName);
 		model.addAttribute("list", info);
 		model.addAttribute("title", "직원 정보 수정");
+		log.info("info::::::::::::::::>>>>>>>>>{}", info.toString());
 		return "/insa/modify_insert_staff_detaill_info";
 	}
 	

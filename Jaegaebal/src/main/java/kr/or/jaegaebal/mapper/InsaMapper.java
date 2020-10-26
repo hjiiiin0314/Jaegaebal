@@ -115,6 +115,8 @@ public interface InsaMapper {
 	public List<Code> getPositionInfo();
 	//소속 코드, 명 가져오기
 	public List<Code> getJojicInfo1();
+	//발령 코드, 명 가져오기
+	public List<Code> getBalryoungInfo1();
 	
 	//사번 생성 후 가져오기
 	//public String makeStaffNum();

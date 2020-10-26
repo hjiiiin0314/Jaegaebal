@@ -48,7 +48,7 @@ public class StaffInfo {
 	//prize_num, staff_num, prize_code, given_date, prize_reason, prize_price, salary_applied_date, prize_notes
 	
 	/*다른 테이블에서 외래키로 가져온 컬럼명*/
-	//level_name, position_name, jojic_name, jaejic_status_name, access_name, position_code, data_num
+	//level_name, position_name, jojic_name, jaejic_status_name, access_name, position_code, data_num, balryoung_name
 	
 	private int rowNum; 					//
 	private String staffNum;				//사원번호
@@ -150,7 +150,8 @@ public class StaffInfo {
 	private String jojicSosocName;			//소속이름
 	private String accessName;				//권한명
 	private String positionCode;			//직책코드
-	private String dataNum;				
+	private String dataNum;		
+	private String balryoungName;			//발령이름
 	
 	private String punishmentCode;			//징계코드
 	private String punishmentName;			//징계명
@@ -177,6 +178,12 @@ public class StaffInfo {
 
 	
 	
+	public String getBalryoungName() {
+		return balryoungName;
+	}
+	public void setBalryoungName(String balryoungName) {
+		this.balryoungName = balryoungName;
+	}
 	public int getRowNum() {
 		return rowNum;
 	}
@@ -1023,6 +1030,8 @@ public class StaffInfo {
 		builder.append(positionCode);
 		builder.append(", dataNum=");
 		builder.append(dataNum);
+		builder.append(", balryoungName=");
+		builder.append(balryoungName);
 		builder.append(", punishmentCode=");
 		builder.append(punishmentCode);
 		builder.append(", punishmentName=");

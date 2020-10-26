@@ -121,6 +121,7 @@
 		<result column="education_info_notes" 		property="educationInfoNotes"/>		
 		<result column="military_info_notes" 		property="militaryInfoNotes"/>		
 		<result column="data_num" 					property="dataNum"/>	
+		<result column="balryoung_name" 			property="balryoungName"/>	
 			
 		<result column="punishment_code" 			property="punishmentCode"/>		
 		<result column="punishment_name" 			property="punishmentName"/>		
@@ -150,6 +151,7 @@
 		<result column="level_name" 				property="levelName"/>
 		<result column="position_code" 				property="positionCode"/>
 		<result column="position_name" 				property="positionName"/>
+		<result column="balryoung_name" 			property="balryoungName"/>
 	</resultMap>
 	
 	<resultMap type="Punishment" id="PunishmentResultMap">
@@ -261,6 +263,8 @@
 		<result column="balryoung_date" 			property="balryoungDate"/>
 		<result column="balryoung_stage" 			property="balryoungStage"/>
 		<result column="balryoung_info_notes" 		property="balryoungInfoNotes"/>
+		<result column="balryoung_name" 			property="balryoungName"/>
+		
 	</resultMap>
 	
 	<resultMap type="MilitaryInfo" id="MilitaryInfoMap">
@@ -443,20 +447,12 @@
 				is_prize						AS pz
 				on
 				pz.prize_code = pzl.prize_code	
-				<!-- LIMIT 	#{startRow}, #{rowPerPage};			 -->
-<!-- 				<where>
-					<if test="map.searchObj neq null and map.searchObj neq ''.toString() and map.searchVal neq null and map.searchVal neq ''.toString()">
-						AND ${map.searchObj} LIKE CONCAT('%',#{map.searchVal},'%')
-			 		</if>
-				</where> -->	
 	</select>
-	
 	
 	<!-- 일반 직원일때 직원 목록의 전체 행 갯수 -->
 	<select id="getStaffInfoListCount" parameterType="Map" resultType="int">
 		SELECT 
 				COUNT(*)
-				
 		FROM is_staff 					AS sf
 		JOIN is_level 					AS lv
 		JOIN is_position 				AS ps
@@ -760,6 +756,15 @@
 				,position_name
 		FROM 
 				 is_position
+	</select>
+	
+	<!-- 발령 코드, 명 가져오기 -->
+	<select id="getBalryoungInfo1" resultMap="CodeResultMap">
+		SELECT 
+				 balryoung_code
+				,balryoung_name
+		FROM 
+				 is_balryoung
 	</select>
 	
 	<!-- 활성 상태로 수정하기  -->
@@ -1520,7 +1525,7 @@
 			</if> 
 	</delete>
 	
-	<!-- 직원 기본 정보 가져오기 with 소속명,직책명,권한명,직급명,재직상태  -->	
+	<!-- 직원 기본 정보 가져오기 with 소속명,직책명,권한명,직급명,재직상태, 발령명 -->	
 	<select id="getStaffInfoWithOther" parameterType="String" resultMap="StaffInfoResultMap">
 		SELECT
 			 si.*
@@ -1530,6 +1535,7 @@
 			,lv.level_name
 			,ac.access_name
 			,ac.access_num
+			,b.balryoung_name
 		FROM
 			is_staff AS si
 			INNER JOIN
@@ -1552,6 +1558,14 @@
 			is_access			 		AS ac
 			ON
 			si.access_num = ac.access_num	
+			LEFT JOIN				
+			is_balryoung_info			AS bi
+			ON
+			si.staff_num = bi.staff_num
+			LEFT JOIN 
+			is_balryoung				AS b
+			ON
+			bi.balryoung_code = b.balryoung_code
 		WHERE
 			si.staff_num = #{staffNum}
 	</select>
@@ -1644,12 +1658,17 @@
 	<select id="getBalryoungInfo" parameterType="String" resultMap="StaffBalryoungInfoMap">
 		SELECT
 			bri.*
+			,b.balryoung_name
 		FROM
 			is_staff AS si
 			INNER JOIN
-			is_balryoung_info AS bri
+			is_balryoung_info 	AS bri
 			ON 
 			si.staff_num = bri.staff_num
+			LEFT JOIN
+			is_balryoung		AS b
+			ON
+			bri.balryoung_code = b.balryoung_code
 		WHERE
 			si.staff_num = #{staffNum}
 	</select>
