@@ -34,12 +34,19 @@ public class GeunTaeController {
 		
 		return "geuntae/holidayList";
 	}
+	//팝업창
+	@GetMapping("/addHdCode2")
+	public String addHdCode2(Model model) {
+		model.addAttribute("title","휴일등록팝업");
+		return "geuntae/addHdCode2";
+	}
 	
 	//휴일등록
 	@PostMapping(value="/addHdCode",produces = "application/json")
 	   @ResponseBody
 	   public List<Map<String, Object>> addHdCode(){
 	      List<Map<String, Object>> addHdCode = geunTaeService.addHdCode();
+	      System.out.println(addHdCode);
 	      return addHdCode;
 	   }
 	

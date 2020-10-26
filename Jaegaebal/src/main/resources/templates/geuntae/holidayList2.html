@@ -17,14 +17,6 @@
 	}
 	</style>
 	
-	<script>
-	function click_add() {
-		var url = "/addHdCode2";
-		var name = "addHdCode";
-		var option = "width = 600, height = 600 left = 100, top=50,location=no";
-		window.open(url,name,option)
-	};
-	</script>
 				
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
@@ -47,8 +39,7 @@
     
     	<!-- 코드등록버튼 -->
 		
-		<button type="button" class="btn btn-primary addHdCode" onclick="click_add();">휴일등록</button>		 <!-- data-toggle="modal" data-target="#myModal" -->
-			<div class="main-card mb-10 card table-padding">
+		<button type="button" class="btn btn-primary addHdCode" data-toggle="modal" data-target="#myModal">휴일등록</button>
 
     <div id="Scalendar"></div>
     <script>
@@ -121,8 +112,6 @@
         
     </script>
     	</div>
-    	</div>
-    	
  <!-- 일정 추가 MODAL -->
         <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
             <div class="modal-dialog" role="document">
