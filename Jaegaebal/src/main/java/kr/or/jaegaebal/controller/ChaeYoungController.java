@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
+import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
 import kr.or.jaegaebal.dto.ChaeYoungInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.mapper.ChaeYoungMapper;
@@ -139,12 +140,16 @@ public class ChaeYoungController {
 	public String appResumeFormValue(@RequestParam(value="appNumCode" , required=false) String appNumCode,ChaeYoungApplicant chaeYoungApplicant,Model model) {
 		if(appNumCode != null && chaeYoungApplicant != null) {
 			//지원자 한명의 정보 가져오기
-			System.out.println(appNumCode);
+
 			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+			//지원자 이력서(인적,학력,병역)
 			ChaeYoungInfo chaeYoungInfo = chaeYoungService.SearchAppInfo(appNumCode);
-			System.out.println(chaeYoungInfo);
+			//지원자 이력서 (경력)
+			List<ChaeYoungCareerInfo> careerList = chaeYoungService.SearchAppCareerInfo(appNumCode);
+
 			model.addAttribute("chaeYoungApplicant", applicant);
 			if(chaeYoungInfo != null) {
+				/*지원자 생년월일로 만나이 구하기 Start*/
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 				String today = formatter.format(new Date());
 				String birth = chaeYoungInfo.getHumanNum().substring(0,6);
@@ -171,7 +176,10 @@ public class ChaeYoungController {
 		                age--; // 생일 안지났으면 (만나이 - 1)
 		            }
 		        }
+		        /*지원자 생년월일로 만나이 구하기 End*/
+		        
 				model.addAttribute("chaeYoungInfo", chaeYoungInfo);
+				model.addAttribute("careerList", careerList);
 				model.addAttribute("age", age);
 			}
 		}

@@ -73,6 +73,9 @@ public interface ChaeYoungMapper {
 	//지원자 이력서 조회 (인적,학력,병역)
 	public ChaeYoungInfo SearchAppInfo(String appNumCode);
 	
+	//지원자 이력서 조회 (경력)
+	public List<ChaeYoungCareerInfo> SearchAppCareerInfo(String appNumCode);
+	
 	/*************************** 지원자 이력서작성 End ******************************/
 	
 	/*************************** 합격자 명단 Start ********************************/
