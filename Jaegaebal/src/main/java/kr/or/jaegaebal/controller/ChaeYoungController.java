@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,10 @@ public class ChaeYoungController {
 
 	@Autowired ChaeYoungService chaeYoungService;
 	@Autowired ChaeYoungMapper chaeYoungMapper;
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(ChaeYoungController.class);
+
 	//채용공고 리스트
 	@GetMapping("/cyboardList")
 	public String cyBoardList(Model model) {
@@ -51,6 +56,7 @@ public class ChaeYoungController {
 		if(jobNumber != null && !"".equals(jobNumber)) {
 			//리스트에서 클릭하여 form 화면으로 올 경우.
 			ChaeYoungBoard chaeYoungboard = chaeYoungService.cyBoardList(jobNumber);
+			
 			model.addAttribute("cyboard", chaeYoungboard);
 		}
 		
@@ -179,7 +185,10 @@ public class ChaeYoungController {
 		        /*지원자 생년월일로 만나이 구하기 End*/
 		        
 				model.addAttribute("chaeYoungInfo", chaeYoungInfo);
-				model.addAttribute("careerList", careerList);
+				if(careerList.size() > 0) {
+					
+					model.addAttribute("careerList", careerList);					
+				}
 				model.addAttribute("age", age);
 			}
 		}
