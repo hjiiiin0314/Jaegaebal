@@ -89,17 +89,17 @@
 			                                    end: data[i].hd_end_date
 			                                 });
 			                                 }else{
-			                                  var a = moment(data[i].hd_start_date+' '+data[i].lec_starttime,'YYYY-MM-DD HH:mm:ss'); 
-			                                  var b = moment(data[i].hd_end_date+' '+data[i].lec_endtime,'YYYY-MM-DD HH:mm:ss'); 
-			                                  var c = moment(data[i].hd_start_date+' '+data[i].lec_endtime,'YYYY-MM-DD HH:mm:ss'); 
+			                                  var a = moment(data[i].hd_start_date,'YYYY-MM-DD'); 
+			                                  var b = moment(data[i].hd_end_date,'YYYY-MM-DD'); 
+			                                  var c = moment(data[i].hd_start_date,'YYYY-MM-DD'); 
 			                                  var days = b.diff(a, 'days');
 			                                  for(var j = 0; j<days; j++){
-			                                    var repeatStartTimeDays = moment(a, 'YYYY-MM-DD HH:mm:ss').add(j, 'days').format('YYYY-MM-DD HH:mm:ss');
-			                                    var repeatEndTimeDays = moment(c, 'YYYY-MM-DD HH:mm:ss').add(j, 'days').format('YYYY-MM-DD HH:mm:ss');
+			                                    var repeatStartTimeDays = moment(a, 'YYYY-MM-DD').add(j, 'days').format('YYYY-MM-DD');
+			                                    var repeatEndTimeDays = moment(c, 'YYYY-MM-DD HH:mm:ss').add(j, 'days').format('YYYY-MM-DD');
 			                                    events.push({
 			                                      title:data[i].hd_name,
-			                                      start:moment(repeatStartTimeDays).format('YYYY-MM-DD HH:mm:ss'),
-			                                      end:moment(repeatEndTimeDays).format('YYYY-MM-DD HH:mm:ss')
+			                                      start:moment(repeatStartTimeDays).format('YYYY-MM-DD'),
+			                                      end:moment(repeatEndTimeDays).format('YYYY-MM-DD')
 			                                    });
 			                                  }
 			                                }
