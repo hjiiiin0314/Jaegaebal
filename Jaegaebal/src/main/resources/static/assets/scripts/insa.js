@@ -1031,17 +1031,17 @@
     	//직원 등록 - 추가 입력 정보
     	$(document).on('click', '#insertAddMoreStaffInfoBtn', function(){
 			var staffPhone = $('.staff_phone_val').addHyphen();
-			$('#staff_phone_val').attr("value", staffPhone);
-			console.log($('#staff_phone_val').attr("name"));
+			$('.staff_phone_val').attr("value", staffPhone);
+			console.log($('.staff_phone_val').attr("name"));
 			
 			var familyPhone = $('.family_phone_val').addHyphen();
-			$('#family_phone_val').attr("value", familyPhone);
-			console.log($('#family_phone_val').attr("name"));
+			$('.family_phone_val').attr("value", familyPhone);
+			console.log($('.family_phone_val').attr("name"));
 			
 			var humanNum = $('.human_num').addHyphen();
-			$('#humanNum').attr("value", humanNum);
-			console.log($('#humanNum').attr("name"));
-		
+			$('.humanNum').attr("value", humanNum);
+			console.log($('.humanNum').attr("name"));
+			
 			//사원번호당 추가될 가족정보 테이블 - 한 사람
 			var familyInfoTB = $('.familyInfoForm table');
 			var careerInfoFromInTB = $('.careerInfoFromInForm table');
@@ -1538,6 +1538,11 @@
     				alert("다시 시도해주세요.");
     			});
     		}
+    	});
+    	
+    	//직원리스트 - 상세보기 모달 - 수정버튼 - 수정화면 - 수정버튼 클릭시
+    	$('#modifyStaffInfoBtn').click(function(){
+    		alert('modifyStaffInfoBtn 클릭');
     	});
     		
     });

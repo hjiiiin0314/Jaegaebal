@@ -146,7 +146,7 @@
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="tab-pane active isStaffBasicInfo" id="modifyStaffBasicInfo" role="tabpanel" >
-	                                    <form class="insertDetailInfoForm staffBasicInfoForm" action="/modifyStaffBasicInfo" method="post" th:if="${#lists.size(list.staffBasicInfo) > 0}"  th:each="l : ${list.staffBasicInfo}">
+	                                    <form class="insertDetailInfoForm staffBasicInfoForm" action="/modifyStaffBasicInfo" method="post" th:if="${not #lists.isEmpty(list.staffBasicInfo)}"  th:each="l : ${list.staffBasicInfo}">
 											<table class="mb-12 table table-bordered forms is_staff_basic_info" >
 												<colgroup>
 													<col width = "12%">
@@ -156,7 +156,7 @@
 												</colgroup>
 												<tr>
 													<td class="t_head2">영문이름
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.basicInfoCode}" class="form-control" name="basicInfoCode"/>
 													</td>
 													<td colspan="3">
 														<input type="text" name="staffEngName" th:value="${l.staffEngName}" class="form-control staffDetailInfo">
@@ -170,10 +170,17 @@
 													</td>
 													<td class="t_head2">주민등록번호</td>
 													<td class="inputmaineus" >
-														<input type="hidden" name="humanNum" id="humanNum"/>
-														<input type="text" class=" input-width21 human_num form-control staffDetailInfo" th:value="${#strings.substring(l.humanNum, 0, 6)}" maxlength="6">
-														<span class="span-font">-</span>
-														<input type="text" class=" input-width22 human_num form-control staffDetailInfo" th:value="${#strings.substring(l.humanNum, 7, 14)}" maxlength="7">
+														<input type="hidden" name="humanNum" class="humanNum"/>
+														<th:block th:if="${#strings.length(l.humanNum) == 14}">
+															<input type="text" class=" input-width21 human_num form-control staffDetailInfo" th:value="${#strings.substring(l.humanNum, 0, 6)}" maxlength="6">
+															<span class="span-font">-</span>
+															<input type="text" class=" input-width22 human_num form-control staffDetailInfo" th:value="${#strings.substring(l.humanNum, 7, 14)}" maxlength="7">
+														</th:block>
+														<th:block th:unless="${#strings.length(l.humanNum) == 14}">
+															<input type="text" class=" input-width21 human_num form-control staffDetailInfo" maxlength="6">
+															<span class="span-font">-</span>
+															<input type="text" class=" input-width22 human_num form-control staffDetailInfo" maxlength="7">
+														</th:block>
 													</td>
 												</tr> 
 												<tr>
@@ -194,12 +201,22 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus">
-														<input type="hidden" name="staffPhone"  id="staff_phone_val"/>
-														<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 0, 3)}" maxlength="3">
-														<span class="span-font span-1">-</span>
-														<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 4, 8)}" maxlength="4">
-														<span class="span-font span-2">-</span>
-														<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 9, 13)}" maxlength="4">
+														<th:block th:if="${#strings.length(l.humanNum) == 13}">
+															<input type="hidden" name="staffPhone"  class="staff_phone_val"/>
+															<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 0, 3)}" maxlength="3">
+															<span class="span-font span-1">-</span>
+															<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 4, 8)}" maxlength="4">
+															<span class="span-font span-2">-</span>
+															<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 9, 13)}" maxlength="4">
+														</th:block>
+														<th:block th:unless="${#strings.length(l.humanNum) == 13}">
+															<input type="hidden" name="staffPhone"  class="staff_phone_val"/>
+															<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo" maxlength="3">
+															<span class="span-font span-1">-</span>
+															<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo" maxlength="4">
+															<span class="span-font span-2">-</span>
+															<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo" maxlength="4">
+														</th:block>
 													</td>
 												</tr> 
 												<tr>													
@@ -220,83 +237,83 @@
 												</tr> 
 											</table>
 										</form>	
+	                                    <form class="insertDetailInfoForm staffBasicInfoForm" action="/modifyStaffBasicInfo" method="post" th:unless="${not #lists.isEmpty(list.staffBasicInfo)}">
+											<table class="mb-12 table table-bordered forms is_staff_basic_info" >
+												<colgroup>
+													<col width = "12%">
+													<col width = "30%">
+													<col width = "15%">
+													<col width = "43%">
+												</colgroup>
+												<tr>
+													<td class="t_head2">영문이름
+														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+													</td>
+													<td colspan="3">
+														<input type="text" name="staffEngName" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>													
+													<td class="t_head2">성별</td>
+													<td>
+														<label><input type="radio" name="staffGender" value="여"> 여</label>
+														<label><input type="radio" name="staffGender" value="남"> 남</label>													
+													</td>
+													<td class="t_head2">주민등록번호</td>
+													<td class="inputmaineus" >
+														<input type="hidden" name="humanNum" class="humanNum"/>
+														<input type="text" class=" input-width21 human_num form-control staffDetailInfo" maxlength="6">
+														<span class="span-font">-</span>
+														<input type="text" class=" input-width22 human_num form-control staffDetailInfo" maxlength="7">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">내외국인</td>
+													<td>
+														<label><input type="radio" name="staffNationality" value="내국인" class="staff-nationality-input staffDetailInfo"> 내국인</label>
+														<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input staffDetailInfo"> 외국인</label>
+													<td class="t_head2">국적</td>
+													<td>
+														<input type="text" name="staffCountry" class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>													
+													<td class="t_head2">결혼여부</td>
+													<td>
+														<label><input type="radio" name="staffMarriged" value="미혼" class="staffDetailInfo"> 미혼 </label>
+														<label><input type="radio" name="staffMarriged" value="기혼" class="staffDetailInfo"> 기혼</label>
+													</td>
+													<td class="t_head2">연락처</td>
+													<td class="inputmaineus">
+														<input type="hidden" name="staffPhone"  id="staff_phone_val"/>
+														<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo" maxlength="3">
+														<span class="span-font span-1">-</span>
+														<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo" maxlength="4">
+														<span class="span-font span-2">-</span>
+														<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo" maxlength="4">
+													</td>
+												</tr> 
+												<tr>													
+													<td class="t_head2">이메일</td>
+													<td>
+														<input type="text" name="staffEmail" class="form-control staffDetailInfo">
+													</td>
+													<td class="t_head2">주소</td>
+													<td>
+														<input type="text" name="staffAddr"  class="form-control staffDetailInfo">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="staffBasicInfoNotes" class="form-control staffDetailInfo"></textarea>
+													</td>
+												</tr> 
+											</table>
+										</form>	
                                     </div>
-                                    <form class="insertDetailInfoForm staffBasicInfoForm" action="/modifyStaffBasicInfo" method="post" th:unless="${#lists.size(list.staffBasicInfo) > 0}">
-										<table class="mb-12 table table-bordered forms is_staff_basic_info" >
-											<colgroup>
-												<col width = "12%">
-												<col width = "30%">
-												<col width = "15%">
-												<col width = "43%">
-											</colgroup>
-											<tr>
-												<td class="t_head2">영문이름
-													<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
-												</td>
-												<td colspan="3">
-													<input type="text" name="staffEngName" class="form-control staffDetailInfo">
-												</td>
-											</tr> 
-											<tr>													
-												<td class="t_head2">성별</td>
-												<td>
-													<label><input type="radio" name="staffGender" value="여" checked="checked"> 여</label>
-													<label><input type="radio" name="staffGender" value="남"> 남</label>													
-												</td>
-												<td class="t_head2">주민등록번호</td>
-												<td class="inputmaineus" >
-													<input type="hidden" name="humanNum" id="humanNum"/>
-													<input type="text" class=" input-width21 human_num form-control staffDetailInfo" maxlength="6">
-													<span class="span-font">-</span>
-													<input type="text" class=" input-width22 human_num form-control staffDetailInfo" maxlength="7">
-												</td>
-											</tr> 
-											<tr>
-												<td class="t_head2">내외국인</td>
-												<td>
-													<label><input type="radio" name="staffNationality" value="내국인" checked="checked" class="staff-nationality-input staffDetailInfo"> 내국인</label>
-													<label><input type="radio" name="staffNationality" value="외국인" class="staff-nationality-input staffDetailInfo"> 외국인</label>
-												<td class="t_head2">국적</td>
-												<td>
-													<input type="text" name="staffCountry" class="form-control staffDetailInfo">
-												</td>
-											</tr> 
-											<tr>													
-												<td class="t_head2">결혼여부</td>
-												<td>
-													<label><input type="radio" name="staffMarriged" value="미혼" checked="checked" class="staffDetailInfo"> 미혼 </label>
-													<label><input type="radio" name="staffMarriged" value="기혼" class="staffDetailInfo"> 기혼</label>
-												</td>
-												<td class="t_head2">연락처</td>
-												<td class="inputmaineus">
-													<input type="hidden" name="staffPhone"  id="staff_phone_val"/>
-													<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo"  maxlength="3">
-													<span class="span-font span-1">-</span>
-													<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo"  maxlength="4">
-													<span class="span-font span-2">-</span>
-													<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo"  maxlength="4">
-												</td>
-											</tr> 
-											<tr>													
-												<td class="t_head2">이메일</td>
-												<td>
-													<input type="text" name="staffEmail" class="form-control staffDetailInfo">
-												</td>
-												<td class="t_head2">주소</td>
-												<td>
-													<input type="text" name="staffAddr"  class="form-control staffDetailInfo">
-												</td>
-											</tr> 
-											<tr>
-												<td class="t_head2">비고</td>
-												<td colspan="5">
-													<textarea name="staffBasicInfoNotes" class="form-control staffDetailInfo"></textarea>
-												</td>
-											</tr> 
-										</table>
-									</form>	
                                     <div class="tab-pane" id="modifyStaffFamilyInfo" role="tabpanel"  >
-	                                    <form class="insertDetailInfoForm familyInfoForm" action="/modifyStaffFamilyInfo" method="post" th:if="${#lists.size(list.staffFamilyInfo) > 0}" th:each="l : ${list.staffFamilyInfo}">
+	                                    <form class="insertDetailInfoForm familyInfoForm" action="/modifyStaffFamilyInfo" method="post" th:if="${not #lists.isEmpty(list.staffFamilyInfo)}" th:each="l : ${list.staffFamilyInfo}">
 											<table class="mb-12 table table-bordered forms is_staff_family_info staffDetailInfo" >
 												<colgroup>
 													<col width = "15%">
@@ -306,14 +323,14 @@
 												</colgroup>
 												<tr>
 													<td class="t_head2">가족관계
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.familyInfoCode}" class="form-control" name="familyInfoCode"/>
 													</td>
 													<td>
 														<input type="text" name="relation" th:value="${l.relation}" class="form-control staffDetailInfo">
 													</td>
 													<td class="t_head2">생년월일</td>
 													<td>
-														<input type="date" name="familyBirthday" th:value="${l.familyBirthday}" class="form-control staffDetailInfo">
+														<input type="date" name="familyBirthday"  th:value="${l.familyBirthday != null} ? ${l.familyBirthday} : ''" class="form-control staffDetailInfo">
 													</td>
 												</tr> 
 												<tr>														
@@ -333,12 +350,22 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus" >
-														<input type="hidden" name="familyPhone" id="family_phone_val"  />
-														<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 0, 3)}" maxlength="3">
-														<span class="span-font span-1">-</span>
-														<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 4, 8)}" maxlength="4">
-														<span class="span-font span-2">-</span>
-														<input type="text" class=" input-width33 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 9, 13)}" maxlength="4">
+														<th:block th:if="${#strings.length(l.familyPhone) == 13}">
+															<input type="hidden" name="familyPhone" class="family_phone_val"  />
+															<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 0, 3)}" maxlength="3">
+															<span class="span-font span-1">-</span>
+															<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 4, 8)}" maxlength="4">
+															<span class="span-font span-2">-</span>
+															<input type="text" class=" input-width33 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 9, 13)}" maxlength="4">
+														</th:block>
+														<th:block th:unless="${#strings.length(l.familyPhone) == 13}">
+															<input type="hidden" name="familyPhone" class="family_phone_val"  />
+															<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" maxlength="3">
+															<span class="span-font span-1">-</span>
+															<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" maxlength="4">
+															<span class="span-font span-2">-</span>
+															<input type="text" class=" input-width33 family_phone_val form-control staffDetailInfo" maxlength="4">
+														</th:block>
 													</td>
 												</tr> 
 												<tr>
@@ -349,7 +376,7 @@
 												</tr>												
 											</table>
 										</form>
-	                                    <form class="insertDetailInfoForm familyInfoForm" action="/modifyStaffFamilyInfo" method="post" th:unless="${#lists.size(list.staffFamilyInfo) > 0}">
+	                                    <form class="insertDetailInfoForm familyInfoForm" action="/modifyStaffFamilyInfo" method="post" th:unless="${not #lists.isEmpty(list.staffFamilyInfo)}">
 											<table class="mb-12 table table-bordered forms is_staff_family_info staffDetailInfo" >
 												<colgroup>
 													<col width = "15%">
@@ -386,7 +413,7 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus" >
-														<input type="hidden" name="familyPhone" id="family_phone_val"  />
+														<input type="hidden" name="familyPhone" class="family_phone_val"  />
 														<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" maxlength="3">
 														<span class="span-font span-1">-</span>
 														<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" maxlength="4">
@@ -408,12 +435,12 @@
 											</table>
 										</form>
                                     </div>
-                                    <div class="tab-pane" id="modifyCareerInfoFromIn" role="tabpanel">
-	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:if="${#lists.size(list.careerInfoFromIn) > 0}" th:each="l : ${list.careerInfoFromIn}">
+                                      <div class="tab-pane" id="modifyCareerInfoFromIn" role="tabpanel">
+ 	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:if="${not #lists.isEmpty(list.careerInfoFromIn)}" th:each="l : ${list.careerInfoFromIn}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_in">
 												<tr>
 													<td class="t_head2">프로젝트명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.careerInfoFromInCode}" class="form-control" name="careerInfoFromInCode"/>
 													</td>
 													<td colspan="5">
 														<input type="text" name="projectName" class="form-control staffDetailInfo" th:value="${l.projectName}">
@@ -433,37 +460,37 @@
 													<td class="t_head2">도중권한</td>
 													<td>
 														<select  name="projectAccess" class="form-control staffDetailInfo">
-															<option th:text="${l.accessName}" th:value="${l.accessNum}"></option>
+															 <option th:each="c : ${codeAndName.accessInfo}" th:text="${c.accessName}" th:value="${c.accessNum}" th:selected="${c.accessName eq l.projectAccess ? 'true' : 'false'}"></option>
 														</select>
 													</td>
 													<td class="t_head2">직책</td>
 													<td>
-														<select  name="projectPosition" class="form-control staffDetailInfo">
-															<option th:text="${l.positionName}" th:value="${l.positionCode}"></option>
-														</select>
+													 	<select  name="projectPosition" class="form-control staffDetailInfo">
+														 	<option th:each="c : ${codeAndName.positionInfo}" th:text="${c.positionName}" th:value="${c.positionName}" th:selected="${c.positionName eq l.projectPosition ? 'true' : 'false'}"></option>
+														</select> 
 													</td>
-												</tr> 
+												</tr>
 												<tr>
 													<td class="t_head2">직무</td>
 													<td>
-														<input type="text" name="projectWork" class="form-control staffDetailInfo">
+														<input type="text" name="projectWork" class="form-control staffDetailInfo" th:value="${l.projectWork}">
 													</td>
 													<td class="t_head2">직급</td>
 													<td>
 														<select  name="projectLevelName" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.levelInfo}" th:text="${l.levelName}" th:value="${l.levelName}" ></option>
+															<option th:each="c : ${codeAndName.levelInfo}" th:text="${c.levelName}" th:value="${c.levelName}" ></option>
 														</select>
 													</td>												
 												</tr>
 												<tr>
 													<td class="t_head2">비고</td>
 													<td colspan="5">
-														<textarea name="careerInfoFromInNotes" class="form-control staffDetailInfo"></textarea>
+														<textarea name="careerInfoFromInNotes" class="form-control staffDetailInfo" th:text="${l.careerInfoFromInNotes}" th:value="${l.careerInfoFromInNotes}"></textarea>
 													</td>
-												</tr> 												
-											</table>
-										</form>	
-	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:unless="${#lists.size(list.careerInfoFromIn) > 0}" th:each="l : ${list.staffInfoWithOther}">
+												</tr>	
+											</table> 
+										</form>
+	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:unless="${not #lists.isEmpty(list.careerInfoFromIn)}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_in">
 												<tr>
 													<td class="t_head2">프로젝트명
@@ -487,13 +514,13 @@
 													<td class="t_head2">도중권한</td>
 													<td>
 														<select  name="projectAccess" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.accessInfo}" th:text="${l.accessName}" th:value="l.accessNum"></option>
+															<option th:each="c : ${codeAndName.accessInfo}" th:text="${c.accessName}" th:value="${c.accessNum}"></option>
 														</select>
 													</td>
 													<td class="t_head2">직책</td>
 													<td>
 														<select  name="projectPosition" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.positionInfo}" th:text="${l.positionName}" th:value="l.positionCode"></option>
+															<option th:each="c : ${codeAndName.positionInfo}" th:text="${c.positionName}" th:value="${c.positionCode}"></option>
 														</select>
 													</td>
 												</tr> 
@@ -505,7 +532,7 @@
 													<td class="t_head2">직급</td>
 													<td>
 														<select  name="projectLevelName" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.levelInfo}" th:text="${l.levelName}"></option>
+															<option th:each="c : ${codeAndName.levelInfo}" th:text="${c.levelName}"></option>
 														</select>
 													</td>												
 												</tr>
@@ -520,16 +547,15 @@
 														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoBtn"><i class="pe-7s-add-user"></i>경력추가</button></div>
 													</td>
 												</tr>
-	
 											</table>
-										</form>	
-                                    </div>
-                                    <div class="tab-pane active" id="isCareerInfoFromOut" role="tabpanel">
-	                                    <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:if="${#lists.size(list.careerInfoFromOut) > 0}"  th:each="l : ${list.careerInfoFromOut}">
+										</form>
+                                    </div> 
+                                    <div class="tab-pane" id="modifyCareerInfoFromOut" role="tabpanel" >
+	                                    <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:if="${not #lists.isEmpty(list.careerInfoFromOut)}"  th:each="l : ${list.careerInfoFromOut}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_out">
 												<tr>
 													<td class="t_head2">직장명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.careerInfoFromOutCode}" class="form-control" name="careerInfoFromOutCode"/>
 													</td>
 													<td>
 														<input type="text" name="companyName" class="form-control staffDetailInfo" th:value="${l.companyName}">
@@ -571,7 +597,7 @@
 												</tr> 												
 											</table>
 										</form>
-	                                    <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:unless="${#lists.size(list.careerInfoFromOut) > 0}">
+	                                    <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:unless="${not #lists.isEmpty(list.careerInfoFromOut)}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_out">
 												<tr>
 													<td class="t_head2">직장명
@@ -623,17 +649,18 @@
 											</table>
 										</form>
                                     </div>
-                                    <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
-	                                    <form class="insertDetailInfoForm certificateInfoForm" action="/modifyCertificateInfo" method="post" th:if="${#lists.size(list.certificateInfo) > 0}"  th:each="l : ${list.certificateInfo}">
+                                    <div class="tab-pane" id="modifyCertificateInfo" role="tabpanel">
+	                                	<form class="insertDetailInfoForm certificateInfoForm" action="/modifyCertificateInfo" method="post" th:if="${not #lists.isEmpty(list.certificateInfo)}"  th:each="l : ${list.certificateInfo}">
 											<table class="mb-12 table table-bordered forms is_certificate_info">
 												<tr>
 													<td class="t_head2">자격증명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>													</td>
+														<input type="hidden" th:value="${l.certificateInfoCode}" class="form-control" name="certificateInfoCode"/>
+													</td>
 													<td colspan="5">
 														<input type="text" name="certificateName" class="form-control staffDetailInfo" th:value="${l.certificateName}">
 													</td>
 												</tr> 
-												<tr>
+											  	<tr>
 													<td class="t_head2">발급기관</td>
 													<td >
 														<input type="text" name="issuingAgency" class="form-control staffDetailInfo" th:value="${l.issuingAgency}">
@@ -658,14 +685,14 @@
 													<td colspan="5">
 														<textarea name="certificateInfoNotes" class="form-control staffDetailInfo" th:value="${l.certificateInfoNotes}"></textarea>
 													</td>
-												</tr> 												
+												</tr>										
 											</table>
 										</form>
-	                                    <form class="insertDetailInfoForm certificateInfoForm" action="/modifyCertificateInfo" method="post" th:unless="${#lists.size(list.certificateInfo) > 0}">
+	                                    <form class="insertDetailInfoForm certificateInfoForm" action="/modifyCertificateInfo" method="post" th:unless="${not #lists.isEmpty(list.certificateInfo)}">
 											<table class="mb-12 table table-bordered forms is_certificate_info">
 												<tr>
 													<td class="t_head2">자격증명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:each="o : ${list.staffInfoWithOther}" th:value="${o.staffNum}" class="form-control" name="staffNum"/>
 													</td>
 													<td colspan="5">
 														<input type="text" name="certificateName" class="form-control staffDetailInfo">
@@ -705,12 +732,60 @@
 											</table>
 										</form>
                                     </div>
-                                    <div class="tab-pane" id="isEducationInfo" role="tabpanel">
-	                                    <form class="insertDetailInfoForm isEducationInfo" action="/modifyEducationInfo" method="post" th:if="${#lists.size(list.educationInfo) > 0}"  th:each="l : ${list.educationInfo}">
+                                    <div class="tab-pane" id="modifyEducationInfo" role="tabpanel">
+	                                    <form class="insertDetailInfoForm isEducationInfo" action="/modifyEducationInfo" method="post" th:if="${not #lists.isEmpty(list.educationInfo)}"  th:each="l : ${list.educationInfo}">
 											<table class="mb-12 table table-bordered forms is_education_info" >
 												<tr>
 													<td class="t_head2">학교명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.educationInfoCode}" class="form-control" name="educationInfoCode"/>
+													</td>
+													<td colspan="5">
+														<input type="text" name="schoolName" class="form-control staffDetailInfo" th:value="${l.schoolName}">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">전공</td>
+													<td >
+														<input type="text" name="majorName" class="form-control staffDetailInfo" th:value="${l.majorName}">
+													</td>
+													<td class="t_head2">부전공</td>
+													<td>
+														<input type="text" name="minorName"  class="form-control staffDetailInfo" th:value="${l.minorName}">
+													</td>
+												</tr> 
+												<tr>												
+													<td class="t_head2">학위</td>
+													<td>
+														<input type="text" name="degree" class="form-control staffDetailInfo" th:value="${l.degree}">
+													</td>
+													<td class="t_head2">상태</td>
+													<td>
+														<input type="text" name="hakryuckStatus" class="form-control staffDetailInfo" th:value="${l.hakryuckStatus}">
+													</td>
+												</tr> 
+												<tr>
+													<td class="t_head2">입학일</td>
+													<td>
+														<input type="date" name="entranceDate" class="form-control staffDetailInfo" th:value="${l.entranceDate}">
+													</td>
+													<td class="t_head2">졸업일</td>
+													<td>
+														<input type="date" name="graduatDate" class="form-control staffDetailInfo" th:value="${l.graduatDate}">
+													</td>												
+												</tr>
+												<tr>
+													<td class="t_head2">비고</td>
+													<td colspan="5">
+														<textarea name="educationInfoNotes" class="form-control staffDetailInfo" th:text="${l.educationInfoNotes}" th:value="${l.educationInfoNotes}"></textarea>
+													</td>
+												</tr> 												
+											</table>
+										</form>
+	                                    <form class="insertDetailInfoForm isEducationInfo" action="/modifyEducationInfo" method="post" th:unless="${not #lists.isEmpty(list.educationInfo)}">
+											<table class="mb-12 table table-bordered forms is_education_info" >
+												<tr>
+													<td class="t_head2">학교명
+														<input type="hidden" th:each="o : ${list.staffInfoWithOther}" th:value="${o.staffNum}" class="form-control" name="staffNum"/>
 													</td>
 													<td colspan="5">
 														<input type="text" name="schoolName" class="form-control staffDetailInfo">
@@ -754,91 +829,43 @@
 												</tr> 												
 											</table>
 										</form>
-	                                    <form class="insertDetailInfoForm isEducationInfo" action="/modifyEducationInfo" method="post" th:unless="${#lists.size(list.educationInfo) > 0}">
-											<table class="mb-12 table table-bordered forms is_education_info" >
-												<tr>
-													<td class="t_head2">학교명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
-													</td>
-													<td colspan="5">
-														<input type="text" name="schoolName" class="form-control staffDetailInfo">
-													</td>
-												</tr> 
-												<tr>
-													<td class="t_head2">전공</td>
-													<td >
-														<input type="text" name="majorName" class="form-control staffDetailInfo" >
-													</td>
-													<td class="t_head2">부전공</td>
-													<td>
-														<input type="text" name="minorName"  class="form-control staffDetailInfo">
-													</td>
-												</tr> 
-												<tr>												
-													<td class="t_head2">학위</td>
-													<td>
-														<input type="text" name="degree" class="form-control staffDetailInfo">
-													</td>
-													<td class="t_head2">상태</td>
-													<td>
-														<input type="text" name="hakryuckStatus" class="form-control staffDetailInfo">
-													</td>
-												</tr> 
-												<tr>
-													<td class="t_head2">입학일</td>
-													<td>
-														<input type="date" name="entranceDate" class="form-control staffDetailInfo">
-													</td>
-													<td class="t_head2">졸업일</td>
-													<td>
-														<input type="date" name="graduatDate" class="form-control staffDetailInfo">
-													</td>												
-												</tr>
-												<tr>
-													<td class="t_head2">비고</td>
-													<td colspan="5">
-														<textarea name="educationInfoNotes" class="form-control staffDetailInfo"></textarea>
-													</td>
-												</tr> 												
-											</table>
-										</form>
-                                    </div>                                                                                                            
-                                    <div class="tab-pane" id="isBalryoungInfo" role="tabpanel">
-	                                    <form class="insertDetailInfoForm staffBalryoungInfoForm" action="/modifyStaffBalryoungInfo" method="post" th:if="${#lists.size(list.balryoungInfo) > 0}"  th:each="l : ${list.balryoungInfo}">
+                                    </div>                                                                                                          
+                                    <div class="tab-pane" id="modifyBalryoungInfo" role="tabpanel">
+	                                    <form class="insertDetailInfoForm staffBalryoungInfoForm" action="/modifyStaffBalryoungInfo" method="post" th:if="${not #lists.isEmpty(list.balryoungInfo)}"  th:each="l : ${list.balryoungInfo}">
 											<table class="mb-12 table table-bordered forms is_balryoung_info" >
 												<tr>
 													<td class="t_head2">발령내용
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.balryoungInfoCode}" class="form-control" name="balryoungInfoCode"/>
 													</td>
 													<td colspan="5">
 														<select class="form-control" name="balryoungName">
-															<option th:text="${l.balryoungName}" th:value="${l.balryoungCode}" ></option>
+															<option th:each="c : ${codeAndName.balryoungInfo}" th:text="${c.balryoungName}" th:value="${c.balryoungCode}" th:selected="${c.balryoungName eq l.balryoungName ? 'true' : 'false'}"></option>
 														</select>
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">발령일</td>
 													<td > 
-														<input type="date" name="balryoungDate" class="form-control staffDetailInfo">
+														<input type="date" name="balryoungDate" class="form-control staffDetailInfo" th:value="${l.balryoungDate}">
 													</td>
 													<td class="t_head2">발령지</td>
 													<td>
-														<input type="text" name="balryoungStage" class="form-control staffDetailInfo">
+														<input type="text" name="balryoungStage" class="form-control staffDetailInfo" th:value="${l.balryoungStage}">
 													</td>
 												</tr> 
 												<tr>
 													<td class="t_head2">비고</td>
 													<td colspan="5">
-														<textarea name="balryoungInfoNotes" class="form-control staffDetailInfo"></textarea>
+														<textarea name="balryoungInfoNotes" class="form-control staffDetailInfo" th:text="${l.balryoungInfoNotes}" th:value="${l.balryoungInfoNotes}"></textarea>
 													</td>
 												</tr> 												
 											</table>
 										</form>
-	                                    <form class="insertDetailInfoForm staffBalryoungInfoForm" action="/modifyStaffBalryoungInfo" method="post" th:unless="${#lists.size(list.balryoungInfo) > 0}">
+	                                    <form class="insertDetailInfoForm staffBalryoungInfoForm" action="/modifyStaffBalryoungInfo" method="post" th:unless="${not #lists.isEmpty(list.balryoungInfo)}">
 											<table class="mb-12 table table-bordered forms is_balryoung_info" >
 												<tr>
 													<td class="t_head2">발령내용
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:each="o : ${list.staffInfoWithOther}" th:value="${o.staffNum}" class="form-control" name="staffNum"/>
 													</td>
 													<td colspan="5">
 														<select name="balryoungCode" class="form-control staffDetailInfo">
@@ -874,16 +901,16 @@
 											</table>
 										</form>
                                     </div>     
-                                    <div class="tab-pane" id="isMilitaryInfo" role="tabpanel">
-                                    	<form class="insertDetailInfoForm staffMilitaryInfoForm" action="/modifyMilitaryInfo" method="post" th:if="${#lists.size(list.militaryInfo) > 0}"  th:each="l : ${list.militaryInfo}">
+                                    <div class="tab-pane" id="modifyMilitaryInfo" role="tabpanel">
+                                    	<form class="insertDetailInfoForm staffMilitaryInfoForm" action="/modifyMilitaryInfo" method="post" th:if="${not #lists.isEmpty(list.militaryInfo)}"  th:each="l : ${list.militaryInfo}">
 											<table class="mb-12 table table-bordered forms is_military_info">
 												<tr>
 													<td class="t_head2">군별 선택
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.militaryInfoCode}" class="form-control" name="militaryInfoCode"/>
 													</td>
 													<td colspan="5">
 														<select name="militaryServiceType" class="form-control staffDetailInfo">
-															 <option th:text="${l.militaryServiceType}"></option>
+															 <option value="육군" th:selected="${l.militaryServiceType == '육군'} ? 'true':'false'">육군</option><option value="해군" th:selected="${l.militaryServiceType == '해군'} ? 'true':'false'">해군</option><option value="공군" th:selected="${l.militaryServiceType == '공군'} ? 'true':'false'">공군</option><option value="의경" th:selected="${l.militaryServiceType == '의경'} ? 'true':'false'">의경</option><option value="공익" th:selected="${l.militaryServiceType == '공익'} ? 'true':'false'">공익</option><option value="전문연구요원" th:selected="${l.militaryServiceType == '전문연구요원'} ? 'true':'false'">전문연구요원</option><option value="산업기능요원" th:selected="${l.militaryServiceType == '산업기능요원'} ? 'true':'false'">산업기능요원</option><option value="기타" th:selected="${l.militaryServiceType == '기타'} ? 'true':'false'">기타</option>
 							                            </select>														
 													</td>
 												</tr> 
@@ -895,7 +922,7 @@
 													<td class="t_head2">계급</td>
 													<td>
 														<select name="militaryLevel" class="form-control staffDetailInfo">
-							                                <option th:text="${l.militaryLevel}"></option>
+							                                <option value="이병" th:selected="${l.militaryLevel == '이병'} ? 'true':'false'">이병</option><option value="일병" th:selected="${l.militaryLevel == '일병'} ? 'true':'false'">일병</option><option value="상병" th:selected="${l.militaryLevel == '상병'} ? 'true':'false'">상병</option><option value="병장" th:selected="${l.militaryLevel == '병장'} ? 'true':'false'">병장</option><option value="하사" th:selected="${l.militaryLevel == '하사'} ? 'true':'false'">하사</option><option value="중사" th:selected="${l.militaryLevel == '중사'} ? 'true':'false'">중사</option><option value="상사" th:selected="${l.militaryLevel == '상사'} ? 'true':'false'">상사</option><option value="준위" th:selected="${l.militaryLevel == '준위'} ? 'true':'false'">준위</option><option value="소위" th:selected="${l.militaryLevel == '소위'} ? 'true':'false'">소위</option><option value="중위" th:selected="${l.militaryLevel == '중위'} ? 'true':'false'">중위</option><option value="대위" th:selected="${l.militaryLevel == '대위'} ? 'true':'false'">대위</option><option value="소령" th:selected="${l.militaryServiceType == '소령'} ? 'true':'false'">소령</option><option value="중령" th:selected="${l.militaryServiceType == '중령'} ? 'true':'false'">중령</option><option value="대령" th:selected="${l.militaryLevel == '대령'} ? 'true':'false'">대령</option><option value="준장" th:selected="${l.militaryLevel == '준장'} ? 'true':'false'">준장</option><option value="소장" th:selected="${l.militaryLevel == '소장'} ? 'true':'false'">소장</option><option value="중장" th:selected="${l.militaryLevel == '중장'} ? 'true':'false'">중장</option><option value="대장" th:selected="${l.militaryLevel == '대장'} ? 'true':'false'">대장</option>
 							                            </select>														
 													</td>
 												</tr> 
@@ -917,11 +944,11 @@
 												</tr> 												
 											</table>
 										</form>	
-                                    	<form class="insertDetailInfoForm staffMilitaryInfoForm" action="/modifyMilitaryInfo" method="post" th:unless="${#lists.size(list.militaryInfo) > 0}">
+                                    	<form class="insertDetailInfoForm staffMilitaryInfoForm" action="/modifyMilitaryInfo" method="post" th:unless="${not #lists.isEmpty(list.militaryInfo)}">
 											<table class="mb-12 table table-bordered forms is_military_info">
 												<tr>
 													<td class="t_head2">군별 선택
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:each="o : ${list.staffInfoWithOther}" th:value="${o.staffNum}" class="form-control" name="staffNum"/>
 													</td>
 													<td colspan="5">
 														<select name="militaryServiceType" class="form-control staffDetailInfo">
@@ -966,7 +993,7 @@
 												</tr>
 											</table>
 										</form>	
-                                    </div>                                                                                                           
+                                    </div>                                                                                                        
                                 </div>
                             </div>
                             <div class="d-block card-footer addDiv">
