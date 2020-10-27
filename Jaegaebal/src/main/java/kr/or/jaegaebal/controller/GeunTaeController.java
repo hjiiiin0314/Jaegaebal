@@ -15,12 +15,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import kr.or.jaegaebal.dto.Holiday;
+import kr.or.jaegaebal.dto.InsaCodeAdmin;
 import kr.or.jaegaebal.service.GeunTaeService;
 
 @Controller
 public class GeunTaeController {
 	
 	@Autowired private GeunTaeService geunTaeService;
+	
+	//fullcalendar ajax
+	@PostMapping(value="/fullCalendar",produces = "application/json")
+	   @ResponseBody
+	   public List<Map<String, Object>> fullCalendar(){
+	      List<Map<String, Object>> javaMap1 = geunTaeService.fullCalendar();
+	      return javaMap1;
+	   }
 	
 	
 	//휴일 리스트
@@ -34,41 +43,22 @@ public class GeunTaeController {
 		
 		return "geuntae/holidayList";
 	}
-	//팝업창
-	@GetMapping("/addHdCode2")
-	public String addHdCode2(Model model) {
-		model.addAttribute("title","휴일등록팝업");
-		return "geuntae/addHdCode2";
-	}
+	
 	
 	//휴일등록
-	@PostMapping(value="/addHdCode",produces = "application/json")
-	   @ResponseBody
-	   public List<Map<String, Object>> addHdCode(){
-	      List<Map<String, Object>> addHdCode = geunTaeService.addHdCode();
-	      System.out.println(addHdCode);
-	      return addHdCode;
-	   }
-	
+	@PostMapping("/addHdCode")
+	public String addInsaCode(Holiday holiday
+			,@RequestParam(value="hdCode",required = false) String hdCode
+			,@RequestParam(value="hdName",required = false) String hdName
+			,@RequestParam(value="hdStartDay",required = false) String hdStartDay
+			,@RequestParam(value="hdEndDay",required = false) String hdEndDay
+			,@RequestParam(value="hdContents",required = false) String hdContents
+			) {
+		
+		geunTaeService.addHdCode(holiday);
+		return "redirect:/holidayList";
+	}
 	
 			
-	
-			//휴일코드 수정
-			@GetMapping("/updateHdCode")
-			public String updateHdCode(Model model
-					,@RequestParam(value="hdCode",required=false) String hdCode
-					) {
-				Holiday holi = geunTaeService.getHdCode(hdCode);
-				
-				model.addAttribute("geunTaeService",holi);
-				model.addAttribute("title","수정화면");
-				
-					return "geuntae/updateHdCode";
-			}
-			@PostMapping("/updateHdCode")
-			public String updateHdCode(Holiday holiday) {
-				geunTaeService.updateHdCode(holiday);
-				return "redirect:/holidayList";
-			}
 	
 }

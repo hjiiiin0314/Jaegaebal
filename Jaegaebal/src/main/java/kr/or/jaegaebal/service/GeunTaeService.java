@@ -13,31 +13,35 @@ import kr.or.jaegaebal.mapper.GeunTaeMapper;
 @Service
 @Transactional
 public class GeunTaeService {
-	
-@Autowired private GeunTaeMapper geunTaeMapper;
-	
 
-	//휴일관리
-	
-	 public List<Holiday> getHolidayList(){
-		 
-		 return geunTaeMapper.holidayList(); 
-	 }
+	@Autowired
+	private GeunTaeMapper geunTaeMapper;
+
+	// 휴일관리
+
+	public List<Holiday> getHolidayList() {
+
+		return geunTaeMapper.holidayList();
+	}
+
+	// fullcalendar ajax
+	  public List<Map<String, Object>> fullCalendar() { List<Map<String, Object>>
+	  fullCalendar = geunTaeMapper.fullCalendar();
+	  	return fullCalendar; }
 	 
-	 //휴일 등록
-	 
-	 public List<Map<String, Object>> addHdCode() {
-			List<Map<String, Object>> addHdCode = geunTaeMapper.addHdCode();
-			return addHdCode;
-		}
-		 
+
+	// 휴일등록
+	public int addHdCode(Holiday holiday) {
+		return geunTaeMapper.addHdCode(holiday);
+	}
+
 	// 휴일코드 수정
-		 public int updateHdCode(Holiday holiday) {
-			 return geunTaeMapper.updateHdCode(holiday);
-		 }
-		 
-	//휴일코드로 조회
-		 public Holiday getHdCode(String hdCode) {
-			 return geunTaeMapper.getHdCode(hdCode);
-		 }
+	public int updateHdCode(Holiday holiday) {
+		return geunTaeMapper.updateHdCode(holiday);
+	}
+
+	// 휴일코드로 조회
+	public Holiday getHdCode(String hdCode) {
+		return geunTaeMapper.getHdCode(hdCode);
+	}
 }

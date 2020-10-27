@@ -15,11 +15,11 @@ public interface GeunTaeMapper {
 	//휴일 코드 리스트
 		public List<Holiday> holidayList();
 		
-	//휴일 등록
-		public List<Map<String, Object>> addHdCode();
+	//fullcalendar ajax
+	public List<Map<String, Object>> fullCalendar(); 
 		
-	// 코드 중복검사
-		public String hdCodeCheck(String hdCode);
+	//휴일등록
+		public int addHdCode(Holiday holiday);
 		
 	//휴일 수정
 		public int updateHdCode(Holiday holiday);
