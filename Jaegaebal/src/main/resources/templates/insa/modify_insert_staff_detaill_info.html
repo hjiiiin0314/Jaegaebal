@@ -156,7 +156,7 @@
 												</colgroup>
 												<tr>
 													<td class="t_head2">영문이름
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.basicInfoCode}" class="form-control" name="basicInfoCode"/>
 													</td>
 													<td colspan="3">
 														<input type="text" name="staffEngName" th:value="${l.staffEngName}" class="form-control staffDetailInfo">
@@ -201,7 +201,7 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus">
-														<th:block th:if="${#strings.length(l.humanNum) == 14}">
+														<th:block th:if="${#strings.length(l.humanNum) == 13}">
 															<input type="hidden" name="staffPhone"  class="staff_phone_val"/>
 															<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 0, 3)}" maxlength="3">
 															<span class="span-font span-1">-</span>
@@ -209,8 +209,8 @@
 															<span class="span-font span-2">-</span>
 															<input type="text" class="input-width33 staff_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.staffPhone, 9, 13)}" maxlength="4">
 														</th:block>
-														<th:block th:unless="${#strings.length(l.humanNum) == 14}">
-														<input type="hidden" name="staffPhone"  class="staff_phone_val"/>
+														<th:block th:unless="${#strings.length(l.humanNum) == 13}">
+															<input type="hidden" name="staffPhone"  class="staff_phone_val"/>
 															<input type="text" class="input-width31 staff_phone_val form-control staffDetailInfo" maxlength="3">
 															<span class="span-font span-1">-</span>
 															<input type="text" class="input-width32 staff_phone_val form-control staffDetailInfo" maxlength="4">
@@ -323,7 +323,7 @@
 												</colgroup>
 												<tr>
 													<td class="t_head2">가족관계
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.familyInfoCode}" class="form-control" name="familyInfoCode"/>
 													</td>
 													<td>
 														<input type="text" name="relation" th:value="${l.relation}" class="form-control staffDetailInfo">
@@ -350,12 +350,22 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus" >
-														<input type="hidden" name="familyPhone" id="family_phone_val"  />
-														<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 0, 3)}" maxlength="3">
-														<span class="span-font span-1">-</span>
-														<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 4, 8)}" maxlength="4">
-														<span class="span-font span-2">-</span>
-														<input type="text" class=" input-width33 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 9, 13)}" maxlength="4">
+														<th:block th:if="${#strings.length(l.familyPhone) == 13}">
+															<input type="hidden" name="familyPhone" class="family_phone_val"  />
+															<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 0, 3)}" maxlength="3">
+															<span class="span-font span-1">-</span>
+															<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 4, 8)}" maxlength="4">
+															<span class="span-font span-2">-</span>
+															<input type="text" class=" input-width33 family_phone_val form-control staffDetailInfo" th:value="${#strings.substring(l.familyPhone, 9, 13)}" maxlength="4">
+														</th:block>
+														<th:block th:unless="${#strings.length(l.familyPhone) == 13}">
+															<input type="hidden" name="familyPhone" class="family_phone_val"  />
+															<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" maxlength="3">
+															<span class="span-font span-1">-</span>
+															<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" maxlength="4">
+															<span class="span-font span-2">-</span>
+															<input type="text" class=" input-width33 family_phone_val form-control staffDetailInfo" maxlength="4">
+														</th:block>
 													</td>
 												</tr> 
 												<tr>
@@ -403,7 +413,7 @@
 													</td>
 													<td class="t_head2">연락처</td>
 													<td class="inputmaineus" >
-														<input type="hidden" name="familyPhone" id="family_phone_val"  />
+														<input type="hidden" name="familyPhone" class="family_phone_val"  />
 														<input type="text" class=" input-width31 family_phone_val form-control staffDetailInfo" maxlength="3">
 														<span class="span-font span-1">-</span>
 														<input type="text" class=" input-width32 family_phone_val form-control staffDetailInfo" maxlength="4">
