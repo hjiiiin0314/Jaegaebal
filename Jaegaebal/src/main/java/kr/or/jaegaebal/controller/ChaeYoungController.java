@@ -280,10 +280,11 @@ public class ChaeYoungController {
 	//공고별 합격자 ajax
 	@PostMapping(value= "/cyDocResult" , produces = "application/json")
 	@ResponseBody
-	public int cyDocResult(@RequestParam(value="jobNumber",required = false) String jobNumber) {
+	public List<HashMap<String, Object>> cyDocResult(@RequestParam(value="jobNumber",required = false) String jobNumber) {
 		
 		//게시글 단계 가져오기.
 		System.out.println(jobNumber);
-		return 0;
+		System.out.println(chaeYoungService.appDocList(jobNumber));
+		return chaeYoungService.appDocList(jobNumber);
 	}
 }

@@ -10,6 +10,7 @@ public class ChaeYoungDocumentResult {
 	private String docResult; //평가구분
 	private String regStaffName; //평가자
 	private String docRegDate; //평가일
+	
 	public String getDocResultNum() {
 		return docResultNum;
 	}

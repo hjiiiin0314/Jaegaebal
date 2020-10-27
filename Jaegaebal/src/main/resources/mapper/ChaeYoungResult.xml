@@ -12,8 +12,29 @@
 		<result column="reg_staff_name" 	property="regStaffName"/>
 		<result column="doc_reg_date" 		property="docRegDate"/>
 	</resultMap>
-	
-	<select id="appResultSearch" parameterType="String" resultMap="docResultMap">
-		
+	<!-- 1차 합격자 정보 가져오기 -->
+	<select id="appDocList" parameterType="String" resultType="HashMap">
+	SELECT 
+		re.app_num_code AS appNumCode
+		,app.app_name AS appName
+		,SUBSTRING(info.human_num,1,6) AS humanNum
+		,info.staff_gender AS staffGender
+		,re.doc_result_score AS docResultScore
+		,re.doc_result AS docResult
+		,re.reg_staff_name AS regStaffName	
+		,re.doc_reg_date AS docRegDate
+		,(SELECT if((SELECT COUNT(*) FROM cy_applicant_career_info WHERE app_num_code=appNumCode)>0,'경력','신입')) AS appCareer
+	FROM 
+		cy_document_result AS re
+		INNER join
+		cy_applicant_basic_info AS info
+		on
+		re.app_num_code=info.app_num_code
+		INNER join
+		cy_applicant_register AS app
+		on
+		info.app_email=app.app_email
+	WHERE re.job_number=#{jobNumber} AND re.doc_result='1차합격'
+	ORDER BY docResultScore desc
 	</select>
 </mapper>

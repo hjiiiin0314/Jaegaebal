@@ -30,7 +30,7 @@
 								<h5 class="card-title">합격자목록</h5>
 														
 									<select id="jobTitleName" class="custom-select">
-											<option>:: 공고 선택 ::</option>
+											<option value="">:: 공고 선택 ::</option>
 										<th:block th:each="cy : ${cyBoardList}">
 											<option th:text="${cy.jobTitle}" th:value=${cy.jobNumber}></option>
 											
@@ -40,6 +40,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label for="validationTooltip01">단계</label>
                                         		<select id="jobStage" name="jobStage" class="custom-select">
+                                        		<option value="">:: 단계 선택 ::</option>
 												</select>
                                         </div>
                                         <div class="col-md-4 mb-3">
@@ -53,7 +54,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
                                                 </div>
-                                                <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend" required="">
+                                                <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend">
                  
                                             </div>
                                         </div>
@@ -62,40 +63,42 @@
 									<div class="scrollbar-container scroll-area-lg ps">
 										<table class="mb-0 table table-bordered table-hover">
 											<thead>
-												<tr>
+												<tr class="text-center">
 													<th>#</th>
 													<th>접수번호</th>
 													<th>이름</th>
-													<th>나이</th>
+													<th>생년월일</th>
 													<th>성별</th>
 													<th>점수</th>
-													<th>상태</th>
+													<th>결과</th>
+													<th>평가자</th>
+													<th>평가일</th>
 													<th>점수부여</th>
 													<th>데이터이관</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>		
-													<th>1</th>
-													<td><a>20100705</a></td>
-													<td><a>김형진</a></td>
-													<td><a>개발2팀</a></td>
-													<td><a>조직관리자</a></td>
-													<td><a>개발자</a></td>
-													<td><a>개발자</a></td>
-													<td><a></a></td>
-													<td><a>1000000000</a></td>
-												</tr>
+											<tbody class="apptbody">
+	
 											</tbody>
 										</table>
 									<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
 								</div>
 							</div>
+					<div class="d-block text-center card-footer">
+                            <nav class="" aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                <li class="page-item"><a href="#" class="page-link" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+                                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                <li class="page-item"><a href="#" class="page-link" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+                                            </ul>
+                                        </nav>
+           				</div>				
 						</div>
 					</div>
-					<div class="col-md-4 m-t-none offset">
-						
-					</div>					
 				</div>
 			</div>
 

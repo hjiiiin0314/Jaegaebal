@@ -1,5 +1,6 @@
 package kr.or.jaegaebal.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -80,7 +81,7 @@ public interface ChaeYoungMapper {
 	
 	/*************************** 합격자 명단 Start ********************************/
 	
-	
+	public List<HashMap<String,Object>> appDocList(String jobNumber);
 	
 	/*************************** 합격자 명단 End **********************************/
 }
