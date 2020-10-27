@@ -313,7 +313,7 @@
 													</td>
 													<td class="t_head2">생년월일</td>
 													<td>
-														<input type="date" name="familyBirthday" th:value="${l.familyBirthday}" class="form-control staffDetailInfo">
+														<input type="date" name="familyBirthday"  th:value="${l.familyBirthday != null} ? ${l.familyBirthday} : ''" class="form-control staffDetailInfo">
 													</td>
 												</tr> 
 												<tr>														
@@ -408,12 +408,12 @@
 											</table>
 										</form>
                                     </div>
-                                    <div class="tab-pane" id="modifyCareerInfoFromIn" role="tabpanel">
-	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:if="${#lists.size(list.careerInfoFromIn) > 0}" th:each="l : ${list.careerInfoFromIn}">
+                                      <div class="tab-pane" id="modifyCareerInfoFromIn" role="tabpanel" th:each="a : ${list.careerInfoFromIn}">
+ 	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:if="${not #lists.isEmpty(a)}" th:each="l : ${list.careerInfoFromIn}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_in">
 												<tr>
 													<td class="t_head2">프로젝트명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:value="${l.careerInfoFromInCode}" class="form-control" name="careerInfoFromInCode"/>
 													</td>
 													<td colspan="5">
 														<input type="text" name="projectName" class="form-control staffDetailInfo" th:value="${l.projectName}">
@@ -433,37 +433,37 @@
 													<td class="t_head2">도중권한</td>
 													<td>
 														<select  name="projectAccess" class="form-control staffDetailInfo">
-															<option th:text="${l.accessName}" th:value="${l.accessNum}"></option>
+															 <option th:each="c : ${codeAndName.accessInfo}" th:text="${c.accessName}" th:value="${c.accessNum}" th:selected="${c.accessName eq l.projectAccess ? 'true' : 'false'}"></option>
 														</select>
 													</td>
 													<td class="t_head2">직책</td>
 													<td>
-														<select  name="projectPosition" class="form-control staffDetailInfo">
-															<option th:text="${l.positionName}" th:value="${l.positionCode}"></option>
-														</select>
+													 	<select  name="projectPosition" class="form-control staffDetailInfo">
+														 	<option th:each="c : ${codeAndName.positionInfo}" th:text="${c.positionName}" th:value="${c.positionName}" th:selected="${c.positionName eq l.projectPosition ? 'true' : 'false'}"></option>
+														</select> 
 													</td>
-												</tr> 
+												</tr>
 												<tr>
 													<td class="t_head2">직무</td>
 													<td>
-														<input type="text" name="projectWork" class="form-control staffDetailInfo">
+														<input type="text" name="projectWork" class="form-control staffDetailInfo" th:value="${l.projectWork}">
 													</td>
 													<td class="t_head2">직급</td>
 													<td>
 														<select  name="projectLevelName" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.levelInfo}" th:text="${l.levelName}" th:value="${l.levelName}" ></option>
+															<option th:each="c : ${codeAndName.levelInfo}" th:text="${c.levelName}" th:value="${c.levelName}" ></option>
 														</select>
 													</td>												
 												</tr>
 												<tr>
 													<td class="t_head2">비고</td>
 													<td colspan="5">
-														<textarea name="careerInfoFromInNotes" class="form-control staffDetailInfo"></textarea>
+														<textarea name="careerInfoFromInNotes" class="form-control staffDetailInfo" th:text="${l.careerInfoFromInNotes}" th:value="${l.careerInfoFromInNotes}"></textarea>
 													</td>
-												</tr> 												
-											</table>
-										</form>	
-	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:unless="${#lists.size(list.careerInfoFromIn) > 0}" th:each="l : ${list.staffInfoWithOther}">
+												</tr>	
+											</table> 
+										</form>
+	                                    <form class="insertDetailInfoForm careerInfoFromInForm" action="/modifyCareerInfoFromIn" method="post" th:unless="${not #lists.isEmpty(a)}" th:each="l : ${list.careerInfoFromIn}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_in">
 												<tr>
 													<td class="t_head2">프로젝트명
@@ -487,13 +487,13 @@
 													<td class="t_head2">도중권한</td>
 													<td>
 														<select  name="projectAccess" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.accessInfo}" th:text="${l.accessName}" th:value="l.accessNum"></option>
+															<option th:each="c : ${codeAndName.accessInfo}" th:text="${c.accessName}" th:value="${c.accessNum}"></option>
 														</select>
 													</td>
 													<td class="t_head2">직책</td>
 													<td>
 														<select  name="projectPosition" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.positionInfo}" th:text="${l.positionName}" th:value="l.positionCode"></option>
+															<option th:each="c : ${codeAndName.positionInfo}" th:text="${c.positionName}" th:value="${c.positionCode}"></option>
 														</select>
 													</td>
 												</tr> 
@@ -505,7 +505,7 @@
 													<td class="t_head2">직급</td>
 													<td>
 														<select  name="projectLevelName" class="form-control staffDetailInfo">
-															<option th:each="l : ${codeAndName.levelInfo}" th:text="${l.levelName}"></option>
+															<option th:each="c : ${codeAndName.levelInfo}" th:text="${c.levelName}"></option>
 														</select>
 													</td>												
 												</tr>
@@ -520,16 +520,15 @@
 														<div class="addDiv"><button type="button" class="font-icon-wrapper btn btn-light addCareerInfoBtn"><i class="pe-7s-add-user"></i>경력추가</button></div>
 													</td>
 												</tr>
-	
 											</table>
-										</form>	
-                                    </div>
-                                    <div class="tab-pane active" id="isCareerInfoFromOut" role="tabpanel">
-	                                    <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:if="${#lists.size(list.careerInfoFromOut) > 0}"  th:each="l : ${list.careerInfoFromOut}">
+										</form>
+                                    </div> 
+                                    <div class="tab-pane" id="modifyCareerInfoFromOut" role="tabpanel" >
+	                                    <!-- <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:if="${not #lists.isEmpty(list.careerInfoFromOut)}"  th:each="l : ${list.careerInfoFromOut}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_out">
 												<tr>
 													<td class="t_head2">직장명
-														<input type="hidden" th:each="l : ${list.staffInfoWithOther}" th:value="${l.staffNum}" class="form-control" name="staffNum"/>
+														<input type="hidden" th:each="o : ${list.staffInfoWithOther}" th:value="${o.staffNum}" class="form-control" name="staffNum"/>
 													</td>
 													<td>
 														<input type="text" name="companyName" class="form-control staffDetailInfo" th:value="${l.companyName}">
@@ -570,8 +569,8 @@
 													</td>
 												</tr> 												
 											</table>
-										</form>
-	                                    <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:unless="${#lists.size(list.careerInfoFromOut) > 0}">
+										</form> -->
+	                                    <form class="insertDetailInfoForm careerInfoFromOutForm" action="/modifyCareerInfoFromOut" method="post" th:unless="${not #lists.isEmpty(list.careerInfoFromOut)}">
 											<table class="mb-12 table table-bordered forms is_career_info_from_out">
 												<tr>
 													<td class="t_head2">직장명
@@ -623,7 +622,7 @@
 											</table>
 										</form>
                                     </div>
-                                    <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
+                                    <!-- <div class="tab-pane" id="isCertificateInfo" role="tabpanel">
 	                                    <form class="insertDetailInfoForm certificateInfoForm" action="/modifyCertificateInfo" method="post" th:if="${#lists.size(list.certificateInfo) > 0}"  th:each="l : ${list.certificateInfo}">
 											<table class="mb-12 table table-bordered forms is_certificate_info">
 												<tr>
@@ -966,7 +965,7 @@
 												</tr>
 											</table>
 										</form>	
-                                    </div>                                                                                                           
+                                    </div> -->                                                                                                           
                                 </div>
                             </div>
                             <div class="d-block card-footer addDiv">

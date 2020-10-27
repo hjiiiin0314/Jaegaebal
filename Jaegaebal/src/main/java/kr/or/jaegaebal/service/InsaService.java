@@ -512,6 +512,7 @@ public class InsaService {
 		info.put("educationInfo", insaMapper.getEducationInfo(staffNum));
 		info.put("balryoungInfo", insaMapper.getBalryoungInfo(staffNum));
 		info.put("militaryInfo", insaMapper.getMilitaryInfo(staffNum));
+
 		return info;
 		
 	}
