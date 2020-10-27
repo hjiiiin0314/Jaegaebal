@@ -1,5 +1,6 @@
 package kr.or.jaegaebal.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -150,7 +151,15 @@ public class ChaeYoungService {
 		
 		return chaeYoungMapper.SearchAppCareerInfo(appNumCode);
 	};
-	/************************* 지원자 이력서 조회 Start ****************************/
+	/************************* 지원자 이력서 조회 End ****************************/
+	/************************* 합격자 조회 Start ****************************/
+	
+	public List<HashMap<String,Object>> appDocList(String jobNumber) {
+		
+		return chaeYoungMapper.appDocList(jobNumber);
+	};
+	
+	/************************* 합격자 조회 End ****************************/
 	//지원자 정보 삭제
 	public int deleteApplicant(String appEmail) {
 		
