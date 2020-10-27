@@ -770,7 +770,7 @@
 		VALUES
 				( #{staffNum}
 				, #{staffName}
-			 	, 'JJ009'
+			 	, #{jojicCode}
 			 	, #{accessNum}
 				, #{staffLevelCode}
 				, #{staffPositionCode}
