@@ -2,6 +2,7 @@ package kr.or.jaegaebal.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -267,11 +268,22 @@ public class ChaeYoungController {
 		return "chaeyoung/cyResult";
 	}
 	//공고별 합격자 ajax
-	@PostMapping(value= "/cyResultValue" , produces = "application/json")
+	@PostMapping(value= "/cyStates" , produces = "application/json")
 	@ResponseBody
-	public String cyResultValue(@RequestParam(value="jobTitleName",required = false) String jobTitleName) {
+	public ChaeYoungBoard cyStates(@RequestParam(value="jobTitleName",required = false) String jobTitleName) {
 		
-		System.out.println(jobTitleName + "jobTitleName");
-		return jobTitleName;
+		//게시글 단계 가져오기.
+			
+		return chaeYoungService.cyBoardList(jobTitleName);
+	}
+	
+	//공고별 합격자 ajax
+	@PostMapping(value= "/cyDocResult" , produces = "application/json")
+	@ResponseBody
+	public int cyDocResult(@RequestParam(value="jobNumber",required = false) String jobNumber) {
+		
+		//게시글 단계 가져오기.
+		System.out.println(jobNumber);
+		return 0;
 	}
 }
