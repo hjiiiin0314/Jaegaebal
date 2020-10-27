@@ -190,10 +190,11 @@
             			
             			var pw = data.appPassward;
             			var email = data.appEmail;
+            			var appNumCode = data.appNumCode;
             			if(email != null){
             				if(appEmail.val() == email && appPw.val() == pw) {
             					if(confirm('수정화면으로 이동합니다')) {
-            						location.href="/appResumeForm?appEmail="+appEmail.val(); 
+            						location.href="/appResumeForm?appNumCode="+appNumCode; 
             					}
             				}else {
             					alert('비밀번호가 일치하지 않습니다.');

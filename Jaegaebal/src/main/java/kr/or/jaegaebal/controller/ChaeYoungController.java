@@ -4,7 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.jaegaebal.dto.ChaeYoungApplicant;
 import kr.or.jaegaebal.dto.ChaeYoungBoard;
+import kr.or.jaegaebal.dto.ChaeYoungCareerInfo;
 import kr.or.jaegaebal.dto.ChaeYoungInfo;
 import kr.or.jaegaebal.dto.Jojic;
 import kr.or.jaegaebal.mapper.ChaeYoungMapper;
@@ -30,6 +34,10 @@ public class ChaeYoungController {
 
 	@Autowired ChaeYoungService chaeYoungService;
 	@Autowired ChaeYoungMapper chaeYoungMapper;
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(ChaeYoungController.class);
+
 	//채용공고 리스트
 	@GetMapping("/cyboardList")
 	public String cyBoardList(Model model) {
@@ -50,6 +58,7 @@ public class ChaeYoungController {
 		if(jobNumber != null && !"".equals(jobNumber)) {
 			//리스트에서 클릭하여 form 화면으로 올 경우.
 			ChaeYoungBoard chaeYoungboard = chaeYoungService.cyBoardList(jobNumber);
+			
 			model.addAttribute("cyboard", chaeYoungboard);
 		}
 		
@@ -124,11 +133,19 @@ public class ChaeYoungController {
 	}
 	//지원자 이력서 작성form
 	@GetMapping("/appResumeForm")
-	public String appResumeForm(ChaeYoungApplicant chaeYoungApplicant,Model model) {
+	public String appResumeForm(ChaeYoungApplicant chaeYoungApplicant,Model model,HttpSession session) {
 		if(chaeYoungApplicant != null) {
 			//지원자 한명의 정보 가져오기
 			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+			
+			if(chaeYoungApplicant.getAppNumCode() != null) {
+				//지원자 이력서(인적,학력,병역)
+				ChaeYoungInfo chaeYoungInfo = chaeYoungService.SearchAppInfo(chaeYoungApplicant.getAppNumCode());
+				model.addAttribute("chaeYoungInfo", chaeYoungInfo);
+			}
 			model.addAttribute("chaeYoungApplicant", applicant);
+
+			session.setAttribute("SAPP", applicant.getAppNumCode());
 		}
 		
 		model.addAttribute("title", "이력서 작성 form");
@@ -139,12 +156,16 @@ public class ChaeYoungController {
 	public String appResumeFormValue(@RequestParam(value="appNumCode" , required=false) String appNumCode,ChaeYoungApplicant chaeYoungApplicant,Model model) {
 		if(appNumCode != null && chaeYoungApplicant != null) {
 			//지원자 한명의 정보 가져오기
-			System.out.println(appNumCode);
+
 			ChaeYoungApplicant applicant = chaeYoungService.appManagement(chaeYoungApplicant);
+			//지원자 이력서(인적,학력,병역)
 			ChaeYoungInfo chaeYoungInfo = chaeYoungService.SearchAppInfo(appNumCode);
-			System.out.println(chaeYoungInfo);
+			//지원자 이력서 (경력)
+			List<ChaeYoungCareerInfo> careerList = chaeYoungService.SearchAppCareerInfo(appNumCode);
+
 			model.addAttribute("chaeYoungApplicant", applicant);
 			if(chaeYoungInfo != null) {
+				/*지원자 생년월일로 만나이 구하기 Start*/
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 				String today = formatter.format(new Date());
 				String birth = chaeYoungInfo.getHumanNum().substring(0,6);
@@ -171,7 +192,13 @@ public class ChaeYoungController {
 		                age--; // 생일 안지났으면 (만나이 - 1)
 		            }
 		        }
+		        /*지원자 생년월일로 만나이 구하기 End*/
+		        
 				model.addAttribute("chaeYoungInfo", chaeYoungInfo);
+				if(careerList.size() > 0) {
+					
+					model.addAttribute("careerList", careerList);					
+				}
 				model.addAttribute("age", age);
 			}
 		}
