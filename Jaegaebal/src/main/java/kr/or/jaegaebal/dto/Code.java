@@ -13,6 +13,14 @@ public class Code {
 	private String levelName;		//직급명
 	private String positionCode;	//직책코드
 	private String positionName;	//직책명
+	private String balryoungCode;	//발령코드
+	
+	public String getBalryoungCode() {
+		return balryoungCode;
+	}
+	public void setBalryoungCode(String balryoungCode) {
+		this.balryoungCode = balryoungCode;
+	}
 	private String balryoungName;	//발령명
 	
 	public String getBalryoungName() {
@@ -88,6 +96,8 @@ public class Code {
 		builder.append(positionCode);
 		builder.append(", positionName=");
 		builder.append(positionName);
+		builder.append(", balryoungCode=");
+		builder.append(balryoungCode);
 		builder.append(", balryoungName=");
 		builder.append(balryoungName);
 		builder.append("]");
