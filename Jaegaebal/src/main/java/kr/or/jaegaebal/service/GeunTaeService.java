@@ -25,8 +25,8 @@ public class GeunTaeService {
 	}
 
 	// fullcalendar ajax
-	  public List<Map<String, Object>> fullCalendar() { List<Map<String, Object>>
-	  fullCalendar = geunTaeMapper.fullCalendar();
+	  public List<Map<String, Object>> fullCalendar() {
+		  List<Map<String, Object>>  fullCalendar = geunTaeMapper.fullCalendar();
 	  	return fullCalendar; }
 	 
 

@@ -23,7 +23,7 @@
    			 	, hd_name
    			 	, hd_start_day
    			 	, hd_end_day
-   			 	, hd_contents
+   			 	
    			 
 			FROM
 				 gt_holiday_code

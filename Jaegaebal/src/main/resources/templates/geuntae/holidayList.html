@@ -95,7 +95,7 @@
 			                                  var days = b.diff(a, 'days');
 			                                  for(var j = 0; j<days; j++){
 			                                    var repeatStartTimeDays = moment(a, 'YYYY-MM-DD').add(j, 'days').format('YYYY-MM-DD');
-			                                    var repeatEndTimeDays = moment(c, 'YYYY-MM-DD HH:mm:ss').add(j, 'days').format('YYYY-MM-DD');
+			                                    var repeatEndTimeDays = moment(c, 'YYYY-MM-DD').add(j, 'days').format('YYYY-MM-DD');
 			                                    events.push({
 			                                      title:data[i].hd_name,
 			                                      start:moment(repeatStartTimeDays).format('YYYY-MM-DD'),
@@ -107,9 +107,6 @@
 			                           successCallback(events);
 			                           
 			                         },
-			                       error: function (xhr, err) {
-			                           alert("ERROR! - readyState: " + xhr.readyState + "<br/>status: " + xhr.status + "<br/>responseText: " + xhr.responseText);
-			                       }
 			                       
 			                   });
 			                
