@@ -700,10 +700,12 @@ A HORIZONTAL event
 .fc-daygrid-event-harness { /* for event top/bottom margins */
 }
 .fc-daygrid-day-frame:before, .fc-daygrid-day-events:before, .fc-daygrid-event-harness:before {
+	text-align: center;
   content: "";
   clear: both;
   display: table; }
 .fc-daygrid-day-frame:after, .fc-daygrid-day-events:after, .fc-daygrid-event-harness:after {
+	text-align: center;
   content: "";
   clear: both;
   display: table; }
@@ -747,6 +749,7 @@ A HORIZONTAL event
 
 }
 .fc .fc-daygrid-day-events {
+	text-align: center;
     margin-top: 1px; /* needs to be margin, not padding, so that available cell height can be computed */
   }
 .fc {
@@ -755,17 +758,20 @@ A HORIZONTAL event
 
 }
 .fc .fc-daygrid-body-balanced .fc-daygrid-day-events {
+	text-align: center;
       position: absolute;
       left: 0;
       right: 0;
     }
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+	text-align: center;
       position: relative; /* for containing abs positioned event harnesses */
       min-height: 2em; /* in addition to being a min-height during natural height, equalizes the heights a little bit */
     }
 .fc .fc-daygrid-body-natural { /* can coexist with -unbalanced */
   }
 .fc .fc-daygrid-body-natural .fc-daygrid-day-events {
+	text-align: center;
       margin-bottom: 1em;
     }
 .fc {
