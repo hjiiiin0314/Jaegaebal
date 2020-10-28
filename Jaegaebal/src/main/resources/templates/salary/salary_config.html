@@ -15,6 +15,55 @@
 <th:block layout:fragment="customJs">
 	<script type="text/javascript" th:src="@{/assets/scripts/salary.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/scripts/jquery-ui.js}"></script>
+	<script>
+	$(function(){	
+		$(document).on('click', '.per-check', function(){
+			var selInput = $(this).parent('td').nextAll('td');
+			if($(this).prop('checked')){
+				selInput.children('input[name=payPer]').prop('readonly', false);
+				selInput.children('input[name=payUpper]').prop('readonly', false);
+				selInput.children('input[name=payLower]').prop('readonly', false);
+				selInput.children('input[name=payPer]').val('0');
+				selInput.children('input[name=payUpper]').val('0');
+				selInput.children('input[name=payLower]').val('0');
+			} else {
+				selInput.children('input[name=payPer]').prop('readonly', true);
+				selInput.children('input[name=payUpper]').prop('readonly', true);
+				selInput.children('input[name=payLower]').prop('readonly', true);
+				selInput.children('input[name=payPer]').val('');
+				selInput.children('input[name=payUpper]').val('');
+				selInput.children('input[name=payLower]').val('');
+			}
+		});
+		
+		$(document).on('click', '.deduct-check', function(){
+			var selInput = $(this).parent('td').nextAll('td');	
+			if($(this).prop('checked')){
+				selInput.children('input[name=deductPer]').prop('readonly', false);
+				selInput.children('input[name=deductUpper]').prop('readonly', false);
+				selInput.children('input[name=deductLower]').prop('readonly', false);
+				selInput.children('input[name=deductPer]').val('0');
+				selInput.children('input[name=deductUpper]').val('0');
+				selInput.children('input[name=deductLower]').val('0');
+			} else {
+				selInput.children('input[name=deductPer]').prop('readonly', true);
+				selInput.children('input[name=deductUpper]').prop('readonly', true);
+				selInput.children('input[name=deductLower]').prop('readonly', true);
+				selInput.children('input[name=deductPer]').val('');
+				selInput.children('input[name=deductUpper]').val('');
+				selInput.children('input[name=deductLower]').val('');
+			}
+		});
+		
+		$('#pay-add').click(function(){
+			$('.pay-con-table').children('tbody').append('<tr><td><input type="checkbox" class="form-control checkbox-width chk"></td><td><input type="text" name="payName" class="form-control"></td><td><input type="checkbox" name="payTax" class="form-control checkbox-width"></td><td><input type="checkbox" name="paySal" class="form-control checkbox-width" checked="true"></td><td><input type="checkbox" name="payPerdepart" class="form-control checkbox-width per-check"></td><td><input type="number" name="payPer" class="form-control" step="0.01" readonly></td><td><input type="number" name="payUpper" class="form-control" readonly></td><td><input type="number" name="payLower" class="form-control" readonly></td></tr>');
+		})
+		
+		$('#deduct-add').click(function(){
+			$('.deduct-con-table').children('tbody').append('<tr><td><input type="checkbox" class="form-control checkbox-width chk"><td><input type="text" name="deductName" class="form-control" th:value="${d.deductName}"></td><td><input type="text" name="deductAccount" class="form-control"></td><td><input type="checkbox" name="deductSal" class="form-control checkbox-width"></td><td><input type="checkbox" name="deductPerdepart" class="form-control checkbox-width deduct-check"></td><td><input type="number" name="deductPer" class="form-control" step="0.01" readonly></td><td><input type="number" name="deductUpper" class="form-control" readonly></td><td><input type="number" name="deductLower" class="form-control" readonly></td></tr>');
+		})
+	})
+	</script>
 </th:block>
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 <div class="app-main__inner">
@@ -35,8 +84,12 @@
     <div class="row">
 		<div class="col-lg-12">
 			<div class="main-card mb-3 card">
-				<div class="card-body">
+				<div class="card-body table-scroll-x">
 					<h5 class="mt-2 card-title search-left">기본정보</h5>
+					<div class="date_right">
+						<button class="btn btn-primary date_right" id="pay-add">행 추가</button>
+						<button class="mr-2 btn btn-primary date_right" id="pay-del">행 삭제</button>
+					</div>
 					<table class="mb-0 table pay-con-table table-striped">
 						<colgroup>
 							<col width="10%"/>
@@ -66,10 +119,17 @@
 								<td><input type="text" name="payName" class="form-control" th:value="${p.payName}"></td>
 								<td><input type="checkbox" name="payTax" class="form-control checkbox-width" th:checked="${p.payTax eq 1 ? 'true' : 'false'}"></td>
 								<td><input type="checkbox" name="paySal" class="form-control checkbox-width" th:checked="${p.paySal eq 1 ? 'true' : 'false'}"></td>
-								<td><input type="checkbox" name="payPerdepart" class="form-control checkbox-width" th:checked="${p.payPerdepart eq 1 ? 'true' : 'false'}"></td>
-								<td><input type="number" name="payPer" class="form-control" th:value="${p.payPer}" step="0.01"></td>
-								<td><input type="number" name="payUpper" class="form-control" th:value="${p.payUpper}"></td>
-								<td><input type="number" name="payLower" class="form-control" th:value="${p.payLower}"></td>
+								<td><input type="checkbox" name="payPerdepart" class="form-control checkbox-width per-check" th:checked="${p.payPerdepart eq 1 ? 'true' : 'false'}"></td>
+								<th:block th:if="${p.payPerdepart eq 1}">
+									<td><input type="number" name="payPer" class="form-control" th:value="${p.payPer}" step="0.01"></td>
+									<td><input type="number" name="payUpper" class="form-control" th:value="${p.payUpper}"></td>
+									<td><input type="number" name="payLower" class="form-control" th:value="${p.payLower}"></td>
+								</th:block>
+								<th:block th:unless="${p.payPerdepart eq 1}">
+									<td><input type="number" name="payPer" class="form-control" step="0.01" readonly></td>
+									<td><input type="number" name="payUpper" class="form-control" readonly></td>
+									<td><input type="number" name="payLower" class="form-control" readonly></td>
+								</th:block>
 							</tr>
 						</tbody>
 					</table>
@@ -78,8 +138,10 @@
 		</div>
 		<div class="col-lg-12">
 			<div class="main-card mb-3 card">
-				<div class="card-body">
-					<h5 class="mt-2 card-title mb-4">상세정보</h5>
+				<div class="card-body table-scroll-x">
+					<h5 class="mt-2 card-title search-left">상세정보</h5>
+					<button class="btn btn-primary date_right" id="deduct-add">행 추가</button>
+					<button class="mr-2 btn btn-primary date_right" id="deduct-del">행 삭제</button>
 					<table class="mb-0 table deduct-con-table table-striped">
 						<colgroup>
 							<col width="8%"/>
@@ -109,10 +171,17 @@
 								<td><input type="text" name="deductName" class="form-control" th:value="${d.deductName}"></td>
 								<td><input type="text" name="deductAccount" class="form-control" th:value="${d.deductAccount}"></td>
 								<td><input type="checkbox" name="deductSal" class="form-control checkbox-width" th:checked="${d.deductSal eq 1 ? 'true' : 'false'}"></td>
-								<td><input type="checkbox" name="deductPerdepart" class="form-control checkbox-width" th:checked="${d.deductPerdepart eq 1 ? 'true' : 'false'}"></td>
-								<td><input type="number" name="deductPer" class="form-control" th:value="${d.deductPer}" step="0.01"></td>
-								<td><input type="number" name="deductUpper" class="form-control" th:value="${d.deductUpper}"></td>
-								<td><input type="number" name="deductLower" class="form-control" th:value="${d.deductLower}"></td>
+								<td><input type="checkbox" name="deductPerdepart" class="form-control checkbox-width deduct-check" th:checked="${d.deductPerdepart eq 1 ? 'true' : 'false'}"></td>
+								<th:block th:if="${d.deductPerdepart eq 1}">
+									<td><input type="number" name="deductPer" class="form-control" th:value="${d.deductPer}" step="0.01"></td>
+									<td><input type="number" name="deductUpper" class="form-control" th:value="${d.deductUpper}"></td>
+									<td><input type="number" name="deductLower" class="form-control" th:value="${d.deductLower}"></td>
+								</th:block>
+								<th:block th:unless="${d.deductPerdepart eq 1}">
+									<td><input type="number" name="deductPer" class="form-control" step="0.01" readonly></td>
+									<td><input type="number" name="deductUpper" class="form-control" readonly></td>
+									<td><input type="number" name="deductLower" class="form-control" readonly></td>
+								</th:block>
 							</tr>
 						</tbody>
 					</table>
