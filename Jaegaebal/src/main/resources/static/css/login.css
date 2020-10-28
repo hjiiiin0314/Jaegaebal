@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.contain{
+	width:674px;
+	margin:0 auto;
+}
 .login-flex{
 	height:100%;
 	display:flex;
@@ -12,4 +16,20 @@
 
 .login-image{
 	font-size:24px;
+}
+
+.white-box{
+	width:337px;
+}
+
+@media(max-width:674px){
+	.contain{
+		width:100%;
+	}
+	.card-group{
+		flex-flow:column;
+	}
+	.white-box{
+		width:100%;
+	}
 }
