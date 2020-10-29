@@ -16,6 +16,9 @@
 	font-weight: 700;
 	
 	}
+	.fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
+    .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
+
 	</style>
 	
 				
@@ -54,17 +57,17 @@
 				          initialView: 'dayGridMonth',
 				          headerToolbar: {
 				        	
-				            left: 'prev,next',
+				            left: 'prev,next today',
 				            center: 'title',
-				            right: 'today'
+				            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+
 				          },
-				           
-				          	
+				            selectable: true,
 				            navLinks: true, 
 				            editable: false,
 				            displayEventTime: false,
 				            slotEventOverlap: false,
-				            allDaySlot: false,
+				            allDaySlot: true,
 				            events: function(fetchInfo, successCallback, failureCallback ){
 				                /* 예전버전: function( startMoment, endMoment, timeZoneStr, callback )
 				                  지금버전: function( fetchInfo, successCallback, failureCallback )*/
@@ -106,6 +109,7 @@
 				                   });
 				            	  
 				               }
+				          
 				
 				        })
 				        calendar.render();
