@@ -46,8 +46,7 @@ public class CodeAdminController {
 		
 		 List<EmpCodeAdmin> empCodeList = codeAdminService.getEmpCodeList();
 		 model.addAttribute("empCodeList",empCodeList);
-		
-		model.addAttribute("title","코드리스트");
+		 model.addAttribute("title","고용형태 코드 리스트");
 		
 		return "codeAdmin/empCodeList";
 	}
@@ -127,7 +126,7 @@ public class CodeAdminController {
 	public String getDocCodeList(Model model) {
 		List<DocCodeAdmin> docCodeList = codeAdminService.getDocCodeList();	
 		model.addAttribute("docCodeList",docCodeList);
-		model.addAttribute("title","코드리스트");
+		model.addAttribute("title","문서 코드 리스트");
 		
 		return "codeAdmin/docCodeList";
 	}
@@ -206,7 +205,7 @@ public class CodeAdminController {
 	public String getInsaCodeList(Model model) {
 		List<InsaCodeAdmin> insaCodeList = codeAdminService.getInsaCodeList();		
 		model.addAttribute("insaCodeList",insaCodeList);
-		model.addAttribute("title","코드리스트");
+		model.addAttribute("title","인사 코드 리스트");
 		
 		return "codeAdmin/insaCodeList";
 	}
@@ -290,7 +289,7 @@ public class CodeAdminController {
 	public String getWorkCodeList(Model model) {
 		List<CodeAdmin> workCodeList = codeAdminService.getWorkCodeList();		
 		model.addAttribute("workCodeList",workCodeList);
-		model.addAttribute("title","코드리스트");
+		model.addAttribute("title","근무형태 코드 리스트");
 		return "codeAdmin/workCodeList";
 	}
 	

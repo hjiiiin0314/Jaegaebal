@@ -8,36 +8,17 @@
 	</th:block>
 	
 	<th:block layout:fragment="customContent">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/code.css}">
 	<link rel="stylesheet" href="/fullcalendar/fullcalendar.css">
 	<style type="text/css">
 	.test{
 	margin-left: 1%; 
-	font-weight: 700;	
-	}		
+	font-weight: 700;
+	
+	}
 	</style>
 	
-	<script type="text/javascript" th:inline="javascript">
-	/*<![CDATA[*/
-	   
-    	var holiCodeList = /*[[${holiCodeList}]]*/
-		console.log(holiCodeList);
-		
-   /*]]>*/
-	</script>
-	<script>
-		$(function(){
-			for(i=0;i<holiCodeList.length;i++){
-				$('.fc-day').each(function(){
-					var dataDate = $(this).attr('data-date');					
-					if(holiCodeList[i].hdStartDay <= dataDate && holiCodeList[i].hdEndDay >= dataDate){
-						$(this).find('.fc-daygrid-day-events').text(holiCodeList[i].hdName);	
-					}
-				})
-			}
-		})
-	</script>
-	
-		
+				
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
 	<!-- 메뉴설명 -->
@@ -49,7 +30,7 @@
                     <i class="pe-7s-date icon-gradient bg-premium-dark">
                     </i>
                 </div>
-                <div>휴일 설정
+                <div>휴일 관리
                     <div class="page-title-subheading">휴일 일정을 관리합니다.
                     </div>
                 </div>
@@ -59,65 +40,79 @@
     
     	<!-- 코드등록버튼 -->
 		
-		<button type="button" class="btn btn-primary addHdCode" data-toggle="modal" data-target="#myModal" >휴일등록</button>		
-			<div class="main-card mb-10 card table-padding">
-
-    <div id="Scalendar"></div>
-    		<script>
-			    document.addEventListener('DOMContentLoaded', function() {
-			        var calendarEl = document.getElementById('Scalendar');
-			
-			        var calendar = new FullCalendar.Calendar(calendarEl, {
-			          timeZone: 'UTC',
-			          initialView: 'dayGridMonth',
-			          headerToolbar: {
-			            left: 'prev,next today',
-			            center: 'title', //',addEventButton'
-			            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-			          },
-			          /* customButtons: {
-			              addEventButton: {
-			                text: 'add event...',
-			                click: function() {
-			                var title = prompt('명칭을 입력해주세요');
-			                  var dateStr = prompt('시작일을 입력해주세요 (ex: YYYY-MM-DD format)');
-			                  var dateEnd = prompt('종료일을 입력해주세요 (ex: YYYY-MM-DD format)')
-			                  var date = new Date(dateStr + 'T00:00:00'); // will be in local time
-			                  var dateEnd = new DateEnd(dateEnd + 'T00:00:00'); // will be in local time
-
-			                  if (!isNaN(date.valueOf())) { // valid?
-			                    calendar.addEvent({
-			                      title: title,
-			                      start: date,
-			                      end: dateEnd,
-			                      allDay: true
-			                    });
-			                    alert('Great. Now, update your database...');
-			                  } else {
-			                    alert('Invalid date.');
-			                  }
-			                }
-			              }
-			          } */
-			        
-			    
-			          	
-			            navLinks: true, 
-			            editable: false,
-			            displayEventTime: false,
-			            slotEventOverlap: false,
-			            allDaySlot: false
-			            
-			
-			        })
-			        calendar.render();
-			      });
-
-        
-    		</script>
+	<button type="button" class="btn btn-primary addHdCode" data-toggle="modal" data-target="#myModal">휴일등록</button>
+		<div class="main-card mb-10 card table-padding">
+    		<div id="Scalendar"></div>
+		    <script>
+		    document.addEventListener('DOMContentLoaded', function() {
+		        var calendarEl = document.getElementById('Scalendar');
+		
+		        var calendar = new FullCalendar.Calendar(calendarEl, {
+		          timeZone: 'UTC',
+		          initialView: 'dayGridMonth',
+		          headerToolbar: {
+		        	
+		            left: 'prev,next',
+		            center: 'title',
+		            right: 'today', 
+		          },
+		           
+		          	
+		            navLinks: true, 
+		            editable: false,
+		            displayEventTime: false,
+		            slotEventOverlap: false,
+		            allDaySlot: false,
+		            events: function(fetchInfo, successCallback, failureCallback ){
+		                /* 예전버전: function( startMoment, endMoment, timeZoneStr, callback )
+		                  지금버전: function( fetchInfo, successCallback, failureCallback )*/
+		              
+		                  $.ajax({
+		                       type: "POST",
+		                       url: "/fullCalendar",
+		                       dataType: 'json',
+		                       success: function(data){
+		                           var events = [];
+		                           for(var i=0; i<data.length; i++){
+		                              if(data[i].repeat == "N"){
+		                                 events.push({
+		                                    title: data[i].hdName,
+		                                    start: data[i].hdStartDay,
+		                                    end: data[i].hdEndDay
+		                                 });
+		                                 }else{
+		                                  var a = moment(data[i].hdStartDay,'YYYY-MM-DD'); 
+		                                  var b = moment(data[i].hdEndDay,'YYYY-MM-DD'); 
+		                                  var c = moment(data[i].hdStartDay,'YYYY-MM-DD'); 
+		                                  var days = b.diff(a, 'days');
+		                                  for(var j = 0; j<=days; j++){
+		                                    var repeatStartTimeDays = moment(a, 'YYYY-MM-DD').add(j, 'days').format('YYYY-MM-DD');
+		                                    var repeatEndTimeDays = moment(c, 'YYYY-MM-DD').add(j, 'days').format('YYYY-MM-DD');
+		                                    events.push({
+		                                      title:data[i].hdName,
+		                                      start:moment(repeatStartTimeDays).format('YYYY-MM-DD'),
+		                                      end:moment(repeatEndTimeDays).format('YYYY-MM-DD')
+		                                      
+		                                    });
+		                                  }
+		                                }
+		                           }
+		                           successCallback(events);
+		                           
+		                         },
+		                       		                       
+		                   });
+		            	  
+		               }
+		
+		        })
+		        calendar.render();
+		      });
+		
+		        
+		    </script>
     	</div>
     </div>
-    	
  <!-- 일정 추가 MODAL -->
         <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
             <div class="modal-dialog" role="document">
@@ -127,11 +122,11 @@
                                 aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title"></h4>
                     </div>
- 			<form action="/addHdCode" method="post" id="addHdCode">
-                    <div class="modal-body">                           
+               <form action="/addHdCode" method="post" id="addHdCode">
+                    <div class="modal-body">
                             <div class="form-group">
-                                <label class="col-form-label test" for="hdName" >일정명 :</label>
-                                <input class="form-control" type="text" name="hdName" id="hdName"/>
+                                <label class="col-form-label test" for="hdName" >휴일명 :</label>
+                                <input class="form-control" type="text" name="hdName" id="hdName" placeholder="휴일명을 입력해주세요"/>
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label test" for="regStaffName" >등록자 :</label>
@@ -150,10 +145,11 @@
                             <div class="form-group">
                                 <label class="col-xs-4 test" for="hdContents">내용</label>
                                 <textarea rows="3" cols="65" class="form-control" name="hdContents"
-                                    id="hdContents"	 style="resize: none;"></textarea>
+                                    id="hdContents"  style="resize: none;" placeholder="내용을 입력해주세요"></textarea>
                         </div>
                     </div>
-			</form>
+                    
+                </form>
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
                         <button type="button" class="btn btn-primary saveHdCode" id="save-event">저장</button>
@@ -163,9 +159,12 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+
       
 <script src="/fullcalendar/fullcalendar.js"></script>
 <script src="/fullcalendar/fullcalendar.min.js"></script>
+<script src="/fullcalendar/moment.js"></script>
+<script src="/fullcalendar/moment-with-locales.js"></script>
 <script src="/fullcalendar/locales-all.js"></script>
 
 

@@ -19,7 +19,7 @@
    	
 	  
    	<!-- 휴일리스트 -->
-   		<select id="holidayList" resultMap="holiCodeResultMap">
+   		<!-- <select id="holidayList" resultMap="holiCodeResultMap">
    			SELECT
    			 	  hd_code
    			 	, reg_staff_name
@@ -31,7 +31,21 @@
 			FROM
 				 gt_holiday_code
    	   		
+	   	</select> -->
+	   	<select id="holidayList" resultType="hashMap" parameterType="map">
+	   		SELECT
+   			 	  hd_code as hdCode
+   			 	, reg_staff_name as regStaffName
+   			 	, hd_name as hdName
+   			 	, hd_start_day as hdStartDay
+   			 	, hd_end_day as hdEndDay
+   			 	, hd_contents as hdContents
+   			 	, hd_reg_date as hdRegDate
+			FROM
+				 gt_holiday_code
 	   	</select>
+	   	
+	   	
 	   	
       <!-- 휴일등록 -->
    <insert id="addHdCode" parameterType="Holiday">
