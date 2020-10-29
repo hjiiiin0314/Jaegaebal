@@ -57,16 +57,58 @@
 		
 		$('#pay-add').click(function(){
 			$('.pay-con-table').children('tbody').append('<tr><td><input type="checkbox" class="form-control checkbox-width chk"></td><td><input type="text" name="payName" class="form-control"></td><td><input type="checkbox" name="payTax" class="form-control checkbox-width"></td><td><input type="checkbox" name="paySal" class="form-control checkbox-width" checked="true"></td><td><input type="checkbox" name="payPerdepart" class="form-control checkbox-width per-check"></td><td><input type="number" name="payPer" class="form-control" step="0.01" readonly></td><td><input type="number" name="payUpper" class="form-control" readonly></td><td><input type="number" name="payLower" class="form-control" readonly></td></tr>');
-		})
+		});
 		
 		$('#deduct-add').click(function(){
 			$('.deduct-con-table').children('tbody').append('<tr><td><input type="checkbox" class="form-control checkbox-width chk"><td><input type="text" name="deductName" class="form-control" th:value="${d.deductName}"></td><td><input type="text" name="deductAccount" class="form-control"></td><td><input type="checkbox" name="deductSal" class="form-control checkbox-width"></td><td><input type="checkbox" name="deductPerdepart" class="form-control checkbox-width deduct-check"></td><td><input type="number" name="deductPer" class="form-control" step="0.01" readonly></td><td><input type="number" name="deductUpper" class="form-control" readonly></td><td><input type="number" name="deductLower" class="form-control" readonly></td></tr>');
-		})
+		});
+		
+		$('.deduct-con-table').find('#allChk').click(function(){
+			if($(this).prop('checked')){
+				$('.deduct-con-table').find('.chk').prop('checked', true);
+			} else {
+				$('.deduct-con-table').find('.chk').prop('checked', false);
+			}
+		});
+		
+		$('.deduct-con-table').find('#allChk').click(function(){
+			if($(this).prop('checked')){
+				$('.deduct-con-table').find('.chk').prop('checked', true);
+			} else {
+				$('.deduct-con-table').find('.chk').prop('checked', false);
+			}
+		});
 		
 		$('#pay-del').click(function(){
-			
-		}
-	})
+			var stack = 0;
+			$('.pay-con-table').children('tbody').children('tr').each(function(){
+				if($(this).find('.chk').prop('checked')){
+					$(this).remove();
+					stack++;
+				}
+			})
+			if(stack==0){
+				alert('선택된 항목이 없습니다.');
+			} else {
+				$('.pay-con-table').find('#allChk').prop('checked', false);
+			}
+		});
+		
+		$('#deduct-del').click(function(){
+			var stack = 0;
+			$('.deduct-con-table').children('tbody').children('tr').each(function(){
+				if($(this).find('.chk').prop('checked')){
+					$(this).remove();
+					stack++;
+				}
+			})
+			if(stack==0){
+				alert('선택된 항목이 없습니다.');
+			} else {
+				$('.deduct-con-table').find('#allChk').prop('checked', false);
+			}
+		});
+	});
 	</script>
 </th:block>
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
@@ -189,6 +231,7 @@
 							</tr>
 						</tbody>
 					</table>
+					<input type="submit" class="mt-2 btn btn-primary date_right" value="저장">
 				</div>
 			</div>
 		</div>
