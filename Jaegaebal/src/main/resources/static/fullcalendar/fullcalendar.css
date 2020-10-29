@@ -1,5 +1,9 @@
 
 /* classes attached to <body> */
+	.fc-col-header-cell.fc-day.fc-day-sat { color:#0000FF; }     /* 토요일 */
+    .fc-col-header-cell.fc-day.fc-day-sun { color:#FF0000; }    /* 일요일 */
+
+	
 
 .fc-not-allowed,
 .fc-not-allowed .fc-event { /* override events' custom cursors */
