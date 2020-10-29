@@ -1,7 +1,7 @@
 package kr.or.jaegaebal.controller;
 
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 import kr.or.jaegaebal.dto.Holiday;
@@ -21,13 +21,7 @@ public class GeunTaeController {
 	
 	@Autowired private GeunTaeService geunTaeService;
 	
-	//fullcalendar ajax
-	@PostMapping(value="/fullCalendar",produces = "application/json")
-	   @ResponseBody
-	   public List<Map<String, Object>> fullCalendar(){
-	      List<Map<String, Object>> javaMap1 = geunTaeService.fullCalendar();
-	      return javaMap1;
-	   }
+	
 	
 	
 	//휴일 리스트

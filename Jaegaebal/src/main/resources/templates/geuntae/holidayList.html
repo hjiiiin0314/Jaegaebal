@@ -12,19 +12,30 @@
 	<style type="text/css">
 	.test{
 	margin-left: 1%; 
-	font-weight: 700;
-	
-	}
+	font-weight: 700;	
+	}		
 	</style>
 	
-	<!-- <script>
-	function click_add() {
-		var url = "/addHdCode2";
-		var name = "addHdCode";
-		var option = "width = 600, height = 600 left = 100, top=50,location=no";
-		window.open(url,name,option)
-	};
-	</script> -->
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	   
+    	var holiCodeList = /*[[${holiCodeList}]]*/
+		console.log(holiCodeList);
+		
+   /*]]>*/
+	</script>
+	<script>
+		$(function(){
+			for(i=0;i<holiCodeList.length;i++){
+				$('.fc-day').each(function(){
+					var dataDate = $(this).attr('data-date');					
+					if(holiCodeList[i].hdStartDay <= dataDate && holiCodeList[i].hdEndDay >= dataDate){
+						$(this).find('.fc-daygrid-day-events').text(holiCodeList[i].hdName);	
+					}
+				})
+			}
+		})
+	</script>
 	
 		
 
@@ -61,59 +72,41 @@
 			          initialView: 'dayGridMonth',
 			          headerToolbar: {
 			            left: 'prev,next today',
-			            center: 'title',
+			            center: 'title', //',addEventButton'
 			            right: 'dayGridMonth,timeGridWeek,timeGridDay'
 			          },
-			           
-			           
+			          /* customButtons: {
+			              addEventButton: {
+			                text: 'add event...',
+			                click: function() {
+			                var title = prompt('명칭을 입력해주세요');
+			                  var dateStr = prompt('시작일을 입력해주세요 (ex: YYYY-MM-DD format)');
+			                  var dateEnd = prompt('종료일을 입력해주세요 (ex: YYYY-MM-DD format)')
+			                  var date = new Date(dateStr + 'T00:00:00'); // will be in local time
+			                  var dateEnd = new DateEnd(dateEnd + 'T00:00:00'); // will be in local time
+
+			                  if (!isNaN(date.valueOf())) { // valid?
+			                    calendar.addEvent({
+			                      title: title,
+			                      start: date,
+			                      end: dateEnd,
+			                      allDay: true
+			                    });
+			                    alert('Great. Now, update your database...');
+			                  } else {
+			                    alert('Invalid date.');
+			                  }
+			                }
+			              }
+			          } */
+			        
+			    
+			          	
 			            navLinks: true, 
 			            editable: false,
 			            displayEventTime: false,
 			            slotEventOverlap: false,
-			            allDaySlot: false,
-			            events: function(fetchInfo, successCallback, failureCallback ){
-			                /* 예전버전: function( startMoment, endMoment, timeZoneStr, callback )
-			                  지금버전: function( fetchInfo, successCallback, failureCallback )*/
-			              
-			                  $.ajax({
-			                       type: "POST",
-			                       url: "/fullCalendar",
-			                       dataType: 'json',
-			                       success: function(data){
-			                           var events = [];
-			                           for(var i=0; i<data.length; i++){
-			                              if(data[i].repeat == "N"){
-			                                 events.push({
-			                                    title: data[i].hd_name,
-			                                    start: data[i].hd_start_date,
-			                                    end: data[i].hd_end_date
-			                                 });
-			                                 }else{
-			                                  var a = moment(data[i].hd_start_date,'YYYY-MM-DD'); 
-			                                  var b = moment(data[i].hd_end_date,'YYYY-MM-DD'); 
-			                                  var c = moment(data[i].hd_start_date,'YYYY-MM-DD'); 
-			                                  var days = b.diff(a, 'days');
-			                                  for(var j = 0; j<days; j++){
-			                                    var repeatStartTimeDays = moment(a, 'YYYY-MM-DD').add(j, 'days').format('YYYY-MM-DD');
-			                                    var repeatEndTimeDays = moment(c, 'YYYY-MM-DD HH:mm:ss').add(j, 'days').format('YYYY-MM-DD');
-			                                    events.push({
-			                                      title:data[i].hd_name,
-			                                      start:moment(repeatStartTimeDays).format('YYYY-MM-DD'),
-			                                      end:moment(repeatEndTimeDays).format('YYYY-MM-DD')
-			                                    });
-			                                  }
-			                                }
-			                           }
-			                           successCallback(events);
-			                           
-			                         },
-			                       error: function (xhr, err) {
-			                           alert("ERROR! - readyState: " + xhr.readyState + "<br/>status: " + xhr.status + "<br/>responseText: " + xhr.responseText);
-			                       }
-			                       
-			                   });
-			                
-			               }
+			            allDaySlot: false
 			            
 			
 			        })
@@ -184,38 +177,38 @@
 	</th:block>
 	
 	<th:block layout:fragment="customJsScript">
-	<script>
-	
-	//유효성검사
-	$(function(){
-		$('.saveHdCode').click(function(){
-			
-			
-			var hdName = $('input[name="hdName"]');
-			var hdStartDay = $('input[name="hdStartDay"]');
-			var hdEndDay = $('input[name="hdEndDay"]');
-			var hdContents = $('input[name="hdContents"]');
-			
-			if(hdName.val() == ''){
-				alert('일정명을 입력해주세요.');
-				hdName.focus();
-				return false;
-			}else if(hdStartDay.val() == ''){
-				alert('시작일을 선택해주세요.');				
-				return false;
-			}else if(hdEndDay.val() == ''){
-				alert('종료일을 선택해주세요.');
-				return false;
-			}else if(hdContents.val() == ''){
-				alert('내용을 입력해주세요.');
-				hdContents.focus();
-				return false;
-			}
-			$('#addHdCode').submit();
-			alert('휴일등록 완료.');
-		})
-	});
-	</script>
+		<script>
+		
+		//유효성검사
+		$(function(){
+			$('.saveHdCode').click(function(){
+				
+				
+				var hdName = $('input[name="hdName"]');
+				var hdStartDay = $('input[name="hdStartDay"]');
+				var hdEndDay = $('input[name="hdEndDay"]');
+				var hdContents = $('input[name="hdContents"]');
+				
+				if(hdName.val() == ''){
+					alert('일정명을 입력해주세요.');
+					hdName.focus();
+					return false;
+				}else if(hdStartDay.val() == ''){
+					alert('시작일을 선택해주세요.');				
+					return false;
+				}else if(hdEndDay.val() == ''){
+					alert('종료일을 선택해주세요.');
+					return false;
+				}else if(hdContents.val() == ''){
+					alert('내용을 입력해주세요.');
+					hdContents.focus();
+					return false;
+				}
+				$('#addHdCode').submit();
+				alert('휴일등록 완료.');
+			})
+		});
+		</script>
 	</th:block>
 	
     

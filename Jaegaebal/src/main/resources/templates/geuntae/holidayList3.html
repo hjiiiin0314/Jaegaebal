@@ -8,15 +8,38 @@
 	</th:block>
 	
 	<th:block layout:fragment="customContent">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/code.css}">
+	<link rel="stylesheet" href="/fullcalendar/fullcalendar.css">
+	<style type="text/css">
+	.test{
+	margin-left: 1%; 
+	font-weight: 700;
 	
-	
+	}
+	</style>
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	   
+    	var holiCodeList = /*[[${holiCodeList}]]*/
+		console.log(holiCodeList);
+		
+   /*]]>*/
+	</script>
+	<script>
+		$(function(){
+			for(i=0;i<holiCodeList.length;i++){
+				$('.fc-day').each(function(){
+					var dataDate = $(this).attr('data-date');					
+					if(holiCodeList[i].hdStartDay <= dataDate && holiCodeList[i].hdEndDay >= dataDate){
+						$(this).find('.fc-daygrid-day-events').text(holiCodeList[i].hdName);	
+					}
+				})
+			}
+		})
+	</script>
 	
 		
-				
 
 <!------------------- 코딩 소스 들어갈곳 Start ---------------------------------------------->
-	
 	<!-- 메뉴설명 -->
 	<div class="app-main__inner">
 	<div class="app-page-title">
@@ -35,104 +58,92 @@
     </div> 
     
     	<!-- 코드등록버튼 -->
-		<div class="code-btn">
-			<ul>
-				<li class="btn-group nav-item ">
-		                  <a href="/addHdCode" class="nav-link">
-		                       <i class="nav-link-icon fa fa-edit"></i>휴일등록
-		                  </a>
-		         </li>		
-			</ul>
-   		</div>
-    
-    	<!-- 검색기능 -->
-    		<div class="input-group col-md-4 p-l-none p-r-none p-b-xs">
-		           <div class="input-group-prepend">
-		               <button class="btn btn-outline-secondary" id="list">목록</button>
-		               <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle dropdown-toggle-split btn btn-outline-secondary">
-		             	 	<span class="sr-only"></span>
-		            	 </button>
-		                     <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-		                         <button type="button" tabindex="0" class="dropdown-item" id="hdCodeBtn">문서유형</button>
-		                      <div tabindex="-1" class="dropdown-divider"></div>
-		                         <button type="button" tabindex="0" class="dropdown-item" id="hdNameBtn">문서명</button>		                    
-		                      <div tabindex="-1" class="dropdown-divider"></div>
-		                         <button type="button" tabindex="0" class="dropdown-item" id="hdStaffNameBtn">등록자</button>
-		                      </div>
-		    		 </div>
-		                   	 <input placeholder="검색어" type="text" class="form-control" name="sv">
-		                     <div class="input-group-append">
-		                         <button class="btn btn-secondary" id="hdCodeSearchBtn">검색</button>
-		                     </div>
-			</div>     
-    
-    	
-    
-		<!-- 리스트 테이블 -->
-		<div class="col-md-12 m-2">
+		
+		<button type="button" class="btn btn-primary addHdCode" data-toggle="modal" data-target="#myModal" >휴일등록</button>		
 			<div class="main-card mb-10 card table-padding">
-				<table class="table table-hover">
-				 	<thead>
-				 		<tr>				 			
-				 			<th>휴일코드</th>
-				 			<th>사업장</th>
-				 			<th>휴일명</th>
-				 			<th>시작일</th>
-				 			<th>종료일</th>
-				 			<th>등록자</th>
-				 			<th>등록일</th>
-				 			<th>수정</th>
-				 			<th>삭제</th>
-				 		</tr>
-				 	</thead>
-				 	<tbody>
-				 		<tr th:each="l : ${holiCodeList}">
-				 			<td th:text="${l.hdCode}"></td>
-				 			<td th:text="${l.companyCode}"></td>				
-				 			<td th:text="${l.hdName}"></td>
-				 			<td th:text="${l.hdStartDay}"></td>
-				 			<td th:text="${l.hdEndDay}"></td>
-				 			<td th:text="${l.regStaffName}"></td>
-				 			<td th:text="${l.hdRegDate}"></td>
-				 			<td>
-				 				<a th:href="@{/updateHdCode(hdCode=${l.hdCode})}">
-				 					<button class="btn btn-primary">수정</button>	
-				 				</a>
-				 			</td>
-							<td>
-								<button type="button" class="btn btn-primary deleteHdBtn" data-toggle="modal" data-target="#myModal">삭제</button>
-									                     	
-							</td>
-				 		</tr>
-				 	</tbody>
-				</table>
-			</div>
-		</div>
-</div>
 
-<!-- Modal -->
-                  <div class="modal fade" id="myModal">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title">알림</h4>
-					      </div>
-					      <div class="modal-body">
-                           		   <p>정말로 삭제하시겠습니까?</p>
-                          </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-			        <button type="button" class="btn btn-primary" id="deleteBtn">
-			       		 <!-- <a th:href="@{/deleteHdCode(hdCode=${l.hdCode})}">예</a> -->
-			       		 예			       		
-			        </button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
+    <div id="Scalendar"></div>
+    		<script>
+			    document.addEventListener('DOMContentLoaded', function() {
+			        var calendarEl = document.getElementById('Scalendar');
+			
+			        var calendar = new FullCalendar.Calendar(calendarEl, {
+			          timeZone: 'UTC',
+			          initialView: 'dayGridMonth',
+			          headerToolbar: {
+			            left: 'prev,next today',
+			            center: 'title',
+			            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+			          },
+			          	selectable: true,
+			            navLinks: true, 
+			            editable: false,
+			            displayEventTime: false,
+			            slotEventOverlap: false,
+			            allDaySlot: false
+			            
+			
+			        })
+			        calendar.render();
+			      });
+
+        
+    		</script>
+    	</div>
+    </div>
+    	
+ <!-- 일정 추가 MODAL -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+ 			<form action="/addHdCode" method="post" id="addHdCode">
+                    <div class="modal-body">                           
+                            <div class="form-group">
+                                <label class="col-form-label test" for="hdName" >일정명 :</label>
+                                <input class="form-control" type="text" name="hdName" id="hdName"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label test" for="regStaffName" >등록자 :</label>
+                                <input class="form-control" type="text" name="regStaffName" id="regStaffName" th:value="${session.SSTAFFNAME}" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-4 test" for="hdStartDay">시작</label>
+                                <input class="form-control" type="date" name="hdStartDay" id="hdStartDay" />
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-4 test" for="hdEndDay">끝</label>
+                                <input class="form-control" type="date" name="hdEndDay" id="hdEndDay" />
+                            </div>
+                        
+                       
+                            <div class="form-group">
+                                <label class="col-xs-4 test" for="hdContents">내용</label>
+                                <textarea rows="3" cols="65" class="form-control" name="hdContents"
+                                    id="hdContents"	 style="resize: none;"></textarea>
+                        </div>
+                    </div>
+			</form>
+                    <div class="modal-footer modalBtnContainer-addEvent">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary saveHdCode" id="save-event">저장</button>
+                    </div>
+                    
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
       
+<script src="/fullcalendar/fullcalendar.js"></script>
+<script src="/fullcalendar/fullcalendar.min.js"></script>
+<script src="/fullcalendar/locales-all.js"></script>
+
+
+
 
 
 <!------------------- 코딩 소스 들어갈곳 End ------------------------------------------------>
@@ -140,31 +151,38 @@
 	</th:block>
 	
 	<th:block layout:fragment="customJsScript">
-	<script>
-	
-			$(function(){
-				$('#deleteBtn').click(function(){
-					
-				var checkBtn = $('.deleteHdBtn');
-
-
-                // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-                // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-                var tr = checkBtn.parent().parent();
-                var td = tr.children();
-                var hdCode = td.eq(0).text(); //근무형태코드
-               
-                //텍스트형식으로 hdCode에 담아서 주소로 보내기
-                location.href="/deleteHdCode?HdCode="+hdCode;
-				})
-                
-
-		     });
-			
-			
-			
-			
-	</script>
+		<script>
+		
+		//유효성검사
+		$(function(){
+			$('.saveHdCode').click(function(){
+				
+				
+				var hdName = $('input[name="hdName"]');
+				var hdStartDay = $('input[name="hdStartDay"]');
+				var hdEndDay = $('input[name="hdEndDay"]');
+				var hdContents = $('input[name="hdContents"]');
+				
+				if(hdName.val() == ''){
+					alert('일정명을 입력해주세요.');
+					hdName.focus();
+					return false;
+				}else if(hdStartDay.val() == ''){
+					alert('시작일을 선택해주세요.');				
+					return false;
+				}else if(hdEndDay.val() == ''){
+					alert('종료일을 선택해주세요.');
+					return false;
+				}else if(hdContents.val() == ''){
+					alert('내용을 입력해주세요.');
+					hdContents.focus();
+					return false;
+				}
+				$('#addHdCode').submit();
+				alert('휴일등록 완료.');
+			})
+		});
+		</script>
 	</th:block>
 	
     

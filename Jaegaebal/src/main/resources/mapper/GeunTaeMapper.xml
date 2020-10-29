@@ -17,18 +17,7 @@
    	
    	</resultMap>
    	
-   	<!-- fullcalendar ajax -->
-   		<select id="fullCalendar" resultMap="holiCodeResultMap">
-   			SELECT
-   			 	, hd_name
-   			 	, hd_start_day
-   			 	, hd_end_day
-   			 	, hd_contents
-   			 
-			FROM
-				 gt_holiday_code
-   	   		
-	   	</select>
+	  
    	<!-- 휴일리스트 -->
    		<select id="holidayList" resultMap="holiCodeResultMap">
    			SELECT

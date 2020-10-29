@@ -223,8 +223,12 @@ table.ui-datepicker-calendar {
 }
 
 @media(max-width:992px){
-	.table{
+	.table-striped{
 		white-space:nowrap;
+		table-layout:auto;
+	}
+	.table-scroll-x{
+		overflow-x:scroll !important;
 	}
 	.scroll-div{
 		height:468px;

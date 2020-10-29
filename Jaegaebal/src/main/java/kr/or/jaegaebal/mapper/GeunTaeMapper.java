@@ -1,7 +1,6 @@
 package kr.or.jaegaebal.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,9 +13,6 @@ public interface GeunTaeMapper {
 	
 	//휴일 코드 리스트
 		public List<Holiday> holidayList();
-		
-	//fullcalendar ajax
-	public List<Map<String, Object>> fullCalendar(); 
 		
 	//휴일등록
 		public int addHdCode(Holiday holiday);
